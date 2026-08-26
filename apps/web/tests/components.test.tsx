@@ -12,7 +12,7 @@ import {
   FIXTURE_RECOMMENDATION,
 } from "../src/lib/fixtures";
 
-describe("Phase 1 Design System Component Tests", () => {
+describe("Phase 1.1 Design System Component Tests", () => {
   it("Button renders variants and responds to click events", async () => {
     const handleClick = vi.fn();
     const user = userEvent.setup();
@@ -71,7 +71,7 @@ describe("Phase 1 Design System Component Tests", () => {
     expect(screen.queryByText("Overview Panel Content")).not.toBeInTheDocument();
   });
 
-  it("CharacterTile renders rarity, element, and handles selection semantics", async () => {
+  it("CharacterTile v2 renders rarity, element icon, and handles selection semantics", async () => {
     const handleClick = vi.fn();
     const character = FIXTURE_CHARACTERS[0]; // Acheron (5★ Lightning Nihility)
 
@@ -80,10 +80,11 @@ describe("Phase 1 Design System Component Tests", () => {
     );
 
     const tile = screen.getByRole("button", { name: /Acheron/i });
-    expect(tile).toHaveAttribute("aria-selected", "false");
-    expect(screen.getByText("Acheron")).toBeInTheDocument();
+    expect(tile).toHaveAttribute("aria-pressed", "false");
+    expect(screen.getByRole("heading", { name: "Acheron" })).toBeInTheDocument();
     expect(screen.getByText("Nihility")).toBeInTheDocument();
-    expect(screen.getByText("Lig")).toBeInTheDocument(); // Lightning abbreviation
+    expect(screen.getByAltText("Lightning")).toBeInTheDocument();
+    expect(screen.getByAltText("Acheron")).toBeInTheDocument();
 
     // Click tile
     fireEvent.click(tile);
@@ -97,7 +98,7 @@ describe("Phase 1 Design System Component Tests", () => {
     rerender(
       <CharacterTile character={character} selected={true} onClick={handleClick} />
     );
-    expect(tile).toHaveAttribute("aria-selected", "true");
+    expect(tile).toHaveAttribute("aria-pressed", "true");
   });
 
   it("DecisionCard renders recommended pick and invokes confirmation callback", async () => {
@@ -107,8 +108,8 @@ describe("Phase 1 Design System Component Tests", () => {
     render(<DecisionCard decision={FIXTURE_DECISION} onConfirm={handleConfirm} />);
 
     expect(screen.getByText(FIXTURE_DECISION.recommendedPick)).toBeInTheDocument();
-    expect(screen.getByText("Why Pick This")).toBeInTheDocument();
-    expect(screen.getByText("Why Not Alternative Options")).toBeInTheDocument();
+    expect(screen.getByText("Tactical Rationale")).toBeInTheDocument();
+    expect(screen.getByText("Alternative Option Trade-offs")).toBeInTheDocument();
 
     const confirmBtn = screen.getByRole("button", { name: /Confirm Choice/i });
     await user.click(confirmBtn);

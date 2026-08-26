@@ -21,7 +21,7 @@ export function BrandMark({
           <span className="text-base font-black tracking-wider text-gold-gradient uppercase leading-none">
             Astralyn
           </span>
-          <span className="text-[9px] font-mono tracking-widest text-[#626e89] uppercase mt-0.5">
+          <span className="text-[9px] font-mono tracking-widest text-[#9ba5be] uppercase mt-0.5">
             HSR Companion
           </span>
         </div>

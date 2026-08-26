@@ -16,13 +16,15 @@
     "test": "pnpm -r test",
     "test:e2e": "pnpm --filter @astralyn/web test:e2e",
     "format:check": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "assets:sync": "tsx tools/sync-assets.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.9.1",
     "globals": "^17.11.0",
     "prettier": "^3.5.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.24.1"
   }

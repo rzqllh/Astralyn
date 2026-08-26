@@ -1,4 +1,4 @@
-import { Calendar, Info, Layers } from "lucide-react";
+import { Info, Layers } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { Badge } from "../ui/badge";
 import { Panel, PanelHeader, PanelTitle, PanelContent } from "../ui/panel";
@@ -16,23 +16,22 @@ export function SourceRankPanel({ sourceData, className }: SourceRankPanelProps)
         <div className="flex items-center gap-2.5">
           <Layers className="h-4 w-4 text-[#dfb86c]" />
           <div>
-            <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
-              3-Source Consensus Matrix
-            </PanelTitle>
-            <p className="text-[11px] text-[#9ba5be] font-mono">
-              Target: {sourceData.category}
-            </p>
+            <div className="flex items-center gap-2">
+              <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                3-Source Consensus Matrix
+              </PanelTitle>
+              <Badge variant="outline" size="sm">
+                Sample Layout
+              </Badge>
+            </div>
+            <p className="text-[11px] text-[#9ba5be]">Target: {sourceData.category}</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <Badge variant="gold" size="sm">
-            {sourceData.patch}
+            Demo Data
           </Badge>
-          <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-[#626e89]">
-            <Calendar className="h-3 w-3" />
-            {sourceData.lastUpdated}
-          </span>
         </div>
       </PanelHeader>
 
@@ -77,7 +76,7 @@ export function SourceRankPanel({ sourceData, className }: SourceRankPanelProps)
                   </div>
 
                   <div className="p-2 rounded-xs bg-[#0f1424] border border-[#1f2940]">
-                    <span className="text-[9px] font-mono font-bold text-[#626e89] uppercase">
+                    <span className="text-[9px] font-mono font-bold text-[#9ba5be] uppercase">
                       Top 3
                     </span>
                     <p className="text-xs text-[#9ba5be] mt-0.5 truncate">
@@ -88,7 +87,7 @@ export function SourceRankPanel({ sourceData, className }: SourceRankPanelProps)
               </div>
 
               <div className="mt-3 pt-2 border-t border-[#161e32]">
-                <p className="text-[10px] text-[#626e89] italic leading-tight">
+                <p className="text-[10px] text-[#9ba5be] italic leading-tight">
                   "{source.confidenceNote}"
                 </p>
               </div>
@@ -101,9 +100,9 @@ export function SourceRankPanel({ sourceData, className }: SourceRankPanelProps)
           <Info className="h-3.5 w-3.5 text-[#38bdf8] shrink-0 mt-0.5" />
           <p>
             <strong className="text-[#f0f3fa] font-semibold">Source Transparency:</strong>{" "}
-            Rankings reflect aggregated data from reviewed third-party guides and math
-            calculations. Astralyn does not present community guides as official game
-            mandates.
+            The names above represent illustrative layout fixtures. Astralyn will perform
+            transparent, verifiable multi-source consensus scoring in Phase 4 without
+            endorsing any single third-party site as official.
           </p>
         </div>
       </PanelContent>

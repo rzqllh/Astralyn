@@ -19,6 +19,37 @@ Use for emergent strategy, DU-specific tricks and experience-based context.
 
 Tier C never silently overrides Tier A mechanics.
 
+---
+
+## Visual Game Asset Provenance & Licensing Policy
+
+Game factual knowledge and visual game assets are strictly separate domains.
+
+### 1. Primary Static Asset Pipeline
+- Primary asset repository: Community static game resource mirrors (e.g., `Mar-7th/StarRailRes`).
+- Tooling License: AGPL-3.0 (Scripting and manifest tooling).
+- Game Asset Copyright: &copy; COGNOSPHERE / HoYoverse (HoYoverse Fan Content & Fair Use Policy).
+- Ingestion mechanism: Offline/CI synchronization via `tools/sync-assets.ts`.
+- Deployment destination: Static bundle deployed to Cloudflare Static Assets under `/game-assets/<release>/`.
+- Manifest generation: Automated generation of `manifest.json` with SHA-256 integrity checksums.
+
+### 2. Secondary & Alternative Asset Sources
+- Secondary: `Dimbreath/StarRailData` (Raw config/text dump).
+- Tertiary: `Fortex66/Honkai-Star-Rail-Assets` / `Yatta-top` (Static asset dumps).
+
+### 3. Strict Exclusion of Unvetted Platforms
+- Art aggregation platforms (e.g. Pinterest, DeviantArt, uncredited fan art aggregators) are **strictly forbidden** from automated crawling or scraping.
+- Any bespoke community art requires explicit author consent, manual review, attribution, and recorded usage licensing before inclusion.
+
+### 4. Zero Runtime Third-Party Hotlinking
+- The frontend client must **never** load images directly from third-party remote origins (e.g. GitHub raw URLs, third-party wikis) during runtime user sessions.
+- All production asset requests are served from local static assets (`/game-assets/<release>/...`).
+
+### 5. Graceful Fallback Guarantee
+- If an asset is missing, unapproved, or corrupted, the client `<GameAssetImage>` component renders a high-contrast Astralyn vector fallback silhouette without throwing exceptions, shifting layout, or leaking browser broken image icons.
+
+---
+
 ## Recommendation display
 
 Target at least three independent editorial sources where trustworthy/current data is available.

@@ -11,6 +11,7 @@
 7. AI is optional synthesis/fallback.
 8. Game knowledge is versioned and published as immutable snapshots.
 9. One ingestion event serves all users; never fetch official sources per user request.
+10. Game factual knowledge and visual game assets are strictly separate domains.
 
 ## 2. Primary stack
 
@@ -45,10 +46,11 @@ Primary:
 - Testing Library
 - Playwright
 
-### CI / Ingestion
+### CI / Ingestion & Asset Sync
 - GitHub Actions
 - scheduled source polling
 - manual workflow dispatch for patch-day sync
+- versioned static game asset pipeline (`tools/sync-assets.ts`)
 
 ## 3. Runtime topology
 
@@ -60,7 +62,8 @@ User Browser
 │   ├── Recommendation Engine (Deterministic)
 │   ├── OCR Worker (In-Browser Web Worker)
 │   ├── IndexedDB Cache (Dexie)
-│   └── Published Knowledge Snapshots (/data/<version>/...)
+│   ├── Published Knowledge Snapshots (/data/<version>/...)
+│   └── Versioned Static Game Assets (/game-assets/<release>/...)
 │
 └── Authenticated Worker API (/api/...)
     ├── Better Auth Handler (/api/auth/*)
@@ -90,7 +93,7 @@ Client reads game knowledge in this order:
 2. versioned static snapshot;
 3. database/API only for small dynamic metadata if required.
 
-Do not query Postgres for every character card, relic, build or DU entry.
+Do not query D1/Postgres for every character card, relic, build or DU entry.
 
 Example:
 
@@ -145,51 +148,25 @@ Implementations:
 
 Ranking is produced before this layer.
 
-## 8. Suggested source tree
+## 8. Versioned Static Game Asset Delivery Architecture
+
+Visual game assets (icons, character previews, portraits, element badges, path symbols) are decoupled from factual game knowledge:
 
 ```text
-src/
-  app/
-  modules/
-    auth/
-    onboarding/
-    roster/
-    characters/
-    teams/
-    content/
-    assistant/
-    divergent-universe/
-  engine/
-    scoring/
-    consensus/
-    reasons/
-  knowledge/
-    schemas/
-    client/
-  ocr/
-    preprocess/
-    recognition/
-    matching/
-  shared/
-    types/
-    validation/
-
-server/
-  auth/
-  routes/
-  db/
-    schema.ts
-    client.ts
-  middleware/
-
-ingestion/
-  official/
-  editorial/
-  normalize/
-  validate/
-  publish/
-  fixtures/
+/public/game-assets/<release>/
+  ├── manifest.json
+  ├── characters/
+  ├── elements/
+  ├── paths/
+  ├── light-cones/
+  ├── relics/
+  └── du/
 ```
+
+- **Manifest Schema:** Strongly typed via Zod (`AssetManifestSchema`, `AssetRecordSchema`), tracking entity type, entity ID, variant, local path, source URL, license, copyright owner, and SHA-256 checksum.
+- **Client Resolution:** Synchronous manifest lookup in memory via `getAssetUrl(type, id, variant)`.
+- **Runtime Hotlinking Exclusion:** Third-party remote URLs are never accessed at client runtime.
+- **Fallback Guarantees:** Missing or invalid asset references render accessible, zero-layout-shift Astralyn vector fallback silhouettes (`<GameAssetImage>`).
 
 ## 9. Failure behavior
 

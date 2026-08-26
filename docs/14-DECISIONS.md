@@ -96,3 +96,12 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 2. Ensures WCAG 2.2 AA accessibility via keyboard navigation, visible focus rings, tabular numerals, and multi-modal state feedback (color + text + icon).
 3. Provides responsive ergonomics across desktop companion rail (1440px), tablet (768px), and mobile single-column drawer (390px) without viewport jumping or layout shift (`min-h-[100dvh]`).  
 **Status:** Accepted.
+
+## D-021 — Versioned Game Asset Snapshot & Provenance Layer
+**Decision:** Decouple visual game assets from factual knowledge storage by introducing a versioned static asset pipeline (`tools/sync-assets.ts`), static manifest schema (`AssetManifest`), and local CDN hosting (`/game-assets/<release>/`) with graceful vector fallback `<GameAssetImage>`.
+**Reason:**
+1. Prevents runtime hotlinking to third-party repositories, ensuring uptime, zero CORS issues, and deterministic asset caching on Cloudflare Static Assets.
+2. Separates game factual knowledge (D1 database, patch notes, multi-source tiering) from visual game artwork (icons, portraits, element badges).
+3. Enforces strict asset provenance and licensing compliance: primary assets derived from community-maintained static archives (e.g. `Mar-7th/StarRailRes` under Fair Use / Fan Content Policy), while maintaining strict exclusion of uncredited art platforms.
+4. Guaranteed error resilience: missing or broken asset URLs resolve to high-contrast Astralyn vector silhouettes without layout shift or browser alt-text leakage.  
+**Status:** Accepted.

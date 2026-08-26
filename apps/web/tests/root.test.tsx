@@ -18,7 +18,7 @@ const useTestStore = create<TestStore>((set) => ({
   increment: () => set((state) => ({ count: state.count + 1 })),
 }));
 
-describe("Astralyn Phase 1 Web Application Smoke Test", () => {
+describe("Astralyn Phase 1.1 Web Application Smoke Test", () => {
   it("renders the root application shell and HomeView with HSR design components", async () => {
     const memoryHistory = createMemoryHistory({ initialEntries: ["/"] });
     const testRouter = createAppRouter(memoryHistory);
@@ -30,9 +30,10 @@ describe("Astralyn Phase 1 Web Application Smoke Test", () => {
 
     // HSR Component Assertions
     expect(screen.getByTestId("home-view")).toBeInTheDocument();
-    expect(screen.getByText("Active Team Optimization")).toBeInTheDocument();
+    expect(screen.getByText("Team Optimization Guidance")).toBeInTheDocument();
     expect(screen.getByText("Divergent Universe Assistant")).toBeInTheDocument();
-    expect(screen.getByText("Acheron")).toBeInTheDocument();
+    expect(screen.getByText("Trailblazer Character Roster")).toBeInTheDocument();
+    expect(screen.getByText("Acheron Profile")).toBeInTheDocument();
   });
 
   it("renders the /design-system showcase route cleanly", async () => {
@@ -41,9 +42,9 @@ describe("Astralyn Phase 1 Web Application Smoke Test", () => {
     render(<RouterProvider router={testRouter} />);
 
     expect(await screen.findByTestId("design-system-view")).toBeInTheDocument();
-    expect(screen.getByText("Astralyn Design System Showcase")).toBeInTheDocument();
-    expect(screen.getByText("Tokens & Palette")).toBeInTheDocument();
-    expect(screen.getByText("Buttons & Forms")).toBeInTheDocument();
+    expect(screen.getByText("Astralyn Design System & Game Assets")).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Tokens & Palette" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Game Assets" })).toBeInTheDocument();
   });
 
   it("successfully resolves @astralyn/shared constants", () => {

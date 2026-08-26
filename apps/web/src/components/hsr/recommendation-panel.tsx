@@ -1,6 +1,6 @@
 import { Sparkles, CheckCircle2 } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { ConfidenceBadge } from "../ui/badge";
+import { ConfidenceBadge, Badge } from "../ui/badge";
 import { Panel, PanelHeader, PanelTitle, PanelContent } from "../ui/panel";
 import type { RecommendationFixture } from "../../lib/fixtures";
 
@@ -25,10 +25,15 @@ export function RecommendationPanel({
             <Sparkles className="h-3.5 w-3.5" />
           </div>
           <div>
-            <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
-              Astralyn Verdict
-            </span>
-            <PanelTitle className="text-sm md:text-base font-extrabold text-[#f0f3fa]">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
+                Astralyn Verdict
+              </span>
+              <Badge variant="outline" size="sm">
+                Sample Output
+              </Badge>
+            </div>
+            <PanelTitle className="text-sm md:text-base font-bold text-[#f0f3fa]">
               {recommendation.verdictTitle}
             </PanelTitle>
           </div>
@@ -40,15 +45,15 @@ export function RecommendationPanel({
       </PanelHeader>
 
       <PanelContent className="space-y-5 p-5">
-        {/* #1 Top Pick Highlight Banner */}
+        {/* Top Pick Highlight Banner */}
         <div className="relative rounded-sm border border-[#dfb86c]/50 bg-gradient-to-r from-[#211a0c] via-[#171c2d] to-[#0f1422] p-4 shadow-inner">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 rounded-xs text-[10px] font-mono font-bold bg-[#dfb86c] text-[#10141e] uppercase">
-                  #1 Best Fit
+                  Top Recommended
                 </span>
-                <span className="text-xs font-mono text-[#9ba5be] uppercase">
+                <span className="text-xs font-medium text-[#9ba5be]">
                   {recommendation.recommendedCategory}
                 </span>
               </div>
@@ -57,19 +62,24 @@ export function RecommendationPanel({
               </h3>
             </div>
 
-            {/* Match Score Gauge */}
-            <div className="flex items-baseline gap-1 bg-black/40 px-3.5 py-2 rounded-xs border border-[#dfb86c]/30 self-start sm:self-auto">
-              <span className="text-2xl font-black font-mono tabular-nums text-[#dfb86c]">
-                {recommendation.matchScore}%
-              </span>
-              <span className="text-[10px] font-mono uppercase text-[#9ba5be]">
-                Match
+            {/* Illustrative Match Metric */}
+            <div className="flex flex-col items-end bg-black/40 px-3.5 py-1.5 rounded-xs border border-[#dfb86c]/30 self-start sm:self-auto">
+              <div className="flex items-baseline gap-1">
+                <span className="text-2xl font-black font-mono tabular-nums text-[#dfb86c]">
+                  {recommendation.matchScore}%
+                </span>
+                <span className="text-[10px] font-mono uppercase text-[#9ba5be]">
+                  Score
+                </span>
+              </div>
+              <span className="text-[9px] font-mono text-[#9ba5be]">
+                (Illustrative Demo)
               </span>
             </div>
           </div>
         </div>
 
-        {/* Key Rationale Checklist */}
+        {/* Tactical Rationale Checklist */}
         <div className="space-y-2.5">
           <h4 className="text-xs font-bold uppercase tracking-wider text-[#9ba5be] font-mono">
             Key Tactical Rationale
@@ -101,7 +111,7 @@ export function RecommendationPanel({
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-mono font-bold text-[#9ba5be]">
-                      #{alt.rank} Alternative
+                      #{alt.rank} Option
                     </span>
                     <span className="text-[11px] font-mono font-bold text-[#dfb86c] tabular-nums">
                       {alt.score}%
@@ -110,7 +120,7 @@ export function RecommendationPanel({
                   <h5 className="text-xs font-semibold text-[#f0f3fa] mt-1 truncate">
                     {alt.name}
                   </h5>
-                  <p className="text-[11px] text-[#626e89] mt-1 line-clamp-2">
+                  <p className="text-[11px] text-[#9ba5be] mt-1 line-clamp-2">
                     {alt.note}
                   </p>
                 </div>

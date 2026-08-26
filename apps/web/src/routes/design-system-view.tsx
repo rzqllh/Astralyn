@@ -5,7 +5,6 @@ import { Badge, RarityBadge, ElementBadge } from "../components/ui/badge";
 import { Input, Select } from "../components/ui/input";
 import { Panel, PanelHeader, PanelTitle, PanelContent } from "../components/ui/panel";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/ui/tabs";
-import { Divider } from "../components/ui/divider";
 import { Skeleton } from "../components/ui/skeleton";
 import { EmptyState } from "../components/ui/empty-state";
 import {
@@ -23,6 +22,7 @@ import { CharacterTile } from "../components/hsr/character-tile";
 import { RecommendationPanel } from "../components/hsr/recommendation-panel";
 import { SourceRankPanel } from "../components/hsr/source-rank-panel";
 import { DecisionCard } from "../components/hsr/decision-card";
+import { GameAssetImage } from "../components/ui/game-asset-image";
 import {
   FIXTURE_CHARACTERS,
   FIXTURE_RECOMMENDATION,
@@ -41,71 +41,253 @@ export function DesignSystemView() {
       <div className="border-b border-[#1a2338] pb-6">
         <div className="flex items-center gap-2">
           <Badge variant="gold" size="sm">
-            Phase 1 Foundation
+            Phase 1.1 Foundation
           </Badge>
           <span className="text-xs font-mono text-[#9ba5be]">
-            HSR-Native Design System
+            HSR Game Asset & Design System
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-gold-gradient uppercase mt-1">
-          Astralyn Design System Showcase
+          Astralyn Design System & Game Assets
         </h1>
         <p className="text-xs sm:text-sm text-[#9ba5be] mt-1 max-w-3xl">
-          Locked semantic design tokens, reusable UI primitives, and HSR tactical
-          components engineered for scanability, hierarchy, and WCAG 2.2 AA accessibility.
+          Locked semantic design tokens, versioned static game asset pipeline (StarRailRes
+          v1.0.0), CharacterTile v2, and WCAG 2.2 AA accessible component primitives.
         </p>
       </div>
 
       {/* Main Tabs Navigation */}
-      <Tabs defaultValue="tokens" className="w-full">
+      <Tabs defaultValue="assets" className="w-full">
         <TabsList variant="default" className="w-full justify-start overflow-x-auto">
+          <TabsTrigger value="assets">Game Assets</TabsTrigger>
           <TabsTrigger value="tokens">Tokens & Palette</TabsTrigger>
+          <TabsTrigger value="characters">CharacterTile v2</TabsTrigger>
           <TabsTrigger value="buttons">Buttons & Forms</TabsTrigger>
-          <TabsTrigger value="panels">Panels & Surfaces</TabsTrigger>
-          <TabsTrigger value="characters">Character Tiles</TabsTrigger>
-          <TabsTrigger value="verdicts">Verdicts & Decisions</TabsTrigger>
+          <TabsTrigger value="panels">Parchment & Panels</TabsTrigger>
+          <TabsTrigger value="verdicts">Verdicts & Consensus</TabsTrigger>
           <TabsTrigger value="feedback">Feedback & Modals</TabsTrigger>
         </TabsList>
 
-        {/* Tab 1: Tokens & Palette */}
-        <TabsContent value="tokens" className="space-y-8">
-          {/* Surface Tokens */}
+        {/* Tab 1: Game Assets */}
+        <TabsContent value="assets" className="space-y-8">
+          {/* Elements Gallery */}
           <div>
             <SectionHeader
-              title="Surface & Background Tokens"
-              category="Color System"
-              subtitle="Layered depth palette from cosmic void to contrasting parchment"
+              title="Combat Element Icons"
+              category="Game Assets"
+              subtitle="All 7 combat elements loaded from versioned static assets"
+            />
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mt-3">
+              {[
+                "Physical",
+                "Fire",
+                "Ice",
+                "Lightning",
+                "Wind",
+                "Quantum",
+                "Imaginary",
+              ].map((elem) => (
+                <div
+                  key={elem}
+                  className="flex flex-col items-center justify-center p-3 rounded-xs border border-[#1f2940] bg-[#101524] gap-2"
+                >
+                  <div className="h-10 w-10 p-1">
+                    <GameAssetImage
+                      entityType="element_icon"
+                      entityId={elem}
+                      alt={elem}
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-[#f0f3fa]">{elem}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Paths Gallery */}
+          <div>
+            <SectionHeader
+              title="Combat Path Icons"
+              category="Game Assets"
+              subtitle="All 8 combat paths loaded from versioned static assets"
+            />
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 mt-3">
+              {[
+                "Destruction",
+                "Hunt",
+                "Erudition",
+                "Harmony",
+                "Nihility",
+                "Preservation",
+                "Abundance",
+                "Remembrance",
+              ].map((path) => (
+                <div
+                  key={path}
+                  className="flex flex-col items-center justify-center p-3 rounded-xs border border-[#1f2940] bg-[#101524] gap-2"
+                >
+                  <div className="h-10 w-10 p-1">
+                    <GameAssetImage entityType="path_icon" entityId={path} alt={path} />
+                  </div>
+                  <span className="text-xs font-bold text-[#f0f3fa] truncate max-w-full">
+                    {path}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Light Cones & Relics Gallery */}
+          <div>
+            <SectionHeader
+              title="Light Cones, Relics & DU Entities"
+              category="Game Assets"
+              subtitle="Representative item icons from normalized asset release"
+            />
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-3">
+              <div className="p-3 rounded-xs border border-[#1f2940] bg-[#101524] flex flex-col items-center gap-2">
+                <div className="h-12 w-12">
+                  <GameAssetImage
+                    entityType="light_cone_icon"
+                    entityId="along-the-passing-shore"
+                    alt="Along the Passing Shore"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-center text-[#f0f3fa]">
+                  Along the Passing Shore
+                </span>
+              </div>
+              <div className="p-3 rounded-xs border border-[#1f2940] bg-[#101524] flex flex-col items-center gap-2">
+                <div className="h-12 w-12">
+                  <GameAssetImage
+                    entityType="light_cone_icon"
+                    entityId="good-night-and-sleep-well"
+                    alt="Good Night and Sleep Well"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-center text-[#f0f3fa]">
+                  Good Night & Sleep Well
+                </span>
+              </div>
+              <div className="p-3 rounded-xs border border-[#1f2940] bg-[#101524] flex flex-col items-center gap-2">
+                <div className="h-12 w-12">
+                  <GameAssetImage
+                    entityType="relic_set_icon"
+                    entityId="pioneer-diver"
+                    alt="Pioneer Diver of Dead Waters"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-center text-[#f0f3fa]">
+                  Pioneer Diver Relic
+                </span>
+              </div>
+              <div className="p-3 rounded-xs border border-[#1f2940] bg-[#101524] flex flex-col items-center gap-2">
+                <div className="h-12 w-12">
+                  <GameAssetImage
+                    entityType="planar_ornament_icon"
+                    entityId="izumo-gensei"
+                    alt="Izumo Gensei"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-center text-[#f0f3fa]">
+                  Izumo Gensei Planar
+                </span>
+              </div>
+              <div className="p-3 rounded-xs border border-[#1f2940] bg-[#101524] flex flex-col items-center gap-2">
+                <div className="h-12 w-12">
+                  <GameAssetImage
+                    entityType="du_blessing_icon"
+                    entityId="perfect-experience-fuli"
+                    alt="Blessing of Fuli"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-center text-[#f0f3fa]">
+                  DU Blessing: Fuli
+                </span>
+              </div>
+              <div className="p-3 rounded-xs border border-[#1f2940] bg-[#101524] flex flex-col items-center gap-2">
+                <div className="h-12 w-12">
+                  <GameAssetImage
+                    entityType="du_curio_icon"
+                    entityId="rubert-difference-engine"
+                    alt="Curio: Rubert Difference Engine"
+                  />
+                </div>
+                <span className="text-[11px] font-medium text-center text-[#f0f3fa]">
+                  DU Curio: Rubert
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Broken Asset Fallback Test */}
+          <div>
+            <SectionHeader
+              title="Robust Broken-Asset Fallback Behavior"
+              category="Error Resilience"
+              subtitle="Verifying that missing or unapproved assets render graceful Astralyn vector fallbacks without broken browser icons"
+            />
+            <div className="flex items-center gap-4 mt-3 p-4 rounded-xs border border-[#1f2940] bg-[#0c101c]">
+              <div className="h-16 w-16">
+                <GameAssetImage
+                  entityType="character_icon"
+                  entityId="non_existent_character_9999"
+                  alt="Missing Character Test"
+                  fallbackLabel="Unknown Char"
+                />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-[#f0f3fa]">
+                  Deliberate Astralyn Fallback Active
+                </h4>
+                <p className="text-xs text-[#9ba5be] mt-0.5">
+                  When an asset ID is missing, unapproved, or fails to fetch, the
+                  GameAssetImage component renders the fallback vector silhouette without
+                  layout shift or browser alt-text leakage.
+                </p>
+              </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        {/* Tab 2: Tokens & Palette */}
+        <TabsContent value="tokens" className="space-y-8">
+          <div>
+            <SectionHeader
+              title="Surface Tokens"
+              category="Color Palette"
+              subtitle="Layered depth from cosmic void to warm celestial parchment"
             />
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-3">
               <div className="p-4 rounded-xs border border-[#1a2338] bg-[#090c13] flex flex-col justify-between h-24">
                 <span className="text-xs font-mono font-bold text-[#f0f3fa]">
                   surface.base
                 </span>
-                <span className="text-[10px] font-mono text-[#626e89]">#090C13</span>
+                <span className="text-[10px] font-mono text-[#9ba5be]">#090C13</span>
               </div>
               <div className="p-4 rounded-xs border border-[#26334f] bg-[#101524] flex flex-col justify-between h-24">
                 <span className="text-xs font-mono font-bold text-[#f0f3fa]">
                   surface.raised
                 </span>
-                <span className="text-[10px] font-mono text-[#626e89]">#101524</span>
+                <span className="text-[10px] font-mono text-[#9ba5be]">#101524</span>
               </div>
               <div className="p-4 rounded-xs border border-[#303f5e] bg-[#161e32] flex flex-col justify-between h-24">
                 <span className="text-xs font-mono font-bold text-[#f0f3fa]">
                   surface.overlay
                 </span>
-                <span className="text-[10px] font-mono text-[#626e89]">#161E32</span>
-              </div>
-              <div className="p-4 rounded-xs border border-[#131926] bg-[#05070a] flex flex-col justify-between h-24">
-                <span className="text-xs font-mono font-bold text-[#f0f3fa]">
-                  surface.sunken
-                </span>
-                <span className="text-[10px] font-mono text-[#626e89]">#05070A</span>
+                <span className="text-[10px] font-mono text-[#9ba5be]">#161E32</span>
               </div>
               <div className="p-4 rounded-xs border border-[#dfb86c]/50 bg-[#1a160d] flex flex-col justify-between h-24">
                 <span className="text-xs font-mono font-bold text-[#f4d38f]">
-                  gold.highlight
+                  gold.brand
                 </span>
                 <span className="text-[10px] font-mono text-[#dfb86c]">#DFB86C</span>
+              </div>
+              <div className="p-4 rounded-xs border border-[#d89f37]/50 bg-[#221808] flex flex-col justify-between h-24">
+                <span className="text-xs font-mono font-bold text-[#f3be53]">
+                  gold.rarity 5★
+                </span>
+                <span className="text-[10px] font-mono text-[#d89f37]">#D89F37</span>
               </div>
               <div className="p-4 rounded-xs border border-[#d4ccbd] bg-[#eee8dc] text-[#181d28] flex flex-col justify-between h-24">
                 <span className="text-xs font-mono font-bold">surface.parchment</span>
@@ -114,84 +296,70 @@ export function DesignSystemView() {
             </div>
           </div>
 
-          {/* Combat Elements Tokens */}
           <div>
             <SectionHeader
-              title="Combat Element Tokens"
-              category="Game Context"
-              subtitle="Element identifiers calibrated for high contrast against dark surfaces"
-            />
-            <div className="flex flex-wrap gap-2.5 mt-3">
-              <ElementBadge element="Physical" />
-              <ElementBadge element="Fire" />
-              <ElementBadge element="Ice" />
-              <ElementBadge element="Lightning" />
-              <ElementBadge element="Wind" />
-              <ElementBadge element="Quantum" />
-              <ElementBadge element="Imaginary" />
-            </div>
-          </div>
-
-          {/* Rarity Tokens */}
-          <div>
-            <SectionHeader
-              title="Rarity Tokens"
+              title="Semantic Badges & Rarity Framing"
               category="Game Context"
               subtitle="5-Star Gold and 4-Star Violet framing"
             />
-            <div className="flex items-center gap-3 mt-3">
+            <div className="flex flex-wrap items-center gap-3 mt-3">
               <RarityBadge rarity={5} />
               <RarityBadge rarity={4} />
+              <ElementBadge element="Lightning" />
+              <ElementBadge element="Quantum" />
+              <ElementBadge element="Fire" />
             </div>
           </div>
+        </TabsContent>
 
-          {/* Typography Scale */}
+        {/* Tab 3: CharacterTile v2 */}
+        <TabsContent value="characters" className="space-y-8">
           <div>
             <SectionHeader
-              title="Typography Hierarchy"
-              category="Typography"
-              subtitle="Display, headings, and tabular numerals"
+              title="CharacterTile v2 States & Variants"
+              category="Domain Components"
+              subtitle="Featuring real character artwork, Path & Element icons, 5★/4★ borders, and full keyboard interaction"
             />
-            <div className="space-y-4 mt-3 p-5 rounded-xs border border-[#1a2338] bg-[#0c101c]">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-3">
               <div>
-                <span className="text-[10px] font-mono text-[#626e89] uppercase">
-                  Display Header (32px Bold)
+                <span className="text-[10px] font-mono text-[#9ba5be] block mb-1">
+                  Default (5★ Acheron)
                 </span>
-                <h1 className="text-2xl sm:text-3xl font-black text-gold-gradient uppercase tracking-tight">
-                  Astral Express Navigation HUD
-                </h1>
+                <CharacterTile
+                  character={FIXTURE_CHARACTERS[0]}
+                  selected={selectedDemoChar === FIXTURE_CHARACTERS[0].id}
+                  onClick={() => setSelectedDemoChar(FIXTURE_CHARACTERS[0].id)}
+                />
               </div>
-              <Divider withDiamond={false} />
               <div>
-                <span className="text-[10px] font-mono text-[#626e89] uppercase">
-                  Section Title (20px Bold)
+                <span className="text-[10px] font-mono text-[#dfb86c] block mb-1">
+                  Selected State
                 </span>
-                <h2 className="text-lg sm:text-xl font-bold text-[#f0f3fa] tracking-tight">
-                  Tactical Character Optimization Parameters
-                </h2>
+                <CharacterTile character={FIXTURE_CHARACTERS[1]} selected={true} />
               </div>
-              <Divider withDiamond={false} />
               <div>
-                <span className="text-[10px] font-mono text-[#626e89] uppercase">
-                  Body & Tabular Numerals (14px Regular)
+                <span className="text-[10px] font-mono text-[#38bdf8] block mb-1">
+                  Trial Character (Aventurine)
                 </span>
-                <p className="text-sm text-[#9ba5be] leading-relaxed">
-                  Ultimate Damage Multiplier:{" "}
-                  <span className="font-mono tabular-nums text-[#dfb86c] font-bold">
-                    1,420,500
-                  </span>{" "}
-                  DPA across{" "}
-                  <span className="font-mono tabular-nums text-[#dfb86c] font-bold">
-                    3.5
-                  </span>{" "}
-                  turns.
-                </p>
+                <CharacterTile character={FIXTURE_CHARACTERS[4]} />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-[#c4b5fd] block mb-1">
+                  4★ Violet (Gallagher)
+                </span>
+                <CharacterTile character={FIXTURE_CHARACTERS[5]} />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-[#9ba5be] block mb-1">
+                  Disabled State
+                </span>
+                <CharacterTile character={FIXTURE_CHARACTERS[7]} disabled={true} />
               </div>
             </div>
           </div>
         </TabsContent>
 
-        {/* Tab 2: Buttons & Forms */}
+        {/* Tab 4: Buttons & Forms */}
         <TabsContent value="buttons" className="space-y-8">
           <div>
             <SectionHeader
@@ -235,7 +403,7 @@ export function DesignSystemView() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 max-w-3xl">
               <Input
-                label="Character Filter"
+                label="Character Search"
                 placeholder="Search by name (e.g. Acheron)..."
                 helperText="Fuzzy search matching all registered roster entities"
               />
@@ -246,28 +414,17 @@ export function DesignSystemView() {
                 <option value="harmony">Harmony</option>
                 <option value="remembrance">Remembrance</option>
               </Select>
-              <Input
-                label="Invalid Parameter Input"
-                defaultValue="Invalid Eidolon Level"
-                error="Eidolon must be an integer between 0 and 6."
-              />
-              <Input
-                label="Disabled Control"
-                defaultValue="Locked Parameter"
-                disabled
-                helperText="This input is disabled during active battle simulation"
-              />
             </div>
           </div>
         </TabsContent>
 
-        {/* Tab 3: Panels & Surfaces */}
+        {/* Tab 5: Parchment & Panels */}
         <TabsContent value="panels" className="space-y-8">
           <div>
             <SectionHeader
-              title="Panel Surface Hierarchy"
+              title="Panel Surface Hierarchy & Light Contrast"
               category="Container Primitives"
-              subtitle="Distinct container tiers creating unmistakable spatial depth"
+              subtitle="Layered depth with dark utility containers and warm celestial parchment inspection surfaces"
             />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
               <Panel variant="default">
@@ -297,12 +454,14 @@ export function DesignSystemView() {
 
               <Panel variant="parchment">
                 <PanelHeader>
-                  <PanelTitle className="text-[#181d28]">HSR Parchment Panel</PanelTitle>
+                  <PanelTitle className="text-[#181d28]">
+                    Celestial Parchment Panel
+                  </PanelTitle>
                 </PanelHeader>
                 <PanelContent>
                   <p className="text-xs text-[#565f75]">
-                    Contrasting warm cream surface for detailed lore or item inspection
-                    cards.
+                    Contrasting warm cream surface (`#EEE8DC`) for detailed tactical
+                    inspection and item dossiers with accessible `#181D28` text contrast.
                   </p>
                 </PanelContent>
               </Panel>
@@ -310,91 +469,35 @@ export function DesignSystemView() {
           </div>
         </TabsContent>
 
-        {/* Tab 4: Character Tiles */}
-        <TabsContent value="characters" className="space-y-8">
-          <div>
-            <SectionHeader
-              title="Character Tile Visual States"
-              category="Domain Components"
-              subtitle="Tactical portrait tiles supporting 5★/4★ rarity, elements, and interaction states"
-            />
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-3">
-              <div>
-                <span className="text-[10px] font-mono text-[#626e89] block mb-1">
-                  Default (5★)
-                </span>
-                <CharacterTile
-                  character={FIXTURE_CHARACTERS[0]}
-                  selected={selectedDemoChar === FIXTURE_CHARACTERS[0].id}
-                  onClick={() => setSelectedDemoChar(FIXTURE_CHARACTERS[0].id)}
-                />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-[#dfb86c] block mb-1">
-                  Selected State
-                </span>
-                <CharacterTile character={FIXTURE_CHARACTERS[1]} selected={true} />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-[#38bdf8] block mb-1">
-                  Trial Character
-                </span>
-                <CharacterTile character={FIXTURE_CHARACTERS[4]} />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-[#c4b5fd] block mb-1">
-                  4★ Violet Rarity
-                </span>
-                <CharacterTile character={FIXTURE_CHARACTERS[5]} />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-[#626e89] block mb-1">
-                  Disabled / Unowned
-                </span>
-                <CharacterTile character={FIXTURE_CHARACTERS[7]} disabled={true} />
-              </div>
-            </div>
-          </div>
-        </TabsContent>
-
-        {/* Tab 5: Verdicts & Decisions */}
+        {/* Tab 6: Verdicts & Consensus */}
         <TabsContent value="verdicts" className="space-y-8">
           <div>
             <SectionHeader
-              title="Recommendation Verdict & 3-Source Consensus"
+              title="Verdict & Decision Demonstration"
               category="Domain Architecture"
-              subtitle="Clear actionable output answering what to build and why"
+              subtitle="Recommendation Verdict and Fast Decision Card with honest demo disclosures"
             />
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-3">
               <div className="lg:col-span-7">
                 <RecommendationPanel recommendation={FIXTURE_RECOMMENDATION} />
               </div>
               <div className="lg:col-span-5">
-                <DecisionCard
-                  decision={FIXTURE_DECISION}
-                  onConfirm={() =>
-                    addToast({
-                      title: "DU Decision Recorded",
-                      description: "Applied Perfect Experience: Fuli to active build.",
-                      variant: "success",
-                    })
-                  }
-                />
+                <DecisionCard decision={FIXTURE_DECISION} />
               </div>
             </div>
           </div>
 
           <div>
             <SectionHeader
-              title="Multi-Source Consensus Engine"
+              title="Multi-Source Consensus Matrix"
               category="Source Comparison"
-              subtitle="Comparing Prydwen, Game8, and Theorycraft calculations"
+              subtitle="Comparing Prydwen, Game8, and Theorycraft calculations (Sample Layout)"
             />
             <SourceRankPanel sourceData={FIXTURE_SOURCE_COMPARISON} className="mt-3" />
           </div>
         </TabsContent>
 
-        {/* Tab 6: Feedback & Modals */}
+        {/* Tab 7: Feedback & Modals */}
         <TabsContent value="feedback" className="space-y-8">
           <div>
             <SectionHeader
@@ -418,8 +521,7 @@ export function DesignSystemView() {
                     </DialogDescription>
                   </DialogHeader>
                   <div className="py-2 text-xs text-[#9ba5be]">
-                    No cloud synchronization is required in local free-first mode. All
-                    roster statistics remain strictly on your device.
+                    All roster statistics remain strictly on your local device.
                   </div>
                   <DialogFooter>
                     <Button
@@ -471,19 +573,6 @@ export function DesignSystemView() {
               >
                 Trigger Warning Toast
               </Button>
-              <Button
-                variant="danger"
-                onClick={() =>
-                  addToast({
-                    title: "OCR Scan Error",
-                    description:
-                      "Unable to detect blessing title. Please retry screenshot.",
-                    variant: "danger",
-                  })
-                }
-              >
-                Trigger Danger Toast
-              </Button>
             </div>
           </div>
 
@@ -501,11 +590,11 @@ export function DesignSystemView() {
             </Panel>
 
             <EmptyState
-              title="No Team Compositions Found"
-              description="You have not saved any custom teams yet. Select characters from your roster to construct an optimized team."
+              title="No Saved Teams"
+              description="Construct your first team from the Character Roster to evaluate synergy."
               action={
                 <Button variant="secondary" size="sm">
-                  Create First Team
+                  Create Team
                 </Button>
               }
             />

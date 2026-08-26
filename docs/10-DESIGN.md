@@ -8,6 +8,7 @@ The design borrows HSR's information hierarchy, panel composition, navigation rh
 
 Astralyn maintains:
 - Original celestial branding and vector emblem lockups;
+- Versioned static game asset pipeline (StarRailRes release v1.0.0 via Cloudflare Static Assets);
 - Original accessible component implementations (Radix UI primitives + Tailwind CSS v4);
 - Responsive web accessibility targeting WCAG 2.2 AA.
 
@@ -44,19 +45,22 @@ Every decorative element must serve hierarchy, interaction feedback, game contex
 - `surface.parchment-raised`: `#F7F3EC`
 - `surface.parchment-border`: `#D4CCBD`
 
-#### Text & Typography
-- `text.primary`: `#F0F3FA` (High-contrast white)
-- `text.secondary`: `#9BA5BE` (Muted information)
-- `text.muted`: `#626E89` (Subtle metadata)
+#### Text & Typography (WCAG 2.2 AA Compliant)
+- `text.primary`: `#F0F3FA` (High-contrast white, 16.5:1 on base)
+- `text.secondary`: `#9BA5BE` (Muted information, 6.5:1 on base)
+- `text.muted`: `#8E9CB5` (Subtle metadata, > 5.0:1 on base)
 - `text.inverse`: `#0D111A` (Dark text on gold/parchment)
 - `text.gold`: `#E5C179` (Astral metallic text)
-- `text.parchment.primary`: `#181D28`
-- `text.parchment.secondary`: `#565F75`
+- `text.parchment.primary`: `#181D28` (> 10:1 on parchment)
+- `text.parchment.secondary`: `#565F75` (> 4.8:1 on parchment)
+- `text.parchment.accent`: `#634812` (> 5.5:1 on parchment)
 
-#### Astral Gold & Accents
-- `gold.primary`: `#DFB86C` (Primary metallic accent)
-- `gold.light`: `#F3D48F` (Highlight shimmer)
-- `gold.dark`: `#A8813A` (Deep bevel shade)
+#### Gold Semantic Token Split
+- `gold.brand`: `#DFB86C` (Astralyn brand emblem and identity)
+- `gold.action`: `#DFB86C` (Interactive primary buttons, focus rings)
+- `gold.action-hover`: `#F3D48F` (Hover shimmer)
+- `gold.rarity`: `#D89F37` (5★ character/light cone framing)
+- `gold.verdict`: `#F4D38F` (Astralyn Verdict header and match badges)
 - `gold.glow`: `rgba(223, 184, 108, 0.28)`
 
 #### Borders
@@ -85,14 +89,14 @@ Every decorative element must serve hierarchy, interaction feedback, game contex
 
 ---
 
-## 4. Typography Scale
+## 4. Typography Scale & Semantic Rules
 
-- **Display Header:** 28–32px Bold / Black (`tracking-tight`, uppercase, gold gradient support)
+- **Display Header:** 28–32px Black (`tracking-tight`, uppercase, gold gradient support)
 - **Section Heading:** 18–20px Bold (`text-[#F0F3FA]`)
 - **Entity Title:** 14–16px Semibold (`text-[#F0F3FA]`)
 - **Body:** 13–14px Regular (`text-[#9BA5BE]`, leading-relaxed)
-- **Compact Body / Metadata:** 11–12px Regular (`text-[#626E89]`, font-mono)
-- **Stat / Numeric Multipliers:** `font-mono tabular-nums font-bold text-[#DFB86C]`
+- **Compact Body / Metadata:** 11–12px Regular (`text-[#9BA5BE]`)
+- **Strict Monospace Rule:** Monospace (`font-mono`) is strictly restricted to numerical stats, multipliers, Eidolon levels (`E2`), character levels (`Lv.80`), match scores (`97%`), timestamps, and technical IDs. General UI labels and headings use sans-serif.
 
 Font stack:
 - Sans: `'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`
@@ -119,12 +123,12 @@ Font stack:
 
 ---
 
-## 7. Motion & Transition Standards
+## 7. Versioned Game Asset Pipeline & Resilience
 
-- **Micro Interactions (hover, active press):** 120–180ms ease-out (`active:scale-[0.98]`).
-- **Panel & Tab Transitions:** 180–260ms cubic-bezier(0.16, 1, 0.3, 1).
-- **Scene / Drawer Transitions:** 260–320ms.
-- **Reduced Motion:** All transitions and skeleton shimmers automatically collapse to static styles under `@media (prefers-reduced-motion: reduce)`.
+- **Static Asset Serving:** Game assets are statically served via `/game-assets/<release>/` directly through Cloudflare Static Assets.
+- **No Third-Party Runtime Hotlinking:** Runtime fetches to external GitHub/wiki repositories are strictly forbidden.
+- **Graceful Vector Fallback:** The `<GameAssetImage>` component automatically falls back to an accessible, non-broken Astralyn SVG vector silhouette upon load error or missing manifest entry without layout shift.
+- **Entity Coverage:** 17 normalized asset types supported (character icons, character previews, element icons, path icons, light cones, relic sets, DU curios, DU blessings).
 
 ---
 
@@ -141,19 +145,36 @@ Font stack:
 9. **Toast:** Contextual transient feedback provider.
 10. **Divider:** Tapered line separator with central gold diamond motif.
 11. **Skeleton / EmptyState:** Shimmering async loaders and contextual zero-data views.
+12. **GameAssetImage:** Asset-manifest backed image loader with fallback resilience.
 
 ---
 
 ## 9. Foundational Domain Components
 
-1. **CharacterTile:** Tactical portrait tiles with rarity borders (5★/4★), element tags, eidolon/trial badges, and accessible selection states (`aria-selected`).
-2. **RecommendationPanel:** Visualizes the "ASTRALYN VERDICT", #1 Best Fit recommendation, percentage match gauge, confidence tier, and rationale checklist.
-3. **SourceRankPanel:** 3-source consensus matrix (Prydwen, Game8, Theorycraft) with patch version, updated timestamp, and transparent community disclaimer.
+1. **CharacterTile v2:** Tactical portrait tiles with real character artwork, Path & Element icons, rarity borders (5★ Gold / 4★ Violet), eidolon chips, level badges, and full keyboard/WAI-ARIA accessibility (`role="button"` + `aria-pressed`).
+2. **RecommendationPanel:** Visualizes the "ASTRALYN VERDICT", #1 Best Fit recommendation, percentage match gauge, confidence tier, and rationale checklist with honest demo labels.
+3. **SourceRankPanel:** 3-source consensus matrix (Prydwen, Game8, Theorycraft) with transparent community disclaimer and sample layout disclosures.
 4. **DecisionCard:** Fast Divergent Universe decision card providing instant "PICK [X]" clarity, why-to-pick bullets, and why-not-alternatives trade-offs.
 
 ---
 
-## 10. Responsive Architecture
+## 10. Locked Production Navigation Contract
+
+The user-facing navigation rail strictly exposes 8 production modules:
+1. `Home` (`/`)
+2. `Roster` (`/roster`)
+3. `Characters` (`/characters`)
+4. `Best Characters` (`/best-characters`)
+5. `Teams` (`/teams`)
+6. `Content` (`/content`)
+7. `Assistant` (`/assistant`)
+8. `Settings` (`/settings`)
+
+Internal design system showcase (`/design-system`) is placed as a secondary developer utility link in the bottom footer of the navigation rail.
+
+---
+
+## 11. Responsive Architecture
 
 - **Desktop (1440px):** Persistent left rail (w-64), top HUD status bar, multi-column dashboard.
 - **Tablet (768px):** Reflowed 2-column grid, responsive header, preserved touch targets.

@@ -39,7 +39,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className="relative flex items-center">
           {iconLeft && (
-            <div className="pointer-events-none absolute left-3 flex items-center text-[#626e89]">
+            <div className="pointer-events-none absolute left-3 flex items-center text-[#9ba5be]">
               {iconLeft}
             </div>
           )}
@@ -49,7 +49,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             disabled={disabled}
             className={cn(
-              "flex h-10 w-full rounded-sm bg-[#0a0e1a] px-3.5 py-2 text-sm text-[#f0f3fa] placeholder:text-[#626e89] border transition-colors duration-150",
+              "flex h-10 w-full rounded-sm bg-[#0a0e1a] px-3.5 py-2 text-sm text-[#f0f3fa] placeholder:text-[#9ba5be]/70 border transition-colors duration-150",
               "border-[#1f2940] hover:border-[#303f5e] focus:border-[#dfb86c] focus:outline-hidden focus:ring-1 focus:ring-[#dfb86c]",
               "disabled:cursor-not-allowed disabled:opacity-40",
               iconLeft && "pl-9",
@@ -60,7 +60,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {iconRight && (
-            <div className="absolute right-3 flex items-center text-[#626e89]">
+            <div className="absolute right-3 flex items-center text-[#9ba5be]">
               {iconRight}
             </div>
           )}
@@ -68,7 +68,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {error ? (
           <p className="text-xs text-[#f87171]">{error}</p>
         ) : helperText ? (
-          <p className="text-xs text-[#626e89]">{helperText}</p>
+          <p className="text-xs text-[#9ba5be]">{helperText}</p>
         ) : null}
       </div>
     );
@@ -114,7 +114,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         {error ? (
           <p className="text-xs text-[#f87171]">{error}</p>
         ) : helperText ? (
-          <p className="text-xs text-[#626e89]">{helperText}</p>
+          <p className="text-xs text-[#9ba5be]">{helperText}</p>
         ) : null}
       </div>
     );

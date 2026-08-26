@@ -27,13 +27,13 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
               {decision.encounterType}
             </span>
             <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
-              Instant Decision Guide
+              Fast Decision Assistant
             </PanelTitle>
           </div>
         </div>
 
         <Badge variant="gold" size="sm">
-          Recommended
+          Demo Output
         </Badge>
       </PanelHeader>
 
@@ -41,21 +41,19 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
         {/* Core Decision Callout */}
         <div className="rounded-sm border border-[#dfb86c] bg-gradient-to-r from-[#2a210d] via-[#1a2136] to-[#101524] p-4 shadow-md">
           <span className="text-[11px] font-mono font-bold text-[#dfb86c] uppercase">
-            Optimal Selection
+            Top Recommendation
           </span>
-          <h3 className="text-lg md:text-xl font-extrabold text-[#f4d38f] tracking-tight mt-0.5">
+          <h3 className="text-lg md:text-xl font-bold text-[#f4d38f] tracking-tight mt-0.5">
             {decision.recommendedPick}
           </h3>
-          <p className="text-xs font-mono text-[#9ba5be] mt-0.5">
-            {decision.recommendedType}
-          </p>
+          <p className="text-xs text-[#9ba5be] mt-0.5">{decision.recommendedType}</p>
         </div>
 
         {/* Why Pick X */}
         <div className="space-y-2">
           <h4 className="text-xs font-bold uppercase tracking-wider text-[#34d399] font-mono flex items-center gap-1.5">
             <Check className="h-3.5 w-3.5" />
-            Why Pick This
+            Tactical Rationale
           </h4>
           <ul className="space-y-1.5">
             {decision.whyPick.map((reason, idx) => (
@@ -73,7 +71,7 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
         <div className="space-y-2">
           <h4 className="text-xs font-bold uppercase tracking-wider text-[#9ba5be] font-mono flex items-center gap-1.5">
             <AlertCircle className="h-3.5 w-3.5 text-[#f87171]" />
-            Why Not Alternative Options
+            Alternative Option Trade-offs
           </h4>
           <div className="space-y-1.5">
             {decision.whyNotOthers.map((item, idx) => (
@@ -81,10 +79,10 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
                 key={idx}
                 className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 text-xs bg-[#0b0e17] p-2 rounded-xs border border-[#161f33]"
               >
-                <strong className="text-[#f87171]/90 font-medium truncate max-w-xs">
+                <strong className="text-[#f87171] font-medium truncate max-w-xs">
                   {item.name}
                 </strong>
-                <span className="text-[11px] text-[#626e89] sm:text-right">
+                <span className="text-[11px] text-[#9ba5be] sm:text-right">
                   {item.reason}
                 </span>
               </div>
@@ -94,9 +92,7 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
       </PanelContent>
 
       <PanelFooter className="flex justify-between items-center bg-[#0a0d16] border-[#1a2338]">
-        <span className="text-[11px] font-mono text-[#626e89]">
-          Fast Decision Confidence: 99%
-        </span>
+        <span className="text-[11px] text-[#9ba5be]">Illustrative Assistant Demo</span>
         <Button
           variant="primary"
           size="sm"

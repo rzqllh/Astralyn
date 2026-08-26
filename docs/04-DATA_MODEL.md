@@ -2,14 +2,15 @@
 
 ## 1. Data domains
 
-Astralyn separates four domains:
+Astralyn separates five domains:
 
 A. Identity and user data — authenticated user domain (Better Auth + Astralyn user tables in Cloudflare D1).  
 B. Canonical Game Knowledge — official facts normalized from trusted HoYoverse sources.  
 C. Editorial recommendations — source-specific guide/ranking data with provenance.  
-D. Generated Astralyn intelligence — consensus, scores, reason codes and publishable snapshots.
+D. Generated Astralyn intelligence — consensus, scores, reason codes and publishable snapshots.  
+E. Visual Game Assets — versioned static asset manifest and localized game imagery.
 
-A user write must never cross into B/C/D canonical tables.
+A user write must never cross into B/C/D/E canonical tables or static assets.
 
 ## 2. Identity tables
 
@@ -55,225 +56,99 @@ Better Auth manages core authentication (`user`, `session`, `account`, `verifica
 ## 3. Versioning
 
 ### game_versions
-Represents official HSR versions such as `4.4`.
+Represents official HSR versions such as `3.0`.
 
 Fields:
-- `id`
-- `version`
-- `title`
-- `starts_at`
-- `ends_at`
-- `is_current`
-- `official_source_url`
+- `id` (TEXT PRIMARY KEY)
+- `version_number` (TEXT: '3.0')
+- `released_at` (ISO timestamp TEXT)
+- `is_active` (INTEGER: 0 | 1)
 
 ### knowledge_releases
-Represents one published Astralyn knowledge snapshot.
+Immutable published knowledge release hash.
 
 Fields:
-- `id`
-- `game_version_id`
-- `knowledge_version`
-- `status`
-- `source_snapshot_hash`
-- `published_at`
-- `created_at`
+- `id` (TEXT PRIMARY KEY)
+- `game_version_id` (TEXT REFERENCES game_versions(id))
+- `release_tag` (TEXT)
+- `published_at` (ISO timestamp TEXT)
+- `checksum` (TEXT)
 
-A published knowledge release is immutable. Corrections create another release.
+## 4. Game Knowledge tables
 
-## 4. Stable game identities + versioned facts
+- `game_characters`
+- `game_light_cones`
+- `game_relic_sets`
+- `game_planar_sets`
+- `game_du_blessings`
+- `game_du_curios`
+- `game_du_equations`
 
-### game_characters
-Stable character identity:
-- slug ID;
-- official key when available;
-- canonical name;
-- rarity;
-- release version.
+## 5. Editorial recommendations tables
 
-### character_knowledge
-Versioned facts:
-- Path;
-- element;
-- stats;
-- role tags;
-- mechanic tags;
-- kit JSON;
-- traces JSON;
-- Eidolons JSON.
+- `source_adapters`
+- `source_recommendations`
 
-Repeat the same stable-identity + versioned-facts pattern for:
-- Light Cones;
-- Relic/Planar sets;
-- enemies;
-- stages.
+## 6. Generated Astralyn intelligence
 
-## 5. Divergent Universe
+- `consensus_recommendations`
 
-MVP uses a generic DU entity model to avoid premature over-normalization.
-
-### du_entities
-- `id`
-- `entity_type`: mask/equation/blessing/curio/miracle/event/domain
-- canonical name
-
-### du_entity_knowledge
-Versioned:
-- Paths;
-- rarity;
-- requirements;
-- effect;
-- mechanic tags;
-- structured mechanics JSON.
-
-Split into dedicated tables later only when real query needs justify it.
-
-## 6. Provenance
-
-### knowledge_sources
-- `id`
-- `slug`
-- `name`
-- `source_kind`: official/editorial/community
-- `trust_tier`
-- `base_url`
-- `enabled`
-- `terms_review_status`
-
-### source_snapshots
-- `id`
-- `source_id`
-- `game_version_id`
-- `fetched_at`
-- `etag`
-- `last_modified`
-- `content_hash`
-- `parser_version`
-- `status`
-
-### fact_provenance
-Maps canonical fields to the source snapshot used to verify them.
-
-This makes factual origin auditable.
-
-## 7. Editorial recommendation model
-
-### recommendation_sets
-Represents one source's recommendation set.
-
-Example: `Source X → Castorice → Best Teams → patch 4.4`.
-
-Fields:
-- `id`
-- `source_id`
-- `knowledge_release_id`
-- `category`
-- `subject_character_id`
-- optional `game_mode`
-- optional `stage_id`
-- `source_updated_at`
-- `verified_at`
-- `confidence`
-- `status`
-
-Categories:
-- `best_build`
-- `best_team`
-- `best_light_cone`
-- `best_relic`
-- `best_character`
-- `best_teammate`
-
-### recommendation_items
-- `recommendation_set_id`
-- `rank` 1–3
-- `payload` JSONB
-- optional source score
-- normalized notes/tags
-
-Team payload:
-
-```json
-{
-  "members": ["castorice", "cyrene", "evernight", "hyacine"]
-}
-```
-
-Build payload:
-
-```json
-{
-  "lightCone": "example-lc",
-  "relicSet": "example-relic",
-  "planarSet": "example-planar",
-  "mainStats": {"body": "crit_rate"},
-  "substatPriority": ["crit_rate", "crit_dmg", "spd"]
-}
-```
-
-## 8. Generated intelligence
-
-### consensus_results
-Optional persisted/prebuilt cache:
-- knowledge release;
-- category;
-- subject/context;
-- result payload;
-- score;
-- confidence;
-- reason codes;
-- source set IDs;
-- engine version;
-- generated timestamp.
-
-LLMs never write this table directly. Only the trusted consensus job may persist it.
-
-## 9. DU runtime
+## 7. DU runtime
 
 For MVP, current DU state remains primarily in IndexedDB.
 
-Potential server sync later:
-- `du_runs`
-- `du_run_party`
-- `du_run_choices`
-- `du_run_inventory`
-
 Core recommendation code must not require cloud persistence.
 
-## 10. Versioning rule
- 
-Bad:
- 
-```text
-characters.effect = overwrite each patch
-```
- 
-Preferred:
- 
-```text
-game_characters
-  └── character_knowledge @ knowledge_release
-```
- 
-Benefits: rollback, history, reproducible recommendations and regression testing.
- 
-## 11. Client snapshots
- 
+## 8. Client snapshots
+
 The client consumes denormalized static JSON snapshots rather than querying the relational D1 database on every page.
- 
-Example:
- 
-```json
-{
-  "id": "castorice",
-  "name": "Castorice",
-  "patch": "4.4",
-  "mechanics": ["memosprite", "hp_fluctuation"],
-  "roles": ["dps"],
-  "recommendations": {
-    "teams": {},
-    "builds": {}
-  }
+
+Cloudflare D1 is the canonical relational store; published static JSON is the product-serving format.
+
+## 9. Visual Game Asset Manifest Model
+
+Visual game assets are tracked in `packages/shared/src/assets.ts` and synced to `/game-assets/<release>/manifest.json`.
+
+```ts
+interface AssetRecord {
+  id: string;
+  entityType:
+    | "character_icon"
+    | "character_preview"
+    | "character_portrait"
+    | "element_icon"
+    | "path_icon"
+    | "light_cone_icon"
+    | "relic_set_icon"
+    | "planar_ornament_icon"
+    | "du_blessing_icon"
+    | "du_curio_icon"
+    | "du_equation_icon"
+    | "relic_slot_icon"
+    | "item_icon"
+    | "currency_icon"
+    | "status_icon"
+    | "background_art"
+    | "ui_decor";
+  entityId: string;
+  variant?: "icon" | "preview" | "portrait" | "full" | "splash" | "card" | "banner";
+  localPath: string; // e.g. "/game-assets/v1.0.0/characters/acheron_icon.png"
+  source: string; // e.g. "Mar-7th/StarRailRes"
+  sourceUrl?: string;
+  license: string; // e.g. "AGPL-3.0 (Tooling) / Fair Use Fan Content (Imagery)"
+  copyrightOwner: string; // e.g. "COGNOSPHERE / HoYoverse"
+  usageStatus: "official_fan_use" | "curated_community" | "provisional_fallback" | "internal_original";
+  attribution?: string;
+  fallbackPriority: number;
+  approvedBy: string;
+  approvedAt: string;
+  checksum?: string; // SHA-256
+}
+
+interface AssetManifest {
+  assetRelease: string; // e.g. "v1.0.0"
+  gameVersion: string; // e.g. "3.0.x"
+  generatedAt: string;
+  assets: AssetRecord[];
 }
 ```
- 
-Cloudflare D1 is the canonical relational store; published static JSON is the product-serving format.
