@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/router.tsx","./tests/root.test.tsx","./tests/setup.ts","./e2e/smoke.spec.ts","./vite.config.ts","./vitest.config.ts","./playwright.config.ts"],"version":"5.9.3"}

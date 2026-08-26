@@ -1,0 +1,90 @@
+# Astralyn — Decision Log
+
+Use this as ADR-lite. Major changes get a new numbered decision instead of silently rewriting the project's intent.
+
+## D-001 — Product name
+**Decision:** Astralyn.  
+**Status:** Accepted.
+
+## D-002 — Product scope
+**Decision:** General HSR assistant. Divergent Universe is one module, not the product identity.  
+**Status:** Accepted.
+
+## D-003 — Personalization
+**Decision:** Account is in MVP. Roster is chosen immediately after account creation; later edits live in Settings.  
+**Status:** Accepted.
+
+## D-004 — Recommendation style
+**Decision:** Top 1–3, concise reasons, roster/context aware.  
+**Status:** Accepted.
+
+## D-005 — Source requirement
+**Decision:** Editorial surfaces target at least three independent sources; each may expose Top 1–3; Astralyn produces one derived Verdict.  
+**Status:** Accepted.
+
+## D-006 — Recommendation authority
+**Decision:** Deterministic scoring/consensus ranks; AI may explain but not independently override ranking.  
+**Status:** Accepted.
+
+## D-007 — Game Knowledge mutation
+**Decision:** Trusted ingestion only. Prompt/OCR/client cannot mutate canonical knowledge.  
+**Status:** Accepted.
+
+## D-008 — Official data source
+**Decision:** Approved official HoYoverse-source adapters; do not assume a public complete HSR database API.  
+**Status:** Accepted.
+
+## D-009 — Ingestion frequency
+**Decision:** Central scheduled ingestion with conditional requests/hashing; never fetch official sources per user request.  
+**Status:** Accepted.
+
+## D-010 — Frontend
+**Decision:** React + Vite + TypeScript.  
+**Reason:** Client-heavy/static product; no SSR requirement for MVP.  
+**Status:** Accepted.
+
+## D-011 — Account backend (Supabase)
+**Decision:** Supabase Auth + Postgres + RLS primary; Cloudflare D1 remains alternative.  
+**Status:** Superseded by D-018.
+
+## D-012 — Hosting
+**Decision:** Cloudflare static hosting primary.  
+**Status:** Accepted.
+
+## D-013 — OCR
+**Decision:** PaddleOCR.js / PP-OCRv5 client-side first.  
+**Status:** Accepted.
+
+## D-014 — Screenshot privacy
+**Decision:** Local processing by default; no screenshot storage in MVP.  
+**Status:** Accepted.
+
+## D-015 — Design
+**Decision:** Strongly HSR-native visual/UX language while retaining Astralyn branding, implementation and original UI assets.  
+**Status:** Accepted.
+
+## D-016 — AI cost
+**Decision:** No paid AI dependency. Optional free provider may synthesize explanations/fallback.  
+**Status:** Accepted.
+
+## D-017 — Versioned knowledge
+**Decision:** Canonical relational storage + immutable published releases + static client snapshots.  
+**Status:** Accepted.
+
+## D-018 — Replace Supabase with Cloudflare D1 + Better Auth
+**Decision:** Migrate account backend and canonical database from Supabase (PostgreSQL + RLS) to Cloudflare Workers + Cloudflare D1 (SQLite) with Better Auth (Google OAuth) and Worker-level invariant authorization.  
+**Reason:** 
+1. Strict adherence to the free-first principle without risking free-tier idle project pause behavior associated with external database services.
+2. Direct consolidation into the Cloudflare ecosystem (Workers + D1 + Static Assets / CDN).
+3. D1 provides true serverless scale-to-zero compute with zero idle cost and 5M rows read/day on the free tier.
+4. MVP workload is static-heavy and client-evaluated; PostgreSQL-specific extensions are unnecessary.  
+**Status:** Accepted.
+
+## D-019 — Adopt Drizzle ORM for D1 Querying & Migrations
+**Decision:** Use Drizzle ORM with the official `@cloudflare/workers` D1 driver for backend schema definition, type-safe queries, and migration management via `drizzle-kit`.  
+**Reason:**
+1. Zero-overhead lightweight SQL builder compiling directly to D1 prepared statements.
+2. Provides TypeScript schema typing shared between backend routes and frontend types.
+3. First-class integration with Better Auth (`@better-auth/drizzle-adapter`).
+4. Type-safe migrations without the heavy runtime overhead of Prisma.  
+**Status:** Accepted.

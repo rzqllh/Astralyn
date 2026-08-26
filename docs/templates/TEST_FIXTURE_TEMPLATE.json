@@ -1,0 +1,19 @@
+{
+  "name": "fixture-name",
+  "patch": "x.y",
+  "knowledgeVersion": "YYYY.MM.DD.N",
+  "context": {
+    "mode": "general",
+    "roster": [],
+    "trial": [],
+    "subjectCharacter": null
+  },
+  "request": {
+    "type": "team"
+  },
+  "expected": {
+    "top1Contains": [],
+    "forbiddenCharacters": [],
+    "reasonCodes": []
+  }
+}
