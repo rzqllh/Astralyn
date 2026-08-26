@@ -88,3 +88,11 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 3. First-class integration with Better Auth (`@better-auth/drizzle-adapter`).
 4. Type-safe migrations without the heavy runtime overhead of Prisma.  
 **Status:** Accepted.
+
+## D-020 — Phase 1 HSR-Native Design System & Primitive Architecture
+**Decision:** Standardize Astralyn's frontend visual language and component architecture around an HSR-native design token system, Radix UI headless accessible primitives, Tailwind CSS v4 geometric utilities, and dedicated domain components (`CharacterTile`, `RecommendationPanel`, `SourceRankPanel`, `DecisionCard`).  
+**Reason:**
+1. Replaces generic SaaS tropes with distinct HSR information hierarchy, deep cosmic navy/charcoal surfaces (`#090C13`/`#101524`), warm parchment contrast panels (`#EEE8DC`), and astral gold metallic accents (`#DFB86C`).
+2. Ensures WCAG 2.2 AA accessibility via keyboard navigation, visible focus rings, tabular numerals, and multi-modal state feedback (color + text + icon).
+3. Provides responsive ergonomics across desktop companion rail (1440px), tablet (768px), and mobile single-column drawer (390px) without viewport jumping or layout shift (`min-h-[100dvh]`).  
+**Status:** Accepted.

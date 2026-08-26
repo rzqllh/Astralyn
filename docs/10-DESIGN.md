@@ -1,237 +1,160 @@
 # Astralyn — Design System & UX Direction
 
-## 1. Design objective
+## 1. Design Objective
 
-Astralyn should feel immediately familiar to a Honkai: Star Rail player.
+Astralyn is an **HSR-native companion tool**, built to feel immediately natural and intuitive to a Honkai: Star Rail player without copying proprietary game assets or falling into generic AI SaaS tropes.
 
-The design should strongly borrow HSR's information hierarchy, panel composition, navigation rhythm, character-first presentation, rarity emphasis, sci-fi material language, cream/gold/dark-blue relationship, layered modal behavior, tab/selection patterns, dense-but-readable stats and high-value motion.
+The design borrows HSR's information hierarchy, panel composition, navigation rhythm, character-first presentation, rarity emphasis, sci-fi material language, cream/gold/dark-blue relationship, layered modal behavior, tab/selection patterns, dense-but-readable stats, and high-value motion.
 
-Astralyn still uses its own branding, implementation and original UI asset system. Do not make a pixel-for-pixel clone or redistribute proprietary UI sprites.
+Astralyn maintains:
+- Original celestial branding and vector emblem lockups;
+- Original accessible component implementations (Radix UI primitives + Tailwind CSS v4);
+- Responsive web accessibility targeting WCAG 2.2 AA.
 
-Target feeling: **HSR-native companion tool**, not generic dark gaming dashboard.
+---
 
-## 2. Anti-AI-slop rules
+## 2. Anti-AI-Slop Rules
 
-Reject:
-- random purple/blue gradients as the whole identity;
-- endless identical rounded cards;
-- excessive glassmorphism;
-- neon borders on every surface;
-- oversized marketing hero copy inside utility screens;
-- irrelevant dashboard KPI cards;
-- badge/icon clutter;
-- decorative particles without purpose;
-- generic SaaS sidebar patterns;
-- identical radius/elevation on every component.
+Strictly rejected:
+- Random purple/blue neon gradients as the interface identity;
+- Endless identical rounded cards stacked inside each other;
+- Excessive, performance-degrading glassmorphism;
+- Neon borders on every surface;
+- Oversized marketing hero copy inside utility screens;
+- Irrelevant dashboard KPI cards;
+- Badge/icon clutter without purpose;
+- Decorative particles without functional value;
+- Generic SaaS sidebar patterns;
+- Identical radius/elevation across disparate components.
 
-Every decorative element must support hierarchy, interaction state, game context or Astralyn branding.
+Every decorative element must serve hierarchy, interaction feedback, game context, or Astralyn branding.
 
-## 3. Visual language
+---
 
-### Surfaces
-Primary: deep navy/charcoal utility surface.  
-Secondary: warm pale/cream information panels where appropriate.  
-Accent: restrained gold/champagne for importance and selection.  
-Context accents: controlled Path/element/rarity color, never at the expense of contrast.
+## 3. Concrete Design Tokens
 
-### Geometry
-Use layered rectangular panels, selectively clipped/angled corners, slim dividers, offset headers and framed selected states.
+### Color Palette
 
-Avoid turning every object into a floating rounded rectangle.
+#### Surfaces
+- `surface.base`: `#090C13` (Deep Cosmic Void)
+- `surface.raised`: `#101524` (Primary Utility Surface)
+- `surface.overlay`: `#161E32` (Elevated Panel Surface)
+- `surface.sunken`: `#05070A` (Background Sunken Well)
+- `surface.parchment`: `#EEE8DC` (Warm Celestial Parchment for item/lore detail)
+- `surface.parchment-raised`: `#F7F3EC`
+- `surface.parchment-border`: `#D4CCBD`
 
-### Depth
-1. background/world layer;
-2. navigation;
-3. primary working panel;
-4. selected/highlighted item;
-5. modal/decision overlay.
+#### Text & Typography
+- `text.primary`: `#F0F3FA` (High-contrast white)
+- `text.secondary`: `#9BA5BE` (Muted information)
+- `text.muted`: `#626E89` (Subtle metadata)
+- `text.inverse`: `#0D111A` (Dark text on gold/parchment)
+- `text.gold`: `#E5C179` (Astral metallic text)
+- `text.parchment.primary`: `#181D28`
+- `text.parchment.secondary`: `#565F75`
 
-Hierarchy must still work with blur/glow disabled.
+#### Astral Gold & Accents
+- `gold.primary`: `#DFB86C` (Primary metallic accent)
+- `gold.light`: `#F3D48F` (Highlight shimmer)
+- `gold.dark`: `#A8813A` (Deep bevel shade)
+- `gold.glow`: `rgba(223, 184, 108, 0.28)`
 
-## 4. Typography
+#### Borders
+- `border.subtle`: `rgba(155, 165, 190, 0.12)`
+- `border.medium`: `rgba(155, 165, 190, 0.24)`
+- `border.strong`: `rgba(155, 165, 190, 0.40)`
+- `border.gold`: `rgba(223, 184, 108, 0.45)`
+- `border.gold.solid`: `#DFB86C`
 
-- highly readable body text;
-- display treatment for major titles;
-- compact metadata;
-- tabular numerals for stats when useful;
-- restrained all-caps.
+#### Status Tokens
+- `status.success`: `#34D399` (Emerald)
+- `status.warning`: `#FBBF24` (Amber)
+- `status.danger`: `#F87171` (Coral Red)
+- `status.info`: `#38BDF8` (Sky Blue)
 
-Hierarchy:
-page title → section title → entity name → recommendation label → body → metadata/source.
+#### Game-Context Tokens
+- **Rarity 5★:** Base `#D89F37`, Background `rgba(216, 159, 55, 0.14)`
+- **Rarity 4★:** Base `#9D7FE6`, Background `rgba(157, 127, 230, 0.14)`
+- **Physical:** `#ABB2BF`
+- **Fire:** `#F87171`
+- **Ice:** `#38BDF8`
+- **Lightning:** `#C084FC`
+- **Wind:** `#34D399`
+- **Quantum:** `#818CF8`
+- **Imaginary:** `#FBBF24`
 
-## 5. Navigation
+---
 
-Desktop:
-- HSR-inspired persistent left navigation rail/layered menu;
-- strong page title/header region;
-- main information panel.
+## 4. Typography Scale
 
-Mobile:
-- compact bottom/overlay navigation;
-- content first;
-- never squeeze a desktop rail into a miniature.
+- **Display Header:** 28–32px Bold / Black (`tracking-tight`, uppercase, gold gradient support)
+- **Section Heading:** 18–20px Bold (`text-[#F0F3FA]`)
+- **Entity Title:** 14–16px Semibold (`text-[#F0F3FA]`)
+- **Body:** 13–14px Regular (`text-[#9BA5BE]`, leading-relaxed)
+- **Compact Body / Metadata:** 11–12px Regular (`text-[#626E89]`, font-mono)
+- **Stat / Numeric Multipliers:** `font-mono tabular-nums font-bold text-[#DFB86C]`
 
-Primary modules:
-- Home
-- Roster
-- Characters
-- Best Characters
-- Teams
-- Content
-- Assistant
-- Settings
+Font stack:
+- Sans: `'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`
+- Mono: `'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace`
 
-## 6. Onboarding
+---
 
-Roster selection should feel like character selection, not a spreadsheet form.
+## 5. Geometry & Corner Treatment
 
-Requirements:
-- portrait grid;
-- strong selected state;
-- filters/search;
-- selected count;
-- confirmation summary;
-- quick scanning.
+- **Utility Panels:** Chamfered corners via `.clip-chamfer-sm` (6px 45-degree corner cuts) or subtle 2px rounded corners (`rounded-xs`/`rounded-sm`).
+- **Accent Frames:** Asymmetrical 45-degree top-right gold corner markers on highlight panels.
+- **Badges & Tags:** `.clip-tag` with 8px angular corner cut.
+- **Buttons:** 2px rounded corners with bevel gradient borders.
 
-Do not force detailed build inputs before the user reaches the product.
+---
 
-## 7. Character page
+## 6. Elevation & Depth Layers
 
-First view prioritizes character identity/art + practical answer.
+- **Layer 0 (Void):** `#090C13` base with 32px HUD grid pattern (`.hsr-grid-pattern`).
+- **Layer 1 (Navigation & HUD):** Left navigation rail (`#0B0E17`/95) and sticky top bar with backdrop blur.
+- **Layer 2 (Workspaces & Panels):** Surface raised (`#101524`) and parchment detail panels (`#EEE8DC`).
+- **Layer 3 (Active / Selection):** Gold framed highlight (`border-[#DFB86C]`, shadow glow `0 0 16px rgba(223,184,108,0.4)`).
+- **Layer 4 (Overlays & Modals):** Dialog modal (`#0F1422` with 75% dark backdrop blur).
 
-Suggested hierarchy:
+---
 
-```text
-Character identity / art
-↓
-Astralyn Verdict
-↓
-Build / Team / LC / Relic tabs
-↓
-3-source comparison
-↓
-Kit / Trace / Eidolon / detailed guide
-```
+## 7. Motion & Transition Standards
 
-Do not bury recommendations below lore.
+- **Micro Interactions (hover, active press):** 120–180ms ease-out (`active:scale-[0.98]`).
+- **Panel & Tab Transitions:** 180–260ms cubic-bezier(0.16, 1, 0.3, 1).
+- **Scene / Drawer Transitions:** 260–320ms.
+- **Reduced Motion:** All transitions and skeleton shimmers automatically collapse to static styles under `@media (prefers-reduced-motion: reduce)`.
 
-## 8. Recommendation component
+---
 
-```text
-ASTRALYN VERDICT
+## 8. Foundational UI Primitives
 
-#1 Best Fit
-[team/build]
+1. **Button / IconButton:** Primary Gold, Secondary Navy, Outline, Ghost, Danger, and Parchment variants.
+2. **Panel:** Layered container supporting default, raised, sunken, highlight, and parchment styles.
+3. **SectionHeader:** HSR diamond emblem with category badge, title, subtitle, and action slots.
+4. **Tabs:** Radix-powered accessible tabs with metallic gold sliding underline.
+5. **Badge / Tag:** Status, Rarity (5★/4★), Element, and Confidence indicators.
+6. **Input / Select:** Accessible form controls with validation and helper text.
+7. **Dialog / Modal:** Radix-powered focus-trapped dialogs with gold corner accents.
+8. **Tooltip:** Accessible hover/focus tooltips.
+9. **Toast:** Contextual transient feedback provider.
+10. **Divider:** Tapered line separator with central gold diamond motif.
+11. **Skeleton / EmptyState:** Shimmering async loaders and contextual zero-data views.
 
-94 Match
-High confidence
+---
 
-✓ reason one
-✓ reason two
-✓ reason three
-```
+## 9. Foundational Domain Components
 
-Then show #2, #3 and source comparison.
+1. **CharacterTile:** Tactical portrait tiles with rarity borders (5★/4★), element tags, eidolon/trial badges, and accessible selection states (`aria-selected`).
+2. **RecommendationPanel:** Visualizes the "ASTRALYN VERDICT", #1 Best Fit recommendation, percentage match gauge, confidence tier, and rationale checklist.
+3. **SourceRankPanel:** 3-source consensus matrix (Prydwen, Game8, Theorycraft) with patch version, updated timestamp, and transparent community disclaimer.
+4. **DecisionCard:** Fast Divergent Universe decision card providing instant "PICK [X]" clarity, why-to-pick bullets, and why-not-alternatives trade-offs.
 
-Each source panel shows patch and update date. Editorial Source #1 must never visually masquerade as official HoYoverse data.
+---
 
-## 9. DU screenshot assistant
+## 10. Responsive Architecture
 
-Speed first.
-
-Desktop:
-- screenshot/choices left;
-- recommendation right;
-- run state secondary/collapsible.
-
-Mobile:
-1. screenshot;
-2. Pick X;
-3. why;
-4. why not alternatives;
-5. confirm choice.
-
-This should not look like a chatbot transcript.
-
-## 10. Motion
-
-Categories:
-- navigation transition;
-- selection confirmation;
-- panel reveal;
-- recommendation emphasis;
-- character/background parallax only when it adds identity.
-
-Baseline:
-- micro state ~120–180ms;
-- panel ~180–260ms;
-- major scene ~260–420ms.
-
-Respect `prefers-reduced-motion`.
-
-## 11. Responsive targets
-
-Prioritize:
-- desktop around 1440px gameplay-companion use;
-- laptop;
-- mobile portrait.
-
-Screenshot assistant must work well as a second-screen mobile tool.
-
-## 12. Accessibility
-
-Baseline:
-- WCAG 2.2 AA for functional text/controls;
-- visible keyboard focus;
-- semantic tabs/buttons;
-- Path/element/state not communicated by color alone;
-- reduced motion;
-- usable target sizes;
-- accessible source/freshness metadata.
-
-HSR inspiration is not permission to put gold text on beige and call it premium.
-
-## 13. Branding
-
-Name: **Astralyn**
-
-Personality:
-- precise;
-- tactical;
-- elegant sci-fi;
-- companion, not mascot-heavy;
-- confident without sounding like a generic chatbot.
-
-Logo direction:
-- original celestial/navigation motif;
-- avoid copying Astral Express, Trailblaze emblem, Path icons or proprietary marks.
-
-## 14. Asset policy
-
-Prefer:
-- original Astralyn UI assets;
-- permitted game reference assets under reviewed usage policy;
-- optimized WebP/AVIF.
-
-Do not bundle ripped game UI sprite sheets/textures as the design system.
-
-## 15. Required design deliverables before UI build
-
-- color tokens;
-- typography tokens;
-- spacing scale;
-- corner/radius system;
-- border/elevation system;
-- motion scale;
-- iconography rules;
-- desktop nav;
-- mobile nav;
-- character card;
-- roster selection card;
-- recommendation card;
-- source comparison;
-- screenshot paste/upload state;
-- DU decision state;
-- loading/empty/error/stale states.
-
-These must become concrete component/token specs, not a paragraph saying “futuristic premium”.
+- **Desktop (1440px):** Persistent left rail (w-64), top HUD status bar, multi-column dashboard.
+- **Tablet (768px):** Reflowed 2-column grid, responsive header, preserved touch targets.
+- **Mobile (390px):** Single-column layout, top navigation bar with slide-out drawer, touch targets >= 44px, zero horizontal overflow (`100dvh` stability).

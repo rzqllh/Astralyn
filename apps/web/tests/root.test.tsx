@@ -18,15 +18,32 @@ const useTestStore = create<TestStore>((set) => ({
   increment: () => set((state) => ({ count: state.count + 1 })),
 }));
 
-describe("Web Application Root Smoke Test", () => {
-  it("renders the root application shell and title", async () => {
+describe("Astralyn Phase 1 Web Application Smoke Test", () => {
+  it("renders the root application shell and HomeView with HSR design components", async () => {
     const memoryHistory = createMemoryHistory({ initialEntries: ["/"] });
     const testRouter = createAppRouter(memoryHistory);
     render(<RouterProvider router={testRouter} />);
 
-    expect(await screen.findByText("Astralyn")).toBeInTheDocument();
-    expect(screen.getByText("Phase 0 Shell")).toBeInTheDocument();
+    // Brand & Header
+    expect(await screen.findAllByText(/Astralyn/i)).toBeTruthy();
+    expect(screen.getByText("Honkai: Star Rail Assistant")).toBeInTheDocument();
+
+    // HSR Component Assertions
     expect(screen.getByTestId("home-view")).toBeInTheDocument();
+    expect(screen.getByText("Active Team Optimization")).toBeInTheDocument();
+    expect(screen.getByText("Divergent Universe Assistant")).toBeInTheDocument();
+    expect(screen.getByText("Acheron")).toBeInTheDocument();
+  });
+
+  it("renders the /design-system showcase route cleanly", async () => {
+    const memoryHistory = createMemoryHistory({ initialEntries: ["/design-system"] });
+    const testRouter = createAppRouter(memoryHistory);
+    render(<RouterProvider router={testRouter} />);
+
+    expect(await screen.findByTestId("design-system-view")).toBeInTheDocument();
+    expect(screen.getByText("Astralyn Design System Showcase")).toBeInTheDocument();
+    expect(screen.getByText("Tokens & Palette")).toBeInTheDocument();
+    expect(screen.getByText("Buttons & Forms")).toBeInTheDocument();
   });
 
   it("successfully resolves @astralyn/shared constants", () => {
@@ -34,7 +51,7 @@ describe("Web Application Root Smoke Test", () => {
   });
 
   it("successfully instantiates core client dependencies", () => {
-    // 1. Zod schema validation
+    // 1. Zod schema validation (Zod 4)
     const testSchema = z.object({ name: z.string(), active: z.boolean() });
     const parsed = testSchema.safeParse({ name: "Astralyn", active: true });
     expect(parsed.success).toBe(true);
