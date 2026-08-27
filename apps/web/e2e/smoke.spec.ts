@@ -200,4 +200,40 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
       fullPage: true,
     });
   });
+
+  test("renders dense mobile component state (390px) proving CharacterTile + RecommendationPanel readability and stacking", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+
+    await expect(page.getByTestId("home-view")).toBeVisible();
+    await expect(page.getByText("Team Optimization Guidance")).toBeVisible();
+
+    // Verify CharacterTile and RecommendationPanel in mobile view
+    const acheronTile = page.getByRole("button", { name: /Acheron/i });
+    await expect(acheronTile).toBeVisible();
+
+    // Ensure images are fully decoded
+    await ensureImagesDecoded(page);
+
+    // Scroll to position showing RecommendationPanel and CharacterTiles together in stacked mobile view
+    await page.evaluate(() => {
+      window.scrollTo(0, 140);
+    });
+
+    // Capture the dense mobile state screenshot
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, "mobile_dense_state_390.png"),
+    });
+
+    // Verify touch target dimensions on mobile CharacterTile >= 44px
+    const boundingBox = await acheronTile.boundingBox();
+    expect(boundingBox).not.toBeNull();
+    if (boundingBox) {
+      expect(boundingBox.height).toBeGreaterThanOrEqual(44);
+      expect(boundingBox.width).toBeGreaterThanOrEqual(44);
+    }
+  });
 });

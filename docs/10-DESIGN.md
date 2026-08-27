@@ -126,20 +126,30 @@ Font stack:
 ## 7. Versioned Game Asset Pipeline, Optimization & Caching Strategy
 
 - **Three-Tier Architecture:**
-  1. *Full Catalog Model:* Comprehensive schema supporting all 17 entity types across Honkai: Star Rail.
-  2. *Data-Driven Sync Pipeline:* `tools/sync-assets.ts` with `--full` (all registered catalog assets) and default `--snapshot` (dev subset).
-  3. *Dev Snapshot:* Curated representative subset (50+ assets across all 8 roster fixtures, 7 elements, 8 paths, light cones, relics, and DU items) checked into Git for development.
+  1. *Full Catalog Model:* Comprehensive schema supporting all 17 entity types across Honkai: Star Rail (`AssetEntityTypeSchema`).
+  2. *Data-Driven Sync Pipeline:* `tools/sync-assets.ts` with `--full` (all registered catalog assets), `--dry-run` (safe dry-run reporting), and default `--snapshot` (curated dev subset).
+  3. *Dev Snapshot:* Curated representative subset (51 assets across all 8 roster fixtures, 7 elements, 8 paths, light cones, relics, and DU items) checked into Git for local development.
   4. *Production Release:* Release-tagged immutable assets (`/game-assets/<release>/...`) served via Cloudflare Static Assets.
 - **Context-Specific Sizing & Formats:**
   - *Character Previews:* 512x512px clean alpha PNG (~45–80 KB), high-resolution for tactical roster tiles and character profile hero.
   - *Character Icons:* 128x128px circular PNG (~10–25 KB), optimized for compact lists and HUD avatars.
   - *Combat Elements & Paths:* Crisp transparent PNGs (~2–8 KB), preserving exact silhouette alpha.
   - *Light Cones & Relics:* 256x256px crisp PNG (~20–40 KB).
-- **Static Cache & Invalidation Model:**
-  - Immutable asset URLs: `Cache-Control: public, max-age=31536000, immutable` (safe for 1-year CDN edge caching).
-  - Dynamic Manifest (`manifest.json`): `Cache-Control: public, max-age=300, stale-while-revalidate=3600`.
+- **Asset Loading Semantics:**
+  - Same-origin static image loading;
+  - Reserved dimensions and aspect-ratio containers to guarantee zero layout shift;
+  - In-memory manifest lookups via `getAssetUrl(type, id, variant)` / `getAssetRecord()`;
+  - Controlled asynchronous decode with automatic vector fallback rendering upon load error.
+- **Cache Strategy & Invalidation Distinction:**
+  - *Target Production Cache Policy:*
+    - Versioned immutable asset binaries: `Cache-Control: public, max-age=31536000, immutable` (long-lived 1-year edge caching).
+    - Release manifest (`manifest.json`): `Cache-Control: public, max-age=300, stale-while-revalidate=3600`.
+  - *Verified Deployed Cache Behavior:*
+    - Local development and preview environments verified via Vite same-origin static file serving.
+    - Remote Cloudflare CDN edge header verification is deferred to Phase 9 production deployment.
 - **Graceful Vector Fallback:** The `<GameAssetImage>` component automatically falls back to an accessible, non-broken Astralyn SVG vector silhouette upon load error or missing manifest entry without layout shift.
 - **No Third-Party Runtime Hotlinking:** Runtime fetches to external GitHub/wiki repositories are strictly forbidden.
+- **Conservative Provenance:** Game artwork is © COGNOSPHERE / HoYoverse. Repository automation licenses (AGPL-3.0) do not relicense underlying artwork. Assets are managed conservatively under the HoYoverse Fan Content Policy without asserting fair use as a legal conclusion.
 
 ---
 
@@ -190,3 +200,21 @@ Internal design system showcase (`/design-system`) is placed as a secondary deve
 - **Desktop (1440px):** Persistent left rail (w-64), top HUD status bar, multi-column dashboard.
 - **Tablet (768px):** Reflowed 2-column grid, responsive header, preserved touch targets.
 - **Mobile (390px):** Single-column layout, top navigation bar with slide-out drawer, touch targets >= 44px, zero horizontal overflow (`100dvh` stability).
+
+---
+
+## 12. UI State & Fixture Boundaries
+
+To prevent developer aids or demo data from being mistaken for production functionality, UI elements are classified according to strict operational boundaries:
+
+| UI Element / State | Route / Location | Classification | Operational Intent |
+|---|---|---|---|
+| **Production Navigation (8 Links)** | Navigation Rail (`/`, `/roster`, etc.) | `production_valid` | Locked user-facing navigation structure. |
+| **Dev DS Link** | Navigation Footer (`/design-system`) | `development_only` | Secondary link strictly for internal component inspection during development. |
+| **Design System Showcase** | Route `/design-system` | `development_only` | Development testing and visual regression target; not indexed or exposed in primary user navigation. |
+| **Trailblazer Identity Chip** | Top HUD Header | `fixture_only` | Placeholder user identity chip; replaced with authenticated profile in Phase 4. |
+| **Companion Preview Badges** | Header & Assistant Nav (`Preview`) | `preview_only` | Indicates interactive companion preview milestone state. |
+| **Astralyn Verdict Sample Output** | Home Recommendation Section | `fixture_only` | Honest indicator that displayed recommendation is static sample data before Phase 5 engine activation. |
+| **(Illustrative Demo) Metric** | Score Gauge (`97% Score`) | `fixture_only` | Explicit disclosure on score gauge that numbers are representative demo values. |
+| **Active Roster Fixtures (8 Chars)** | Home Roster Grid (`FIXTURE_CHARACTERS`) | `fixture_only` | Curated development dataset for UI verification; replaced by user-owned roster in Phase 4. |
+| **Diagnostic Asset Release Metadata** | `/design-system` Tabs | `development_only` | Diagnostic release tagging (`v1.0.0`, `3.0.x`); excluded from end-user views. |

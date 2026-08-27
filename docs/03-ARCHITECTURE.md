@@ -127,11 +127,9 @@ Screenshots are not uploaded by default.
 
 ## 6. Free-tier containment
 
-Cloudflare Static Assets: keep static traffic static. Deliver all immutable knowledge releases directly via CDN edge cache with aggressive cache headers. Avoid per-request SSR or Worker proxying for static files.
-
-Cloudflare D1: keep public Game Knowledge delivery off database reads. Use D1 strictly for authenticated user state (profiles, roster, saved teams) and canonical ingestion persistence. Index all user foreign keys (`user_id`) to minimize scanned rows.
-
-Cloudflare Workers: API operations are scoped strictly to authenticated user endpoints. Session verification uses signed cookies to minimize unnecessary roundtrips.
+- **Cloudflare Static Assets:** Keep static traffic static. Deliver all immutable knowledge releases and game visual assets directly via CDN edge cache. Avoid per-request SSR or Worker proxying for static files.
+- **Cloudflare D1:** Keep public Game Knowledge delivery off database reads. Use D1 strictly for authenticated user state (profiles, roster, saved teams) and canonical ingestion persistence. Index all user foreign keys (`user_id`) to minimize scanned rows.
+- **Cloudflare Workers:** API operations are scoped strictly to authenticated user endpoints. Session verification uses signed cookies to minimize unnecessary roundtrips.
 
 ## 7. AI provider abstraction
 
@@ -164,9 +162,21 @@ Visual game assets (icons, character previews, portraits, element badges, path s
 ```
 
 - **Manifest Schema:** Strongly typed via Zod (`AssetManifestSchema`, `AssetRecordSchema`), tracking entity type, entity ID, variant, local path, source URL, license, copyright owner, and SHA-256 checksum.
-- **Client Resolution:** Synchronous manifest lookup in memory via `getAssetUrl(type, id, variant)`.
+- **Asset Loading Semantics:**
+  - Same-origin static image loading;
+  - Reserved dimensions and aspect-ratio containers to guarantee zero layout shift;
+  - In-memory manifest lookups via `getAssetUrl(type, id, variant)` / `getAssetRecord()`;
+  - Controlled asynchronous decode with automatic vector fallback rendering upon load error.
+- **Cache Strategy Distinction:**
+  - *Target Production Cache Policy:*
+    - Versioned immutable asset binaries: `Cache-Control: public, max-age=31536000, immutable` (long-lived 1-year edge caching).
+    - Release manifest (`manifest.json`): `Cache-Control: public, max-age=300, stale-while-revalidate=3600`.
+  - *Verified Deployed Cache Behavior:*
+    - Local development and preview environments verified via Vite same-origin static file serving.
+    - Remote Cloudflare CDN edge header verification is deferred to Phase 9 production deployment.
 - **Runtime Hotlinking Exclusion:** Third-party remote URLs are never accessed at client runtime.
-- **Fallback Guarantees:** Missing or invalid asset references render accessible, zero-layout-shift Astralyn vector fallback silhouettes (`<GameAssetImage>`).
+- **Graceful Fallback Guarantees:** Missing or invalid asset references render accessible, zero-layout-shift Astralyn vector fallback silhouettes (`<GameAssetImage>`).
+- **Provenance & Legal Boundary:** Repository automation licenses (e.g. AGPL-3.0) do not relicense underlying game artwork (© COGNOSPHERE / HoYoverse). All visual assets are managed conservatively under the HoYoverse Fan Content Policy without asserting fair use as a settled conclusion.
 
 ## 9. Failure behavior
 

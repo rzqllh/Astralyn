@@ -116,32 +116,33 @@ interface AssetRecord {
     | "character_icon"
     | "character_preview"
     | "character_portrait"
-    | "element_icon"
     | "path_icon"
+    | "element_icon"
     | "light_cone_icon"
     | "relic_set_icon"
+    | "relic_piece_icon"
     | "planar_ornament_icon"
+    | "eidolon_icon"
+    | "skill_icon"
+    | "trace_icon"
+    | "material_icon"
+    | "enemy_icon"
     | "du_blessing_icon"
-    | "du_curio_icon"
     | "du_equation_icon"
-    | "relic_slot_icon"
-    | "item_icon"
-    | "currency_icon"
-    | "status_icon"
-    | "background_art"
-    | "ui_decor";
+    | "du_curio_icon";
   entityId: string;
-  variant?: "icon" | "preview" | "portrait" | "full" | "splash" | "card" | "banner";
+  variant: "icon" | "preview" | "portrait" | "full";
   localPath: string; // e.g. "/game-assets/v1.0.0/characters/acheron_icon.png"
-  source: string; // e.g. "Mar-7th/StarRailRes"
+  source: string; // e.g. "StarRailRes"
   sourceUrl?: string;
-  license: string; // e.g. "AGPL-3.0 (Tooling) / Fair Use Fan Content (Imagery)"
+  repositoryLicense?: string; // e.g. "AGPL-3.0"
+  license: string; // e.g. "HoYoverse Fan Content Policy (Subject to Manual Review)"
   copyrightOwner: string; // e.g. "COGNOSPHERE / HoYoverse"
-  usageStatus: "official_fan_use" | "curated_community" | "provisional_fallback" | "internal_original";
-  attribution?: string;
-  fallbackPriority: number;
-  approvedBy: string;
-  approvedAt: string;
+  usageStatus: "approved" | "official_fan_use" | "manual_review" | "blocked" | "unknown";
+  attribution: string;
+  fallbackPriority?: number;
+  approvedBy?: string;
+  approvedAt?: string;
   checksum?: string; // SHA-256
 }
 

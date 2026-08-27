@@ -1,136 +1,117 @@
 # Astralyn — Source & Provenance Policy
 
-## Source classes
+## 1. Source Classification Hierarchy
 
-### Tier A — official factual
-Examples: official HSR website and official HoYoLAB HSR updates/game information.
+Game factual mechanics, editorial theorycraft guides, and visual game assets belong to distinct domains with clear tier boundaries:
 
-Use for patch version, mechanics, official names and release information.
+### Tier A — Official Factual Mechanics & Metadata
+- **Examples:** Official *Honkai: Star Rail* website, official HoYoLAB game notices, in-game client text mappings.
+- **Role:** Canonical authority for patch versioning, official character names, element/path designations, base multipliers, and official mechanics.
+- **Classification:** **OFFICIAL REFERENCE**
 
-### Tier B — established editorial
-Recognized build/theorycraft guide services where ingestion/curation is permitted.
+### Tier B — Established Editorial Guides & Theorycraft
+- **Examples:** Recognized build repositories, verified theorycrafter damage calculation sheets, editorial guide services (e.g. Prydwen, Game8, sheet theory).
+- **Role:** Input sources for light cone priority rankings, relic set rankings, main-stat priorities, team compositions, and tier evaluations.
+- **Consensus Requirement:** Target at least three independent editorial sources where available.
+- **Classification:** **EDITORIAL REFERENCE**
 
-Use for builds, teams, Light Cone priority, Relics and tier opinions.
-
-### Tier C — community evidence
-Community guides, Reddit and creator/theorycrafter material.
-
-Use for emergent strategy, DU-specific tricks and experience-based context.
-
-Tier C never silently overrides Tier A mechanics.
+### Tier C — Community & Emergent Strategy
+- **Examples:** Community guides, forum discussion threads, specialized Divergent Universe path/equation combinations.
+- **Role:** Emergent gameplay tricks, niche synergy discoveries, and experience-based edge cases.
+- **Boundary:** Tier C inputs never silently override Tier A official mechanics.
 
 ---
 
-## Visual Game Asset Provenance & Licensing Policy
+## 2. Visual Game Asset Provenance & Licensing Policy
 
-Game factual knowledge and visual game assets are strictly separate domains.
+Visual game assets (icons, character previews, portraits, element badges, path symbols) are decoupled from factual game knowledge.
 
-### 1. Fundamental Legal Distinction: Repository License vs. Underlying Artwork
+### Fundamental Legal Distinction: Repository License vs. Underlying Artwork
 - **Source-code repository license != copyright ownership of underlying game artwork.**
-- For example, while `Mar-7th/StarRailRes` distributes its repository automation scripts and metadata definitions under `AGPL-3.0`, the underlying character illustrations, icons, element symbols, and audio-visual assets remain the exclusive intellectual property of **© COGNOSPHERE / HoYoverse**.
-- Astralyn treats all game visuals conservatively under the **HoYoverse Fan Content Policy & Fair Use**.
-- In the asset manifest (`manifest.json`), external game assets are marked with:
+- An open-source license on an automation tool or metadata repository (such as AGPL-3.0 or MIT) applies strictly to the scraper scripts and generated index code. It does **not** relicense or grant intellectual property rights over the underlying game artwork.
+- Character illustrations, weapon artwork, element emblems, and audio-visual assets remain the exclusive intellectual property of **© COGNOSPHERE / HoYoverse**.
+- Astralyn treats all game visuals conservatively under the **HoYoverse Fan Content Policy (Subject to Manual Review)**.
+- **Astralyn does NOT assert "fair use" or "used under fair use" as a settled legal conclusion.**
+- All visual assets in the versioned asset manifest (`manifest.json`) are tagged with conservative, factual metadata:
   ```json
   "source": "StarRailRes",
   "repositoryLicense": "AGPL-3.0",
-  "license": "HoYoverse Fan Content Policy & Fair Use",
+  "license": "HoYoverse Fan Content Policy (Subject to Manual Review)",
   "copyrightOwner": "COGNOSPHERE / HoYoverse",
-  "usageStatus": "manual_review"
+  "usageStatus": "manual_review",
+  "attribution": "Character: Acheron • © COGNOSPHERE / HoYoverse"
   ```
-
-### 2. Structured Asset Sources Evaluation
-
-| Source | Maintenance Status | Coverage | License | Copyright Caveat | Classification |
-|---|---|---|---|---|---|
-| **Mar-7th/StarRailRes** | Active (updated per HSR patch) | Characters, Light Cones, Relics, Paths, Elements, DU Items (High-res PNG) | AGPL-3.0 (code/metadata) | Visuals © COGNOSPHERE / HoYoverse | **PRIMARY** |
-| **Dimbreath/StarRailData** | Active (per-patch data dumps) | Raw internal client JSON/hashes, skill parameters, avatar configs | Unlicensed / Public Dump | Game configs © COGNOSPHERE / HoYoverse | **FALLBACK** (ID/text mapping) |
-| **Fortex66/Honkai-Star-Rail-Assets (Yatta-top)** | Active (curated with Yatta.top) | Clean renders of characters, weapons, items, equipment | Open / Community | Game art © COGNOSPHERE / HoYoverse | **FALLBACK** (Alternative CDN assets) |
-| **Pinterest / DeviantArt** | Unmanaged aggregation | Variable / uncurated | Mixed / Unlicensed | Uploader != copyright owner | **MANUAL-ONLY** (Strictly excluded from automation) |
-
-### 3. Policy on Art Platforms (Pinterest, DeviantArt, Uncredited Reposts)
-- Art aggregation platforms are **MANUAL-ONLY** and strictly forbidden from automated crawlers, scrapers, or bot ingestion.
-- Reposted images do not convey copyright or permission from uploaders.
-- Any future bespoke community artwork requires explicit creator consent, documented author attribution, manual review, and recorded license metadata before inclusion.
-
-### 4. Zero Runtime Third-Party Hotlinking
-- The frontend client must **never** load images directly from third-party remote origins (e.g. GitHub raw URLs, third-party wikis) during runtime user sessions.
-- All production asset requests are served from versioned static asset storage (`/game-assets/<release>/...`).
-
-### 5. Graceful Fallback Guarantee
-- If an asset is missing, unapproved, or corrupted, the client `<GameAssetImage>` component renders a high-contrast Astralyn vector fallback silhouette without throwing exceptions, shifting layout, or leaking browser broken image icons.
+- *Disclaimer: This documentation is provenance and architecture policy, not formal legal advice.*
 
 ---
 
-## Recommendation display
+## 3. External Structured Asset Sources Revalidation
 
-Target at least three independent editorial sources where trustworthy/current data is available.
+All external structured repositories evaluated for game assets and data mappings are audited and classified below:
 
-Each source exposes:
-- source name;
-- last update;
-- patch;
-- Top 1–3;
-- optional short normalized notes.
+| Source | Current Accessibility | Maintenance Status | Relationship to Primary | Repository License | Artwork Copyright Caveat | Final Classification | Evidence & Operational Notes |
+|---|---|---|---|---|---|---|---|
+| **Mar-7th/StarRailRes** | Accessible (`github.com/Mar-7th/StarRailRes`) | Active (updated per HSR patch) | **PRIMARY UPSTREAM** | AGPL-3.0 (scripts & indexes) | Visuals © COGNOSPHERE / HoYoverse | **PRIMARY UPSTREAM** | Verified primary upstream source for high-res transparent PNGs (characters, light cones, relics, paths, elements, DU icons). Used by `tools/sync-assets.ts`. |
+| **VizualAbstract/StarRailStaticAPI** | Accessible (`github.com/VizualAbstract/StarRailStaticAPI`) | Active (static mirror) | **DERIVATIVE MIRROR** | MIT (wrapper code) | Visuals © COGNOSPHERE / HoYoverse | **DERIVATIVE MIRROR** | Useful operational mirror, but directly derives its static files from `StarRailRes`. Not an independent upstream fallback. |
+| **Dimbreath/TurnBasedGameData** (GitLab) | Accessible (`gitlab.com/Dimbreath/TurnBasedGameData`) | Active (per-patch raw dumps) | **DATA-MAPPING FALLBACK** | Unlicensed / Data Dump | Game data © COGNOSPHERE / HoYoverse | **DATA-MAPPING FALLBACK** | Maintained successor to legacy StarRailData, hosted on GitLab. Primary value is internal TextMap hashes, skill params, and entity IDs (not curated visual assets). |
+| **Dimbreath/StarRailData** (GitHub) | Inaccessible / Removed | Deprecated / Archived | N/A | Unlicensed | Game configs © COGNOSPHERE / HoYoverse | **HISTORICAL_REFERENCE** | Former GitHub repo subjected to DMCA enforcement and deprecated by maintainer. Replaced by GitLab `TurnBasedGameData`. Strictly retained for historical context only. |
+| **Fortex66/Honkai-Star-Rail-Assets** | Inaccessible / Non-existent | Non-existent / Unverified | N/A | Unknown | Game art © COGNOSPHERE / HoYoverse | **REJECTED** | Repository does not exist as a verifiable public GitHub repo. Strictly rejected from current and future sync pipelines. |
+| **umaichanuwu/StarRailTextures** | Accessible (`github.com/umaichanuwu/StarRailTextures`) | Irregular / Raw | Independent | Unlicensed / Community | Textures © COGNOSPHERE / HoYoverse | **REFERENCE_ONLY** | Uncurated raw texture dumps. Useful as diagnostic reference, not structured for automated application consumption. |
+| **Official HoYoLAB / HSR Website** | Accessible (Official Web API/Portals) | Active (Maintained by HoYoverse) | **OFFICIAL REFERENCE** | Proprietary | © COGNOSPHERE / HoYoverse | **OFFICIAL REFERENCE** | Primary reference for official names, skill descriptions, release dates, and patch versioning (Tier A). |
+| **Pinterest / DeviantArt / Art Reposts** | Accessible (Public Platforms) | Unmanaged aggregation | N/A | Mixed / Unlicensed | Uploader != copyright owner | **MANUAL-ONLY** | Art aggregation platforms are strictly excluded from automated sync. Any community art inclusion requires explicit creator consent, manual review, and individual provenance records. |
 
-If fewer than three suitable sources exist, show the available sources and label coverage incomplete. Do not invent a third source.
+---
 
-## Astralyn Verdict
+## 4. Source Independence & Fallback Rules
 
-Inputs:
-- source ranks;
-- freshness;
-- trust weight;
-- official mechanic compatibility;
-- roster availability;
-- game mode/stage context;
-- engine rules.
+1. **No Circular or Derivative Fallbacks:** A derivative mirror (e.g. `StarRailStaticAPI`) must not be treated as an independent source of truth when evaluating consensus or upstream health.
+2. **True Visual Asset Fallback:** In the event that the primary upstream (`StarRailRes`) becomes unavailable, Astralyn relies on:
+   - The committed local development asset snapshot;
+   - High-contrast accessible Astralyn vector fallback silhouettes (`<GameAssetImage>`);
+   - Manually verified static releases stored in versioned release directories (`/game-assets/<release>/`).
+3. **Zero Runtime Third-Party Hotlinking:**
+   - The frontend application must **never** load images directly from third-party remote servers or GitHub raw URLs during runtime user sessions.
+   - All production asset requests are served from same-origin versioned static storage (`/game-assets/<release>/...`).
+4. **Asset Loading Semantics:**
+   - Same-origin static image loading;
+   - Reserved dimensions and aspect-ratio containers to guarantee zero layout shift;
+   - In-memory manifest lookups via `getAssetUrl()` / `getAssetRecord()`;
+   - Controlled asynchronous decode with automatic vector fallback rendering upon load error.
 
-The result may combine compatible components from multiple sources. The UI labels this clearly as an Astralyn-derived verdict.
+---
 
-## Consensus baseline
+## 5. Recommendation Consensus Policy
 
-Initial rank weights:
-- #1 = 1.00
-- #2 = 0.70
-- #3 = 0.45
+### Multi-Source Target
+- Editorial surfaces target at least three independent editorial sources (e.g. Source A, Source B, Source C) where trustworthy and current data is available.
+- Each source exposes:
+  - Source name;
+  - Last updated timestamp;
+  - Compatible game patch;
+  - Top 1–3 ranked items;
+  - Optional concise normalized notes.
+- If fewer than three suitable sources exist for an entity, the UI displays the available sources and explicitly labels coverage as incomplete. Astralyn never invents a fictional source to meet the target.
 
-Adjust by freshness, patch compatibility, source confidence and mechanic compatibility. All weights are regression-tested configuration.
+### Astralyn Verdict
+- The "Astralyn Verdict" is a derived recommendation produced by Astralyn's deterministic evaluation rules.
+- Inputs into the Verdict:
+  - Multi-source rank consensus;
+  - Patch freshness and compatibility status;
+  - Source confidence weights;
+  - Official mechanical synergy rules;
+  - User roster availability (in Phase 4+);
+  - Game mode and challenge stage context.
+- The UI transparently labels this output as an Astralyn-derived verdict and surfaces the underlying source consensus.
 
-## Freshness states
+### Freshness States
+- **Current:** Updated for the active game patch;
+- **Compatible:** Published for an earlier patch but mechanically unchanged;
+- **Stale:** Needs re-evaluation after major balance or mechanics changes;
+- **Incompatible:** Contradicts current game mechanics (excluded from consensus calculations).
 
-- current;
-- compatible but older;
-- stale;
-- incompatible.
-
-Do not merge incompatible patch recommendations without an explicit compatibility rule.
-
-## Attribution
-
-Every source-derived recommendation retains source identity.
-
-Astralyn does not copy long guide text, hide sources, or present editorial opinions as official fact.
-
-Store structured ranks, entities and short normalized notes instead of reproducing full pages.
-
-## Access policy
-
-Every automated source adapter has `terms_review_status`:
-- approved;
-- manual-only;
-- blocked;
-- review-needed.
-
-A technically scrapeable page is not automatically approved for automated ingestion.
-
-## Disagreement
-
-If sources strongly disagree:
-- lower confidence;
-- surface disagreement;
-- use mechanics/context to break ties;
-- never pretend consensus exists.
-
-## Best Characters
-
-Ranking pages are contextual. Required dimensions where applicable: patch, role, game mode and assumptions.
+### Source Disagreement
+- If independent sources strongly disagree:
+  - Lower the composite confidence score;
+  - Surface the disagreement explicitly in the UI;
+  - Use mechanics and simulation context to explain trade-offs;
+  - Never fabricate consensus where genuine theorycraft disagreement exists.
