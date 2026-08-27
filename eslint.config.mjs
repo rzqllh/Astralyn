@@ -6,6 +6,9 @@ export default tseslint.config(
   {
     ignores: [
       "**/dist/**",
+      "**/dist-types/**",
+      "**/*.d.ts",
+      "**/*.tsbuildinfo",
       "**/node_modules/**",
       "**/coverage/**",
       "**/playwright-report/**",

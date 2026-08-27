@@ -9,7 +9,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist-types"
   },
+  "references": [{ "path": "../../packages/shared" }],
   "include": ["src", "test"]
 }
