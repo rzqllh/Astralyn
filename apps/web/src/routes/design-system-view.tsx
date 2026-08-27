@@ -52,7 +52,8 @@ export function DesignSystemView() {
         </h1>
         <p className="text-xs sm:text-sm text-[#9ba5be] mt-1 max-w-3xl">
           Locked semantic design tokens, versioned static game asset pipeline (StarRailRes
-          v1.0.0), CharacterTile v2, and WCAG 2.2 AA accessible component primitives.
+          v1.0.0), CharacterTile v2, and components designed toward WCAG 2.2 AA
+          accessibility.
         </p>
       </div>
 

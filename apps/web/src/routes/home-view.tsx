@@ -185,7 +185,7 @@ export function HomeView() {
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded-xs bg-[#e4dcce]/70 border border-[#d4ccbd] text-[11px] text-[#565f75] leading-relaxed">
+                <div className="p-2.5 sm:p-3 rounded-xs bg-[#e4dcce]/70 border border-[#d4ccbd] text-xs text-[#565f75] leading-relaxed">
                   <span className="font-semibold text-[#181d28]">Inspection Notice:</span>{" "}
                   This warm parchment surface provides high-contrast inspection
                   readability, anchoring detailed character mechanics alongside the dark

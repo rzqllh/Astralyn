@@ -61,6 +61,10 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
     await expect(page.getByRole("link", { name: /^Assistant/i })).toBeVisible();
     await expect(page.getByRole("link", { name: "Settings", exact: true })).toBeVisible();
 
+    // Verify Trailblazer identity has explicit FIXTURE tag
+    await expect(page.getByText("Trailblazer", { exact: true })).toBeVisible();
+    await expect(page.getByText("FIXTURE", { exact: true })).toBeVisible();
+
     // Verify all 8 representative character tiles exist and interact
     const repCharacters = [
       "Aventurine",

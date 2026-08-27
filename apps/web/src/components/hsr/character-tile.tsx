@@ -61,7 +61,7 @@ export function CharacterTile({
               className="h-full w-full object-contain"
             />
           </div>
-          <span className="text-[10px] font-mono font-medium text-[#9ba5be] uppercase">
+          <span className="text-xs font-mono font-medium text-[#9ba5be] uppercase">
             {character.path}
           </span>
         </div>
@@ -69,7 +69,7 @@ export function CharacterTile({
         {/* 5★ / 4★ Rarity Indicator */}
         <span
           className={cn(
-            "px-1.5 py-0.5 rounded-xs text-[10px] font-mono font-black tracking-widest",
+            "px-1.5 py-0.5 rounded-xs text-xs font-mono font-black tracking-widest",
             is5Star
               ? "bg-[#d89f37]/20 text-[#f4d38f] border border-[#d89f37]/50"
               : "bg-[#9d7fe6]/20 text-[#c4b5fd] border border-[#9d7fe6]/50"
@@ -102,7 +102,7 @@ export function CharacterTile({
 
         {/* Level / Status badge overlay at bottom right of image */}
         {character.level && (
-          <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded-xs bg-[#090c13]/85 border border-[#1f2940] text-[9px] font-mono font-bold text-[#9ba5be]">
+          <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded-xs bg-[#090c13]/85 border border-[#1f2940] text-[10px] font-mono font-bold text-[#9ba5be]">
             Lv.{character.level}
           </div>
         )}
@@ -111,16 +111,16 @@ export function CharacterTile({
       {/* Bottom Footer: Character Name, Role, and Eidolon Chip */}
       <div className="p-2.5 bg-[#090c13]/90 border-t border-[#1a2338] flex items-center justify-between">
         <div className="min-w-0 pr-1">
-          <h3 className="text-xs font-bold tracking-tight text-[#f0f3fa] truncate group-hover:text-[#dfb86c] transition-colors">
+          <h3 className="text-xs sm:text-sm font-bold tracking-tight text-[#f0f3fa] truncate group-hover:text-[#dfb86c] transition-colors">
             {character.name}
           </h3>
-          <p className="text-[10px] text-[#9ba5be] truncate">{character.role}</p>
+          <p className="text-xs text-[#9ba5be] truncate">{character.role}</p>
         </div>
 
         {character.eidolon !== undefined && (
           <span
             className={cn(
-              "shrink-0 font-mono text-[10px] font-bold px-1.5 py-0.5 rounded-xs border",
+              "shrink-0 font-mono text-xs font-bold px-1.5 py-0.5 rounded-xs border",
               character.eidolon > 0
                 ? "border-[#dfb86c]/50 bg-[#dfb86c]/15 text-[#dfb86c]"
                 : "border-[#1f2940] bg-[#101524] text-[#9ba5be]"

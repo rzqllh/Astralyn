@@ -45,7 +45,7 @@ Every decorative element must serve hierarchy, interaction feedback, game contex
 - `surface.parchment-raised`: `#F7F3EC`
 - `surface.parchment-border`: `#D4CCBD`
 
-#### Text & Typography (WCAG 2.2 AA Compliant)
+#### Text & Typography (Contrast-Tested toward WCAG 2.2 AA)
 - `text.primary`: `#F0F3FA` (High-contrast white, 16.5:1 on base)
 - `text.secondary`: `#9BA5BE` (Muted information, 6.5:1 on base)
 - `text.muted`: `#8E9CB5` (Subtle metadata, > 5.0:1 on base)
@@ -112,22 +112,36 @@ Font stack:
 - **Buttons:** 2px rounded corners with bevel gradient borders.
 
 ---
+## 5. Visual Hierarchy & Layering (Elevation Model)
 
-## 6. Elevation & Depth Layers
+- **Base Canvas (`z-0`, `#090C13`):** Dark cosmic void with subtle SVG radial grid.
+- **Surface Panels (`z-10`, `#101524` / `#161E32`):** Primary analytical containers, card backgrounds, and module workspaces.
+- **Light Contrast Dossier (`z-10`, `#EEE8DC`):** High-contrast celestial parchment for detailed character inspection and lore notes.
+- **Floating HUD / Rails (`z-20`–`z-30`):** Sticky top status bar and left companion rail with `backdrop-blur-md`.
+- **Modals / Toasts / Drawers (`z-40`–`z-50`):** Floating dialogs, toasts, tooltips, and mobile navigation overlays.
 
-- **Layer 0 (Void):** `#090C13` base with 32px HUD grid pattern (`.hsr-grid-pattern`).
-- **Layer 1 (Navigation & HUD):** Left navigation rail (`#0B0E17`/95) and sticky top bar with backdrop blur.
-- **Layer 2 (Workspaces & Panels):** Surface raised (`#101524`) and parchment detail panels (`#EEE8DC`).
-- **Layer 3 (Active / Selection):** Gold framed highlight (`border-[#DFB86C]`, shadow glow `0 0 16px rgba(223,184,108,0.4)`).
-- **Layer 4 (Overlays & Modals):** Dialog modal (`#0F1422` with 75% dark backdrop blur).
+---
+
+## 6. Anti-AI-Slop & Design Taste Rules
+
+1. **Information Density with Purpose:** No empty card bloat. Every tile displays actionable metadata (rarity, element, path, Eidolon, level).
+2. **Tabular Numerals for Numerical Stats:** All multipliers, levels, eidolon ranks, percentages, and timestamps use `font-mono tabular-nums`.
+3. **Restricted Monospace:** Monospace font is strictly reserved for technical data and metrics; headings, navigation, and body copy use high-legibility sans-serif (`font-sans`).
+4. **Honest System States:** Fixture data is clearly labeled (`Sample Output`, `Demo Data`, `(Illustrative Demo)`).
+5. **No Decorative Clutter:** No gratuitous neon glow, excessive drop shadows, or ungrounded animations.
+6. **High-Legibility Mobile Typography:**
+   - Normal body text: 14–16px (`text-sm` / `text-base`);
+   - Compact body text: 13–14px (`text-xs sm:text-sm`);
+   - Secondary metadata / captions: 11–12px (`text-xs`);
+   - 10px font size (`text-[10px]`): strictly limited to non-essential compact tags/chips (e.g. `Lv.80`, `E2`, `FIXTURE`).
 
 ---
 
 ## 7. Versioned Game Asset Pipeline, Optimization & Caching Strategy
 
 - **Three-Tier Architecture:**
-  1. *Full Catalog Model:* Comprehensive schema supporting all 17 entity types across Honkai: Star Rail (`AssetEntityTypeSchema`).
-  2. *Data-Driven Sync Pipeline:* `tools/sync-assets.ts` with `--full` (all registered catalog assets), `--dry-run` (safe dry-run reporting), and default `--snapshot` (curated dev subset).
+  1. *Full Catalog Schema Model:* Comprehensive schema supporting all 17 entity types across Honkai: Star Rail (`AssetEntityTypeSchema`).
+  2. *Data-Driven Discovery & Sync Pipeline:* `tools/sync-assets.ts` with `--full` (dynamic upstream index discovery across 4300+ entities and 4500+ asset variant targets), `--dry-run` (non-destructive reporting distinguishing `catalog_discovered`, `mapped_subset`, and `not_yet_discoverable`), and default `--snapshot` (curated 51-asset dev subset).
   3. *Dev Snapshot:* Curated representative subset (51 assets across all 8 roster fixtures, 7 elements, 8 paths, light cones, relics, and DU items) checked into Git for local development.
   4. *Production Release:* Release-tagged immutable assets (`/game-assets/<release>/...`) served via Cloudflare Static Assets.
 - **Context-Specific Sizing & Formats:**
@@ -172,7 +186,7 @@ Font stack:
 
 ## 9. Foundational Domain Components
 
-1. **CharacterTile v2:** Tactical portrait tiles with real character artwork, Path & Element icons, rarity borders (5★ Gold / 4★ Violet), eidolon chips, level badges, and full keyboard/WAI-ARIA accessibility (`role="button"` + `aria-pressed`).
+1. **CharacterTile v2:** Tactical portrait tiles with real character artwork, Path & Element icons, rarity borders (5★ Gold / 4★ Violet), eidolon chips, level badges, and full keyboard accessibility (`role="button"` + `aria-pressed`).
 2. **RecommendationPanel:** Visualizes the "ASTRALYN VERDICT", #1 Best Fit recommendation, percentage match gauge, confidence tier, and rationale checklist with honest demo labels.
 3. **SourceRankPanel:** 3-source consensus matrix (Prydwen, Game8, Theorycraft) with transparent community disclaimer and sample layout disclosures.
 4. **DecisionCard:** Fast Divergent Universe decision card providing instant "PICK [X]" clarity, why-to-pick bullets, and why-not-alternatives trade-offs.
@@ -191,7 +205,7 @@ The user-facing navigation rail strictly exposes 8 production modules:
 7. `Assistant` (`/assistant`)
 8. `Settings` (`/settings`)
 
-Internal design system showcase (`/design-system`) is placed as a secondary developer utility link in the bottom footer of the navigation rail.
+Internal design system showcase (`/design-system`) is placed as a development-gated utility link in the bottom footer of the navigation rail (`isDev`).
 
 ---
 
@@ -210,9 +224,9 @@ To prevent developer aids or demo data from being mistaken for production functi
 | UI Element / State | Route / Location | Classification | Operational Intent |
 |---|---|---|---|
 | **Production Navigation (8 Links)** | Navigation Rail (`/`, `/roster`, etc.) | `production_valid` | Locked user-facing navigation structure. |
-| **Dev DS Link** | Navigation Footer (`/design-system`) | `development_only` | Secondary link strictly for internal component inspection during development. |
-| **Design System Showcase** | Route `/design-system` | `development_only` | Development testing and visual regression target; not indexed or exposed in primary user navigation. |
-| **Trailblazer Identity Chip** | Top HUD Header | `fixture_only` | Placeholder user identity chip; replaced with authenticated profile in Phase 4. |
+| **Dev DS Link** | Navigation Footer (`/design-system`) | `development_only` | Secondary link strictly for internal component inspection during development (`isDev` gated). |
+| **Design System Showcase** | Route `/design-system` | `development_only` | Development testing and visual regression target; not exposed in primary user navigation. |
+| **Trailblazer Identity Chip** | Top HUD Header | `fixture_only` | Explicit `FIXTURE` labeled user identity; replaced with authenticated profile in Phase 4. |
 | **Companion Preview Badges** | Header & Assistant Nav (`Preview`) | `preview_only` | Indicates interactive companion preview milestone state. |
 | **Astralyn Verdict Sample Output** | Home Recommendation Section | `fixture_only` | Honest indicator that displayed recommendation is static sample data before Phase 5 engine activation. |
 | **(Illustrative Demo) Metric** | Score Gauge (`97% Score`) | `fixture_only` | Explicit disclosure on score gauge that numbers are representative demo values. |

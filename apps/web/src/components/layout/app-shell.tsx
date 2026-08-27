@@ -24,6 +24,10 @@ import { TooltipProvider } from "../ui/tooltip";
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const location = useLocation();
+  const isDev =
+    Boolean(import.meta.env.DEV) ||
+    import.meta.env.VITE_ENABLE_DEV_DS === "true" ||
+    (typeof window !== "undefined" && window.location.hostname.includes("localhost"));
 
   // LOCKED Production Navigation
   const navigationLinks = [
@@ -86,21 +90,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
 
-            {/* Bottom System Status & Internal Dev Link */}
+            {/* Bottom System Status & Gated Internal Dev Link */}
             <div className="p-4 border-t border-[#1a2338] bg-[#07090f]/70 space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-[#34d399]" />
                   <span className="text-xs text-[#9ba5be]">Companion Mode</span>
                 </div>
-                <Link
-                  to="/design-system"
-                  title="Internal Design System Showcase"
-                  className="flex items-center gap-1 text-[10px] font-mono text-[#9ba5be] hover:text-[#dfb86c] transition-colors p-1 rounded-xs"
-                >
-                  <Code className="h-3 w-3" />
-                  <span>Dev DS</span>
-                </Link>
+                {isDev && (
+                  <Link
+                    to="/design-system"
+                    title="Internal Design System Showcase (Development Only)"
+                    data-testid="dev-ds-link"
+                    className="flex items-center gap-1 text-[10px] font-mono text-[#9ba5be] hover:text-[#dfb86c] transition-colors p-1 rounded-xs"
+                  >
+                    <Code className="h-3 w-3" />
+                    <span>Dev DS</span>
+                  </Link>
+                )}
               </div>
             </div>
           </aside>
@@ -143,7 +150,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2 px-2.5 py-1 rounded-xs border border-[#1f2940] bg-[#101524] text-xs">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#dfb86c]" />
-                  <span className="text-[#9ba5be]">Trailblazer</span>
+                  <span className="text-[#f0f3fa] font-medium">Trailblazer</span>
+                  <span className="text-[10px] font-mono font-bold text-[#dfb86c] px-1 py-0.5 rounded-xs bg-[#dfb86c]/10 border border-[#dfb86c]/30">
+                    FIXTURE
+                  </span>
                 </div>
               </div>
             </header>
@@ -164,16 +174,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                       className="py-3 text-sm"
                     />
                   ))}
-                  <div className="pt-4 border-t border-[#1a2338]">
-                    <Link
-                      to="/design-system"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2 px-3.5 py-2 text-xs text-[#9ba5be] hover:text-[#dfb86c]"
-                    >
-                      <Code className="h-4 w-4" />
-                      <span>Internal Design System Showcase</span>
-                    </Link>
-                  </div>
+                  {isDev && (
+                    <div className="pt-4 border-t border-[#1a2338]">
+                      <Link
+                        to="/design-system"
+                        onClick={() => setMobileMenuOpen(false)}
+                        data-testid="mobile-dev-ds-link"
+                        className="flex items-center gap-2 px-3.5 py-2 text-xs text-[#9ba5be] hover:text-[#dfb86c]"
+                      >
+                        <Code className="h-4 w-4" />
+                        <span>Internal Design System Showcase</span>
+                      </Link>
+                    </div>
+                  )}
                 </nav>
               </div>
             )}
@@ -190,7 +203,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   Astralyn &bull; Honkai: Star Rail Tactical Companion &bull; Fan-made
                   companion tool
                 </p>
-                <p className="text-[11px] text-[#9ba5be] text-center sm:text-right">
+                <p className="text-xs text-[#9ba5be] text-center sm:text-right">
                   Game assets &copy; COGNOSPHERE / HoYoverse. Astralyn is a fan project
                   and not affiliated with or endorsed by HoYoverse.
                 </p>

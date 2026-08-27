@@ -1,6 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { createMemoryHistory, RouterProvider } from "@tanstack/react-router";
+import { createAppRouter } from "../src/router";
 import { Button } from "../src/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../src/components/ui/tabs";
 import { CharacterTile } from "../src/components/hsr/character-tile";
@@ -124,5 +126,34 @@ describe("Phase 1.1 Design System Component Tests", () => {
     expect(screen.getByText(`${FIXTURE_RECOMMENDATION.matchScore}%`)).toBeInTheDocument();
     expect(screen.getByText(FIXTURE_RECOMMENDATION.recommendedItem)).toBeInTheDocument();
     expect(screen.getByText("Key Tactical Rationale")).toBeInTheDocument();
+  });
+
+  it("AppShell exposes 8 locked production navigation links and explicit FIXTURE state", async () => {
+    const memoryHistory = createMemoryHistory({ initialEntries: ["/"] });
+    const testRouter = createAppRouter(memoryHistory);
+    render(<RouterProvider router={testRouter} />);
+
+    // Fixture user state has explicit FIXTURE disclosure badge
+    expect(await screen.findByText("Trailblazer")).toBeInTheDocument();
+    expect(screen.getByText("FIXTURE")).toBeInTheDocument();
+
+    // 8 Locked Production Navigation Modules in Main Navigation
+    const nav = await screen.findByRole("navigation", { name: "Main Navigation" });
+    const lockedModules = [
+      "Home",
+      "Roster",
+      "Characters",
+      "Best Characters",
+      "Teams",
+      "Content",
+      "Assistant",
+      "Settings",
+    ];
+
+    for (const mod of lockedModules) {
+      expect(
+        within(nav).getByRole("link", { name: new RegExp(`^${mod}`, "i") })
+      ).toBeInTheDocument();
+    }
   });
 });

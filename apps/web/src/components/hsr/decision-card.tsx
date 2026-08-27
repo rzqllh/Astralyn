@@ -51,7 +51,7 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
 
         {/* Why Pick X */}
         <div className="space-y-2">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-[#34d399] font-mono flex items-center gap-1.5">
+          <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#34d399] font-mono flex items-center gap-1.5">
             <Check className="h-3.5 w-3.5" />
             Tactical Rationale
           </h4>
@@ -59,7 +59,7 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
             {decision.whyPick.map((reason, idx) => (
               <li
                 key={idx}
-                className="text-xs text-[#f0f3fa] bg-[#0b101c] p-2 rounded-xs border border-[#1b263e] leading-relaxed"
+                className="text-xs sm:text-sm text-[#f0f3fa] bg-[#0b101c] p-2.5 rounded-xs border border-[#1b263e] leading-relaxed"
               >
                 {reason}
               </li>
@@ -69,7 +69,7 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
 
         {/* Why Not Alternatives */}
         <div className="space-y-2">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-[#9ba5be] font-mono flex items-center gap-1.5">
+          <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#9ba5be] font-mono flex items-center gap-1.5">
             <AlertCircle className="h-3.5 w-3.5 text-[#f87171]" />
             Alternative Option Trade-offs
           </h4>
@@ -77,12 +77,12 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
             {decision.whyNotOthers.map((item, idx) => (
               <div
                 key={idx}
-                className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 text-xs bg-[#0b0e17] p-2 rounded-xs border border-[#161f33]"
+                className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 text-xs sm:text-sm bg-[#0b0e17] p-2.5 rounded-xs border border-[#161f33]"
               >
                 <strong className="text-[#f87171] font-medium truncate max-w-xs">
                   {item.name}
                 </strong>
-                <span className="text-[11px] text-[#9ba5be] sm:text-right">
+                <span className="text-xs text-[#9ba5be] sm:text-right">
                   {item.reason}
                 </span>
               </div>
@@ -92,7 +92,7 @@ export function DecisionCard({ decision, onConfirm, className }: DecisionCardPro
       </PanelContent>
 
       <PanelFooter className="flex justify-between items-center bg-[#0a0d16] border-[#1a2338]">
-        <span className="text-[11px] text-[#9ba5be]">Illustrative Assistant Demo</span>
+        <span className="text-xs text-[#9ba5be]">Illustrative Assistant Demo</span>
         <Button
           variant="primary"
           size="sm"

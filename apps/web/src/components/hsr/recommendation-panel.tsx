@@ -81,14 +81,14 @@ export function RecommendationPanel({
 
         {/* Tactical Rationale Checklist */}
         <div className="space-y-2.5">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-[#9ba5be] font-mono">
+          <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#9ba5be] font-mono">
             Key Tactical Rationale
           </h4>
           <ul className="space-y-2">
             {recommendation.rationale.map((reason, index) => (
               <li
                 key={index}
-                className="flex items-start gap-2.5 text-xs text-[#f0f3fa] leading-relaxed bg-[#0b0f1a] p-2.5 rounded-xs border border-[#1a2338]"
+                className="flex items-start gap-2.5 text-xs sm:text-sm text-[#f0f3fa] leading-relaxed bg-[#0b0f1a] p-2.5 sm:p-3 rounded-xs border border-[#1a2338]"
               >
                 <CheckCircle2 className="h-4 w-4 text-[#dfb86c] shrink-0 mt-0.5" />
                 <span>{reason}</span>
@@ -100,7 +100,7 @@ export function RecommendationPanel({
         {/* Alternative Ranked Picks */}
         {recommendation.alternatives.length > 0 && (
           <div className="space-y-2 pt-2 border-t border-[#1f2940]">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#9ba5be] font-mono">
+            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#9ba5be] font-mono">
               Alternative Options
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -110,17 +110,17 @@ export function RecommendationPanel({
                   className="flex flex-col justify-between p-3 rounded-xs border border-[#1f2940] bg-[#0c101c] hover:border-[#303f5e] transition-colors"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono font-bold text-[#9ba5be]">
+                    <span className="text-xs font-mono font-bold text-[#9ba5be]">
                       #{alt.rank} Option
                     </span>
-                    <span className="text-[11px] font-mono font-bold text-[#dfb86c] tabular-nums">
+                    <span className="text-xs font-mono font-bold text-[#dfb86c] tabular-nums">
                       {alt.score}%
                     </span>
                   </div>
-                  <h5 className="text-xs font-semibold text-[#f0f3fa] mt-1 truncate">
+                  <h5 className="text-xs sm:text-sm font-semibold text-[#f0f3fa] mt-1 truncate">
                     {alt.name}
                   </h5>
-                  <p className="text-[11px] text-[#9ba5be] mt-1 line-clamp-2">
+                  <p className="text-xs text-[#9ba5be] mt-1 line-clamp-2 leading-relaxed">
                     {alt.note}
                   </p>
                 </div>
