@@ -20,7 +20,8 @@
     "assets:sync": "tsx tools/sync-assets.ts",
     "assets:check": "tsx tools/check-assets.ts",
     "knowledge:build": "tsx tools/build-knowledge.ts",
-    "knowledge:check": "tsx tools/check-knowledge.ts"
+    "knowledge:check": "tsx tools/check-knowledge.ts",
+    "knowledge:benchmark": "tsx tools/benchmark-knowledge.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

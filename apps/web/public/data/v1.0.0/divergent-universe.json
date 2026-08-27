@@ -2,98 +2,148 @@
   "blessings": [
     {
       "id": "celestial-annihilation",
-      "gameId": "110101",
-      "name": "Celestial Annihilation",
+      "gameId": "611002",
+      "name": "Imperishable Firmament: Celestial Annihilation",
       "entityType": "blessing",
       "path": "Hunt",
       "rarity": 3,
-      "effect": "When a character defeats an enemy, their action is Advanced by 100% and they gain 4 stacks of Critical Boost.",
-      "enhancedEffect": "When a character defeats an enemy or breaks their Weakness, their action is Advanced by 100% and they gain 4 stacks of Critical Boost.",
+      "effect": "When a character inflicts Weakness Break on an enemy, advances the character's action forward by 100% and increases the DMG dealt by their next attack by 50%.",
+      "enhancedEffect": "When a character inflicts Weakness Break on an enemy, advances the character's action forward by 100% and increases the DMG dealt by their next attack by 75%. If the defeated enemy is an Elite, advances all allies' actions forward.",
       "releaseVersion": "2.3",
-      "source": "Official HoYoverse Reference / Verified Game Data",
-      "verifiedAt": "2026-08-27T00:00:00Z"
+      "provenance": {
+        "sourceId": "hoyowiki_blessing_celestial_annihilation",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/blessing_celestial_annihilation",
+        "gameVersion": "2.3",
+        "verifiedAt": "2026-08-27T00:00:00.000Z",
+        "notes": "Official 3-Star Hunt Blessing"
+      },
+      "source": "HoYoWiki",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "macrosegregation",
-      "gameId": "130101",
-      "name": "Macrosegregation",
+      "gameId": "611003",
+      "name": "Divine Construct: Macrosegregation",
       "entityType": "blessing",
       "path": "Preservation",
       "rarity": 3,
-      "effect": "When a character gains a Shield, gains a stack of Special Shield that can absorb DMG equal to 30% of the character's Max HP.",
-      "enhancedEffect": "When a character gains a Shield, gains a stack of Special Shield that can absorb DMG equal to 35% of Max HP, stackable up to 3 times.",
+      "effect": "At the start of battle, characters gain a special Shield equal to 16% of their Max HP. When receiving a new shield, this special Shield value increases by 100% of the new shield.",
+      "enhancedEffect": "At the start of battle, characters gain a special Shield equal to 24% of their Max HP. When receiving a new shield, this special Shield value increases by 100% of the new shield.",
       "releaseVersion": "2.3",
-      "source": "Official HoYoverse Reference / Verified Game Data",
-      "verifiedAt": "2026-08-27T00:00:00Z"
+      "provenance": {
+        "sourceId": "hoyowiki_blessing_macrosegregation",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/blessing_macrosegregation",
+        "gameVersion": "2.3",
+        "verifiedAt": "2026-08-27T00:00:00.000Z"
+      },
+      "source": "HoYoWiki",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "perfect-experience-fuli",
-      "gameId": "120101",
+      "gameId": "611001",
       "name": "Perfect Experience: Fuli",
       "entityType": "blessing",
       "path": "Remembrance",
       "rarity": 3,
-      "effect": "When hitting a Frozen enemy, there is a 100% base chance to inflict Dissociation on them for 1 turn. Dissociation deals 30% of target Max HP as True DMG upon removal.",
-      "enhancedEffect": "When hitting a Frozen enemy, there is a 100% base chance to inflict Dissociation for 1 turn, and Dissociation deals 40% Max HP True DMG.",
+      "effect": "When attacking a Frozen enemy, there is a 100% base chance to inflict Dissociation for 1 turn.",
+      "enhancedEffect": "When attacking a Frozen enemy, there is a 100% base chance to inflict Dissociation for 1 turn. Dissociation DMG dealt increases by 20%.",
       "releaseVersion": "2.3",
-      "source": "Official HoYoverse Reference / Verified Game Data",
-      "verifiedAt": "2026-08-27T00:00:00Z"
+      "provenance": {
+        "sourceId": "hoyowiki_blessing_fuli",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/blessing_fuli",
+        "gameVersion": "2.3",
+        "verifiedAt": "2026-08-27T00:00:00.000Z"
+      },
+      "source": "HoYoWiki",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
     }
   ],
   "equations": [
     {
       "id": "silent-singer",
-      "gameId": "20102",
+      "gameId": "710002",
       "name": "Silent Singer",
       "entityType": "equation",
       "rarity": 2,
       "primaryPath": "Harmony",
-      "secondaryPath": "Nihility",
-      "requiredBlessings": { "primaryCount": 2, "secondaryCount": 1 },
-      "effect": "When an ally deals DMG to a debuffed enemy, increases all allies' ATK by 25% and regenerates 3 Energy.",
+      "secondaryPath": "Elation",
+      "requiredBlessings": { "primaryCount": 2, "secondaryCount": 2 },
+      "effect": "When an ally unleashes a Follow-Up attack, all allies gain 1 stack of 'Melody'. Each stack increases ATK by 12% (up to 5 stacks).",
       "releaseVersion": "2.3",
-      "source": "Official HoYoverse Reference / Verified Game Data",
-      "verifiedAt": "2026-08-27T00:00:00Z"
+      "provenance": {
+        "sourceId": "hoyowiki_equation_silent_singer",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/equation_silent_singer",
+        "gameVersion": "2.3",
+        "verifiedAt": "2026-08-27T00:00:00.000Z"
+      },
+      "source": "HoYoWiki",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "voyage-monitor",
-      "gameId": "20101",
+      "gameId": "710001",
       "name": "Voyage Monitor",
       "entityType": "equation",
       "rarity": 3,
-      "primaryPath": "Preservation",
-      "secondaryPath": "Remembrance",
+      "primaryPath": "Remembrance",
+      "secondaryPath": "Preservation",
       "requiredBlessings": { "primaryCount": 3, "secondaryCount": 2 },
-      "effect": "When an ally gains a Shield, there is a 75% base chance to inflict Freeze on all enemies for 1 turn and increases Shield strength by 30%.",
+      "effect": "When a character gains a Shield, there is a 60% fixed chance to inflict Freeze on a random enemy for 1 turn. Attacking this Frozen target increases CRIT DMG by 40%.",
       "releaseVersion": "2.3",
-      "source": "Official HoYoverse Reference / Verified Game Data",
-      "verifiedAt": "2026-08-27T00:00:00Z"
+      "provenance": {
+        "sourceId": "hoyowiki_equation_voyage_monitor",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/equation_voyage_monitor",
+        "gameVersion": "2.3",
+        "verifiedAt": "2026-08-27T00:00:00.000Z"
+      },
+      "source": "HoYoWiki",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
     }
   ],
   "curios": [
     {
       "id": "interastral-peace-special-curio",
-      "gameId": "140002",
-      "name": "Interastral Peace Special Curio",
+      "gameId": "810002",
+      "name": "Interastral Peace Mechanical Box",
       "entityType": "curio",
       "rarity": 2,
-      "category": "normal",
-      "effect": "Obtains 150 Cosmic Fragments immediately. All shop items in Divergent Universe cost 20% fewer Cosmic Fragments.",
+      "category": "weighted",
+      "effect": "When choosing Blessings after defeating an Elite enemy, guarantees 1 extra 3-Star Blessing of the team's primary path.",
       "releaseVersion": "2.3",
-      "source": "Official HoYoverse Reference / Verified Game Data",
-      "verifiedAt": "2026-08-27T00:00:00Z"
+      "provenance": {
+        "sourceId": "hoyowiki_curio_ipc_box",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/curio_ipc_box",
+        "gameVersion": "2.3",
+        "verifiedAt": "2026-08-27T00:00:00.000Z"
+      },
+      "source": "HoYoWiki",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
     },
     {
       "id": "rubert-difference-engine",
-      "gameId": "140001",
-      "name": "Rubert Difference Engine",
+      "gameId": "810001",
+      "name": "Rubert Empire Difference Engine",
       "entityType": "curio",
       "rarity": 3,
-      "category": "weighted",
-      "effect": "Upon entering battle, all characters obtain 100% Ultimate Energy. Increases all allies' Ultimate DMG by 50%.",
+      "category": "normal",
+      "effect": "After entering battle, instantly advances all characters' actions forward by 100% and generates 3 Skill Points. Depletes after 2 battles.",
       "releaseVersion": "2.3",
-      "source": "Official HoYoverse Reference / Verified Game Data",
-      "verifiedAt": "2026-08-27T00:00:00Z"
+      "provenance": {
+        "sourceId": "hoyowiki_curio_rubert",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/curio_rubert",
+        "gameVersion": "2.3",
+        "verifiedAt": "2026-08-27T00:00:00.000Z"
+      },
+      "source": "HoYoWiki",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
     }
   ]
 }

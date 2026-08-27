@@ -1,68 +1,68 @@
 {
   "currentKnowledgeVersion": "v1.0.0",
-  "gameVersion": "3.0.x",
+  "gameVersion": "4.5",
   "schemaVersion": "1.0.0",
   "publishedAt": "2026-08-27T00:00:00.000Z",
   "availableReleases": ["v1.0.0"],
   "releases": {
     "v1.0.0": {
       "knowledgeVersion": "v1.0.0",
-      "gameVersion": "3.0.x",
+      "gameVersion": "4.5",
       "schemaVersion": "1.0.0",
       "generatedAt": "2026-08-27T00:00:00.000Z",
-      "sourceSnapshotHash": "57545d365006a81d704c26f976065f82a4f0ae9dad58fd47920081277765ee5b",
+      "sourceSnapshotHash": "b5a1769914150e10606f5961c6215aa5d9062662f0e52f7421eaa0edf4aa9613",
       "status": "published",
       "files": [
         {
           "filename": "characters.json",
           "relPath": "v1.0.0/characters.json",
-          "entityCount": 8,
-          "sizeBytes": 48860,
-          "checksum": "bb2e28a9cbfd11bbaca2685487bdd6ee0e3e363cba798ca77e098192cd686aa8"
+          "entityCount": 9,
+          "sizeBytes": 57940,
+          "checksum": "6caae1c594b0201244a6afff941148105b7ccce17f390f0fcf5bc63e4b1e953f"
         },
         {
           "filename": "light-cones.json",
           "relPath": "v1.0.0/light-cones.json",
-          "entityCount": 8,
-          "sizeBytes": 8169,
-          "checksum": "1319cebec0d34ca16db206b4d12eec246393cc08c965bc83c3cf9834e8df3293"
+          "entityCount": 9,
+          "sizeBytes": 11106,
+          "checksum": "eac67106ede8306a1ebdc492dc0c777a423351216dc4b90c69d6a0e0a7c195f8"
         },
         {
           "filename": "relics.json",
           "relPath": "v1.0.0/relics.json",
           "entityCount": 6,
-          "sizeBytes": 5333,
-          "checksum": "4fbb155a6ff84a1a415ea0432653485bd032eb1fe7238e5694e8b6ec449df3a2"
+          "sizeBytes": 6651,
+          "checksum": "6a8a1a0c8db5be53ece339127b410d9f78887c93386dfe68356543cf21de3ff1"
         },
         {
           "filename": "enemies.json",
           "relPath": "v1.0.0/enemies.json",
           "entityCount": 4,
-          "sizeBytes": 4058,
-          "checksum": "48aa7dadc48eb307aa99179f8c4c40dfa280e363e4844b2d3ed831b9b6dcdf1c"
+          "sizeBytes": 4758,
+          "checksum": "08b44f25db4a659f95e30b41e79595264f3871ab14ebaf1bf88de4971bd2845c"
         },
         {
           "filename": "stages.json",
           "relPath": "v1.0.0/stages.json",
           "entityCount": 4,
-          "sizeBytes": 2583,
-          "checksum": "1cd981aa7e49be1a67efe59c42d9d7db2b7a098c061b8c76566dff19f9b16658"
+          "sizeBytes": 4048,
+          "checksum": "e8e8a1729795cc7abf251660b8655553bf8a93c77c80095ec2392c767ade3e52"
         },
         {
           "filename": "divergent-universe.json",
           "relPath": "v1.0.0/divergent-universe.json",
           "entityCount": 7,
-          "sizeBytes": 4118,
-          "checksum": "76e0199d7d2c78e1907dc629fd592c29ce7507058fccabb86bb9feb44372e632"
+          "sizeBytes": 6250,
+          "checksum": "5366a5978a8721e9ecc39e88c6c2849425e7904f07f133b0147c56e40136e99c"
         }
       ],
       "checksums": {
-        "characters.json": "bb2e28a9cbfd11bbaca2685487bdd6ee0e3e363cba798ca77e098192cd686aa8",
-        "light-cones.json": "1319cebec0d34ca16db206b4d12eec246393cc08c965bc83c3cf9834e8df3293",
-        "relics.json": "4fbb155a6ff84a1a415ea0432653485bd032eb1fe7238e5694e8b6ec449df3a2",
-        "enemies.json": "48aa7dadc48eb307aa99179f8c4c40dfa280e363e4844b2d3ed831b9b6dcdf1c",
-        "stages.json": "1cd981aa7e49be1a67efe59c42d9d7db2b7a098c061b8c76566dff19f9b16658",
-        "divergent-universe.json": "76e0199d7d2c78e1907dc629fd592c29ce7507058fccabb86bb9feb44372e632"
+        "characters.json": "6caae1c594b0201244a6afff941148105b7ccce17f390f0fcf5bc63e4b1e953f",
+        "light-cones.json": "eac67106ede8306a1ebdc492dc0c777a423351216dc4b90c69d6a0e0a7c195f8",
+        "relics.json": "6a8a1a0c8db5be53ece339127b410d9f78887c93386dfe68356543cf21de3ff1",
+        "enemies.json": "08b44f25db4a659f95e30b41e79595264f3871ab14ebaf1bf88de4971bd2845c",
+        "stages.json": "e8e8a1729795cc7abf251660b8655553bf8a93c77c80095ec2392c767ade3e52",
+        "divergent-universe.json": "5366a5978a8721e9ecc39e88c6c2849425e7904f07f133b0147c56e40136e99c"
       },
       "compatibility": { "minAppVersion": "0.1.0" }
     }

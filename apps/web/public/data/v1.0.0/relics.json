@@ -4,22 +4,29 @@
     "gameId": "314",
     "name": "Duran, Dynasty of Running Wolves",
     "type": "planar_ornament",
-    "twoPieceEffect": "When an ally performs a follow-up attack, wearer gains 1 stack of Merit (up to 5). Each stack increases follow-up attack DMG by 5%. At 5 stacks, additionally increases CRIT DMG by 25%.",
+    "twoPieceEffect": "When allies unleash a Follow-Up attack, the wearer gains 1 stack of 'Merit' (max 5 stacks). Each stack increases the wearer's Follow-Up DMG by 5%. At 5 stacks, additionally increases CRIT DMG by 25%.",
     "pieces": [
       {
         "id": "duran_sphere",
-        "name": "Duran's Wolf Head Tent",
+        "name": "Duran's Tent of Falcon Bones",
         "slot": "planar_sphere"
       },
       {
         "id": "duran_rope",
-        "name": "Duran's Bridle of Reins",
+        "name": "Duran's Mech-Wolf Rein",
         "slot": "link_rope"
       }
     ],
     "releaseVersion": "2.3",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_duran_wolves",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/314",
+      "gameVersion": "2.3",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "forge-of-the-kalpagni-lantern",
@@ -30,26 +37,33 @@
     "pieces": [
       {
         "id": "kalpagni_sphere",
-        "name": "Kalpagni's Lotus Lantern",
+        "name": "Forge's Lotus Lantern",
         "slot": "planar_sphere"
       },
       {
         "id": "kalpagni_rope",
-        "name": "Kalpagni's Filament Cord",
+        "name": "Forge's Mirrored String",
         "slot": "link_rope"
       }
     ],
     "releaseVersion": "2.3",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_forge_kalpagni",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/315",
+      "gameVersion": "2.3",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "iron-cavalry",
-    "gameId": "119",
-    "name": "Iron Cavalry against Scourge",
+    "gameId": "118",
+    "name": "Iron Cavalry Against Scourge",
     "type": "cavern_relic",
     "twoPieceEffect": "Increases Break Effect by 16%.",
-    "fourPieceEffect": "If the wearer's Break Effect is 150% or higher, the Break DMG dealt to the target ignores 10% of their DEF. If the wearer's Break Effect is 250% or higher, the Super Break DMG dealt to the target additionally ignores 15% of their DEF.",
+    "fourPieceEffect": "If the wearer's Break Effect is 150% or higher, the Break DMG dealt to the enemy target ignores 10% DEF. If the wearer's Break Effect is 250% or higher, the Super Break DMG dealt to the enemy target ignores an additional 15% DEF.",
     "pieces": [
       {
         "id": "iron_cavalry_head",
@@ -58,52 +72,66 @@
       },
       {
         "id": "iron_cavalry_hands",
-        "name": "Iron Cavalry's Crushing Gauntlet",
+        "name": "Iron Cavalry's Crushing Wristguard",
         "slot": "hands"
       },
       {
         "id": "iron_cavalry_body",
-        "name": "Iron Cavalry's Chest Armor",
+        "name": "Iron Cavalry's Silver Cuirass",
         "slot": "body"
       },
       {
         "id": "iron_cavalry_feet",
-        "name": "Iron Cavalry's Greaves",
+        "name": "Iron Cavalry's Heavy Greaves",
         "slot": "feet"
       }
     ],
     "releaseVersion": "2.3",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_iron_cavalry",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/118",
+      "gameVersion": "2.3",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "izumo-gensei",
     "gameId": "313",
     "name": "Izumo Gensei and Takama Divine Realm",
     "type": "planar_ornament",
-    "twoPieceEffect": "Increases the wearer's ATK by 12%. Upon entering battle, if at least one other ally follows the same Path as the wearer, the wearer's CRIT Rate increases by 12%.",
+    "twoPieceEffect": "Increases the wearer's ATK by 12%. When entering battle, if at least one other ally follows the same Path as the wearer, the wearer's CRIT Rate increases by 12%.",
     "pieces": [
       {
         "id": "izumo_sphere",
-        "name": "Izumo's Magatama Realm",
+        "name": "Izumo's Magatsu no Morokami",
         "slot": "planar_sphere"
       },
       {
         "id": "izumo_rope",
-        "name": "Takama's Blade of Divine",
+        "name": "Izumo's Blades of Origin and End",
         "slot": "link_rope"
       }
     ],
     "releaseVersion": "2.1",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_izumo_gensei",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/313",
+      "gameVersion": "2.1",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "pioneer-diver",
-    "gameId": "118",
+    "gameId": "116",
     "name": "Pioneer Diver of Dead Waters",
     "type": "cavern_relic",
-    "twoPieceEffect": "Increases DMG dealt to enemies debuffed by 12%.",
+    "twoPieceEffect": "Increases DMG dealt to enemies with debuffs by 12%.",
     "fourPieceEffect": "Increases CRIT Rate by 4%. The wearer deals 8%/12% increased CRIT DMG to enemies with at least 2/3 debuffs. After the wearer inflicts a debuff, these effects increase by 100% for 1 turn.",
     "pieces": [
       {
@@ -113,23 +141,30 @@
       },
       {
         "id": "pioneer_hands",
-        "name": "Pioneer's Lacquered Ring",
+        "name": "Pioneer's Desert Compass",
         "slot": "hands"
       },
       {
         "id": "pioneer_body",
-        "name": "Pioneer's Dazzling Lead",
+        "name": "Pioneer's Lead Leather Apron",
         "slot": "body"
       },
       {
         "id": "pioneer_feet",
-        "name": "Pioneer's Starfaring Anchor",
+        "name": "Pioneer's Starfaring Boots",
         "slot": "feet"
       }
     ],
     "releaseVersion": "2.0",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_pioneer_diver",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/116",
+      "gameVersion": "2.0",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "watchmaker",
@@ -137,7 +172,7 @@
     "name": "Watchmaker, Master of Dream Machinations",
     "type": "cavern_relic",
     "twoPieceEffect": "Increases Break Effect by 16%.",
-    "fourPieceEffect": "When the wearer uses their Ultimate on an ally, increases all allies' Break Effect by 30% for 2 turn(s). This effect cannot be stacked.",
+    "fourPieceEffect": "When the wearer uses their Ultimate on an ally, increases all allies' Break Effect by 30% for 2 turns. This effect cannot stack.",
     "pieces": [
       {
         "id": "watchmaker_head",
@@ -146,7 +181,7 @@
       },
       {
         "id": "watchmaker_hands",
-        "name": "Watchmaker's Hand of Clockwork",
+        "name": "Watchmaker's Clockwork Hand",
         "slot": "hands"
       },
       {
@@ -161,7 +196,14 @@
       }
     ],
     "releaseVersion": "2.0",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_watchmaker",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/117",
+      "gameVersion": "2.0",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   }
 ]

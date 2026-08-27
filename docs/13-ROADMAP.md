@@ -51,13 +51,19 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - Responsive layout verification at 1440px (desktop companion rail), 768px (tablet reflow), and 390px (dense mobile drawer & stacked components);
 - Production route guard protecting internal `/design-system` surface.
 
-### Phase 2 — Canonical Knowledge Foundation (Complete)
+### Phase 2 — Canonical Knowledge Foundation & Factual Integrity (Complete)
 - Strongly typed Zod 4 runtime schemas for all HSR entities (Characters, Light Cones, Relics, Enemies, Stages, Divergent Universe Blessings/Curios/Equations, Game Versions, Release Manifests);
-- Native typed modeling for modern mechanics (Castorice Memosprite Polly, Firefly Complete Combustion stance, Acheron Slashed Dream non-energy resource);
+- Authoritative Version 4.5 baseline alignment ("To Roll the Stars in Astropolis", active Aug 26, 2026);
+- 9 official playable Combat Paths including Path of Elation and Version 4.5 representative fixtures (*Aventurine • Waveflair*, *Flame of Carnival*);
+- Accurate canonical kit mechanics (Castorice Memosprite: Netherwing, The Herta: Interpretation & Inspiration Erudition synergy, Firefly: Complete Combustion Super Break, Acheron: Slashed Dream non-energy resource);
+- Divergent Universe Path grounding (Celestial Annihilation verified under The Hunt);
+- Stage rotation temporality with `rotationId` preventing collision across rotating cycles;
+- Strongly typed Tier A `FactProvenance` metadata on every canonical fixture;
 - Canonical static knowledge fixtures and snapshot versioning contracts (`/data/<knowledge-version>/...`);
 - Pre-publication integrity verification tooling (`pnpm knowledge:build`, `pnpm knowledge:check`);
-- Client-side IndexedDB caching layer via Dexie (`AstralynKnowledgeCache`) with transactional atomic population, version upgrade state machine, fail-safe rollback protection, and offline fallback;
+- Client-side IndexedDB caching layer via Dexie (`AstralynKnowledgeCache`) with pre-decode raw SHA-256 byte checksum validation, transactional atomic population, version upgrade state machine, fail-safe rollback protection, and offline fallback;
 - KnowledgeRepository query abstraction with search normalization and canonical entity aliases;
+- Reproducible performance benchmark suite (`tools/benchmark-knowledge.ts` via `pnpm knowledge:benchmark`).
 - 100% test coverage for schema acceptance, negative rejection, cache lifecycle, and asset interoperability.
 
 ### Phase 3 — Cloudflare Workers, D1 & Better Auth Foundation

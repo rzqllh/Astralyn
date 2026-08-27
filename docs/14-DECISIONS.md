@@ -130,3 +130,14 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 3. Transactional cache syncer guarantees atomic replacement and never wipes or corrupts an existing valid local cache if a newly published release fails network transmission or schema validation.  
 **Status:** Accepted.
 
+## D-025 — Version 4.5 Factual Integrity, Fact Provenance, 9 Combat Paths & Runtime Byte Checksums
+**Decision:** Ground the canonical knowledge foundation strictly in official Tier A HoYoverse sources for Version 4.5 ("To Roll the Stars in Astropolis", released Aug 26, 2026), expanding the Combat Path model to 9 official playable Paths (including Elation), attaching strongly typed `FactProvenance` to every entity, modeling stage temporality with `rotationId`, enforcing browser-side SHA-256 byte verification prior to JSON decoding, and establishing a reproducible benchmark suite.  
+**Reason:**
+1. Factual integrity is the foundation of Astralyn: inaccurate multipliers, outdated archetypes, or hallucinated mechanics pollute downstream recommendation algorithms.
+2. Path of Elation and Version 4.5 character/weapon kits (*Aventurine • Waveflair*, *Flame of Carnival*) are canonical facts in HSR 4.5 and must be first-class citizens in schemas and indexes.
+3. Correcting known kit mechanics (Castorice Memosprite: Netherwing, The Herta: Interpretation & Inspiration Erudition synergy, Celestial Annihilation: Path of The Hunt) ensures true source grounding.
+4. Runtime cryptographic verification validates payload integrity before any untrusted JSON decode, preventing corrupted data from entering the client cache.
+5. Strict separation between official kit facts and Astralyn deterministic taxonomy (`roles`, `mechanicTags`, `archetypes`) preserves clean architectural boundaries.  
+**Status:** Accepted.
+
+

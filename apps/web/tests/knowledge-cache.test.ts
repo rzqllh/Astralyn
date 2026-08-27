@@ -1,9 +1,13 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { AstralynKnowledgeDB } from "../src/lib/knowledge/db";
-import { KnowledgeSnapshotLoader } from "../src/lib/knowledge/loader";
+import {
+  KnowledgeSnapshotLoader,
+  ChecksumMismatchError,
+} from "../src/lib/knowledge/loader";
 import { KnowledgeCacheSyncer } from "../src/lib/knowledge/syncer";
 import { KnowledgeRepository } from "../src/lib/knowledge/repository";
 import {
+  CharacterKnowledgeSchema,
   CANONICAL_CHARACTERS,
   CANONICAL_LIGHT_CONES,
   CANONICAL_RELICS,
@@ -19,14 +23,14 @@ import {
 // Create test mock releases
 const MOCK_ROOT_MANIFEST_V1: RootKnowledgeManifest = {
   currentKnowledgeVersion: "v1.0.0",
-  gameVersion: "3.0.x",
+  gameVersion: "4.5",
   schemaVersion: "1.0.0",
   publishedAt: "2026-08-27T00:00:00Z",
   availableReleases: ["v1.0.0"],
   releases: {
     "v1.0.0": {
       knowledgeVersion: "v1.0.0",
-      gameVersion: "3.0.x",
+      gameVersion: "4.5",
       schemaVersion: "1.0.0",
       generatedAt: "2026-08-27T00:00:00Z",
       sourceSnapshotHash: "mock_hash_v1",
@@ -40,14 +44,14 @@ const MOCK_ROOT_MANIFEST_V1: RootKnowledgeManifest = {
 
 const MOCK_ROOT_MANIFEST_V2: RootKnowledgeManifest = {
   currentKnowledgeVersion: "v1.1.0",
-  gameVersion: "3.1.x",
+  gameVersion: "4.5",
   schemaVersion: "1.0.0",
   publishedAt: "2026-09-01T00:00:00Z",
   availableReleases: ["v1.0.0", "v1.1.0"],
   releases: {
     "v1.1.0": {
       knowledgeVersion: "v1.1.0",
-      gameVersion: "3.1.x",
+      gameVersion: "4.5",
       schemaVersion: "1.0.0",
       generatedAt: "2026-09-01T00:00:00Z",
       sourceSnapshotHash: "mock_hash_v2",
@@ -130,8 +134,8 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     expect(result.isOffline).toBe(false);
 
     // Verify Dexie tables populated
-    expect(await db.characters.count()).toBe(8);
-    expect(await db.lightCones.count()).toBe(8);
+    expect(await db.characters.count()).toBe(9);
+    expect(await db.lightCones.count()).toBe(9);
     expect(await db.relicSets.count()).toBe(6);
     expect(await db.enemies.count()).toBe(4);
     expect(await db.stages.count()).toBe(4);
@@ -176,7 +180,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
 
     const metaVer = await db.metadata.get("activeKnowledgeVersion");
     expect(metaVer?.value).toBe("v1.1.0");
-    expect(await db.characters.count()).toBe(8);
+    expect(await db.characters.count()).toBe(9);
   });
 
   it("preserves previous valid cache when new release fails validation (fail-safe rollback)", async () => {
@@ -185,7 +189,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     const syncerValid = new KnowledgeCacheSyncer(db, loaderValid);
     await syncerValid.sync();
 
-    expect(await db.characters.count()).toBe(8);
+    expect(await db.characters.count()).toBe(9);
 
     // 2. Mock loader with broken v1.1.0 release that throws error during load
     const brokenLoader = new KnowledgeSnapshotLoader();
@@ -204,7 +208,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     expect(result.error).toContain("Retained previous valid cache 'v1.0.0'");
 
     // Verify existing cache remains completely intact!
-    expect(await db.characters.count()).toBe(8);
+    expect(await db.characters.count()).toBe(9);
     const acheron = await db.characters.get("acheron");
     expect(acheron?.name).toBe("Acheron");
   });
@@ -243,6 +247,20 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     expect(result.isOffline).toBe(true);
     expect(result.activeKnowledgeVersion).toBeNull();
   });
+
+  it("rejects corrupt payload before JSON decoding via SHA-256 checksum verification", async () => {
+    const loader = new KnowledgeSnapshotLoader();
+    loader.fetchRawText = async () => '{"corrupted": true}';
+
+    await expect(
+      loader.fetchVerifiedJson(
+        "/data/v1.0.0/characters.json",
+        "characters.json",
+        "expected_correct_hash_12345",
+        CharacterKnowledgeSchema.array()
+      )
+    ).rejects.toThrow(ChecksumMismatchError);
+  });
 });
 
 describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
@@ -274,6 +292,10 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
     expect(nihilityChars.length).toBe(1);
     expect(nihilityChars[0].id).toBe("acheron");
 
+    const elationChars = await repo.listCharacters({ path: "Elation" });
+    expect(elationChars.length).toBe(1);
+    expect(elationChars[0].id).toBe("aventurine-waveflair");
+
     const fireChars = await repo.listCharacters({ element: "Fire" });
     expect(fireChars.length).toBe(2);
     expect(fireChars.map((c) => c.id).sort()).toEqual(["firefly", "gallagher"]);
@@ -290,6 +312,10 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
     expect(sigAcheron?.path).toBe("Nihility");
     expect(sigAcheron?.rarity).toBe(5);
 
+    const elationLCs = await repo.listLightCones({ path: "Elation" });
+    expect(elationLCs.length).toBe(1);
+    expect(elationLCs[0].id).toBe("flame-of-carnival");
+
     const harmonyLCs = await repo.listLightCones({ path: "Harmony" });
     expect(harmonyLCs.length).toBe(3); // Flowing Nightglow, Memories of the Past, Past and Future
   });
@@ -304,7 +330,7 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
     expect(planarSets.length).toBe(3);
   });
 
-  it("reads enemies and stages with wave information", async () => {
+  it("reads enemies and stages with wave information and rotation IDs", async () => {
     const sam = await repo.getEnemy("sam-complete-combustion");
     expect(sam).toBeDefined();
     expect(sam?.weaknesses).toContain("Quantum");
@@ -312,13 +338,25 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
     const moc12 = await repo.getStage("moc-stage-12");
     expect(moc12).toBeDefined();
     expect(moc12?.floorNumber).toBe(12);
+    expect(moc12?.rotationId).toBe("moc-4.5-cycle-1");
     expect(moc12?.waves.length).toBe(2);
+
+    const mocStages = await repo.listStages({ rotationId: "moc-4.5-cycle-1" });
+    expect(mocStages.length).toBe(1);
+    expect(mocStages[0].id).toBe("moc-stage-12");
   });
 
   it("reads Divergent Universe entities (blessings, equations, curios)", async () => {
     const fuli = await repo.getDUEntity("perfect-experience-fuli");
     expect(fuli).toBeDefined();
     expect(fuli?.entityType).toBe("blessing");
+
+    const celestial = await repo.getDUEntity("celestial-annihilation");
+    expect(celestial).toBeDefined();
+    expect(celestial?.entityType).toBe("blessing");
+    if (celestial && celestial.entityType === "blessing") {
+      expect(celestial.path).toBe("Hunt");
+    }
 
     const rubert = await repo.getDUEntity("rubert-difference-engine");
     expect(rubert).toBeDefined();
@@ -334,10 +372,15 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
     expect(samResults.length).toBeGreaterThan(0);
     expect(samResults[0].id).toBe("firefly");
 
-    // Search "polly" -> resolves Castorice
-    const pollyResults = await repo.searchEntities("polly");
-    expect(pollyResults.length).toBeGreaterThan(0);
-    expect(pollyResults[0].id).toBe("castorice");
+    // Search "netherwing" -> resolves Castorice
+    const netherwingResults = await repo.searchEntities("netherwing");
+    expect(netherwingResults.length).toBeGreaterThan(0);
+    expect(netherwingResults[0].id).toBe("castorice");
+
+    // Search "waveflair" / "elation aventurine" -> resolves Aventurine • Waveflair
+    const waveflairResults = await repo.searchEntities("waveflair");
+    expect(waveflairResults.length).toBeGreaterThan(0);
+    expect(waveflairResults[0].id).toBe("aventurine-waveflair");
 
     // Search "raiden mei" -> resolves Acheron
     const raidenResults = await repo.searchEntities("raiden mei");

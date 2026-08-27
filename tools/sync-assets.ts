@@ -288,6 +288,38 @@ export const REPRESENTATIVE_DEV_SNAPSHOT: TargetAssetDefinition[] = [
     isRepresentative: true,
   },
 
+  // --- Aventurine • Waveflair (1408 - Version 4.5 Fixture) ---
+  {
+    id: "char_aventurine_wf_icon",
+    entityType: "character_icon",
+    entityId: "aventurine-waveflair",
+    variant: "icon",
+    relPath: "characters/aventurine_wf_icon.png",
+    remotePath: "icon/character/1408.png",
+    attribution: "Character: Aventurine • Waveflair • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "char_aventurine_wf_preview",
+    entityType: "character_preview",
+    entityId: "aventurine-waveflair",
+    variant: "preview",
+    relPath: "characters/aventurine_wf_preview.png",
+    remotePath: "image/character_preview/1408.png",
+    attribution: "Character: Aventurine • Waveflair • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "char_aventurine_wf_portrait",
+    entityType: "character_portrait",
+    entityId: "aventurine-waveflair",
+    variant: "portrait",
+    relPath: "characters/aventurine_wf_portrait.png",
+    remotePath: "image/character_portrait/1408.png",
+    attribution: "Character: Aventurine • Waveflair • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+
   // --- 7 Combat Elements ---
   {
     id: "elem_physical",
@@ -439,6 +471,16 @@ export const REPRESENTATIVE_DEV_SNAPSHOT: TargetAssetDefinition[] = [
     relPath: "paths/Remembrance.png",
     remotePath: "icon/path/Memory.png",
     attribution: "Path: Remembrance • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "path_elation",
+    entityType: "path_icon",
+    entityId: "Elation",
+    variant: "icon",
+    relPath: "paths/Elation.png",
+    remotePath: "icon/path/Joy.png",
+    attribution: "Path: Elation • © COGNOSPHERE / HoYoverse",
     isRepresentative: true,
   },
 

@@ -1,7 +1,7 @@
 {
   "assetRelease": "v1.0.0",
   "gameVersion": "3.0.x",
-  "generatedAt": "2026-08-27T05:09:35.140Z",
+  "generatedAt": "2026-08-27T09:00:03.965Z",
   "assets": [
     {
       "id": "char_acheron_icon",
@@ -18,7 +18,7 @@
       "attribution": "Character: Acheron • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:12.641Z",
+      "approvedAt": "2026-08-27T08:56:46.971Z",
       "checksum": "a64da6fbc603b05d317a0d8f67e3f586836eede326b89b8351bdb28e6d904488"
     },
     {
@@ -36,7 +36,7 @@
       "attribution": "Character: Acheron • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:13.015Z",
+      "approvedAt": "2026-08-27T08:56:48.171Z",
       "checksum": "0f9ea28aafcefabba674233bdac961f6bd5806ab07e509dc64e8c99780a44e86"
     },
     {
@@ -54,7 +54,7 @@
       "attribution": "Character: Acheron • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:14.325Z",
+      "approvedAt": "2026-08-27T08:56:55.235Z",
       "checksum": "61f5471762c9cbc917348bdf57d9abf8399a9af2ba9cc600d96e20a3abfd5756"
     },
     {
@@ -72,7 +72,7 @@
       "attribution": "Character: Castorice • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:14.584Z",
+      "approvedAt": "2026-08-27T08:56:55.914Z",
       "checksum": "b2640bdf6298ec514bd88b7846cb4e0dd780d8d4fdfacf8f95e13d87e14eefc7"
     },
     {
@@ -90,7 +90,7 @@
       "attribution": "Character: Castorice • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:15.197Z",
+      "approvedAt": "2026-08-27T08:56:56.442Z",
       "checksum": "ea9fd532990c7428913f6460323694827da2b3daa9501aa414f3f22af5af09ea"
     },
     {
@@ -108,7 +108,7 @@
       "attribution": "Character: Castorice • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:15.843Z",
+      "approvedAt": "2026-08-27T08:57:16.680Z",
       "checksum": "9dd211ea35886847eb72db11e777f52b2d126e23d71b17e808dc8ca1e224fcc6"
     },
     {
@@ -126,7 +126,7 @@
       "attribution": "Character: Firefly • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:16.123Z",
+      "approvedAt": "2026-08-27T08:57:21.832Z",
       "checksum": "749d1e028e02a18e9ba933a61c080992badb7bf251c0b8c9571542f30699103f"
     },
     {
@@ -144,7 +144,7 @@
       "attribution": "Character: Firefly • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:17.082Z",
+      "approvedAt": "2026-08-27T08:57:32.278Z",
       "checksum": "b15170f49eae28f93f415dbb8d96caae9b2b208a600a9708ca4c827bc8def8f8"
     },
     {
@@ -162,7 +162,7 @@
       "attribution": "Character: Firefly • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:18.011Z",
+      "approvedAt": "2026-08-27T08:57:49.312Z",
       "checksum": "37c8c6be7a0e49251e393c6e34411ff13a7908a218bd90dca10bade6ae61bcf4"
     },
     {
@@ -180,7 +180,7 @@
       "attribution": "Character: Robin • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:18.341Z",
+      "approvedAt": "2026-08-27T08:57:50.304Z",
       "checksum": "47c44fc7b4349cf6d34aafd49554e5e4994719007a8046dbad2072150944a3bc"
     },
     {
@@ -198,7 +198,7 @@
       "attribution": "Character: Robin • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:18.707Z",
+      "approvedAt": "2026-08-27T08:57:53.330Z",
       "checksum": "0a4f893f6e7bdb5065acfe8a5a258c1b2f2df98541c93f4751105bf927c4fe93"
     },
     {
@@ -216,7 +216,7 @@
       "attribution": "Character: Robin • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:19.366Z",
+      "approvedAt": "2026-08-27T08:58:07.553Z",
       "checksum": "42fbd3851872aaa10447bbf7e76a2f382bdd420d2cca9a9835ff0e860984a211"
     },
     {
@@ -234,7 +234,7 @@
       "attribution": "Character: Aventurine • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:19.885Z",
+      "approvedAt": "2026-08-27T08:58:08.149Z",
       "checksum": "59d52e4c1be6fb2c4d1b7203853230fd639eefe941d85bafe9b920459a2b60d3"
     },
     {
@@ -252,7 +252,7 @@
       "attribution": "Character: Aventurine • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:20.242Z",
+      "approvedAt": "2026-08-27T08:58:09.311Z",
       "checksum": "e72a8625c0365b4e66be84feb0173746c0d48b7e0bb1e4429ddd293e16b89830"
     },
     {
@@ -270,7 +270,7 @@
       "attribution": "Character: Aventurine • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:21.109Z",
+      "approvedAt": "2026-08-27T08:58:16.148Z",
       "checksum": "4d783ff5bb693bcd1887d0f92f302d989c657c303f0accc807e4ccad709b0629"
     },
     {
@@ -288,7 +288,7 @@
       "attribution": "Character: Gallagher • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:21.373Z",
+      "approvedAt": "2026-08-27T08:58:18.486Z",
       "checksum": "f9d7ef5d2952704385111efd171cf5a0352472dc4a516b73609f8388cc9765fc"
     },
     {
@@ -306,7 +306,7 @@
       "attribution": "Character: Gallagher • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:21.659Z",
+      "approvedAt": "2026-08-27T08:58:19.390Z",
       "checksum": "77f2a9afcdada915448ad42df53b0cf47846bd6684cad6f9aaed31350130edff"
     },
     {
@@ -324,7 +324,7 @@
       "attribution": "Character: Gallagher • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:23.238Z",
+      "approvedAt": "2026-08-27T08:58:27.803Z",
       "checksum": "bf0107d2e1f6fd64c0df6d2eac3147358f1c6875b19275f9c2aebed7cb4e83d9"
     },
     {
@@ -342,7 +342,7 @@
       "attribution": "Character: Tingyun • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:23.635Z",
+      "approvedAt": "2026-08-27T08:58:30.681Z",
       "checksum": "2be42f614fe9a6256f011dd1f67e394a623d2c835db55f17441a8ca374d56c25"
     },
     {
@@ -360,7 +360,7 @@
       "attribution": "Character: Tingyun • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:24.009Z",
+      "approvedAt": "2026-08-27T08:58:31.692Z",
       "checksum": "d11aecc0f82ed002e7e35a97efc90b01ba83909fceb0cb963cf942aa9b973e2c"
     },
     {
@@ -378,7 +378,7 @@
       "attribution": "Character: Tingyun • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:24.891Z",
+      "approvedAt": "2026-08-27T08:58:39.057Z",
       "checksum": "692fb0ef643c71951048f4f9814daa5a9761705ed6e889036d11da4b79173410"
     },
     {
@@ -396,7 +396,7 @@
       "attribution": "Character: The Herta • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:25.243Z",
+      "approvedAt": "2026-08-27T08:58:40.993Z",
       "checksum": "b67f09e9cb7d04488234a91105d904b9275577bd4dccb3fa0e127bb8daed11d2"
     },
     {
@@ -414,7 +414,7 @@
       "attribution": "Character: The Herta • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:25.545Z",
+      "approvedAt": "2026-08-27T08:58:42.540Z",
       "checksum": "d58081f2d99676a5aed637ef0f90b9869711e626ef52651c68ee574aab65c714"
     },
     {
@@ -432,8 +432,62 @@
       "attribution": "Character: The Herta • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:26.256Z",
+      "approvedAt": "2026-08-27T08:59:09.527Z",
       "checksum": "cbb2fbf8cde9be5468cb8f1004235233e9766879766da26d549800c0e1334564"
+    },
+    {
+      "id": "char_aventurine_wf_icon",
+      "entityType": "character_icon",
+      "entityId": "aventurine-waveflair",
+      "variant": "icon",
+      "localPath": "/game-assets/v1.0.0/characters/aventurine_wf_icon.png",
+      "source": "StarRailRes",
+      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/icon/character/1408.png",
+      "repositoryLicense": "AGPL-3.0",
+      "license": "HoYoverse Fan Content Policy (Subject to Manual Review)",
+      "copyrightOwner": "COGNOSPHERE / HoYoverse",
+      "usageStatus": "manual_review",
+      "attribution": "Character: Aventurine • Waveflair • © COGNOSPHERE / HoYoverse",
+      "fallbackPriority": 1,
+      "approvedBy": "Astralyn Asset Pipeline",
+      "approvedAt": "2026-08-27T08:59:11.388Z",
+      "checksum": "0e56f92560199051a37c9dfd0fd1f57e66a57a7889a1ae425841859f198164b9"
+    },
+    {
+      "id": "char_aventurine_wf_preview",
+      "entityType": "character_preview",
+      "entityId": "aventurine-waveflair",
+      "variant": "preview",
+      "localPath": "/game-assets/v1.0.0/characters/aventurine_wf_preview.png",
+      "source": "StarRailRes",
+      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/image/character_preview/1408.png",
+      "repositoryLicense": "AGPL-3.0",
+      "license": "HoYoverse Fan Content Policy (Subject to Manual Review)",
+      "copyrightOwner": "COGNOSPHERE / HoYoverse",
+      "usageStatus": "manual_review",
+      "attribution": "Character: Aventurine • Waveflair • © COGNOSPHERE / HoYoverse",
+      "fallbackPriority": 1,
+      "approvedBy": "Astralyn Asset Pipeline",
+      "approvedAt": "2026-08-27T08:59:14.318Z",
+      "checksum": "6cc74d822ef46838cf14463cb767a34ee655ea59f63c0ce282862ad6f4f0fa84"
+    },
+    {
+      "id": "char_aventurine_wf_portrait",
+      "entityType": "character_portrait",
+      "entityId": "aventurine-waveflair",
+      "variant": "portrait",
+      "localPath": "/game-assets/v1.0.0/characters/aventurine_wf_portrait.png",
+      "source": "StarRailRes",
+      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/image/character_portrait/1408.png",
+      "repositoryLicense": "AGPL-3.0",
+      "license": "HoYoverse Fan Content Policy (Subject to Manual Review)",
+      "copyrightOwner": "COGNOSPHERE / HoYoverse",
+      "usageStatus": "manual_review",
+      "attribution": "Character: Aventurine • Waveflair • © COGNOSPHERE / HoYoverse",
+      "fallbackPriority": 1,
+      "approvedBy": "Astralyn Asset Pipeline",
+      "approvedAt": "2026-08-27T08:59:35.504Z",
+      "checksum": "fce29f2674748ac81fa4ee43a35b8ef92d3ec7006529fc114771c77231bbdba5"
     },
     {
       "id": "elem_physical",
@@ -450,7 +504,7 @@
       "attribution": "Element: Physical • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:26.548Z",
+      "approvedAt": "2026-08-27T08:59:36.230Z",
       "checksum": "ef973b0634ca2b14710e2587e12f5783e644e969d0c8b230adb62985fa3ae8e1"
     },
     {
@@ -468,7 +522,7 @@
       "attribution": "Element: Fire • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:26.833Z",
+      "approvedAt": "2026-08-27T08:59:37.367Z",
       "checksum": "79233357ff4c17270d590226ce32e2d444e416f9795b04e0a0bbce7fbcfc1b10"
     },
     {
@@ -486,7 +540,7 @@
       "attribution": "Element: Ice • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:27.078Z",
+      "approvedAt": "2026-08-27T08:59:37.782Z",
       "checksum": "bf8a55005d21b5ddbe8f99e1750bca28f35fa35b4327d6cd5519e7c585f96efa"
     },
     {
@@ -504,7 +558,7 @@
       "attribution": "Element: Lightning • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:27.344Z",
+      "approvedAt": "2026-08-27T08:59:38.932Z",
       "checksum": "7740c17c281df58c6486e81467d5392eed4b3cf058b68d1670c694fddbd879ae"
     },
     {
@@ -522,7 +576,7 @@
       "attribution": "Element: Wind • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:27.667Z",
+      "approvedAt": "2026-08-27T08:59:39.618Z",
       "checksum": "cefe0dfc78e860e40123cf2df165a7751debe377e582e5d8430dbb73d6aae475"
     },
     {
@@ -540,7 +594,7 @@
       "attribution": "Element: Quantum • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:27.915Z",
+      "approvedAt": "2026-08-27T08:59:42.706Z",
       "checksum": "4613e83123fd7bc0f784eb19593e8b82757992a2761c10430a67e556b518a43f"
     },
     {
@@ -558,7 +612,7 @@
       "attribution": "Element: Imaginary • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:28.702Z",
+      "approvedAt": "2026-08-27T08:59:46.436Z",
       "checksum": "2a5e748c657a9d8fdbeb7766ae152ece0d7d38b8ed54f40e1cc8045eb8f57794"
     },
     {
@@ -576,7 +630,7 @@
       "attribution": "Path: Destruction • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:28.951Z",
+      "approvedAt": "2026-08-27T08:59:49.430Z",
       "checksum": "919ccb82844203346be3b5a8457f9390b7474e20c066b44ce752a5bb8e3b86aa"
     },
     {
@@ -594,7 +648,7 @@
       "attribution": "Path: Hunt • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:29.204Z",
+      "approvedAt": "2026-08-27T08:59:50.216Z",
       "checksum": "994f51e5e18988c68a0f977009e4742563f24f27006bbcf887ef447c61bbb5fc"
     },
     {
@@ -612,7 +666,7 @@
       "attribution": "Path: Erudition • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:29.459Z",
+      "approvedAt": "2026-08-27T08:59:50.725Z",
       "checksum": "f459cf8a6f5645e00abd12b517251c5429b63a318edb1db83c4591e0196d1840"
     },
     {
@@ -630,7 +684,7 @@
       "attribution": "Path: Harmony • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:29.705Z",
+      "approvedAt": "2026-08-27T08:59:51.854Z",
       "checksum": "8f2d8c93d8fd4ade79a5202762bdaf2303937b83cf68e773be447f0155c2a478"
     },
     {
@@ -648,7 +702,7 @@
       "attribution": "Path: Nihility • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:30.530Z",
+      "approvedAt": "2026-08-27T08:59:52.571Z",
       "checksum": "382a1277ee269e806ed7f5c34baa6c1dba53947b78066ab3f8d5b622a76f9d71"
     },
     {
@@ -666,7 +720,7 @@
       "attribution": "Path: Preservation • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:30.872Z",
+      "approvedAt": "2026-08-27T08:59:54.133Z",
       "checksum": "bd5622c9e36256d534982ba74719ed0cfa72e5ed1ab000dd2be34deb3ead507c"
     },
     {
@@ -684,7 +738,7 @@
       "attribution": "Path: Abundance • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:31.156Z",
+      "approvedAt": "2026-08-27T08:59:55.465Z",
       "checksum": "4e3f7f75faa22a3399d9b660ffa7d1cbc9a8e819a7c730d804d6537f6b8eb472"
     },
     {
@@ -702,8 +756,26 @@
       "attribution": "Path: Remembrance • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:31.473Z",
+      "approvedAt": "2026-08-27T08:59:56.301Z",
       "checksum": "b4d555f9832a1e6edbe70d5aef3fb6b049e5a7892b2f088807e5d768c891dc64"
+    },
+    {
+      "id": "path_elation",
+      "entityType": "path_icon",
+      "entityId": "Elation",
+      "variant": "icon",
+      "localPath": "/game-assets/v1.0.0/paths/Elation.png",
+      "source": "StarRailRes",
+      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/icon/path/Joy.png",
+      "repositoryLicense": "AGPL-3.0",
+      "license": "HoYoverse Fan Content Policy (Subject to Manual Review)",
+      "copyrightOwner": "COGNOSPHERE / HoYoverse",
+      "usageStatus": "manual_review",
+      "attribution": "Path: Elation • © COGNOSPHERE / HoYoverse",
+      "fallbackPriority": 1,
+      "approvedBy": "Astralyn Asset Pipeline",
+      "approvedAt": "2026-08-27T08:59:56.851Z",
+      "checksum": "7e614ec8d86fcc4568dd23098d267a356b5f4475a175756ad2e5cf4789db19d2"
     },
     {
       "id": "lc_along_the_passing_shore",
@@ -720,7 +792,7 @@
       "attribution": "Light Cone: Along the Passing Shore • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:31.725Z",
+      "approvedAt": "2026-08-27T08:59:57.269Z",
       "checksum": "165308f99a52b2e2102752a59089ee9b13c6fc868f65d00f341d161ff6ca5fc7"
     },
     {
@@ -738,7 +810,7 @@
       "attribution": "Light Cone: Good Night and Sleep Well • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:32.034Z",
+      "approvedAt": "2026-08-27T08:59:57.979Z",
       "checksum": "257e0557767f764199b5b1919811c9ebb63dbffb39b958614fde5697fad26c52"
     },
     {
@@ -756,7 +828,7 @@
       "attribution": "Light Cone: Incessant Rain • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:32.369Z",
+      "approvedAt": "2026-08-27T08:59:58.546Z",
       "checksum": "dd37c41dbf86a003db343745e331959a8a6b14ba4e0494eaa085eae8f6674fe2"
     },
     {
@@ -774,7 +846,7 @@
       "attribution": "Light Cone: Patience Is All You Need • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:32.621Z",
+      "approvedAt": "2026-08-27T08:59:59.035Z",
       "checksum": "33ec39bbb970f0e49324ac1d69f5f5ee57d3ab9e99d9b4506dafdf13a2e22636"
     },
     {
@@ -792,7 +864,7 @@
       "attribution": "Light Cone: Boundless Choreo • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:33.160Z",
+      "approvedAt": "2026-08-27T08:59:59.629Z",
       "checksum": "c004504d8f21f2317f7df046dd962c23d50137dad8bd0a2af7e628a7c14ddf0e"
     },
     {
@@ -810,7 +882,7 @@
       "attribution": "Relic: Pioneer Diver of Dead Waters • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:33.462Z",
+      "approvedAt": "2026-08-27T08:59:59.995Z",
       "checksum": "1860f2d01de4586acbd85ddcaea2cf2f0111b0dca04c26b0366c12e7e43343c1"
     },
     {
@@ -828,7 +900,7 @@
       "attribution": "Relic: Watchmaker, Master of Dream Machinations • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:33.772Z",
+      "approvedAt": "2026-08-27T09:00:01.252Z",
       "checksum": "acac4ff02975e43d420f05a53fd1dc8a5fab7c6a2cf26cd6637f1c1e3e6c73df"
     },
     {
@@ -846,7 +918,7 @@
       "attribution": "Planar: Izumo Gensei and Takama Divine Realm • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:34.025Z",
+      "approvedAt": "2026-08-27T09:00:01.678Z",
       "checksum": "caa64faf5f7b665fff405502007acb4faac6ce5eda34489597b5ae2d680aecc6"
     },
     {
@@ -864,7 +936,7 @@
       "attribution": "Blessing: Perfect Experience: Fuli • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:34.340Z",
+      "approvedAt": "2026-08-27T09:00:02.114Z",
       "checksum": "efd31020207f4a9e576708591ce933389a46c2dad36f164c1f30b6c6bc0b1d17"
     },
     {
@@ -882,7 +954,7 @@
       "attribution": "Blessing: Celestial Annihilation • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:34.576Z",
+      "approvedAt": "2026-08-27T09:00:02.570Z",
       "checksum": "0d9bde7c7a4b8dbfb26d3000b3312e4800b13df875d5ef9a3b5ce76ea7319bff"
     },
     {
@@ -900,7 +972,7 @@
       "attribution": "Curio: Rubert Difference Engine • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:34.881Z",
+      "approvedAt": "2026-08-27T09:00:03.489Z",
       "checksum": "2968609ae2c81c06caacb285675c00bb456a546754d83a936467a3f003b7d740"
     },
     {
@@ -918,7 +990,7 @@
       "attribution": "Curio: Interastral Peace Special • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
       "approvedBy": "Astralyn Asset Pipeline",
-      "approvedAt": "2026-08-27T05:09:35.140Z",
+      "approvedAt": "2026-08-27T09:00:03.965Z",
       "checksum": "68570ea887071fe205df3ccc8f62b3ddb34af0515db7bf21805a681edf11c867"
     }
   ]

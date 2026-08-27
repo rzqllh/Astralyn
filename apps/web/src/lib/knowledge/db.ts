@@ -35,7 +35,7 @@ export class AstralynKnowledgeDB extends Dexie {
       lightCones: "id, name, rarity, path, releaseVersion",
       relicSets: "id, name, type, releaseVersion",
       enemies: "id, name, category, *weaknesses, releaseVersion",
-      stages: "id, name, stageType, floorNumber, releaseVersion",
+      stages: "id, name, stageType, floorNumber, rotationId, releaseVersion",
       duBlessings: "id, name, path, rarity, releaseVersion",
       duEquations: "id, name, rarity, primaryPath, secondaryPath, releaseVersion",
       duCurios: "id, name, rarity, category, releaseVersion",

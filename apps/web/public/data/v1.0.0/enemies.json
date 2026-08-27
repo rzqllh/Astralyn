@@ -1,7 +1,7 @@
 [
   {
     "id": "aventurine-of-stratagems",
-    "gameId": "3024020",
+    "gameId": "3014020",
     "name": "Aventurine of Stratagems",
     "category": "boss",
     "weaknesses": ["Physical", "Ice", "Lightning"],
@@ -16,28 +16,35 @@
     },
     "skills": [
       {
-        "id": "aventurine_skill_gamble",
+        "id": "aventurine_dice_gamble",
         "name": "All or Nothing",
         "type": "Gamble",
-        "description": "Forces characters into a dice game. Characters who roll higher than the boss gain Ultimate Energy and buffs; those who roll lower take high Imaginary DMG.",
+        "description": "Summons All or Nothing dice. Compares roll points with player characters.",
         "element": "Imaginary"
       }
     ],
     "keyMechanics": [
-      "Gamble Dice Mini-Game",
-      "AoE Attacks Win Dice Rolls",
-      "High Imaginary Resistance"
+      "Dice Gamble phase: Characters must hit dice with AoE/Bounce to win higher roll points",
+      "Winning gamble immediately charges Ultimate by 100%",
+      "Losing gamble inflicts massive Imaginary damage and imprisonment"
     ],
     "releaseVersion": "2.1",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_enemy_aventurine",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/enemy_aventurine",
+      "gameVersion": "2.1",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "cirrus",
-    "gameId": "2023010",
+    "gameId": "3023010",
     "name": "Cirrus",
-    "category": "boss",
-    "weaknesses": ["Imaginary", "Lightning", "Wind"],
+    "category": "elite",
+    "weaknesses": ["Wind", "Lightning", "Imaginary"],
     "resistances": {
       "Physical": 0.2,
       "Fire": 0.2,
@@ -49,28 +56,33 @@
     },
     "skills": [
       {
-        "id": "cirrus_skill_order",
-        "name": "Puppeteer's Decree",
-        "type": "Action Order",
-        "description": "Advances actions of all minion puppets on the field by 100% while retreating to the background.",
-        "element": "Wind"
+        "id": "cirrus_action_advance",
+        "name": "Fiendfire Puppetry",
+        "type": "Support",
+        "description": "Advances the action of all minion enemies forward by 100%."
       }
     ],
     "keyMechanics": [
-      "Action Order Advance",
-      "Cannot be directly targeted until minions fall",
-      "High Wave Density"
+      "Cirrus cannot be directly attacked; damage is dealt by defeating summoned minions",
+      "Minions are action-advanced upon entering battle"
     ],
     "releaseVersion": "1.5",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_enemy_cirrus",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/enemy_cirrus",
+      "gameVersion": "1.5",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "sam-complete-combustion",
-    "gameId": "3024010",
-    "name": "Stellaron Hunter: Sam",
-    "category": "boss",
-    "weaknesses": ["Imaginary", "Lightning", "Quantum"],
+    "gameId": "3014010",
+    "name": "Stellaron Hunter: SAM (Complete Combustion)",
+    "category": "elite",
+    "weaknesses": ["Quantum", "Lightning", "Imaginary"],
     "resistances": {
       "Physical": 0.2,
       "Fire": 0.4,
@@ -82,37 +94,37 @@
     },
     "skills": [
       {
-        "id": "sam_skill_combustion",
+        "id": "sam_dh_combustion",
         "name": "DHG-DRK: Supernova Overload",
         "type": "Ultimate",
-        "description": "Enters Complete Combustion state, illuminating the field with scorched earth, setting player Skill Points on fire and converting HP consumption into Energy.",
-        "element": "Fire"
-      },
-      {
-        "id": "sam_skill_blast",
-        "name": "BB-4: Hellfire Burst",
-        "type": "Blast",
-        "description": "Deals massive Fire DMG to target and adjacent allies.",
+        "description": "Deals massive Fire DMG to all targets.",
         "element": "Fire"
       }
     ],
     "keyMechanics": [
-      "Secondary Energy Core",
-      "Combustion Field HP Burn",
-      "Vulnerable when Toughness Broken"
+      "Secondary HP shield bar during Complete Combustion",
+      "Healing received by player characters reduced by 90%",
+      "Using Skill Points depletes SAM's combustion stacks and breaks weakness"
     ],
     "releaseVersion": "2.0",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_enemy_sam",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/enemy_sam",
+      "gameVersion": "2.0",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "sunday-harmonious-choir",
-    "gameId": "3024030",
+    "gameId": "3024010",
     "name": "The Great Septimus, 'Harmonious Choir'",
     "category": "weekly_boss",
-    "weaknesses": ["Imaginary", "Lightning", "Fire"],
+    "weaknesses": ["Physical", "Fire", "Lightning", "Imaginary"],
     "resistances": {
-      "Physical": 0.2,
+      "Physical": 0,
       "Fire": 0,
       "Ice": 0.2,
       "Lightning": 0,
@@ -122,20 +134,26 @@
     },
     "skills": [
       {
-        "id": "sunday_skill_chords",
-        "name": "Ode to the Epilogue",
-        "type": "Ultimate AoE",
-        "description": "Channels a devastating ultimate hitting all allies unless shielded by high-capacity damage absorbers.",
-        "element": "Imaginary"
+        "id": "sunday_chorus",
+        "name": "Ode to Order",
+        "type": "AoE",
+        "description": "Deals catastrophic multi-element damage across all phases."
       }
     ],
     "keyMechanics": [
-      "Multi-Layered Toughness Shields",
-      "Teamwide Shielding Requirement",
-      "Harmonious Chorus Resonances"
+      "Three distinct combat phases with layered multi-toughness bars",
+      "Breaking any minion toughness reduces Sunday's main toughness bar",
+      "Provides massive teamwide shield upon breaking boss toughness"
     ],
     "releaseVersion": "2.2",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_enemy_sunday",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/enemy_sunday",
+      "gameVersion": "2.2",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   }
 ]

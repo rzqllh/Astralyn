@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CombatElementSchema } from "./character";
+import { FactProvenanceSchema } from "./provenance";
 
 export const StageTypeSchema = z.enum([
   "memory_of_chaos",
@@ -22,13 +23,18 @@ export const StageKnowledgeSchema = z.object({
   name: z.string(),
   stageType: StageTypeSchema,
   floorNumber: z.number().int().positive(),
+  rotationId: z.string().min(1),
+  cycle: z.number().int().positive().optional(),
+  validFrom: z.string().optional(),
+  validTo: z.string().optional(),
   buffName: z.string(),
   buffDescription: z.string(),
   recommendedElements: z.array(CombatElementSchema).min(1),
   waves: z.array(StageWaveSchema).min(1),
   releaseVersion: z.string(),
-  source: z.string(),
-  verifiedAt: z.string(),
+  provenance: FactProvenanceSchema,
+  source: z.string().optional(),
+  verifiedAt: z.string().optional(),
 });
 
 export type StageKnowledge = z.infer<typeof StageKnowledgeSchema>;

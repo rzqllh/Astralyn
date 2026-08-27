@@ -85,6 +85,7 @@ export async function checkAssetIntegrity() {
     "gallagher",
     "tingyun",
     "the-herta",
+    "aventurine-waveflair",
   ];
 
   for (const charId of REQUIRED_REPRESENTATIVE_CHARS) {
@@ -128,6 +129,7 @@ export async function checkAssetIntegrity() {
     "Preservation",
     "Abundance",
     "Remembrance",
+    "Elation",
   ];
 
   for (const elem of REQUIRED_ELEMENTS) {
@@ -162,9 +164,9 @@ export async function checkAssetIntegrity() {
     `\n✓ All ${manifest.assets.length} game assets verified on disk with matching SHA-256 checksums.`
   );
   console.log(
-    `✓ All 8 representative characters have verified icons and preview artwork.`
+    `✓ All 9 representative characters have verified icons and preview artwork.`
   );
-  console.log(`✓ All 7 Combat Elements and 8 Combat Paths verified.`);
+  console.log(`✓ All 7 Combat Elements and 9 Combat Paths verified.`);
   console.log(`[PASS] Astralyn Game Asset Integrity Gate PASSED.\n`);
 }
 

@@ -5,8 +5,8 @@
 Astralyn separates five domains:
 
 A. Identity and user data — authenticated user domain (Better Auth + Astralyn user tables in Cloudflare D1).  
-B. Canonical Game Knowledge — official facts normalized from trusted HoYoverse sources.  
-C. Editorial recommendations — source-specific guide/ranking data with provenance.  
+B. Canonical Game Knowledge — official facts normalized from authoritative Tier A HoYoverse sources with strongly typed `FactProvenance`.  
+C. Editorial recommendations — source-specific guide/ranking data with provenance (Tier C).  
 D. Generated Astralyn intelligence — consensus, scores, reason codes and publishable snapshots.  
 E. Visual Game Assets — versioned static asset manifest and localized game imagery.
 
@@ -56,17 +56,26 @@ Better Auth manages core authentication (`user`, `session`, `account`, `verifica
 ## 3. Versioning & Release Contracts
 
 ### GameVersion
-Represents official HSR client patches (e.g. `3.0.0`, `3.0`).
-- `id` (string): e.g. `'3.0.0'`
-- `versionNumber` (string): e.g. `'3.0'`
-- `title` (string): e.g. `'Pinnacle of Glory & The Dahlia in the Dark'`
-- `releasedAt` (ISO string)
+Represents official HSR client patches (Baseline: Version 4.5 "To Roll the Stars in Astropolis").
+- `id` (string): e.g. `'4.5.0'`
+- `versionNumber` (string): e.g. `'4.5'`
+- `title` (string): e.g. `'To Roll the Stars in Astropolis'`
+- `releasedAt` (ISO string): e.g. `'2026-08-26T00:00:00.000Z'`
 - `isActive` (boolean)
+
+### FactProvenance
+Lightweight provenance tracking attached to every canonical knowledge entity:
+- `sourceId` (string): e.g. `'hoyolab_acheron_official'`
+- `authorityTier` (`'tier_a_official' | 'tier_b_structured_community' | 'tier_c_editorial'`)
+- `sourceUrl` (string)
+- `gameVersion` (string): e.g. `'4.5'`
+- `verifiedAt` (ISO string)
+- `notes` (optional string)
 
 ### KnowledgeReleaseManifest
 Immutable published knowledge release descriptor (`/data/<version>/release.json`).
 - `knowledgeVersion` (string): e.g. `'v1.0.0'`
-- `gameVersion` (string): e.g. `'3.0.x'`
+- `gameVersion` (string): e.g. `'4.5'`
 - `schemaVersion` (string): e.g. `'1.0.0'`
 - `generatedAt` (ISO string)
 - `sourceSnapshotHash` (SHA-256 string)
@@ -79,14 +88,15 @@ Immutable published knowledge release descriptor (`/data/<version>/release.json`
 
 Single source of truth runtime Zod 4 schemas:
 
-- `CharacterKnowledge`: `id`, `gameId`, `name`, `localizedNames` (`en`, `id`, `ja`, `zh`), `rarity` (4 | 5), `path` (8 Paths), `element` (7 Elements), `releaseVersion`, `roles`, `mechanicTags`, `baseStats` (HP, ATK, DEF, SPD, Taunt, Crit Rate, Crit DMG, Max Energy), `specialResourceType`, `abilities` (Basic, Skill, Ultimate, Talent, Technique, Enhanced variants), `memosprite` (Polly/summon stats and abilities), `transformation` (Stance duration & enhanced abilities), `majorTraces` (A2, A4, A6), `minorTraces`, `eidolons` (E1–E6).
-- `LightConeKnowledge`: `id`, `gameId`, `name`, `rarity` (3, 4, 5), `path`, `baseStats` (HP, ATK, DEF), `skill` (name, template, superimpositions 1–5), `releaseVersion`.
-- `RelicSetKnowledge`: `id`, `gameId`, `name`, `type` (`cavern_relic` | `planar_ornament`), `twoPieceEffect`, `fourPieceEffect` (optional for planar), `pieces` (slots).
-- `EnemyKnowledge`: `id`, `gameId`, `name`, `category` (`minion` | `elite` | `boss` | `weekly_boss`), `weaknesses` (array of Elements), `resistances` (Element -> % resistance), `skills`, `keyMechanics`.
-- `StageKnowledge`: `id`, `name`, `stageType` (`memory_of_chaos` | `pure_fiction` | `apocalyptic_shadow` | `divergent_universe`), `floorNumber`, `buffName`, `buffDescription`, `recommendedElements`, `waves`.
-- `DUBlessingKnowledge`: `id`, `gameId`, `name`, `path`, `rarity` (1, 2, 3), `effect`, `enhancedEffect`.
-- `DUEquationKnowledge`: `id`, `gameId`, `name`, `rarity` (1, 2, 3), `primaryPath`, `secondaryPath`, `requiredBlessings` (`primaryCount`, `secondaryCount`), `effect`.
-- `DUCurioKnowledge`: `id`, `gameId`, `name`, `rarity` (1, 2, 3), `category` (`normal` | `negative` | `weighted`), `effect`.
+- `CombatPath`: 9 official playable Paths (`Destruction`, `Hunt`, `Erudition`, `Harmony`, `Nihility`, `Preservation`, `Abundance`, `Remembrance`, `Elation`).
+- `CharacterKnowledge`: `id`, `gameId`, `name`, `localizedNames` (`en`, `id`, `ja`, `zh`), `rarity` (4 | 5), `path` (9 Paths), `element` (7 Elements), `releaseVersion`, `roles` (Astralyn taxonomy), `mechanicTags` (Astralyn taxonomy), `baseStats` (HP, ATK, DEF, SPD, Taunt, Crit Rate, Crit DMG, Max Energy), `specialResourceType` (e.g. Slashed Dream, Punchline/Fervor), `abilities` (Basic, Skill, Ultimate, Talent, Technique, Enhanced variants, Memosprite skills, Elation skills), `memosprite` (e.g. Netherwing stats and abilities), `transformation` (Stance duration & enhanced abilities, e.g. Complete Combustion), `majorTraces` (A2, A4, A6), `minorTraces`, `eidolons` (E1–E6), `provenance` (`FactProvenance`).
+- `LightConeKnowledge`: `id`, `gameId`, `name`, `rarity` (3, 4, 5), `path` (9 Paths), `baseStats` (HP, ATK, DEF), `skill` (name, template, superimpositions 1–5), `releaseVersion`, `provenance`.
+- `RelicSetKnowledge`: `id`, `gameId`, `name`, `type` (`cavern_relic` | `planar_ornament`), `twoPieceEffect`, `fourPieceEffect` (optional for planar), `pieces` (slots), `provenance`.
+- `EnemyKnowledge`: `id`, `gameId`, `name`, `category` (`minion` | `elite` | `boss` | `weekly_boss`), `weaknesses` (array of Elements), `resistances` (Element -> % resistance), `skills`, `keyMechanics`, `provenance`.
+- `StageKnowledge`: `id`, `name`, `stageType` (`memory_of_chaos` | `pure_fiction` | `apocalyptic_shadow` | `divergent_universe`), `floorNumber`, `rotationId` (temporality cycle tag), `cycle` (optional integer), `validFrom`/`validTo` (optional ISO strings), `buffName`, `buffDescription`, `recommendedElements`, `waves`, `provenance`.
+- `DUBlessingKnowledge`: `id`, `gameId`, `name`, `path` (9 Paths, e.g. Celestial Annihilation under The Hunt), `rarity` (1, 2, 3), `effect`, `enhancedEffect`, `provenance`.
+- `DUEquationKnowledge`: `id`, `gameId`, `name`, `rarity` (1, 2, 3), `primaryPath`, `secondaryPath`, `requiredBlessings` (`primaryCount`, `secondaryCount`), `effect`, `provenance`.
+- `DUCurioKnowledge`: `id`, `gameId`, `name`, `rarity` (1, 2, 3), `category` (`normal` | `negative` | `weighted`), `effect`, `provenance`.
 
 ## 5. Dexie IndexedDB Client Knowledge Cache (`apps/web/src/lib/knowledge/`)
 
@@ -97,27 +107,17 @@ Local browser IndexedDB database (`AstralynKnowledgeCache`) mirroring the publis
 - `lightCones`: `id` (PK), `name`, `rarity`, `path`, `releaseVersion`
 - `relicSets`: `id` (PK), `name`, `type`, `releaseVersion`
 - `enemies`: `id` (PK), `name`, `category`, `*weaknesses`, `releaseVersion`
-- `stages`: `id` (PK), `name`, `stageType`, `floorNumber`, `releaseVersion`
+- `stages`: `id` (PK), `name`, `stageType`, `floorNumber`, `rotationId`, `releaseVersion`
 - `duBlessings`: `id` (PK), `name`, `path`, `rarity`, `releaseVersion`
 - `duEquations`: `id` (PK), `name`, `rarity`, `primaryPath`, `secondaryPath`, `releaseVersion`
 - `duCurios`: `id` (PK), `name`, `rarity`, `category`, `releaseVersion`
 
-## 6. Editorial recommendations tables (Deferred to Phase 5)
+## 6. Client Snapshots & Runtime Cryptographic Integrity
 
-- `source_adapters`
-- `source_recommendations`
+The client consumes immutable static JSON snapshots (`/data/<knowledge-version>/...`).
+Before parsing and caching into Dexie, `KnowledgeSnapshotLoader` computes the SHA-256 digest of the raw response bytes and verifies it against `release.json.checksums[file]`. If a hash mismatch or corrupt payload is detected, it immediately throws `ChecksumMismatchError` and triggers the fail-safe rollback preserving the previous verified cache.
 
-## 7. Generated Astralyn intelligence (Deferred to Phase 5)
-
-- `consensus_recommendations`
-
-## 8. Client snapshots
-
-The client consumes denormalized static JSON snapshots (`/data/<knowledge-version>/...`) rather than querying the relational D1 database on every page.
-
-Cloudflare D1 is the canonical relational store for user state; published static JSON is the product-serving format for Game Knowledge.
-
-## 9. Visual Game Asset Manifest Model
+## 7. Visual Game Asset Manifest Model
 
 Visual game assets are tracked in `packages/shared/src/assets.ts` and synced to `/game-assets/<release>/manifest.json`.
 
@@ -160,7 +160,7 @@ interface AssetRecord {
 
 interface AssetManifest {
   assetRelease: string; // e.g. "v1.0.0"
-  gameVersion: string; // e.g. "3.0.x"
+  gameVersion: string; // e.g. "4.5"
   generatedAt: string;
   assets: AssetRecord[];
 }

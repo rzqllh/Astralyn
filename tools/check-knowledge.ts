@@ -227,7 +227,7 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
     }
   }
 
-  // 4. Validate unique IDs and referential relationships
+  // 4. Validate unique IDs, provenance, and referential relationships
   const uniqueIdSet = new Set<string>();
   const allCollections = [
     { name: "characters", items: characters },
@@ -248,11 +248,26 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
         );
       }
       uniqueIdSet.add(item.id);
+
+      // Verify Tier A provenance
+      if (
+        !("provenance" in item) ||
+        item.provenance.authorityTier !== "tier_a_official"
+      ) {
+        errors.push(
+          `Missing or invalid Tier A provenance on entity '${item.id}' in collection '${col.name}'`
+        );
+      }
     }
   }
 
   const enemyIdSet = new Set(enemies.map((e) => e.id));
   for (const stage of stages) {
+    if (!stage.rotationId) {
+      errors.push(
+        `Stage '${stage.id}' is missing required 'rotationId' for temporality.`
+      );
+    }
     for (const wave of stage.waves) {
       for (const enemyId of wave.enemies) {
         if (!enemyIdSet.has(enemyId)) {

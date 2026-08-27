@@ -27,7 +27,7 @@ import {
 } from "@astralyn/shared";
 
 const KNOWLEDGE_VERSION = "v1.0.0";
-const GAME_VERSION = "3.0.x";
+const GAME_VERSION = "4.5";
 const SCHEMA_VERSION = "1.0.0";
 const MIN_APP_VERSION = "0.1.0";
 
@@ -47,7 +47,7 @@ export async function buildKnowledgeRelease(): Promise<{
   releaseManifest: KnowledgeReleaseManifest;
 }> {
   console.log(
-    `[Astralyn Knowledge Builder] Initializing build for release ${KNOWLEDGE_VERSION}...`
+    `[Astralyn Knowledge Builder] Initializing build for release ${KNOWLEDGE_VERSION} (Game Version: ${GAME_VERSION})...`
   );
 
   // 1. Validate all source fixtures through Zod 4 schemas
@@ -76,9 +76,38 @@ export async function buildKnowledgeRelease(): Promise<{
     CANONICAL_DU_CURIOS.map((c) => DUCurioKnowledgeSchema.parse(c))
   );
 
-  // 2. Referential integrity validation
+  // 2. Provenance and Referential integrity validation
+  const allCollections = [
+    { name: "characters", items: characters },
+    { name: "light-cones", items: lightCones },
+    { name: "relics", items: relics },
+    { name: "enemies", items: enemies },
+    { name: "stages", items: stages },
+    { name: "du-blessings", items: duBlessings },
+    { name: "du-equations", items: duEquations },
+    { name: "du-curios", items: duCurios },
+  ];
+
+  for (const col of allCollections) {
+    for (const item of col.items) {
+      if (
+        !("provenance" in item) ||
+        item.provenance.authorityTier !== "tier_a_official"
+      ) {
+        throw new Error(
+          `Provenance Violation: Entity '${item.id}' in '${col.name}' is missing Tier A official provenance grounding.`
+        );
+      }
+    }
+  }
+
   const enemyIdSet = new Set(enemies.map((e) => e.id));
   for (const stage of stages) {
+    if (!stage.rotationId) {
+      throw new Error(
+        `Stage Temporality Error: Stage '${stage.id}' is missing rotationId.`
+      );
+    }
     for (const wave of stage.waves) {
       for (const enemyId of wave.enemies) {
         if (!enemyIdSet.has(enemyId)) {
@@ -92,17 +121,6 @@ export async function buildKnowledgeRelease(): Promise<{
 
   // Check unique IDs across all collections
   const uniqueIdSet = new Set<string>();
-  const allCollections = [
-    { name: "characters", items: characters },
-    { name: "light-cones", items: lightCones },
-    { name: "relics", items: relics },
-    { name: "enemies", items: enemies },
-    { name: "stages", items: stages },
-    { name: "du-blessings", items: duBlessings },
-    { name: "du-equations", items: duEquations },
-    { name: "du-curios", items: duCurios },
-  ];
-
   for (const col of allCollections) {
     for (const item of col.items) {
       if (uniqueIdSet.has(item.id)) {
@@ -233,7 +251,9 @@ export async function buildKnowledgeRelease(): Promise<{
   console.log(
     `[Astralyn Knowledge Builder] Successfully built release ${KNOWLEDGE_VERSION}:`
   );
-  console.log(`  - Characters: ${characters.length}`);
+  console.log(
+    `  - Characters: ${characters.length} (including Version 4.5 Elation fixture)`
+  );
   console.log(`  - Light Cones: ${lightCones.length}`);
   console.log(`  - Relic Sets: ${relics.length}`);
   console.log(`  - Enemies: ${enemies.length}`);

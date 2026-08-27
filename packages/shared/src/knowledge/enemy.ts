@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CombatElementSchema } from "./character";
+import { FactProvenanceSchema } from "./provenance";
 
 export const EnemyCategorySchema = z.enum(["minion", "elite", "boss", "weekly_boss"]);
 
@@ -25,8 +26,9 @@ export const EnemyKnowledgeSchema = z.object({
   skills: z.array(EnemySkillSchema),
   keyMechanics: z.array(z.string()),
   releaseVersion: z.string(),
-  source: z.string(),
-  verifiedAt: z.string(),
+  provenance: FactProvenanceSchema,
+  source: z.string().optional(),
+  verifiedAt: z.string().optional(),
 });
 
 export type EnemyKnowledge = z.infer<typeof EnemyKnowledgeSchema>;

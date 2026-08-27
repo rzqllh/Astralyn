@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CombatPathSchema } from "./character";
+import { FactProvenanceSchema } from "./provenance";
 
 export const LightConeRaritySchema = z.union([z.literal(3), z.literal(4), z.literal(5)]);
 
@@ -30,8 +31,9 @@ export const LightConeKnowledgeSchema = z.object({
   baseStats: LightConeBaseStatsSchema,
   skill: LightConeSkillSchema,
   releaseVersion: z.string(),
-  source: z.string(),
-  verifiedAt: z.string(),
+  provenance: FactProvenanceSchema,
+  source: z.string().optional(),
+  verifiedAt: z.string().optional(),
 });
 
 export type LightConeKnowledge = z.infer<typeof LightConeKnowledgeSchema>;

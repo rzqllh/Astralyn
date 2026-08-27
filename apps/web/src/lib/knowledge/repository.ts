@@ -50,6 +50,7 @@ export interface EnemyFilter {
 
 export interface StageFilter {
   stageType?: StageType;
+  rotationId?: string;
 }
 
 export interface DUEntityFilter {
@@ -214,10 +215,15 @@ export class KnowledgeRepository {
 
   async listStages(filter?: StageFilter): Promise<StageKnowledge[]> {
     let collection = this.db.stages.toCollection();
-    if (filter?.stageType) {
+    if (filter?.rotationId) {
+      collection = this.db.stages.where("rotationId").equals(filter.rotationId);
+    } else if (filter?.stageType) {
       collection = this.db.stages.where("stageType").equals(filter.stageType);
     }
-    const results = await collection.toArray();
+    let results = await collection.toArray();
+    if (filter?.rotationId && filter?.stageType) {
+      results = results.filter((s) => s.stageType === filter.stageType);
+    }
     return results.sort((a, b) => a.floorNumber - b.floorNumber);
   }
 

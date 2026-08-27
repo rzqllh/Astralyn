@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { FactProvenanceSchema } from "./provenance";
 
 export const CombatElementSchema = z.enum([
   "Physical",
@@ -21,6 +22,7 @@ export const CombatPathSchema = z.enum([
   "Preservation",
   "Abundance",
   "Remembrance",
+  "Elation",
 ]);
 
 export type CombatPath = z.infer<typeof CombatPathSchema>;
@@ -29,6 +31,7 @@ export const CharacterRaritySchema = z.union([z.literal(4), z.literal(5)]);
 
 export type CharacterRarity = z.infer<typeof CharacterRaritySchema>;
 
+// Astralyn Deterministic Taxonomy: Roles (Derived Metadata)
 export const CharacterRoleSchema = z.enum([
   "hypercarry_dps",
   "sub_dps",
@@ -40,10 +43,12 @@ export const CharacterRoleSchema = z.enum([
   "break_dps",
   "dot_dps",
   "summon_dps",
+  "elation_dps",
 ]);
 
 export type CharacterRole = z.infer<typeof CharacterRoleSchema>;
 
+// Astralyn Deterministic Taxonomy: Mechanic Tags (Derived Metadata)
 export const CharacterMechanicTagSchema = z.enum([
   "dot",
   "follow_up",
@@ -72,6 +77,14 @@ export const CharacterMechanicTagSchema = z.enum([
   "dissociation",
   "vulnerability",
   "cleanse",
+  "buff",
+  "enhanced_basic",
+  "enhanced_skill",
+  "elation",
+  "punchline",
+  "fervor",
+  "interpretation",
+  "inspiration",
 ]);
 
 export type CharacterMechanicTag = z.infer<typeof CharacterMechanicTagSchema>;
@@ -100,6 +113,8 @@ export const AbilityTypeSchema = z.enum([
   "enhanced_ultimate",
   "memosprite_skill",
   "memosprite_talent",
+  "elation_skill",
+  "elation_talent",
 ]);
 
 export type AbilityType = z.infer<typeof AbilityTypeSchema>;
@@ -219,8 +234,9 @@ export const CharacterKnowledgeSchema = z.object({
   majorTraces: z.array(MajorTraceSchema),
   minorTraces: z.array(MinorTraceStatSchema),
   eidolons: z.array(EidolonSchema).length(6),
-  source: z.string(),
-  verifiedAt: z.string(),
+  provenance: FactProvenanceSchema,
+  source: z.string().optional(),
+  verifiedAt: z.string().optional(),
 });
 
 export type CharacterKnowledge = z.infer<typeof CharacterKnowledgeSchema>;

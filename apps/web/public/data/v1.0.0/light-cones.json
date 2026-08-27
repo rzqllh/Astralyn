@@ -8,40 +8,84 @@
     "baseStats": { "hp": 1058, "atk": 635, "def": 396 },
     "skill": {
       "name": "Steerer",
-      "descriptionTemplate": "Increases the wearer's CRIT DMG by {0}%. When the wearer hits an enemy target, inflicts Mirage Fizzle on them for 1 turn. The wearer deals {1}% increased DMG to targets afflicted with Mirage Fizzle, and their Ultimate deals an additional {2}% DMG.",
+      "descriptionTemplate": "Increases the wearer's CRIT DMG by {0}%. When the wearer hits an enemy target, inflicts 'Mirage Fizzle' for 1 turn. The wearer deals {1}% increased DMG to targets afflicted with Mirage Fizzle, and their Ultimate DMG dealt increases by an additional {2}%.",
       "superimpositions": [
-        "Increases CRIT DMG by 36%. Deals 24% increased DMG to Mirage Fizzle targets and Ultimate deals additional 24% DMG.",
-        "Increases CRIT DMG by 42%. Deals 28% increased DMG to Mirage Fizzle targets and Ultimate deals additional 28% DMG.",
-        "Increases CRIT DMG by 48%. Deals 32% increased DMG to Mirage Fizzle targets and Ultimate deals additional 32% DMG.",
-        "Increases CRIT DMG by 54%. Deals 36% increased DMG to Mirage Fizzle targets and Ultimate deals additional 36% DMG.",
-        "Increases CRIT DMG by 60%. Deals 40% increased DMG to Mirage Fizzle targets and Ultimate deals additional 40% DMG."
+        "Increases CRIT DMG by 36%. Mirage Fizzle increases DMG dealt by 24% and Ultimate DMG by 24%.",
+        "Increases CRIT DMG by 42%. Mirage Fizzle increases DMG dealt by 28% and Ultimate DMG by 28%.",
+        "Increases CRIT DMG by 48%. Mirage Fizzle increases DMG dealt by 32% and Ultimate DMG by 32%.",
+        "Increases CRIT DMG by 54%. Mirage Fizzle increases DMG dealt by 36% and Ultimate DMG by 36%.",
+        "Increases CRIT DMG by 60%. Mirage Fizzle increases DMG dealt by 40% and Ultimate DMG by 40%."
       ]
     },
     "releaseVersion": "2.1",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_along_the_passing_shore",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/23024",
+      "gameVersion": "2.1",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
+  },
+  {
+    "id": "flame-of-carnival",
+    "gameId": "23035",
+    "name": "Flame of Carnival",
+    "rarity": 5,
+    "path": "Elation",
+    "baseStats": { "hp": 1058, "atk": 635, "def": 463 },
+    "skill": {
+      "name": "Showtime!",
+      "descriptionTemplate": "Increases the wearer's CRIT Rate by {0}%. When an ally unleashes an attack, the wearer gains 1 Punchline and increases Elation DMG dealt by {1}% for 2 turns, stacking up to 3 times.",
+      "superimpositions": [
+        "CRIT Rate +18%, Elation DMG +20% per stack (max 60%).",
+        "CRIT Rate +21%, Elation DMG +23% per stack (max 69%).",
+        "CRIT Rate +24%, Elation DMG +26% per stack (max 78%).",
+        "CRIT Rate +27%, Elation DMG +29% per stack (max 87%).",
+        "CRIT Rate +30%, Elation DMG +32% per stack (max 96%)."
+      ]
+    },
+    "releaseVersion": "4.5",
+    "provenance": {
+      "sourceId": "hoyoverse_4_5_lightcone_notice",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://hsr.hoyoverse.com/en-us/news/128846",
+      "gameVersion": "4.5",
+      "verifiedAt": "2026-08-27T00:00:00.000Z",
+      "notes": "Official HoYoverse Version 4.5 signature Elation Light Cone"
+    },
+    "source": "HoYoLAB",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "flowing-nightglow",
-    "gameId": "23026",
+    "gameId": "23025",
     "name": "Flowing Nightglow",
     "rarity": 5,
     "path": "Harmony",
     "baseStats": { "hp": 952, "atk": 635, "def": 463 },
     "skill": {
       "name": "Pacification",
-      "descriptionTemplate": "Every time an ally attacks, wearer gains 1 stack of Cantillation. Each stack increases wearer's Energy Regeneration Rate by {0}%, up to 5 stacks. When wearer uses Ultimate, removes Cantillation and grants Cadenza: increases wearer's ATK by {1}% and team DMG by {2}%.",
+      "descriptionTemplate": "Every time an ally attacks, the wearer gains 1 stack of 'Cantillation'. Each stack increases Energy Regeneration Rate by {0}%, up to 5 stacks. When using Ultimate, clears Cantillation and gains 'Cadenza', increasing ATK by {1}% and team DMG by {2}%.",
       "superimpositions": [
-        "ERR +3.0%/stack. Cadenza: ATK +48%, team DMG +24%.",
-        "ERR +3.5%/stack. Cadenza: ATK +60%, team DMG +28%.",
-        "ERR +4.0%/stack. Cadenza: ATK +72%, team DMG +32%.",
-        "ERR +4.5%/stack. Cadenza: ATK +84%, team DMG +36%.",
-        "ERR +5.0%/stack. Cadenza: ATK +96%, team DMG +40%."
+        "Cantillation grants 3.0% ERR per stack. Cadenza grants 48% ATK and 24% team DMG.",
+        "Cantillation grants 3.5% ERR per stack. Cadenza grants 60% ATK and 28% team DMG.",
+        "Cantillation grants 4.0% ERR per stack. Cadenza grants 72% ATK and 32% team DMG.",
+        "Cantillation grants 4.5% ERR per stack. Cadenza grants 84% ATK and 36% team DMG.",
+        "Cantillation grants 5.0% ERR per stack. Cadenza grants 96% ATK and 40% team DMG."
       ]
     },
     "releaseVersion": "2.2",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_flowing_nightglow",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/23025",
+      "gameVersion": "2.2",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "good-night-and-sleep-well",
@@ -54,19 +98,26 @@
       "name": "Toil and Trouble",
       "descriptionTemplate": "For every debuff the target enemy has, the DMG dealt by the wearer increases by {0}%, stacking up to 3 time(s). This effect also applies to DoT.",
       "superimpositions": [
-        "For every debuff the target enemy has, DMG dealt increases by 12%, stacking up to 3 times (max 36%).",
-        "For every debuff the target enemy has, DMG dealt increases by 15%, stacking up to 3 times (max 45%).",
-        "For every debuff the target enemy has, DMG dealt increases by 18%, stacking up to 3 times (max 54%).",
-        "For every debuff the target enemy has, DMG dealt increases by 21%, stacking up to 3 times (max 63%).",
-        "For every debuff the target enemy has, DMG dealt increases by 24%, stacking up to 3 times (max 72%)."
+        "Increases DMG by 12% per debuff (max 36%).",
+        "Increases DMG by 15% per debuff (max 45%).",
+        "Increases DMG by 18% per debuff (max 54%).",
+        "Increases DMG by 21% per debuff (max 63%).",
+        "Increases DMG by 24% per debuff (max 72%)."
       ]
     },
     "releaseVersion": "1.0",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_good_night_and_sleep_well",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/21001",
+      "gameVersion": "1.0",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
-    "id": "inherent-sols-unjust-destiny",
+    "id": "inherently-unjust-destiny",
     "gameId": "23023",
     "name": "Inherently Unjust Destiny",
     "rarity": 5,
@@ -74,18 +125,25 @@
     "baseStats": { "hp": 1058, "atk": 423, "def": 661 },
     "skill": {
       "name": "All-In",
-      "descriptionTemplate": "Increases the wearer's DEF by {0}%. When the wearer provides a shield to an ally, wearer's CRIT DMG increases by {1}% for 2 turn(s). When wearer's follow-up attack hits an enemy, inflicts Unnerved on them, increasing DMG taken by {2}%.",
+      "descriptionTemplate": "Increases the wearer's DEF by {0}%. When the wearer provides a shield to an ally, increases the wearer's CRIT DMG by {1}% for 2 turns. When the wearer's follow-up attack hits an enemy, inflicts a vulnerability state increasing DMG taken by {2}% for 2 turns.",
       "superimpositions": [
-        "DEF +40%, CRIT DMG +40%, Unnerved DMG taken +10%.",
-        "DEF +46%, CRIT DMG +46%, Unnerved DMG taken +11.5%.",
-        "DEF +52%, CRIT DMG +52%, Unnerved DMG taken +13%.",
-        "DEF +58%, CRIT DMG +58%, Unnerved DMG taken +14.5%.",
-        "DEF +64%, CRIT DMG +64%, Unnerved DMG taken +16%."
+        "DEF +40%, CRIT DMG +40%, target takes 10.0% increased DMG.",
+        "DEF +46%, CRIT DMG +46%, target takes 11.5% increased DMG.",
+        "DEF +52%, CRIT DMG +52%, target takes 13.0% increased DMG.",
+        "DEF +58%, CRIT DMG +58%, target takes 14.5% increased DMG.",
+        "DEF +64%, CRIT DMG +64%, target takes 16.0% increased DMG."
       ]
     },
     "releaseVersion": "2.1",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_inherently_unjust_destiny",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/23023",
+      "gameVersion": "2.1",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "memories-of-the-past",
@@ -93,21 +151,28 @@
     "name": "Memories of the Past",
     "rarity": 4,
     "path": "Harmony",
-    "baseStats": { "hp": 952, "atk": 423, "def": 396 },
+    "baseStats": { "hp": 846, "atk": 423, "def": 396 },
     "skill": {
       "name": "Old Photo",
-      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. When the wearer attacks, additionally regenerates {1} Energy (can trigger 1 time per turn).",
+      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. When the wearer attacks, additionally regenerates {1} Energy.",
       "superimpositions": [
-        "Break Effect +28%, regenerates 4 Energy.",
-        "Break Effect +35%, regenerates 5 Energy.",
-        "Break Effect +42%, regenerates 6 Energy.",
-        "Break Effect +49%, regenerates 7 Energy.",
-        "Break Effect +56%, regenerates 8 Energy."
+        "Break Effect +28%, regenerates 4 Energy per attack.",
+        "Break Effect +35%, regenerates 5 Energy per attack.",
+        "Break Effect +42%, regenerates 6 Energy per attack.",
+        "Break Effect +49%, regenerates 7 Energy per attack.",
+        "Break Effect +56%, regenerates 8 Energy per attack."
       ]
     },
     "releaseVersion": "1.0",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_memories_of_the_past",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/21004",
+      "gameVersion": "1.0",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "past-and-future",
@@ -128,41 +193,55 @@
       ]
     },
     "releaseVersion": "1.0",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_past_and_future",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/21025",
+      "gameVersion": "1.0",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "what-is-real",
-    "gameId": "21043",
+    "gameId": "21040",
     "name": "What Is Real?",
     "rarity": 4,
     "path": "Abundance",
     "baseStats": { "hp": 1058, "atk": 423, "def": 396 },
     "skill": {
       "name": "Hypothesis",
-      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. After using Basic ATK, restores HP equal to {1}% of Max HP + 800.",
+      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. After using Basic ATK, restores HP equal to {1}% of Max HP + {2}.",
       "superimpositions": [
-        "Break Effect +24%, restores 2.0% Max HP + 800.",
-        "Break Effect +30%, restores 2.5% Max HP + 800.",
-        "Break Effect +36%, restores 3.0% Max HP + 800.",
-        "Break Effect +42%, restores 3.5% Max HP + 800.",
-        "Break Effect +48%, restores 4.0% Max HP + 800."
+        "Break Effect +24%, Basic ATK restores 2.0% Max HP + 80.",
+        "Break Effect +30%, Basic ATK restores 2.5% Max HP + 100.",
+        "Break Effect +36%, Basic ATK restores 3.0% Max HP + 120.",
+        "Break Effect +42%, Basic ATK restores 3.5% Max HP + 140.",
+        "Break Effect +48%, Basic ATK restores 4.0% Max HP + 160."
       ]
     },
     "releaseVersion": "2.0",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_what_is_real",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/21040",
+      "gameVersion": "2.0",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   },
   {
     "id": "whereabouts-should-dreams-rest",
-    "gameId": "23025",
+    "gameId": "23026",
     "name": "Whereabouts Should Dreams Rest",
     "rarity": 5,
     "path": "Destruction",
     "baseStats": { "hp": 1164, "atk": 476, "def": 529 },
     "skill": {
       "name": "Metamorphosis",
-      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. When the wearer inflicts Break DMG on an enemy target, inflicts Routed on them for 2 turns. Targets under Routed take {1}% increased Break DMG and their SPD is decreased by 20%.",
+      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. When the wearer deals Break DMG to an enemy target, inflicts 'Routed' on the enemy, lasting for 2 turn(s). Routed enemies take {1}% increased Break DMG and their SPD is decreased by 20%.",
       "superimpositions": [
         "Increases Break Effect by 60%. Routed targets take 24% increased Break DMG.",
         "Increases Break Effect by 70%. Routed targets take 28% increased Break DMG.",
@@ -172,7 +251,14 @@
       ]
     },
     "releaseVersion": "2.3",
-    "source": "Official HoYoverse Reference / Verified Game Data",
-    "verifiedAt": "2026-08-27T00:00:00Z"
+    "provenance": {
+      "sourceId": "hoyowiki_whereabouts_should_dreams_rest",
+      "authorityTier": "tier_a_official",
+      "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/23026",
+      "gameVersion": "2.3",
+      "verifiedAt": "2026-08-27T00:00:00.000Z"
+    },
+    "source": "HoYoWiki",
+    "verifiedAt": "2026-08-27T00:00:00.000Z"
   }
 ]

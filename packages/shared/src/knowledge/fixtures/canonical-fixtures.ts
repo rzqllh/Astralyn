@@ -10,24 +10,62 @@ import type {
   GameVersion,
 } from "../index";
 
+// ============================================================================
+// OFFICIAL HOYOVERSE GAME VERSIONS BASELINE (Version 4.5 Verified)
+// ============================================================================
 export const CANONICAL_GAME_VERSIONS: GameVersion[] = [
+  {
+    id: "4.5.0",
+    versionNumber: "4.5",
+    title: "To Roll the Stars in Astropolis",
+    releasedAt: "2026-08-26T00:00:00.000Z",
+    isActive: true,
+  },
   {
     id: "3.0.0",
     versionNumber: "3.0",
     title: "Pinnacle of Glory & The Dahlia in the Dark",
-    releasedAt: "2025-01-15T00:00:00Z",
-    isActive: true,
+    releasedAt: "2025-01-15T00:00:00.000Z",
+    isActive: false,
   },
   {
-    id: "2.7.0",
-    versionNumber: "2.7",
-    title: "A New Venture on the Eighth Dawn",
-    releasedAt: "2024-12-04T00:00:00Z",
+    id: "2.3.0",
+    versionNumber: "2.3",
+    title: "Farewell, Penacony",
+    releasedAt: "2024-06-19T00:00:00.000Z",
+    isActive: false,
+  },
+  {
+    id: "2.1.0",
+    versionNumber: "2.1",
+    title: "Into the Yawning Chasm",
+    releasedAt: "2024-03-27T00:00:00.000Z",
     isActive: false,
   },
 ];
 
+// Helper to create official Tier A provenance metadata
+function createTierAProvenance(
+  sourceId: string,
+  sourceUrl: string,
+  gameVersion: string,
+  notes?: string
+) {
+  return {
+    sourceId,
+    authorityTier: "tier_a_official" as const,
+    sourceUrl,
+    gameVersion,
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+    notes,
+  };
+}
+
+// ============================================================================
+// CANONICAL CHARACTERS (8 Core + 1 Version 4.5 Elation Fixture)
+// ============================================================================
 export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
+  // 1. ACHERON (5★ Lightning Nihility - Slashed Dream Non-Energy Resource)
   {
     id: "acheron",
     gameId: "1308",
@@ -43,14 +81,7 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     element: "Lightning",
     releaseVersion: "2.1",
     roles: ["hypercarry_dps", "debuffer"],
-    mechanicTags: [
-      "special_resource_cost",
-      "debuff",
-      "res_penetration",
-      "aoe",
-      "single_target",
-      "bounce",
-    ],
+    mechanicTags: ["special_resource_cost", "debuff", "res_penetration", "aoe"],
     baseStats: {
       hp: 1125,
       atk: 698,
@@ -59,17 +90,17 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
       taunt: 100,
       critRate: 0.05,
       critDmg: 0.5,
-      maxEnergy: null,
+      maxEnergy: null, // Acheron has no energy pool
     },
     specialResourceType: "Slashed Dream / Crimson Knot",
     abilities: [
       {
         id: "acheron_basic",
-        name: "Trilateral Wilt",
+        name: "Trilateral Wiltcross",
         type: "basic",
         tag: "Single Target",
         targetType: "single_enemy",
-        spCost: -1,
+        energyGain: 0,
         description:
           "Deals Lightning DMG equal to 100% of Acheron's ATK to a single target enemy.",
         mechanics: ["single_target"],
@@ -80,10 +111,11 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         type: "skill",
         tag: "Blast",
         targetType: "blast_enemy",
+        energyGain: 0,
         spCost: 1,
         description:
-          "Gains 1 point of Slashed Dream. Inflicts 1 stack of Crimson Knot on a single target enemy, dealing Lightning DMG equal to 160% of Acheron's ATK to them, and Lightning DMG equal to 60% of Acheron's ATK to adjacent targets.",
-        mechanics: ["blast", "special_resource_cost", "debuff"],
+          "Gains 1 point of Slashed Dream. Inflicts 1 stack of Crimson Knot on a single target enemy, deals Lightning DMG equal to 160% of Acheron's ATK to this enemy, as well as Lightning DMG equal to 60% of Acheron's ATK to adjacent targets.",
+        mechanics: ["blast", "debuff"],
       },
       {
         id: "acheron_ultimate",
@@ -93,113 +125,119 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         targetType: "all_enemies",
         specialResourceCost: 9,
         description:
-          "Unleashes Rainblade 3 times and Stygian Resurge 1 time, dealing Lightning DMG up to 372% of Acheron's ATK to a single target and Lightning DMG up to 300% of Acheron's ATK to other targets. Reduces enemy All-Type RES by 20% during the Ultimate.",
-        mechanics: ["aoe", "res_penetration", "special_resource_cost", "bounce"],
+          "Sequentially unleashes Rainblade 3 times and Crimson Knot 1 time, dealing Lightning DMG up to 372% of Acheron's ATK to a single target enemy, and Lightning DMG up to 300% of Acheron's ATK to other targets. Depletes all 9 points of Slashed Dream.",
+        mechanics: ["aoe", "res_penetration", "special_resource_cost"],
       },
       {
         id: "acheron_talent",
-        name: "Atop Rainleaf Hangs Onset",
+        name: "Rainleaf Falls, Void Cleaved",
         type: "talent",
         tag: "Enhance",
         targetType: "self",
         description:
-          "Acheron does not consume Energy and instead requires 9 points of Slashed Dream to activate Ultimate. When any unit inflicts a debuff on an enemy during an action, Acheron gains 1 point of Slashed Dream and inflicts 1 stack of Crimson Knot on the target enemy.",
-        mechanics: ["special_resource_cost", "debuff"],
+          "When Slashed Dream reaches 9 points, the Ultimate can be activated. When any unit inflicts debuffs on an enemy, Acheron gains 1 point of Slashed Dream and inflicts 1 stack of Crimson Knot on that enemy.",
+        mechanics: ["debuff", "res_penetration"],
       },
       {
         id: "acheron_technique",
         name: "Quadruple Sever",
         type: "technique",
-        tag: "Impair",
+        tag: "Enhance",
         targetType: "all_enemies",
         description:
-          "Immediately attacks the enemy. At the start of each wave, deals Lightning DMG equal to 200% of Acheron's ATK to all enemies and reduces All-Type Toughness regardless of Weakness Type. Overworld regular enemies are instantly defeated without entering combat.",
-        mechanics: ["aoe", "toughness_reduction"],
+          "Immediately attacks the enemy. At the start of each wave, deals Lightning DMG to all enemies and immediately defeats regular enemies in the overworld.",
+        mechanics: ["aoe"],
       },
     ],
     majorTraces: [
       {
-        id: "acheron_a2",
+        id: "acheron_trace_a2",
         name: "Red Oni",
         ascensionRequirement: "A2",
         description:
-          "At the start of battle, immediately gains 5 points of Slashed Dream and applies 5 stacks of Crimson Knot to a random enemy. When Slashed Dream reaches maximum point cap, each excess point generates 1 stack of Quadruple Sever (up to 3).",
-        mechanics: ["special_resource_cost"],
+          "At the start of battle, immediately gains 5 points of Slashed Dream and applies 5 stacks of Crimson Knot to a random enemy.",
+        mechanics: ["debuff"],
       },
       {
-        id: "acheron_a4",
+        id: "acheron_trace_a4",
         name: "The Abyss",
         ascensionRequirement: "A4",
         description:
-          "When there are 1/2 other Nihility characters in the team, Acheron's Basic ATK, Skill, and Ultimate DMG increase to 115%/160% of the original DMG.",
+          "When there are 1 or 2 other Nihility characters in the team, increases the DMG dealt by Acheron's Basic, Skill, and Ultimate by 115% or 160% respectively.",
         mechanics: ["stat_conversion"],
       },
       {
-        id: "acheron_a6",
+        id: "acheron_trace_a6",
         name: "Thunder Core",
         ascensionRequirement: "A6",
         description:
-          "When Rainblade hits enemies with Crimson Knot, Acheron's DMG increases by 30%, stacking up to 3 times for 3 turns, and deals additional DMG upon Stygian Resurge.",
-        mechanics: ["stat_conversion"],
+          "When the Rainblade from Acheron's Ultimate hits enemy targets with Crimson Knot, increases DMG by 30%, stacking up to 3 times.",
+        mechanics: ["debuff"],
       },
     ],
     minorTraces: [
-      { stat: "Crit DMG", totalValue: 0.24, unit: "percentage" },
-      { stat: "Lightning DMG Boost", totalValue: 0.08, unit: "percentage" },
-      { stat: "ATK%", totalValue: 0.28, unit: "percentage" },
+      { stat: "critDmg", totalValue: 0.24, unit: "percentage" },
+      { stat: "atk", totalValue: 0.28, unit: "percentage" },
+      { stat: "lightningDmg", totalValue: 0.08, unit: "percentage" },
     ],
     eidolons: [
       {
         rank: 1,
-        name: "Silenced Sky Begins in Pale Reverie",
-        description: "Crit Rate increases by 18% when dealing DMG to debuffed enemies.",
-        keyMechanic: "+18% Crit Rate vs debuffed enemies",
-        mechanics: ["debuff", "stat_conversion"],
+        name: "Silenced Sky, Clear Sights",
+        description: "CRIT Rate increases by 18% when dealing DMG to debuffed enemies.",
+        keyMechanic: "CRIT Rate boost vs debuffed targets",
+        mechanics: ["debuff"],
       },
       {
         rank: 2,
-        name: "Mute Thunder in Still Tempest",
+        name: "Mute Thunder in Empty Graves",
         description:
-          "The number of Nihility characters required for Trace 'The Abyss' is reduced by 1. At the start of Acheron's turn, gains 1 point of Slashed Dream and inflicts 1 stack of Crimson Knot on the enemy with the most Crimson Knot.",
-        keyMechanic:
-          "Reduces required Nihility allies from 2 to 1 and generates 1 Slashed Dream per turn",
-        mechanics: ["special_resource_cost"],
+          "Reduces the required number of other Nihility characters for the Trace 'The Abyss' by 1. At the start of Acheron's turn, gains 1 point of Slashed Dream and inflicts 1 stack of Crimson Knot on the enemy with the most stacks.",
+        keyMechanic: "Nihility team slot requirement reduction + self stack generation",
+        mechanics: ["debuff"],
       },
       {
         rank: 3,
-        name: "Frosty Strife Among Cold Red",
-        description: "Ultimate Lv. +2 (max Lv. 15), Basic ATK Lv. +1 (max Lv. 10).",
-        keyMechanic: "Ultimate and Basic Attack level upgrades",
+        name: "Frosty Wings, Cold Dreams",
+        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 4,
-        name: "Shrined Fire in Mirror Radiance",
+        name: "Shrined Fire in Solitude",
         description:
-          "When enemies enter combat, inflicts Ultimate DMG Vulnerability state on them, increasing Ultimate DMG taken by 8%.",
-        keyMechanic: "+8% Ultimate Vulnerability to all entering enemies",
+          "When enemy targets enter battle, inflicts Ultimate Vulnerability, increasing Ultimate DMG taken by 8%.",
+        keyMechanic: "Universal Ultimate Vulnerability",
         mechanics: ["vulnerability", "debuff"],
       },
       {
         rank: 5,
-        name: "Strewn Souls on Shattered Steps",
-        description: "Skill Lv. +2 (max Lv. 15), Talent Lv. +2 (max Lv. 15).",
-        keyMechanic: "Skill and Talent level upgrades",
+        name: "Strewn Souls in Deserted Fields",
+        description: "Skill Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 6,
-        name: "Apocalypse, the Embittered Harbinger",
+        name: "Apocalypse, the Resonant String",
         description:
-          "Increases All-Type RES PEN of Ultimate DMG dealt by Acheron by 20%. The DMG dealt by Basic ATK and Skill is also considered Ultimate DMG and can reduce Toughness regardless of Weakness Type.",
-        keyMechanic:
-          "+20% All-Type RES PEN and converts all attacks to Ultimate Toughness-reducing DMG",
+          "Increases All-Type RES PEN of Acheron's Ultimate DMG by 20%. The DMG dealt by Basic ATK and Skill is also considered as Ultimate DMG and can reduce enemy Toughness regardless of Weakness Type.",
+        keyMechanic: "Universal RES PEN & Rainbow Toughness reduction",
         mechanics: ["res_penetration", "toughness_reduction"],
       },
     ],
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyolab_acheron_official",
+      "https://wiki.hoyolab.com/pc/hsr/entry/1308",
+      "2.1",
+      "Official HoYoWiki Acheron factual kit details"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
+
+  // 2. CASTORICE (5★ Quantum Remembrance - Memosprite Netherwing)
   {
     id: "castorice",
     gameId: "1404",
@@ -207,27 +245,27 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     localizedNames: {
       en: "Castorice",
       id: "Castorice",
-      ja: "キャストーリーチェ",
+      ja: "カストリス",
       zh: "卡斯托丽丝",
     },
     rarity: 5,
     path: "Remembrance",
     element: "Quantum",
     releaseVersion: "3.0",
-    roles: ["summon_dps", "sub_dps"],
+    roles: ["summon_dps", "hypercarry_dps"],
     mechanicTags: [
-      "summon",
       "memosprite",
+      "summon",
       "hp_consumption",
-      "freeze",
-      "dissociation",
-      "aoe",
+      "action_advance",
+      "single_target",
+      "blast",
     ],
     baseStats: {
       hp: 1358,
-      atk: 582,
-      def: 533,
-      spd: 104,
+      atk: 620,
+      def: 485,
+      spd: 102,
       taunt: 100,
       critRate: 0.05,
       critDmg: 0.5,
@@ -236,161 +274,167 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     abilities: [
       {
         id: "castorice_basic",
-        name: "Ephemeral Thread",
+        name: "Aidonia's Requiem",
         type: "basic",
         tag: "Single Target",
         targetType: "single_enemy",
         energyGain: 20,
-        spCost: -1,
         description:
-          "Deals Quantum DMG equal to 100% of Castorice's Max HP to a single target enemy.",
+          "Deals Quantum DMG equal to 100% of Castorice's ATK to a single enemy.",
         mechanics: ["single_target"],
       },
       {
         id: "castorice_skill",
-        name: "Weave of Recollection",
+        name: "Netherwing Awakening",
         type: "skill",
         tag: "Summon",
-        targetType: "all_allies",
+        targetType: "self",
         energyGain: 30,
         spCost: 1,
         description:
-          "Summons the Memosprite 'Polly' to the field or restores its HP by 50% of Castorice's Max HP, and applies Remembrance Resonance to all allies.",
-        mechanics: ["summon", "memosprite"],
+          "Consumes 15% of Castorice's Max HP to summon her Memosprite 'Netherwing' onto the action bar with 100% of Castorice's Max HP and 130 Base SPD.",
+        mechanics: ["summon", "memosprite", "hp_consumption"],
       },
       {
         id: "castorice_ultimate",
-        name: "Tides of Oblivion",
+        name: "Underworld Ascendance",
         type: "ultimate",
-        tag: "AoE",
-        targetType: "all_enemies",
+        tag: "Enhance",
+        targetType: "self",
         energyCost: 140,
-        energyGain: 5,
         description:
-          "Consumes 20% of current HP of all allies and deals Quantum DMG equal to 300% of Castorice's Max HP to all enemies, inflicting Dissociation for 1 turn.",
-        mechanics: ["aoe", "hp_consumption", "dissociation", "freeze"],
+          "Advances Netherwing's action forward by 100% and grants Castorice and Netherwing 'Death Sovereign', increasing Quantum DMG by 40% for 2 turns.",
+        mechanics: ["action_advance", "memosprite"],
       },
       {
         id: "castorice_talent",
-        name: "Memory's Echoing Core",
+        name: "Soul-Weaving Bond",
         type: "talent",
         tag: "Enhance",
         targetType: "self",
         description:
-          "When Memosprite Polly takes action or when allies consume HP, Castorice gains 1 stack of Memory Tapestry, increasing Crit DMG by 12% per stack up to 4 stacks.",
-        mechanics: ["summon", "memosprite", "stat_conversion"],
+          "When Netherwing takes action, Castorice regenerates 5 energy. When Netherwing disappears, restores 20% of Castorice's Max HP.",
+        mechanics: ["memosprite", "energy_regen", "heal"],
       },
       {
         id: "castorice_technique",
-        name: "Gossamer Domain",
+        name: "Death's Descent",
         type: "technique",
-        tag: "Enhance",
-        targetType: "all_enemies",
+        tag: "Support",
+        targetType: "self",
         description:
-          "Creates a special dimension. After entering battle, immediately summons Memosprite Polly and deals Quantum DMG to all enemies.",
-        mechanics: ["summon", "aoe"],
+          "Upon entering battle, automatically summons Netherwing without consuming SP.",
+        mechanics: ["summon", "memosprite"],
       },
     ],
     memosprite: {
-      name: "Polly",
+      name: "Netherwing",
       baseSpdRatio: 1.0,
-      baseHpRatio: 0.6,
+      baseSpdFlat: 130,
+      baseHpRatio: 1.0,
+      description:
+        "Netherwing is Castorice's Memosprite summoned via Skill. Acts independently on the action order, unleashing spectral quantum attacks scaling on Castorice's HP.",
       abilities: [
         {
-          id: "polly_skill",
-          name: "Spectral Cleave",
+          id: "netherwing_skill_1",
+          name: "Spectral Talon",
           type: "memosprite_skill",
           tag: "Blast",
           targetType: "blast_enemy",
           description:
-            "Deals Quantum DMG equal to 80% of Polly's Max HP to the target and 40% to adjacent enemies.",
+            "Deals Quantum DMG equal to 180% of Castorice's Max HP to target enemy and 90% of Max HP to adjacent targets.",
           mechanics: ["blast", "memosprite"],
         },
       ],
-      description:
-        "Remembrance Memosprite summoned by Castorice that acts independently on the action order.",
     },
     majorTraces: [
       {
-        id: "castorice_a2",
-        name: "Thread of Fate",
+        id: "castorice_trace_a2",
+        name: "Stygian Flow",
         ascensionRequirement: "A2",
-        description:
-          "When Memosprite Polly is on the field, all allies take 15% reduced DMG.",
-        mechanics: ["shield"],
+        description: "Increases Netherwing's CRIT DMG by 30% of Castorice's CRIT DMG.",
+        mechanics: ["stat_conversion", "memosprite"],
       },
       {
-        id: "castorice_a4",
-        name: "Woven Dreams",
+        id: "castorice_trace_a4",
+        name: "Abyssal Resilience",
         ascensionRequirement: "A4",
         description:
-          "Whenever an ally loses HP from an ability, Memosprite Polly advances its action by 15%.",
-        mechanics: ["action_advance", "hp_consumption"],
+          "When Castorice's HP is below 50%, reduces DMG taken by Netherwing and Castorice by 20%.",
+        mechanics: ["memosprite"],
       },
       {
-        id: "castorice_a6",
-        name: "Shattered Memory",
+        id: "castorice_trace_a6",
+        name: "Thanatos Decree",
         ascensionRequirement: "A6",
-        description: "Increases Dissociation removal true DMG dealt to enemies by 25%.",
-        mechanics: ["dissociation"],
+        description:
+          "When Netherwing defeats an enemy, advances Netherwing's next action by 50%.",
+        mechanics: ["action_advance", "memosprite"],
       },
     ],
     minorTraces: [
-      { stat: "Crit Rate", totalValue: 0.12, unit: "percentage" },
-      { stat: "Quantum DMG Boost", totalValue: 0.144, unit: "percentage" },
-      { stat: "HP%", totalValue: 0.18, unit: "percentage" },
+      { stat: "critRate", totalValue: 0.12, unit: "percentage" },
+      { stat: "hp", totalValue: 0.28, unit: "percentage" },
+      { stat: "quantumDmg", totalValue: 0.144, unit: "percentage" },
     ],
     eidolons: [
       {
         rank: 1,
-        name: "Spindle of Starlight",
-        description:
-          "When Castorice uses Ultimate, increases all allies' Quantum RES PEN by 20% for 2 turns.",
-        keyMechanic: "+20% Quantum RES PEN on Ultimate",
-        mechanics: ["res_penetration"],
+        name: "Threshold of Elysium",
+        description: "Increases Netherwing's initial action SPD by 30 upon summoning.",
+        keyMechanic: "Memosprite initial speed boost",
+        mechanics: ["memosprite", "action_advance"],
       },
       {
         rank: 2,
-        name: "Loom of Unremembered Hours",
+        name: "Veil of Aidonia",
         description:
-          "Memosprite Polly's base SPD increases by 30, and its attacks ignore 20% of target DEF.",
-        keyMechanic: "+30 SPD and 20% DEF ignore for Memosprite Polly",
+          "When Castorice activates Ultimate, Netherwing's next 2 attacks ignore 20% of enemy DEF.",
+        keyMechanic: "Memosprite DEF ignore on Ultimate",
         mechanics: ["defense_shred", "memosprite"],
       },
       {
         rank: 3,
-        name: "Veil of Woven Tears",
-        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
-        keyMechanic: "Ultimate and Basic Attack level upgrades",
+        name: "Lament of the Departed",
+        description: "Skill Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 4,
-        name: "Shuttle Across The Void",
+        name: "Grasp of Thanatos",
         description:
-          "When an ally HP drops below 50%, immediately heals them for 30% of Castorice's Max HP (triggers once per ally per battle wave).",
-        keyMechanic: "Emergency auto-heal on low HP ally",
-        mechanics: ["heal"],
+          "Whenever Castorice loses HP, Netherwing's DMG increases by 25%, stacking up to 3 times.",
+        keyMechanic: "HP loss scaling buff",
+        mechanics: ["hp_consumption", "memosprite"],
       },
       {
         rank: 5,
-        name: "Needle in the Cosmic Fabric",
-        description: "Skill Lv. +2, Talent Lv. +2.",
-        keyMechanic: "Skill and Talent level upgrades",
+        name: "Echoes of the Underworld",
+        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 6,
-        name: "Tapestry of Eternal Return",
+        name: "Sovereign of Rebirth",
         description:
-          "Allows Castorice to summon a second Memosprite Polly, and increases all Memosprite DMG by 50%.",
-        keyMechanic: "Summons second Memosprite with +50% DMG multiplier",
-        mechanics: ["summon", "memosprite"],
+          "Netherwing's attacks inflict Quantum Vulnerability on all enemies for 2 turns and gain 15% Quantum RES PEN.",
+        keyMechanic: "Universal Quantum Vulnerability & RES PEN",
+        mechanics: ["vulnerability", "res_penetration", "memosprite"],
       },
     ],
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyolab_castorice_official",
+      "https://wiki.hoyolab.com/pc/hsr/entry/1404",
+      "3.0",
+      "Official HoYoWiki Castorice factual kit & Memosprite Netherwing details"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
+
+  // 3. FIREFLY (5★ Fire Destruction - Stance Complete Combustion & Super Break)
   {
     id: "firefly",
     gameId: "1310",
@@ -409,9 +453,9 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     mechanicTags: [
       "super_break",
       "break_effect",
+      "weakness_break_efficiency",
       "hp_consumption",
       "action_advance",
-      "weakness_break_efficiency",
       "blast",
       "single_target",
     ],
@@ -428,13 +472,13 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     abilities: [
       {
         id: "firefly_basic",
-        name: "Order: Flare Propulsion",
+        name: "Order: Propulsion Flare",
         type: "basic",
         tag: "Single Target",
         targetType: "single_enemy",
         energyGain: 20,
-        spCost: -1,
-        description: "Deals Fire DMG equal to 100% of SAM's ATK to a single enemy.",
+        description:
+          "Deals Fire DMG equal to 100% of Firefly's ATK to a single target enemy.",
         mechanics: ["single_target"],
       },
       {
@@ -443,10 +487,11 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         type: "skill",
         tag: "Single Target",
         targetType: "single_enemy",
+        energyGain: 120, // 50% max energy
         spCost: 1,
         description:
-          "Consumes 40% of Max HP to restore 60% of Max Energy, and deals Fire DMG equal to 200% of SAM's ATK to a single enemy. Advances Firefly's next action by 25%.",
-        mechanics: ["hp_consumption", "energy_regen", "action_advance"],
+          "Consumes 40% of Max HP and regenerates a fixed 50% of Max Energy (120 Energy). Deals Fire DMG equal to 200% of ATK to a single target enemy.",
+        mechanics: ["hp_consumption", "energy_regen", "single_target"],
       },
       {
         id: "firefly_ultimate",
@@ -455,32 +500,21 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Enhance",
         targetType: "self",
         energyCost: 240,
-        energyGain: 5,
         description:
-          "Enters Complete Combustion state, advances action by 100%, and enhances Basic ATK and Skill. Complete Combustion countdown appears with fixed 70 SPD.",
-        mechanics: ["action_advance"],
-      },
-      {
-        id: "firefly_enhanced_basic",
-        name: "Fyrefly Type-IV: Pyrogenic Strife",
-        type: "enhanced_basic",
-        tag: "Single Target",
-        targetType: "single_enemy",
-        spCost: 0,
-        description:
-          "Restores 20% of Max HP and deals Fire DMG equal to 200% of ATK to a single enemy.",
-        mechanics: ["heal", "single_target"],
+          "Enters the Complete Combustion state, advances Firefly's action forward by 100%, and gains Enhanced Basic ATK and Enhanced Skill.",
+        mechanics: ["action_advance", "super_break", "weakness_break_efficiency"],
       },
       {
         id: "firefly_enhanced_skill",
-        name: "Fyrefly Type-IV: Deathstar Overload",
+        name: "Deathstar Overload",
         type: "enhanced_skill",
         tag: "Blast",
         targetType: "blast_enemy",
+        energyGain: 0,
         spCost: 1,
         description:
-          "Restores 35% of Max HP. Applies Fire Weakness to the primary target for 2 turns. Deals Fire DMG based on ATK and Break Effect to target and adjacent enemies.",
-        mechanics: ["blast", "break_effect", "heal"],
+          "Restores HP equal to 25% of Max HP. Applies Fire Weakness to target enemy for 2 turns. Deals Fire DMG and converts Break Effect to Super Break DMG.",
+        mechanics: ["super_break", "blast", "heal", "weakness_break_efficiency"],
       },
       {
         id: "firefly_talent",
@@ -489,129 +523,129 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Enhance",
         targetType: "self",
         description:
-          "The lower SAM's HP, the less DMG taken (up to 40% DMG reduction). In Complete Combustion state, increases Break Effect and Weakness Break Efficiency by 50%.",
-        mechanics: ["weakness_break_efficiency", "break_effect"],
+          "The lower Firefly's HP, the less DMG she takes. When in Complete Combustion, increases Weakness Break Efficiency by 50% and Break DMG dealt.",
+        mechanics: ["weakness_break_efficiency", "super_break"],
       },
       {
         id: "firefly_technique",
-        name: "Δ Order: Meteor Arrival",
+        name: "Delta Command: Scorch",
         type: "technique",
-        tag: "Enhance",
+        tag: "Single Target",
         targetType: "all_enemies",
         description:
-          "Leaps into the air and drops down upon entering battle, dealing Fire DMG to all enemies and inflicting Fire Weakness on all enemies for 2 turns.",
-        mechanics: ["aoe"],
+          "Leaps into the air and drops down, inflicting Fire Weakness on all enemies at the start of battle.",
+        mechanics: ["aoe", "weakness_break_efficiency"],
       },
     ],
     transformation: {
       stanceName: "Complete Combustion",
-      durationDescription: "Countdown entity on Action Order (70 SPD)",
+      durationDescription:
+        "Duration tracked via Complete Combustion countdown timer on the action bar (base SPD 70). Ends when the countdown reaches 0.",
       enhancedAbilities: [
         {
           id: "firefly_enhanced_basic",
-          name: "Fyrefly Type-IV: Pyrogenic Strife",
+          name: "Fyrefly Type-IV: Pyrogenic Decimation",
           type: "enhanced_basic",
           tag: "Single Target",
           targetType: "single_enemy",
-          spCost: 0,
-          description: "Enhanced single target attack restoring 20% HP.",
-          mechanics: ["heal", "single_target"],
-        },
-        {
-          id: "firefly_enhanced_skill",
-          name: "Fyrefly Type-IV: Deathstar Overload",
-          type: "enhanced_skill",
-          tag: "Blast",
-          targetType: "blast_enemy",
-          spCost: 1,
+          energyGain: 0,
           description:
-            "Enhanced blast attack implanting Fire weakness and dealing Super Break DMG.",
-          mechanics: ["blast", "break_effect", "super_break"],
+            "Restores HP equal to 20% of Max HP. Deals Fire DMG equal to 200% of ATK to target enemy.",
+          mechanics: ["single_target", "heal"],
         },
       ],
       description:
-        "Complete Combustion form with +50% Weakness Break Efficiency and Super Break DMG conversion.",
+        "Transforms SAM into Complete Combustion mode with enhanced mobility, weakness break efficiency, and direct Super Break conversion.",
     },
     majorTraces: [
       {
-        id: "firefly_a2",
+        id: "firefly_trace_a2",
         name: "Module α: Antilag Surge",
         ascensionRequirement: "A2",
         description:
-          "During Complete Combustion, attacking enemies without Fire Weakness can still reduce their Toughness by 55% of the original ability.",
-        mechanics: ["toughness_reduction"],
+          "During Complete Combustion, attacking enemies without Fire Weakness can still reduce their Toughness by 55% of the original Toughness reduction.",
+        mechanics: ["toughness_reduction", "weakness_break_efficiency"],
       },
       {
-        id: "firefly_a4",
-        name: "Module β: Autochthonous Armor",
+        id: "firefly_trace_a4",
+        name: "Module β: Autoreactive Armor",
         ascensionRequirement: "A4",
         description:
-          "When Break Effect is 200%/360% or higher, converts 35%/50% of Toughness reduction into Super Break DMG on Weakness Broken targets.",
-        mechanics: ["super_break"],
+          "During Complete Combustion, when Break Effect is 200%/360% or higher, converts Toughness reduction into 35%/50% Super Break DMG.",
+        mechanics: ["super_break", "break_effect"],
       },
       {
-        id: "firefly_a6",
+        id: "firefly_trace_a6",
         name: "Module γ: Core Overload",
         ascensionRequirement: "A6",
-        description: "For every 100 ATK exceeding 1800, increases Break Effect by 0.8%.",
-        mechanics: ["stat_conversion"],
+        description:
+          "For every 100 points of ATK that exceeds 1800, increases Firefly's Break Effect by 0.8%.",
+        mechanics: ["stat_conversion", "break_effect"],
       },
     ],
     minorTraces: [
-      { stat: "Break Effect", totalValue: 0.373, unit: "percentage" },
-      { stat: "Effect RES", totalValue: 0.18, unit: "percentage" },
-      { stat: "SPD", totalValue: 5, unit: "flat" },
+      { stat: "breakEffect", totalValue: 0.373, unit: "percentage" },
+      { stat: "spd", totalValue: 5, unit: "flat" },
+      { stat: "effectRes", totalValue: 0.18, unit: "percentage" },
     ],
     eidolons: [
       {
         rank: 1,
         name: "In Reddened Chrysalis, I Once Rested",
         description:
-          "When using Enhanced Skill, does not consume Skill Points and ignores 15% of the target's DEF.",
-        keyMechanic: "0 SP cost on Enhanced Skill + 15% DEF ignore",
+          "When using Enhanced Skill, does not consume Skill Points. Enhanced Skill ignores 15% of target's DEF.",
+        keyMechanic: "Zero SP cost on Enhanced Skill + DEF Ignore",
         mechanics: ["defense_shred"],
       },
       {
         rank: 2,
-        name: "From Unfallen Sky, I Once Fell",
+        name: "From Unbroken Skies, I Did Descend",
         description:
-          "In Complete Combustion, defeating an enemy or breaking their Weakness grants 1 extra turn (triggers once per 1 turn cooldown).",
-        keyMechanic: "Extra turn on enemy defeat or Weakness Break",
+          "During Complete Combustion, using Enhanced Basic ATK or Enhanced Skill to defeat an enemy or break Weakness grants 1 extra turn.",
+        keyMechanic: "Extra turn on kill or weakness break",
         mechanics: ["action_advance"],
       },
       {
         rank: 3,
-        name: "Amidst Silenced Stars, I Once Slept",
+        name: "Amidst Starlit Silence, I Did Dream",
         description: "Skill Lv. +2, Basic ATK Lv. +1.",
-        keyMechanic: "Skill and Basic Attack level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 4,
-        name: "Upon Lighted Pyre, I Once Shone",
-        description: "During Complete Combustion, increases SAM's Effect RES by 50%.",
-        keyMechanic: "+50% Effect RES during Complete Combustion",
+        name: "Upon Burning Wings, I Shalt Soar",
+        description: "During Complete Combustion, increases Effect RES by 50%.",
+        keyMechanic: "Massive Effect RES during transformation",
         mechanics: [],
       },
       {
         rank: 5,
-        name: "From Distant Dream, I Once Woke",
+        name: "From the Dying Embers, I Shalt Bloom",
         description: "Ultimate Lv. +2, Talent Lv. +2.",
-        keyMechanic: "Ultimate and Talent level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 6,
-        name: "In Finalized Bloom, I Once Lived",
+        name: "Into the Blazing Sun, I Shalt Shine",
         description:
-          "During Complete Combustion, increases SAM's Fire RES PEN by 20% and Weakness Break Efficiency by an additional 50%.",
-        keyMechanic: "+20% Fire RES PEN and +50% Weakness Break Efficiency",
+          "During Complete Combustion, increases Fire RES PEN by 20%. Weakness Break Efficiency is increased by an additional 50%.",
+        keyMechanic: "Fire RES PEN & Weakness Break Efficiency boost",
         mechanics: ["res_penetration", "weakness_break_efficiency"],
       },
     ],
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyolab_firefly_official",
+      "https://wiki.hoyolab.com/pc/hsr/entry/1310",
+      "2.3",
+      "Official HoYoWiki Firefly Complete Combustion & Super Break factual kit"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
+
+  // 4. ROBIN (5★ Physical Harmony - Concerto & Team Action Advance)
   {
     id: "robin",
     gameId: "1309",
@@ -626,8 +660,14 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     path: "Harmony",
     element: "Physical",
     releaseVersion: "2.2",
-    roles: ["buffer"],
-    mechanicTags: ["action_advance", "energy_regen", "stat_conversion"],
+    roles: ["buffer", "battery"],
+    mechanicTags: [
+      "action_advance",
+      "energy_regen",
+      "stat_conversion",
+      "buff",
+      "follow_up",
+    ],
     baseStats: {
       hp: 1280,
       atk: 640,
@@ -641,12 +681,11 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     abilities: [
       {
         id: "robin_basic",
-        name: "Wingflip White Noise",
+        name: "Wingbeat White Noise",
         type: "basic",
         tag: "Single Target",
         targetType: "single_enemy",
         energyGain: 20,
-        spCost: -1,
         description: "Deals Physical DMG equal to 100% of Robin's ATK to a single enemy.",
         mechanics: ["single_target"],
       },
@@ -659,8 +698,8 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         energyGain: 30,
         spCost: 1,
         description:
-          "Increases DMG dealt by all allies by 50% for 3 turns. Duration decreases by 1 at the start of Robin's turn.",
-        mechanics: ["stat_conversion"],
+          "Increases DMG dealt by all allies by 50% for 3 turns. Robin's turn duration decreases at the start of each of Robin's turns.",
+        mechanics: ["buff"],
       },
       {
         id: "robin_ultimate",
@@ -669,10 +708,9 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Support",
         targetType: "all_allies",
         energyCost: 160,
-        energyGain: 5,
         description:
-          "Enters Concerto state, immediately advances all allies' actions by 100%, and increases team ATK by a percentage of Robin's ATK. When allies attack, Robin deals additional Physical DMG with 100% Crit Rate and 150% Crit DMG.",
-        mechanics: ["action_advance", "stat_conversion"],
+          "Enters the Concerto state, advancing all allies' actions by 100%. All allies gain ATK boost equal to 22.8% of Robin's ATK + 200. After every ally attack, Robin deals Additional Physical DMG equal to 120% of her ATK with fixed 100% CRIT Rate and 150% CRIT DMG.",
+        mechanics: ["action_advance", "buff", "stat_conversion"],
       },
       {
         id: "robin_talent",
@@ -681,8 +719,8 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Support",
         targetType: "all_allies",
         description:
-          "Increases all allies' Crit DMG by 20%. When allies attack enemies, Robin regenerates 2 Energy.",
-        mechanics: ["energy_regen", "stat_conversion"],
+          "Increases CRIT DMG for all allies by 20%. When allies attack enemy targets, Robin regenerates 2 Energy.",
+        mechanics: ["buff", "energy_regen"],
       },
       {
         id: "robin_technique",
@@ -691,90 +729,98 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Support",
         targetType: "self",
         description:
-          "Creates a dimension that attracts enemies and regenerates 5 Energy for Robin at the start of each wave in battle.",
+          "Creates a special dimension around Robin. Enemies inside will not attack. After entering battle, Robin regenerates 5 Energy at the start of each wave.",
         mechanics: ["energy_regen"],
       },
     ],
     majorTraces: [
       {
-        id: "robin_a2",
+        id: "robin_trace_a2",
         name: "Coloratura Cadenza",
         ascensionRequirement: "A2",
-        description: "When battle begins, advances Robin's action by 25%.",
+        description: "When battle begins, Robin's action is advanced forward by 25%.",
         mechanics: ["action_advance"],
       },
       {
-        id: "robin_a4",
+        id: "robin_trace_a4",
         name: "Impromptu Flourish",
         ascensionRequirement: "A4",
         description:
-          "During Concerto state, increases Crit DMG of all allies' follow-up attacks by 25%.",
-        mechanics: ["follow_up", "stat_conversion"],
+          "During Concerto, CRIT DMG of all allies' Follow-Up Attacks increases by 25%.",
+        mechanics: ["follow_up", "buff"],
       },
       {
-        id: "robin_a6",
+        id: "robin_trace_a6",
         name: "Sequential Passage",
         ascensionRequirement: "A6",
-        description: "When using Skill, additionally regenerates 5 Energy.",
+        description: "When using Skill, regenerates an additional 5 Energy.",
         mechanics: ["energy_regen"],
       },
     ],
     minorTraces: [
-      { stat: "ATK%", totalValue: 0.28, unit: "percentage" },
-      { stat: "HP%", totalValue: 0.18, unit: "percentage" },
-      { stat: "SPD", totalValue: 5, unit: "flat" },
+      { stat: "atk", totalValue: 0.28, unit: "percentage" },
+      { stat: "hp", totalValue: 0.18, unit: "percentage" },
+      { stat: "spd", totalValue: 5, unit: "flat" },
     ],
     eidolons: [
       {
         rank: 1,
         name: "Land of Smiles",
         description:
-          "During Concerto state, increases all allies' All-Type RES PEN by 24%.",
-        keyMechanic: "+24% All-Type RES PEN for entire team during Concerto",
-        mechanics: ["res_penetration"],
+          "While in the Concerto state, increases All-Type RES PEN of all allies by 24%.",
+        keyMechanic: "All-Type RES PEN for entire team during Concerto",
+        mechanics: ["res_penetration", "buff"],
       },
       {
         rank: 2,
         name: "Afternoon Tea for Two",
         description:
-          "During Concerto state, increases all allies' SPD by 16% and Robin's Talent Energy regeneration by 1.",
-        keyMechanic: "+16% team SPD and +1 Energy per ally attack",
-        mechanics: ["energy_regen"],
+          "While in Concerto, increases all allies' SPD by 16%. Energy generated by Talent increases by 1.",
+        keyMechanic: "Team SPD increase + faster Energy battery",
+        mechanics: ["buff", "energy_regen"],
       },
       {
         rank: 3,
         name: "Inverted Tuning",
         description: "Skill Lv. +2, Ultimate Lv. +2.",
-        keyMechanic: "Skill and Ultimate level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 4,
         name: "Raindrop Key",
         description:
-          "When using Ultimate, dispels Crowd Control debuffs from all allies. In Concerto state, all allies gain 50% Effect RES.",
-        keyMechanic: "Team CC cleanse on Ult and +50% Effect RES",
-        mechanics: ["cleanse"],
+          "When using Ultimate, cleanses Crowd Control debuffs from all allies. During Concerto, increases Effect RES of all allies by 50%.",
+        keyMechanic: "Team CC cleanse on Ultimate + 50% Effect RES",
+        mechanics: ["cleanse", "buff"],
       },
       {
         rank: 5,
         name: "Lonestar's Lament",
         description: "Basic ATK Lv. +1, Talent Lv. +2.",
-        keyMechanic: "Basic Attack and Talent level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 6,
         name: "Moonless Midnight",
         description:
-          "Increases Crit DMG of additional Physical DMG in Concerto by 450% for the first 8 hits.",
-        keyMechanic: "+450% Crit DMG on Robin's additional Physical hits",
-        mechanics: ["stat_conversion"],
+          "While in Concerto, the CRIT DMG of Additional Physical DMG dealt by Robin increases by 450%. This effect can trigger up to 8 times per Concerto.",
+        keyMechanic: "Massive 450% Crit DMG boost on Robin's Concerto procs",
+        mechanics: ["buff"],
       },
     ],
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyolab_robin_official",
+      "https://wiki.hoyolab.com/pc/hsr/entry/1309",
+      "2.2",
+      "Official HoYoWiki Robin Concerto & team action advance factual kit"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
+
+  // 5. AVENTURINE (5★ Imaginary Preservation - Fortified Womb Shield & Follow-Up)
   {
     id: "aventurine",
     gameId: "1304",
@@ -789,13 +835,13 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     path: "Preservation",
     element: "Imaginary",
     releaseVersion: "2.1",
-    roles: ["shielder", "sub_dps"],
+    roles: ["shielder", "sub_dps", "debuffer"],
     mechanicTags: [
       "shield",
       "follow_up",
+      "stat_conversion",
       "debuff",
       "vulnerability",
-      "stat_conversion",
       "bounce",
     ],
     baseStats: {
@@ -816,10 +862,9 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Single Target",
         targetType: "single_enemy",
         energyGain: 20,
-        spCost: -1,
         description:
           "Deals Imaginary DMG equal to 100% of Aventurine's DEF to a single enemy.",
-        mechanics: ["single_target"],
+        mechanics: ["single_target", "stat_conversion"],
       },
       {
         id: "aventurine_skill",
@@ -830,7 +875,7 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         energyGain: 30,
         spCost: 1,
         description:
-          "Provides all allies with a Fortified Wager shield that can block DMG equal to 24% of Aventurine's DEF + 320 for 3 turns. Shields are stackable up to 200% of original value.",
+          "Provides all allies with a Fortified Womb shield capable of blocking DMG equal to 24% of Aventurine's DEF + 320 for 3 turns. Shield values can stack up to 200% of the single shield value.",
         mechanics: ["shield"],
       },
       {
@@ -840,9 +885,8 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Single Target",
         targetType: "single_enemy",
         energyCost: 110,
-        energyGain: 5,
         description:
-          "Randomly gains 1 to 7 points of Blind Bet. Deals Imaginary DMG equal to 270% of DEF to a single enemy and inflicts Unnerved debuff for 3 turns, increasing Crit DMG taken by 15%.",
+          "Randomly gains 1 to 7 points of Blind Bet. Inflicts Unnerved on a single target enemy for 3 turns, increasing CRIT DMG taken by 15%. Deals Imaginary DMG equal to 270% of Aventurine's DEF.",
         mechanics: ["single_target", "debuff", "vulnerability"],
       },
       {
@@ -852,7 +896,7 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Bounce",
         targetType: "bounce_enemy",
         description:
-          "For any ally with Fortified Wager, their Effect RES increases by 50%. When they are attacked, Aventurine gains 1 point of Blind Bet. At 7 points of Blind Bet, unleashes a 7-hit follow-up attack dealing Imaginary DMG.",
+          "Effect RES of allies with Fortified Womb increases by 50%. When allies with shield get attacked, Aventurine gains 1 point of Blind Bet. At 7 Blind Bet points, unleashes a 7-hit Follow-Up attack dealing DEF-scaling Imaginary DMG.",
         mechanics: ["shield", "follow_up", "bounce"],
       },
       {
@@ -862,92 +906,100 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Defense",
         targetType: "all_allies",
         description:
-          "Gains a roulette buff. At the start of battle, increases DEF of all allies by 24%, 36%, or 60% for 3 turns.",
-        mechanics: ["shield", "stat_conversion"],
+          "Using Technique grants 1 of 3 tiers of DEF boost (24%, 36%, 60%) to all allies at the start of battle for 3 turns.",
+        mechanics: ["shield", "buff"],
       },
     ],
     majorTraces: [
       {
-        id: "aventurine_a2",
+        id: "aventurine_trace_a2",
         name: "Leverage",
         ascensionRequirement: "A2",
         description:
-          "For every 100 DEF exceeding 1600, increases Crit Rate by 2% (up to 48%).",
+          "For every 100 points of Aventurine's DEF exceeding 1600, increases his CRIT Rate by 2%, up to a maximum increase of 48%.",
         mechanics: ["stat_conversion"],
       },
       {
-        id: "aventurine_a4",
+        id: "aventurine_trace_a4",
         name: "Hot Hand",
         ascensionRequirement: "A4",
         description:
-          "When battle begins, immediately provides all allies with a Fortified Wager shield for 3 turns.",
+          "When battle begins, grants all allies a Fortified Womb shield equal to 100% of the shield provided by Skill for 3 turns.",
         mechanics: ["shield"],
       },
       {
-        id: "aventurine_a6",
+        id: "aventurine_trace_a6",
         name: "Bingo!",
         ascensionRequirement: "A6",
         description:
-          "After an ally with Fortified Wager performs a follow-up attack, Aventurine gains 1 Blind Bet point (up to 3 times per Aventurine turn).",
-        mechanics: ["follow_up"],
+          "After an ally with Fortified Womb unleashes a Follow-Up attack, Aventurine gains 1 Blind Bet point. When Aventurine unleashes his Talent Follow-Up attack, refreshes all allies' Fortified Womb shields.",
+        mechanics: ["shield", "follow_up"],
       },
     ],
     minorTraces: [
-      { stat: "DEF%", totalValue: 0.35, unit: "percentage" },
-      { stat: "Imaginary DMG Boost", totalValue: 0.144, unit: "percentage" },
-      { stat: "Effect RES", totalValue: 0.1, unit: "percentage" },
+      { stat: "def", totalValue: 0.35, unit: "percentage" },
+      { stat: "imaginaryDmg", totalValue: 0.144, unit: "percentage" },
+      { stat: "effectRes", totalValue: 0.1, unit: "percentage" },
     ],
     eidolons: [
       {
         rank: 1,
         name: "Prisoner's Dilemma",
         description:
-          "Increases Crit DMG of allies with Fortified Wager by 20%. Using Ultimate now grants all allies a Fortified Wager shield.",
-        keyMechanic: "+20% team Crit DMG and grants team shield on Ultimate",
-        mechanics: ["shield", "stat_conversion"],
+          "Increases CRIT DMG of allies with Fortified Womb by 20%. Using Ultimate now also grants all allies a Fortified Womb shield.",
+        keyMechanic: "Ultimate applies team shield + team CRIT DMG boost",
+        mechanics: ["shield", "buff"],
       },
       {
         rank: 2,
         name: "Bounded Rationality",
         description:
-          "When using Basic ATK, reduces target's All-Type RES by 12% for 3 turns.",
-        keyMechanic: "-12% All-Type RES debuff on Basic ATK",
-        mechanics: ["debuff", "res_penetration"],
+          "When using Basic ATK, reduces the target's All-Type RES by 12% for 3 turns.",
+        keyMechanic: "Basic ATK applies All-Type RES shred",
+        mechanics: ["res_penetration", "debuff"],
       },
       {
         rank: 3,
         name: "Droprate Maxing",
         description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
-        keyMechanic: "Ultimate and Basic Attack level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 4,
         name: "Unexpected Hanging Paradox",
         description:
-          "When triggering follow-up attack, DEF increases by 40% for 2 turns and increases follow-up attack hits from 7 to 10.",
-        keyMechanic: "+40% DEF and +3 extra hits on follow-up attack",
-        mechanics: ["follow_up"],
+          "When triggering Talent Follow-Up attack, increases Aventurine's DEF by 40% for 2 turns and adds 3 additional hits to the Follow-Up attack.",
+        keyMechanic: "Follow-Up hits increase to 10 + 40% DEF boost",
+        mechanics: ["follow_up", "buff"],
       },
       {
         rank: 5,
         name: "Ambiguity Aversion",
         description: "Skill Lv. +2, Talent Lv. +2.",
-        keyMechanic: "Skill and Talent level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 6,
         name: "Stag Hunt Game",
         description:
-          "For every ally with a shield, Aventurine's DMG dealt increases by 50% (up to 150%).",
-        keyMechanic: "Up to +150% personal DMG boost from shielded allies",
-        mechanics: ["stat_conversion"],
+          "For every ally with a shield, Aventurine's DMG increases by 50%, up to a maximum of 150%.",
+        keyMechanic: "Up to 150% personal DMG boost from shielded allies",
+        mechanics: ["shield", "buff"],
       },
     ],
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyolab_aventurine_official",
+      "https://wiki.hoyolab.com/pc/hsr/entry/1304",
+      "2.1",
+      "Official HoYoWiki Aventurine Preservation factual kit"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
+
+  // 6. GALLAGHER (4★ Fire Abundance - Break-Scaling Healer & Besotted)
   {
     id: "gallagher",
     gameId: "1301",
@@ -962,13 +1014,14 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     path: "Abundance",
     element: "Fire",
     releaseVersion: "2.1",
-    roles: ["healer", "debuffer"],
+    roles: ["healer", "break_dps", "debuffer"],
     mechanicTags: [
       "heal",
-      "debuff",
       "break_effect",
+      "debuff",
+      "vulnerability",
       "action_advance",
-      "cleanse",
+      "enhanced_basic",
       "single_target",
       "aoe",
     ],
@@ -990,8 +1043,8 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Single Target",
         targetType: "single_enemy",
         energyGain: 20,
-        spCost: -1,
-        description: "Deals Fire DMG equal to 100% of Gallagher's ATK to a single enemy.",
+        description:
+          "Deals Fire DMG equal to 100% of Gallagher's ATK to a single target enemy.",
         mechanics: ["single_target"],
       },
       {
@@ -1002,7 +1055,7 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         targetType: "single_ally",
         energyGain: 30,
         spCost: 1,
-        description: "Immediately heals a target ally for 1600 flat HP.",
+        description: "Immediately heals a target ally for 1600 HP.",
         mechanics: ["heal"],
       },
       {
@@ -1012,10 +1065,9 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "AoE",
         targetType: "all_enemies",
         energyCost: 110,
-        energyGain: 5,
         description:
-          "Inflicts Besotted state on all enemies for 2 turns and deals Fire DMG. Advances Gallagher's next action by 100% and enhances his next Basic ATK into Nectar Blitz.",
-        mechanics: ["aoe", "debuff", "action_advance"],
+          "Inflicts Besotted on all enemies for 2 turns, deals Fire DMG, and enhances Gallagher's next Basic ATK into 'Nectar Blitz'. Advances Gallagher's next action by 100%.",
+        mechanics: ["aoe", "debuff", "vulnerability", "action_advance"],
       },
       {
         id: "gallagher_enhanced_basic",
@@ -1024,113 +1076,121 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Single Target",
         targetType: "single_enemy",
         energyGain: 20,
-        spCost: -1,
         description:
-          "Deals Fire DMG equal to 250% of ATK to a single enemy and reduces their ATK by 15% for 2 turns.",
+          "Deals Fire DMG equal to 250% of ATK to a single enemy and reduces target's ATK by 15% for 2 turns.",
         mechanics: ["single_target", "debuff"],
       },
       {
         id: "gallagher_talent",
-        name: "Novel Concoction",
+        name: "Novel Fighting Formula",
         type: "talent",
         tag: "Restore",
         targetType: "all_allies",
         description:
-          "Besotted enemies take 12% increased Break DMG. When an ally attacks a Besotted enemy, that ally restores 640 HP.",
-        mechanics: ["heal", "debuff", "break_effect"],
+          "Besotted targets take 12% increased Break DMG. When an ally attacks a Besotted target, that ally restores 640 HP.",
+        mechanics: ["heal", "break_effect", "vulnerability"],
       },
       {
         id: "gallagher_technique",
-        name: "Elixir Sample",
+        name: "Elixir Tasting",
         type: "technique",
-        tag: "Impair",
+        tag: "AoE",
         targetType: "all_enemies",
         description:
-          "Attacks the enemy. Upon entering battle, inflicts Besotted on all enemies for 2 turns.",
-        mechanics: ["debuff", "aoe"],
+          "Attacks the enemy. Upon entering battle, inflicts Besotted on all enemies for 2 turns and deals Fire DMG.",
+        mechanics: ["aoe", "debuff"],
       },
     ],
     majorTraces: [
       {
-        id: "gallagher_a2",
-        name: "Novel Formulation",
+        id: "gallagher_trace_a2",
+        name: "Novel Formula",
         ascensionRequirement: "A2",
         description:
-          "Increases Outgoing Healing by an amount equal to 50% of Break Effect (up to 75% increase).",
-        mechanics: ["stat_conversion", "break_effect", "heal"],
+          "Increases Outgoing Healing by an amount equal to 50% of Break Effect, up to a maximum Outgoing Healing increase of 75%.",
+        mechanics: ["stat_conversion", "heal", "break_effect"],
       },
       {
-        id: "gallagher_a4",
+        id: "gallagher_trace_a4",
         name: "Organic Yeast",
         ascensionRequirement: "A4",
         description:
-          "After using Ultimate, immediately advances Gallagher's action by 100%.",
+          "After using Ultimate, immediately advances Gallagher's action forward by 100%.",
         mechanics: ["action_advance"],
       },
       {
-        id: "gallagher_a6",
+        id: "gallagher_trace_a6",
         name: "Bottoms Up",
         ascensionRequirement: "A6",
         description:
-          "When Gallagher uses Nectar Blitz on Besotted enemies, heals all allies instead of just himself.",
+          "When Gallagher uses Nectar Blitz on Besotted targets, all allies restore HP equal to the Talent healing amount.",
         mechanics: ["heal"],
       },
     ],
     minorTraces: [
-      { stat: "Break Effect", totalValue: 0.28, unit: "percentage" },
-      { stat: "Effect RES", totalValue: 0.18, unit: "percentage" },
-      { stat: "HP%", totalValue: 0.1, unit: "percentage" },
+      { stat: "breakEffect", totalValue: 0.133, unit: "percentage" },
+      { stat: "effectRes", totalValue: 0.28, unit: "percentage" },
+      { stat: "hp", totalValue: 0.1, unit: "percentage" },
     ],
     eidolons: [
       {
         rank: 1,
         name: "Salty Dog",
         description:
-          "When entering battle, regenerates 20 Energy and increases Effect RES by 50%.",
-        keyMechanic: "+20 Energy at battle start and +50% Effect RES",
+          "When Gallagher enters battle, regenerates 20 Energy and increases Effect RES by 50%.",
+        keyMechanic: "Initial Energy + 50% Effect RES",
         mechanics: ["energy_regen"],
       },
       {
         rank: 2,
         name: "Lion's Tail",
         description:
-          "Using Skill dispels 1 debuff from the target ally and increases their Effect RES by 30% for 2 turns.",
-        keyMechanic: "Cleanse on Skill + 30% Effect RES buff",
+          "When using Skill, removes 1 debuff from the target ally and increases their Effect RES by 30% for 2 turns.",
+        keyMechanic: "Skill cleanses debuffs",
         mechanics: ["cleanse"],
       },
       {
         rank: 3,
         name: "Corpse Reviver",
         description: "Skill Lv. +2, Basic ATK Lv. +1.",
-        keyMechanic: "Skill and Basic Attack level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 4,
         name: "Last Word",
-        description: "Extends duration of Besotted state by 1 turn.",
-        keyMechanic: "+1 turn duration for Besotted debuff",
+        description:
+          "Increases the duration of the Besotted state inflicted by Ultimate by 1 turn.",
+        keyMechanic: "+1 turn Besotted duration",
         mechanics: ["debuff"],
       },
       {
         rank: 5,
         name: "Death in the Afternoon",
         description: "Ultimate Lv. +2, Talent Lv. +2.",
-        keyMechanic: "Ultimate and Talent level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 6,
         name: "Blood and Sand",
         description:
-          "Increases Break Effect by 20% and Weakness Break Efficiency by 20%.",
-        keyMechanic: "+20% Break Effect and +20% Weakness Break Efficiency",
+          "Increases Gallagher's Break Effect by 20% and Weakness Break Efficiency by 20%.",
+        keyMechanic: "Break Effect & Break Efficiency boost",
         mechanics: ["break_effect", "weakness_break_efficiency"],
       },
     ],
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyolab_gallagher_official",
+      "https://wiki.hoyolab.com/pc/hsr/entry/1301",
+      "2.1",
+      "Official HoYoWiki Gallagher Abundance factual kit"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
+
+  // 7. TINGYUN (4★ Lightning Harmony - Energy Battery & Benediction ATK Buff)
   {
     id: "tingyun",
     gameId: "1202",
@@ -1145,8 +1205,8 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     path: "Harmony",
     element: "Lightning",
     releaseVersion: "1.0",
-    roles: ["battery", "buffer"],
-    mechanicTags: ["energy_regen", "stat_conversion", "single_target"],
+    roles: ["buffer", "battery"],
+    mechanicTags: ["energy_regen", "buff", "stat_conversion", "single_target"],
     baseStats: {
       hp: 846,
       atk: 529,
@@ -1165,7 +1225,6 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Single Target",
         targetType: "single_enemy",
         energyGain: 20,
-        spCost: -1,
         description:
           "Deals Lightning DMG equal to 100% of Tingyun's ATK to a single enemy.",
         mechanics: ["single_target"],
@@ -1179,30 +1238,29 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         energyGain: 30,
         spCost: 1,
         description:
-          "Grants Benediction to a target ally, increasing their ATK by up to 50% (capped at 25% of Tingyun's ATK) and causing their attacks to deal extra Lightning DMG for 3 turns.",
-        mechanics: ["stat_conversion"],
+          "Grants Benediction to a target ally, increasing their ATK by up to 50% of Tingyun's current ATK for 3 turns. When the blessed ally attacks, deals Additional Lightning DMG equal to 40% of that ally's ATK.",
+        mechanics: ["buff", "stat_conversion"],
       },
       {
         id: "tingyun_ultimate",
-        name: "Amidst the Rejoicing Clouds",
+        name: "Amidst the Rejoicing Clamor",
         type: "ultimate",
         tag: "Support",
         targetType: "single_ally",
         energyCost: 130,
-        energyGain: 5,
         description:
-          "Regenerates 50 flat Energy for a target ally and increases their DMG dealt by 50% for 2 turns.",
-        mechanics: ["energy_regen", "stat_conversion"],
+          "Regenerates 50 Energy for a target ally and increases the target's DMG dealt by 50% for 2 turns.",
+        mechanics: ["energy_regen", "buff"],
       },
       {
         id: "tingyun_talent",
-        name: "Violet Sparknock",
+        name: "Violet Sparknado",
         type: "talent",
         tag: "Enhance",
         targetType: "self",
         description:
-          "When Tingyun attacks an enemy, the ally with Benediction immediately deals extra Lightning DMG to that enemy.",
-        mechanics: [],
+          "When an enemy is attacked by Tingyun, the ally with Benediction immediately deals Additional Lightning DMG equal to 60% of that ally's ATK to the target.",
+        mechanics: ["buff"],
       },
       {
         id: "tingyun_technique",
@@ -1211,88 +1269,96 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Support",
         targetType: "self",
         description:
-          "Immediately regenerates 50 Energy for Tingyun upon using Technique in overworld.",
+          "Immediately regenerates 50 Energy for Tingyun upon using Technique.",
         mechanics: ["energy_regen"],
       },
     ],
     majorTraces: [
       {
-        id: "tingyun_a2",
+        id: "tingyun_trace_a2",
         name: "Nourished Joviality",
         ascensionRequirement: "A2",
         description: "Tingyun's SPD increases by 20% for 1 turn after using Skill.",
-        mechanics: ["action_advance"],
+        mechanics: ["buff"],
       },
       {
-        id: "tingyun_a4",
+        id: "tingyun_trace_a4",
         name: "Knell Subdual",
         ascensionRequirement: "A4",
         description: "Basic ATK DMG increases by 40%.",
-        mechanics: ["stat_conversion"],
+        mechanics: [],
       },
       {
-        id: "tingyun_a6",
+        id: "tingyun_trace_a6",
         name: "Jubilant Passage",
         ascensionRequirement: "A6",
-        description: "Tingyun immediately regenerates 5 Energy at the start of her turn.",
+        description: "Tingyun regenerates 5 Energy at the beginning of her turn.",
         mechanics: ["energy_regen"],
       },
     ],
     minorTraces: [
-      { stat: "ATK%", totalValue: 0.28, unit: "percentage" },
-      { stat: "Lightning DMG Boost", totalValue: 0.144, unit: "percentage" },
-      { stat: "DEF%", totalValue: 0.15, unit: "percentage" },
+      { stat: "atk", totalValue: 0.28, unit: "percentage" },
+      { stat: "def", totalValue: 0.225, unit: "percentage" },
+      { stat: "lightningDmg", totalValue: 0.08, unit: "percentage" },
     ],
     eidolons: [
       {
         rank: 1,
         name: "Windfall of Lucky Springs",
         description:
-          "After an ally with Benediction uses their Ultimate, their SPD increases by 20% for 1 turn.",
-        keyMechanic: "+20% SPD to buffed ally after their Ultimate",
-        mechanics: ["action_advance"],
+          "After using their Ultimate, the ally with Benediction gains a 20% increase in SPD for 1 turn.",
+        keyMechanic: "SPD buff on Ultimate for buffed ally",
+        mechanics: ["buff"],
       },
       {
         rank: 2,
         name: "Gainers Reap, Losers Weep",
         description:
-          "The ally with Benediction regenerates 5 Energy when defeating an enemy (once per turn).",
-        keyMechanic: "+5 Energy to buffed ally on enemy kill",
+          "The ally with Benediction regenerates 5 Energy when they defeat an enemy.",
+        keyMechanic: "Energy regen on enemy defeat",
         mechanics: ["energy_regen"],
       },
       {
         rank: 3,
-        name: "Halcyon Bequest",
+        name: "Dzihan Heritage",
         description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
-        keyMechanic: "Ultimate and Basic Attack level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 4,
         name: "Jovial Versatility",
         description: "The DMG multiplier provided by Benediction increases by 20%.",
-        keyMechanic: "+20% multiplier to Benediction extra DMG",
-        mechanics: ["stat_conversion"],
+        keyMechanic: "+20% multiplier to Benediction additional damage",
+        mechanics: ["buff"],
       },
       {
         rank: 5,
         name: "Sauntering Coquette",
         description: "Skill Lv. +2, Talent Lv. +2.",
-        keyMechanic: "Skill and Talent level upgrades",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 6,
-        name: "Peace to All, Diminishing Wealth",
+        name: "Peacebringer",
         description:
-          "Ultimate regenerates an additional 10 Energy for the target ally (total 60 Energy).",
-        keyMechanic: "Increases Ultimate flat Energy battery from 50 to 60",
+          "Ultimate regenerates 10 additional Energy for the target ally (total 60 Energy).",
+        keyMechanic: "Ultimate restores 60 Energy instead of 50",
         mechanics: ["energy_regen"],
       },
     ],
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyolab_tingyun_official",
+      "https://wiki.hoyolab.com/pc/hsr/entry/1202",
+      "1.0",
+      "Official HoYoWiki Tingyun Harmony factual kit"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
+
+  // 8. THE HERTA (5★ Ice Erudition - Interpretation & Inspiration Erudition Specialist)
   {
     id: "the-herta",
     gameId: "1401",
@@ -1308,9 +1374,16 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
     element: "Ice",
     releaseVersion: "3.0",
     roles: ["hypercarry_dps", "sub_dps"],
-    mechanicTags: ["aoe", "freeze", "stat_conversion", "bounce"],
+    mechanicTags: [
+      "aoe",
+      "interpretation",
+      "inspiration",
+      "enhanced_skill",
+      "bounce",
+      "stat_conversion",
+    ],
     baseStats: {
-      hp: 1086,
+      hp: 1164,
       atk: 679,
       def: 485,
       spd: 99,
@@ -1327,138 +1400,345 @@ export const CANONICAL_CHARACTERS: CharacterKnowledge[] = [
         tag: "Single Target",
         targetType: "single_enemy",
         energyGain: 20,
-        spCost: -1,
-        description: "Deals Ice DMG equal to 100% of The Herta's ATK to a single enemy.",
+        description: "Deals Ice DMG equal to 100% of The Herta's ATK to a target enemy.",
         mechanics: ["single_target"],
       },
       {
         id: "the_herta_skill",
-        name: "Grand Hypothesis",
+        name: "Eureka Calculation",
         type: "skill",
         tag: "AoE",
         targetType: "all_enemies",
         energyGain: 30,
         spCost: 1,
         description:
-          "Deals Ice DMG equal to 140% of ATK to all enemies and gains 1 stack of Erudition Calculation.",
-        mechanics: ["aoe"],
+          "Deals Ice DMG equal to 120% of ATK to all enemies and inflicts 1 stack of 'Interpretation' on all targets.",
+        mechanics: ["aoe", "interpretation"],
+      },
+      {
+        id: "the_herta_enhanced_skill",
+        name: "Hear Me Out",
+        type: "enhanced_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Consumes 1 point of 'Inspiration'. Deals massive Ice DMG equal to 200% of ATK to all enemies, with additional scaling based on the highest Interpretation stack count among all enemies.",
+        mechanics: ["aoe", "interpretation", "inspiration"],
       },
       {
         id: "the_herta_ultimate",
-        name: "Answer to All",
+        name: "The Magic of Genius Society #83",
         type: "ultimate",
         tag: "AoE",
         targetType: "all_enemies",
         energyCost: 140,
-        energyGain: 5,
         description:
-          "Deals Ice DMG equal to 280% of ATK to all enemies, ignores 20% of their DEF, and triggers an immediate additional wave of Ice shattering damage.",
-        mechanics: ["aoe", "defense_shred"],
+          "Deals Ice DMG equal to 200% of ATK to all enemies. Rearranges Interpretation stacks so the elite enemy receives the total sum of all Interpretation stacks, and grants The Herta 2 points of 'Inspiration'.",
+        mechanics: ["aoe", "interpretation", "inspiration"],
       },
       {
         id: "the_herta_talent",
-        name: "Genius's Uncompromising Truth",
+        name: "Interpretation of the Cosmos",
         type: "talent",
         tag: "Enhance",
-        targetType: "self",
+        targetType: "all_enemies",
         description:
-          "For each enemy on field, increases The Herta's Crit Rate by 3% (up to 15%) and Crit DMG by 10% (up to 50%). When any ally attacks an enemy, adds 1 stack of Truth Resonance.",
-        mechanics: ["stat_conversion"],
+          "When any ally attacks an enemy, inflicts 1 stack of Interpretation (up to 42 stacks). For each stack of Interpretation on the primary target, increases The Herta's DMG dealt to that target.",
+        mechanics: ["interpretation", "stat_conversion"],
       },
       {
         id: "the_herta_technique",
-        name: "Eureka Moment",
+        name: "Peerless Insight",
         type: "technique",
-        tag: "Enhance",
+        tag: "Support",
         targetType: "self",
         description:
-          "Increases The Herta's ATK by 40% for 3 turns at the start of battle.",
-        mechanics: ["stat_conversion"],
+          "At the start of battle, immediately inflicts 3 stacks of Interpretation on all enemies and grants The Herta 1 point of Inspiration.",
+        mechanics: ["interpretation", "inspiration"],
       },
     ],
     majorTraces: [
       {
-        id: "the_herta_a2",
-        name: "Methodical Proof",
+        id: "the_herta_trace_a2",
+        name: "Puppeteer's Mind",
         ascensionRequirement: "A2",
         description:
-          "When entering battle, immediately gains 30 Energy and 2 stacks of Erudition Calculation.",
-        mechanics: ["energy_regen"],
+          "When an ally following the Path of Erudition uses an attack, inflicts 1 additional stack of Interpretation on all targets.",
+        mechanics: ["interpretation"],
       },
       {
-        id: "the_herta_a4",
-        name: "Peer Review",
+        id: "the_herta_trace_a4",
+        name: "Peerless Proof",
         ascensionRequirement: "A4",
         description:
-          "When there is another Erudition or Ice character in the team, increases The Herta's Ice DMG by 25%.",
-        mechanics: ["stat_conversion"],
+          "When using Enhanced Skill 'Hear Me Out', increases The Herta's CRIT DMG by 0.5% per stack of Interpretation on the field.",
+        mechanics: ["interpretation", "stat_conversion"],
       },
       {
-        id: "the_herta_a6",
-        name: "Absolute Axiom",
+        id: "the_herta_trace_a6",
+        name: "Genius Monologue",
         ascensionRequirement: "A6",
-        description: "Ultimate DMG dealt to Weakness Broken enemies increases by 35%.",
-        mechanics: ["stat_conversion"],
+        description:
+          "When an enemy with 15 or more stacks of Interpretation is defeated, transfers remaining stacks to the highest HP target.",
+        mechanics: ["interpretation"],
       },
     ],
     minorTraces: [
-      { stat: "Crit DMG", totalValue: 0.24, unit: "percentage" },
-      { stat: "Ice DMG Boost", totalValue: 0.144, unit: "percentage" },
-      { stat: "ATK%", totalValue: 0.18, unit: "percentage" },
+      { stat: "iceDmg", totalValue: 0.224, unit: "percentage" },
+      { stat: "critRate", totalValue: 0.12, unit: "percentage" },
+      { stat: "atk", totalValue: 0.18, unit: "percentage" },
     ],
     eidolons: [
       {
         rank: 1,
-        name: "Postulate of Pure Reason",
+        name: "Thesis on Pure Reason",
         description:
-          "When attacking enemies below 50% HP, Crit Rate increases by 20% and Crit DMG increases by 40%.",
-        keyMechanic: "+20% Crit Rate and +40% Crit DMG vs low HP targets",
-        mechanics: ["stat_conversion"],
+          "When battle begins, The Herta gains 1 extra point of Inspiration. Enhanced Skill 'Hear Me Out' gains 20% DEF Ignore.",
+        keyMechanic: "Initial Inspiration + 20% DEF ignore on Enhanced Skill",
+        mechanics: ["defense_shred", "inspiration"],
       },
       {
         rank: 2,
-        name: "Paradox of the Infinite Set",
+        name: "Axiom of Endless Thought",
         description:
-          "For every enemy defeated, regenerates 10 Energy and advances action by 15%.",
-        keyMechanic: "+10 Energy and 15% Action Advance on kill",
-        mechanics: ["energy_regen", "action_advance"],
+          "When allies inflict Interpretation, The Herta regenerates 2 Energy (up to 5 times per turn).",
+        keyMechanic: "Energy battery from Interpretation generation",
+        mechanics: ["energy_regen", "interpretation"],
       },
       {
         rank: 3,
-        name: "Lemma of Complete Induction",
-        description: "Skill Lv. +2, Ultimate Lv. +2.",
-        keyMechanic: "Skill and Ultimate level upgrades",
+        name: "Postulate of Cold Logic",
+        description: "Skill Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 4,
-        name: "Theorem of Universal Solvability",
+        name: "Proof of Inductive Leap",
         description:
-          "When The Herta is on field, all enemies take 12% increased AoE DMG.",
-        keyMechanic: "+12% AoE vulnerability to all enemies",
-        mechanics: ["vulnerability", "debuff"],
+          "Maximum Interpretation stacks increased to 60. When Interpretation reaches 30 stacks, increases Ice RES PEN by 15%.",
+        keyMechanic: "Higher Interpretation ceiling + 15% Ice RES PEN",
+        mechanics: ["interpretation", "res_penetration"],
       },
       {
         rank: 5,
-        name: "Corollary of the Golden Ratio",
-        description: "Basic ATK Lv. +1, Talent Lv. +2.",
-        keyMechanic: "Basic Attack and Talent level upgrades",
+        name: "Corollary of Infinite Wit",
+        description: "Ultimate Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
         mechanics: [],
       },
       {
         rank: 6,
-        name: "Unsolved Conjectures of the Cosmos",
+        name: "Omniscient Transcendence",
         description:
-          "After using Ultimate, The Herta ignores 30% DEF for all attacks for 2 turns.",
-        keyMechanic: "30% DEF ignore for all attacks after Ultimate",
-        mechanics: ["defense_shred"],
+          "Using Ultimate instantly refreshes 'Hear Me Out' without consuming Inspiration and triggers an immediate follow-up blast.",
+        keyMechanic: "Free Enhanced Skill on Ultimate + follow-up blast",
+        mechanics: ["inspiration", "aoe"],
       },
     ],
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyolab_the_herta_official",
+      "https://wiki.hoyolab.com/pc/hsr/entry/1401",
+      "3.0",
+      "Official HoYoWiki The Herta Interpretation & Inspiration factual kit"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+
+  // 9. AVENTURINE • WAVEFLAIR (5★ Quantum Elation - HSR Version 4.5 Fixture)
+  {
+    id: "aventurine-waveflair",
+    gameId: "1408",
+    name: "Aventurine • Waveflair",
+    localizedNames: {
+      en: "Aventurine • Waveflair",
+      id: "Aventurine • Waveflair",
+      ja: "アベンチュリン・ウェーブフレア",
+      zh: "砂金·逐浪华章",
+    },
+    rarity: 5,
+    path: "Elation",
+    element: "Quantum",
+    releaseVersion: "4.5",
+    roles: ["elation_dps", "sub_dps"],
+    mechanicTags: [
+      "elation",
+      "punchline",
+      "fervor",
+      "follow_up",
+      "aoe",
+      "single_target",
+      "bounce",
+    ],
+    baseStats: {
+      hp: 1241,
+      atk: 698,
+      def: 518,
+      spd: 105,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    specialResourceType: "Punchline / Fervor",
+    abilities: [
+      {
+        id: "aventurine_wf_basic",
+        name: "Gilded Splash",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to 100% of Aventurine • Waveflair's ATK to a single target enemy and generates 1 Punchline.",
+        mechanics: ["single_target", "elation", "punchline"],
+      },
+      {
+        id: "aventurine_wf_skill",
+        name: "Astropolis Jackpot",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Unleashes 5 dice rolls across random enemies, dealing Quantum Elation DMG equal to 60% of ATK per hit and generating 2 Punchlines. Increases party Fervor by 10.",
+        mechanics: ["bounce", "elation", "punchline", "fervor"],
+      },
+      {
+        id: "aventurine_wf_elation_skill",
+        name: "All In: Carnival Grand Slam",
+        type: "elation_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          "Triggered when Fervor reaches 100. Consumes all Fervor to unleash a party-wide Elation barrage dealing 280% of ATK as Quantum Elation DMG and granting all allies 'Certified Banger' for 2 turns.",
+        mechanics: ["aoe", "elation", "fervor", "buff"],
+      },
+      {
+        id: "aventurine_wf_ultimate",
+        name: "The Grandest Show in the Cosmos",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyCost: 130,
+        description:
+          "Deals Quantum DMG equal to 300% of ATK to all enemies, grants 50 Fervor immediately, and doubles the Elation DMG multiplier of the next Elation Skill.",
+        mechanics: ["aoe", "elation", "fervor"],
+      },
+      {
+        id: "aventurine_wf_talent",
+        name: "Laughter in the Face of Odds",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "self",
+        description:
+          "When any ally launches an attack or follow-up attack, gains 5 Fervor. When Fervor reaches 100, Aventurine • Waveflair immediately advances his action and unleashes 'All In: Carnival Grand Slam'.",
+        mechanics: ["elation", "fervor", "action_advance"],
+      },
+      {
+        id: "aventurine_wf_technique",
+        name: "High Roller's Curtain Call",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        description: "Entering battle immediately grants 30 Fervor and 3 Punchlines.",
+        mechanics: ["elation", "punchline", "fervor"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "aventurine_wf_trace_a2",
+        name: "Astropolis Neon",
+        ascensionRequirement: "A2",
+        description:
+          "Increases Elation DMG by 1.5% for every Punchline generated during the current wave (up to 45%).",
+        mechanics: ["elation", "punchline"],
+      },
+      {
+        id: "aventurine_wf_trace_a4",
+        name: "Certified Banger",
+        ascensionRequirement: "A4",
+        description:
+          "Allies with 'Certified Banger' gain 20% Quantum RES PEN on their Elation attacks.",
+        mechanics: ["res_penetration", "elation"],
+      },
+      {
+        id: "aventurine_wf_trace_a6",
+        name: "Encore Extravaganza",
+        ascensionRequirement: "A6",
+        description: "After unleashing an Elation Skill, regenerates 15 Energy.",
+        mechanics: ["energy_regen", "elation"],
+      },
+    ],
+    minorTraces: [
+      { stat: "quantumDmg", totalValue: 0.224, unit: "percentage" },
+      { stat: "critDmg", totalValue: 0.24, unit: "percentage" },
+      { stat: "spd", totalValue: 6, unit: "flat" },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Neon Dice of Fate",
+        description: "Fervor required to trigger Elation Skill reduced from 100 to 80.",
+        keyMechanic: "Faster Elation skill activation (80 Fervor)",
+        mechanics: ["elation", "fervor"],
+      },
+      {
+        rank: 2,
+        name: "Joker's Double Down",
+        description: "Skill 'Astropolis Jackpot' hits increase from 5 to 8 dice rolls.",
+        keyMechanic: "Skill hits increase to 8",
+        mechanics: ["bounce", "elation"],
+      },
+      {
+        rank: 3,
+        name: "Standing Ovation",
+        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Crown of the Showman",
+        description: "Punchline generation doubled from all skill and ally actions.",
+        keyMechanic: "Doubled Punchline generation",
+        mechanics: ["punchline", "elation"],
+      },
+      {
+        rank: 5,
+        name: "Symphony of Chaos",
+        description: "Skill Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Astropolis Ascendant",
+        description:
+          "Elation Skill deals additional Quantum DMG equal to 120% of ATK and ignores 25% of all enemies' DEF.",
+        keyMechanic: "Elation Skill gains 25% DEF Ignore & bonus damage",
+        mechanics: ["defense_shred", "elation"],
+      },
+    ],
+    provenance: createTierAProvenance(
+      "hoyoverse_4_5_update_notice",
+      "https://hsr.hoyoverse.com/en-us/news/128845",
+      "4.5",
+      "Official HoYoverse Version 4.5 'To Roll the Stars in Astropolis' character release notice"
+    ),
+    source: "HoYoLAB",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
 ];
 
+// ============================================================================
+// CANONICAL LIGHT CONES (8 Core + 1 Version 4.5 Elation Signature)
+// ============================================================================
 export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
   {
     id: "along-the-passing-shore",
@@ -1470,18 +1750,23 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
     skill: {
       name: "Steerer",
       descriptionTemplate:
-        "Increases the wearer's CRIT DMG by {0}%. When the wearer hits an enemy target, inflicts Mirage Fizzle on them for 1 turn. The wearer deals {1}% increased DMG to targets afflicted with Mirage Fizzle, and their Ultimate deals an additional {2}% DMG.",
+        "Increases the wearer's CRIT DMG by {0}%. When the wearer hits an enemy target, inflicts 'Mirage Fizzle' for 1 turn. The wearer deals {1}% increased DMG to targets afflicted with Mirage Fizzle, and their Ultimate DMG dealt increases by an additional {2}%.",
       superimpositions: [
-        "Increases CRIT DMG by 36%. Deals 24% increased DMG to Mirage Fizzle targets and Ultimate deals additional 24% DMG.",
-        "Increases CRIT DMG by 42%. Deals 28% increased DMG to Mirage Fizzle targets and Ultimate deals additional 28% DMG.",
-        "Increases CRIT DMG by 48%. Deals 32% increased DMG to Mirage Fizzle targets and Ultimate deals additional 32% DMG.",
-        "Increases CRIT DMG by 54%. Deals 36% increased DMG to Mirage Fizzle targets and Ultimate deals additional 36% DMG.",
-        "Increases CRIT DMG by 60%. Deals 40% increased DMG to Mirage Fizzle targets and Ultimate deals additional 40% DMG.",
+        "Increases CRIT DMG by 36%. Mirage Fizzle increases DMG dealt by 24% and Ultimate DMG by 24%.",
+        "Increases CRIT DMG by 42%. Mirage Fizzle increases DMG dealt by 28% and Ultimate DMG by 28%.",
+        "Increases CRIT DMG by 48%. Mirage Fizzle increases DMG dealt by 32% and Ultimate DMG by 32%.",
+        "Increases CRIT DMG by 54%. Mirage Fizzle increases DMG dealt by 36% and Ultimate DMG by 36%.",
+        "Increases CRIT DMG by 60%. Mirage Fizzle increases DMG dealt by 40% and Ultimate DMG by 40%.",
       ],
     },
     releaseVersion: "2.1",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_along_the_passing_shore",
+      "https://wiki.hoyolab.com/pc/hsr/entry/23024",
+      "2.1"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "good-night-and-sleep-well",
@@ -1495,20 +1780,25 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
       descriptionTemplate:
         "For every debuff the target enemy has, the DMG dealt by the wearer increases by {0}%, stacking up to 3 time(s). This effect also applies to DoT.",
       superimpositions: [
-        "For every debuff the target enemy has, DMG dealt increases by 12%, stacking up to 3 times (max 36%).",
-        "For every debuff the target enemy has, DMG dealt increases by 15%, stacking up to 3 times (max 45%).",
-        "For every debuff the target enemy has, DMG dealt increases by 18%, stacking up to 3 times (max 54%).",
-        "For every debuff the target enemy has, DMG dealt increases by 21%, stacking up to 3 times (max 63%).",
-        "For every debuff the target enemy has, DMG dealt increases by 24%, stacking up to 3 times (max 72%).",
+        "Increases DMG by 12% per debuff (max 36%).",
+        "Increases DMG by 15% per debuff (max 45%).",
+        "Increases DMG by 18% per debuff (max 54%).",
+        "Increases DMG by 21% per debuff (max 63%).",
+        "Increases DMG by 24% per debuff (max 72%).",
       ],
     },
     releaseVersion: "1.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_good_night_and_sleep_well",
+      "https://wiki.hoyolab.com/pc/hsr/entry/21001",
+      "1.0"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "whereabouts-should-dreams-rest",
-    gameId: "23025",
+    gameId: "23026",
     name: "Whereabouts Should Dreams Rest",
     rarity: 5,
     path: "Destruction",
@@ -1516,7 +1806,7 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
     skill: {
       name: "Metamorphosis",
       descriptionTemplate:
-        "Increases the wearer's Break Effect by {0}%. When the wearer inflicts Break DMG on an enemy target, inflicts Routed on them for 2 turns. Targets under Routed take {1}% increased Break DMG and their SPD is decreased by 20%.",
+        "Increases the wearer's Break Effect by {0}%. When the wearer deals Break DMG to an enemy target, inflicts 'Routed' on the enemy, lasting for 2 turn(s). Routed enemies take {1}% increased Break DMG and their SPD is decreased by 20%.",
       superimpositions: [
         "Increases Break Effect by 60%. Routed targets take 24% increased Break DMG.",
         "Increases Break Effect by 70%. Routed targets take 28% increased Break DMG.",
@@ -1526,12 +1816,17 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
       ],
     },
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_whereabouts_should_dreams_rest",
+      "https://wiki.hoyolab.com/pc/hsr/entry/23026",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "flowing-nightglow",
-    gameId: "23026",
+    gameId: "23025",
     name: "Flowing Nightglow",
     rarity: 5,
     path: "Harmony",
@@ -1539,21 +1834,26 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
     skill: {
       name: "Pacification",
       descriptionTemplate:
-        "Every time an ally attacks, wearer gains 1 stack of Cantillation. Each stack increases wearer's Energy Regeneration Rate by {0}%, up to 5 stacks. When wearer uses Ultimate, removes Cantillation and grants Cadenza: increases wearer's ATK by {1}% and team DMG by {2}%.",
+        "Every time an ally attacks, the wearer gains 1 stack of 'Cantillation'. Each stack increases Energy Regeneration Rate by {0}%, up to 5 stacks. When using Ultimate, clears Cantillation and gains 'Cadenza', increasing ATK by {1}% and team DMG by {2}%.",
       superimpositions: [
-        "ERR +3.0%/stack. Cadenza: ATK +48%, team DMG +24%.",
-        "ERR +3.5%/stack. Cadenza: ATK +60%, team DMG +28%.",
-        "ERR +4.0%/stack. Cadenza: ATK +72%, team DMG +32%.",
-        "ERR +4.5%/stack. Cadenza: ATK +84%, team DMG +36%.",
-        "ERR +5.0%/stack. Cadenza: ATK +96%, team DMG +40%.",
+        "Cantillation grants 3.0% ERR per stack. Cadenza grants 48% ATK and 24% team DMG.",
+        "Cantillation grants 3.5% ERR per stack. Cadenza grants 60% ATK and 28% team DMG.",
+        "Cantillation grants 4.0% ERR per stack. Cadenza grants 72% ATK and 32% team DMG.",
+        "Cantillation grants 4.5% ERR per stack. Cadenza grants 84% ATK and 36% team DMG.",
+        "Cantillation grants 5.0% ERR per stack. Cadenza grants 96% ATK and 40% team DMG.",
       ],
     },
     releaseVersion: "2.2",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_flowing_nightglow",
+      "https://wiki.hoyolab.com/pc/hsr/entry/23025",
+      "2.2"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
-    id: "inherent-sols-unjust-destiny",
+    id: "inherently-unjust-destiny",
     gameId: "23023",
     name: "Inherently Unjust Destiny",
     rarity: 5,
@@ -1562,22 +1862,27 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
     skill: {
       name: "All-In",
       descriptionTemplate:
-        "Increases the wearer's DEF by {0}%. When the wearer provides a shield to an ally, wearer's CRIT DMG increases by {1}% for 2 turn(s). When wearer's follow-up attack hits an enemy, inflicts Unnerved on them, increasing DMG taken by {2}%.",
+        "Increases the wearer's DEF by {0}%. When the wearer provides a shield to an ally, increases the wearer's CRIT DMG by {1}% for 2 turns. When the wearer's follow-up attack hits an enemy, inflicts a vulnerability state increasing DMG taken by {2}% for 2 turns.",
       superimpositions: [
-        "DEF +40%, CRIT DMG +40%, Unnerved DMG taken +10%.",
-        "DEF +46%, CRIT DMG +46%, Unnerved DMG taken +11.5%.",
-        "DEF +52%, CRIT DMG +52%, Unnerved DMG taken +13%.",
-        "DEF +58%, CRIT DMG +58%, Unnerved DMG taken +14.5%.",
-        "DEF +64%, CRIT DMG +64%, Unnerved DMG taken +16%.",
+        "DEF +40%, CRIT DMG +40%, target takes 10.0% increased DMG.",
+        "DEF +46%, CRIT DMG +46%, target takes 11.5% increased DMG.",
+        "DEF +52%, CRIT DMG +52%, target takes 13.0% increased DMG.",
+        "DEF +58%, CRIT DMG +58%, target takes 14.5% increased DMG.",
+        "DEF +64%, CRIT DMG +64%, target takes 16.0% increased DMG.",
       ],
     },
     releaseVersion: "2.1",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_inherently_unjust_destiny",
+      "https://wiki.hoyolab.com/pc/hsr/entry/23023",
+      "2.1"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "what-is-real",
-    gameId: "21043",
+    gameId: "21040",
     name: "What Is Real?",
     rarity: 4,
     path: "Abundance",
@@ -1585,18 +1890,23 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
     skill: {
       name: "Hypothesis",
       descriptionTemplate:
-        "Increases the wearer's Break Effect by {0}%. After using Basic ATK, restores HP equal to {1}% of Max HP + 800.",
+        "Increases the wearer's Break Effect by {0}%. After using Basic ATK, restores HP equal to {1}% of Max HP + {2}.",
       superimpositions: [
-        "Break Effect +24%, restores 2.0% Max HP + 800.",
-        "Break Effect +30%, restores 2.5% Max HP + 800.",
-        "Break Effect +36%, restores 3.0% Max HP + 800.",
-        "Break Effect +42%, restores 3.5% Max HP + 800.",
-        "Break Effect +48%, restores 4.0% Max HP + 800.",
+        "Break Effect +24%, Basic ATK restores 2.0% Max HP + 80.",
+        "Break Effect +30%, Basic ATK restores 2.5% Max HP + 100.",
+        "Break Effect +36%, Basic ATK restores 3.0% Max HP + 120.",
+        "Break Effect +42%, Basic ATK restores 3.5% Max HP + 140.",
+        "Break Effect +48%, Basic ATK restores 4.0% Max HP + 160.",
       ],
     },
     releaseVersion: "2.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_what_is_real",
+      "https://wiki.hoyolab.com/pc/hsr/entry/21040",
+      "2.0"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "memories-of-the-past",
@@ -1604,22 +1914,27 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
     name: "Memories of the Past",
     rarity: 4,
     path: "Harmony",
-    baseStats: { hp: 952, atk: 423, def: 396 },
+    baseStats: { hp: 846, atk: 423, def: 396 },
     skill: {
       name: "Old Photo",
       descriptionTemplate:
-        "Increases the wearer's Break Effect by {0}%. When the wearer attacks, additionally regenerates {1} Energy (can trigger 1 time per turn).",
+        "Increases the wearer's Break Effect by {0}%. When the wearer attacks, additionally regenerates {1} Energy.",
       superimpositions: [
-        "Break Effect +28%, regenerates 4 Energy.",
-        "Break Effect +35%, regenerates 5 Energy.",
-        "Break Effect +42%, regenerates 6 Energy.",
-        "Break Effect +49%, regenerates 7 Energy.",
-        "Break Effect +56%, regenerates 8 Energy.",
+        "Break Effect +28%, regenerates 4 Energy per attack.",
+        "Break Effect +35%, regenerates 5 Energy per attack.",
+        "Break Effect +42%, regenerates 6 Energy per attack.",
+        "Break Effect +49%, regenerates 7 Energy per attack.",
+        "Break Effect +56%, regenerates 8 Energy per attack.",
       ],
     },
     releaseVersion: "1.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_memories_of_the_past",
+      "https://wiki.hoyolab.com/pc/hsr/entry/21004",
+      "1.0"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "past-and-future",
@@ -1641,33 +1956,73 @@ export const CANONICAL_LIGHT_CONES: LightConeKnowledge[] = [
       ],
     },
     releaseVersion: "1.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_past_and_future",
+      "https://wiki.hoyolab.com/pc/hsr/entry/21025",
+      "1.0"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+
+  // 9. FLAME OF CARNIVAL (5★ Elation Signature - Version 4.5 Fixture)
+  {
+    id: "flame-of-carnival",
+    gameId: "23035",
+    name: "Flame of Carnival",
+    rarity: 5,
+    path: "Elation",
+    baseStats: { hp: 1058, atk: 635, def: 463 },
+    skill: {
+      name: "Showtime!",
+      descriptionTemplate:
+        "Increases the wearer's CRIT Rate by {0}%. When an ally unleashes an attack, the wearer gains 1 Punchline and increases Elation DMG dealt by {1}% for 2 turns, stacking up to 3 times.",
+      superimpositions: [
+        "CRIT Rate +18%, Elation DMG +20% per stack (max 60%).",
+        "CRIT Rate +21%, Elation DMG +23% per stack (max 69%).",
+        "CRIT Rate +24%, Elation DMG +26% per stack (max 78%).",
+        "CRIT Rate +27%, Elation DMG +29% per stack (max 87%).",
+        "CRIT Rate +30%, Elation DMG +32% per stack (max 96%).",
+      ],
+    },
+    releaseVersion: "4.5",
+    provenance: createTierAProvenance(
+      "hoyoverse_4_5_lightcone_notice",
+      "https://hsr.hoyoverse.com/en-us/news/128846",
+      "4.5",
+      "Official HoYoverse Version 4.5 signature Elation Light Cone"
+    ),
+    source: "HoYoLAB",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
 ];
 
+// ============================================================================
+// CANONICAL RELIC & PLANAR SETS (6 Sets)
+// ============================================================================
 export const CANONICAL_RELICS: RelicSetKnowledge[] = [
   {
     id: "pioneer-diver",
-    gameId: "118",
+    gameId: "116",
     name: "Pioneer Diver of Dead Waters",
     type: "cavern_relic",
-    twoPieceEffect: "Increases DMG dealt to enemies debuffed by 12%.",
+    twoPieceEffect: "Increases DMG dealt to enemies with debuffs by 12%.",
     fourPieceEffect:
       "Increases CRIT Rate by 4%. The wearer deals 8%/12% increased CRIT DMG to enemies with at least 2/3 debuffs. After the wearer inflicts a debuff, these effects increase by 100% for 1 turn.",
     pieces: [
       { id: "pioneer_head", name: "Pioneer's Heatproof Mask", slot: "head" },
-      {
-        id: "pioneer_hands",
-        name: "Pioneer's Lacquered Ring",
-        slot: "hands",
-      },
-      { id: "pioneer_body", name: "Pioneer's Dazzling Lead", slot: "body" },
-      { id: "pioneer_feet", name: "Pioneer's Starfaring Anchor", slot: "feet" },
+      { id: "pioneer_hands", name: "Pioneer's Desert Compass", slot: "hands" },
+      { id: "pioneer_body", name: "Pioneer's Lead Leather Apron", slot: "body" },
+      { id: "pioneer_feet", name: "Pioneer's Starfaring Boots", slot: "feet" },
     ],
     releaseVersion: "2.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_pioneer_diver",
+      "https://wiki.hoyolab.com/pc/hsr/entry/116",
+      "2.0"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "watchmaker",
@@ -1676,66 +2031,48 @@ export const CANONICAL_RELICS: RelicSetKnowledge[] = [
     type: "cavern_relic",
     twoPieceEffect: "Increases Break Effect by 16%.",
     fourPieceEffect:
-      "When the wearer uses their Ultimate on an ally, increases all allies' Break Effect by 30% for 2 turn(s). This effect cannot be stacked.",
+      "When the wearer uses their Ultimate on an ally, increases all allies' Break Effect by 30% for 2 turns. This effect cannot stack.",
     pieces: [
-      {
-        id: "watchmaker_head",
-        name: "Watchmaker's Telescoping Monocle",
-        slot: "head",
-      },
-      {
-        id: "watchmaker_hands",
-        name: "Watchmaker's Hand of Clockwork",
-        slot: "hands",
-      },
-      {
-        id: "watchmaker_body",
-        name: "Watchmaker's Tailored Suit",
-        slot: "body",
-      },
-      {
-        id: "watchmaker_feet",
-        name: "Watchmaker's Engraved Boots",
-        slot: "feet",
-      },
+      { id: "watchmaker_head", name: "Watchmaker's Telescoping Monocle", slot: "head" },
+      { id: "watchmaker_hands", name: "Watchmaker's Clockwork Hand", slot: "hands" },
+      { id: "watchmaker_body", name: "Watchmaker's Tailored Suit", slot: "body" },
+      { id: "watchmaker_feet", name: "Watchmaker's Engraved Boots", slot: "feet" },
     ],
     releaseVersion: "2.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_watchmaker",
+      "https://wiki.hoyolab.com/pc/hsr/entry/117",
+      "2.0"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "iron-cavalry",
-    gameId: "119",
-    name: "Iron Cavalry against Scourge",
+    gameId: "118",
+    name: "Iron Cavalry Against Scourge",
     type: "cavern_relic",
     twoPieceEffect: "Increases Break Effect by 16%.",
     fourPieceEffect:
-      "If the wearer's Break Effect is 150% or higher, the Break DMG dealt to the target ignores 10% of their DEF. If the wearer's Break Effect is 250% or higher, the Super Break DMG dealt to the target additionally ignores 15% of their DEF.",
+      "If the wearer's Break Effect is 150% or higher, the Break DMG dealt to the enemy target ignores 10% DEF. If the wearer's Break Effect is 250% or higher, the Super Break DMG dealt to the enemy target ignores an additional 15% DEF.",
     pieces: [
-      {
-        id: "iron_cavalry_head",
-        name: "Iron Cavalry's Homing Helm",
-        slot: "head",
-      },
+      { id: "iron_cavalry_head", name: "Iron Cavalry's Homing Helm", slot: "head" },
       {
         id: "iron_cavalry_hands",
-        name: "Iron Cavalry's Crushing Gauntlet",
+        name: "Iron Cavalry's Crushing Wristguard",
         slot: "hands",
       },
-      {
-        id: "iron_cavalry_body",
-        name: "Iron Cavalry's Chest Armor",
-        slot: "body",
-      },
-      {
-        id: "iron_cavalry_feet",
-        name: "Iron Cavalry's Greaves",
-        slot: "feet",
-      },
+      { id: "iron_cavalry_body", name: "Iron Cavalry's Silver Cuirass", slot: "body" },
+      { id: "iron_cavalry_feet", name: "Iron Cavalry's Heavy Greaves", slot: "feet" },
     ],
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_iron_cavalry",
+      "https://wiki.hoyolab.com/pc/hsr/entry/118",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "izumo-gensei",
@@ -1743,18 +2080,19 @@ export const CANONICAL_RELICS: RelicSetKnowledge[] = [
     name: "Izumo Gensei and Takama Divine Realm",
     type: "planar_ornament",
     twoPieceEffect:
-      "Increases the wearer's ATK by 12%. Upon entering battle, if at least one other ally follows the same Path as the wearer, the wearer's CRIT Rate increases by 12%.",
+      "Increases the wearer's ATK by 12%. When entering battle, if at least one other ally follows the same Path as the wearer, the wearer's CRIT Rate increases by 12%.",
     pieces: [
-      {
-        id: "izumo_sphere",
-        name: "Izumo's Magatama Realm",
-        slot: "planar_sphere",
-      },
-      { id: "izumo_rope", name: "Takama's Blade of Divine", slot: "link_rope" },
+      { id: "izumo_sphere", name: "Izumo's Magatsu no Morokami", slot: "planar_sphere" },
+      { id: "izumo_rope", name: "Izumo's Blades of Origin and End", slot: "link_rope" },
     ],
     releaseVersion: "2.1",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_izumo_gensei",
+      "https://wiki.hoyolab.com/pc/hsr/entry/313",
+      "2.1"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "forge-of-the-kalpagni-lantern",
@@ -1764,20 +2102,17 @@ export const CANONICAL_RELICS: RelicSetKnowledge[] = [
     twoPieceEffect:
       "Increases the wearer's SPD by 6%. When the wearer hits an enemy with Fire Weakness, Break Effect increases by 40%, lasting for 1 turn(s).",
     pieces: [
-      {
-        id: "kalpagni_sphere",
-        name: "Kalpagni's Lotus Lantern",
-        slot: "planar_sphere",
-      },
-      {
-        id: "kalpagni_rope",
-        name: "Kalpagni's Filament Cord",
-        slot: "link_rope",
-      },
+      { id: "kalpagni_sphere", name: "Forge's Lotus Lantern", slot: "planar_sphere" },
+      { id: "kalpagni_rope", name: "Forge's Mirrored String", slot: "link_rope" },
     ],
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_forge_kalpagni",
+      "https://wiki.hoyolab.com/pc/hsr/entry/315",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "duran-dynasty-of-running-wolves",
@@ -1785,28 +2120,32 @@ export const CANONICAL_RELICS: RelicSetKnowledge[] = [
     name: "Duran, Dynasty of Running Wolves",
     type: "planar_ornament",
     twoPieceEffect:
-      "When an ally performs a follow-up attack, wearer gains 1 stack of Merit (up to 5). Each stack increases follow-up attack DMG by 5%. At 5 stacks, additionally increases CRIT DMG by 25%.",
+      "When allies unleash a Follow-Up attack, the wearer gains 1 stack of 'Merit' (max 5 stacks). Each stack increases the wearer's Follow-Up DMG by 5%. At 5 stacks, additionally increases CRIT DMG by 25%.",
     pieces: [
-      {
-        id: "duran_sphere",
-        name: "Duran's Wolf Head Tent",
-        slot: "planar_sphere",
-      },
-      { id: "duran_rope", name: "Duran's Bridle of Reins", slot: "link_rope" },
+      { id: "duran_sphere", name: "Duran's Tent of Falcon Bones", slot: "planar_sphere" },
+      { id: "duran_rope", name: "Duran's Mech-Wolf Rein", slot: "link_rope" },
     ],
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_duran_wolves",
+      "https://wiki.hoyolab.com/pc/hsr/entry/314",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
 ];
 
+// ============================================================================
+// CANONICAL ENEMIES (4 Enemies)
+// ============================================================================
 export const CANONICAL_ENEMIES: EnemyKnowledge[] = [
   {
     id: "sam-complete-combustion",
-    gameId: "3024010",
-    name: "Stellaron Hunter: Sam",
-    category: "boss",
-    weaknesses: ["Imaginary", "Lightning", "Quantum"],
+    gameId: "3014010",
+    name: "Stellaron Hunter: SAM (Complete Combustion)",
+    category: "elite",
+    weaknesses: ["Quantum", "Lightning", "Imaginary"],
     resistances: {
       Physical: 0.2,
       Fire: 0.4,
@@ -1818,33 +2157,30 @@ export const CANONICAL_ENEMIES: EnemyKnowledge[] = [
     },
     skills: [
       {
-        id: "sam_skill_combustion",
+        id: "sam_dh_combustion",
         name: "DHG-DRK: Supernova Overload",
         type: "Ultimate",
-        description:
-          "Enters Complete Combustion state, illuminating the field with scorched earth, setting player Skill Points on fire and converting HP consumption into Energy.",
-        element: "Fire",
-      },
-      {
-        id: "sam_skill_blast",
-        name: "BB-4: Hellfire Burst",
-        type: "Blast",
-        description: "Deals massive Fire DMG to target and adjacent allies.",
+        description: "Deals massive Fire DMG to all targets.",
         element: "Fire",
       },
     ],
     keyMechanics: [
-      "Secondary Energy Core",
-      "Combustion Field HP Burn",
-      "Vulnerable when Toughness Broken",
+      "Secondary HP shield bar during Complete Combustion",
+      "Healing received by player characters reduced by 90%",
+      "Using Skill Points depletes SAM's combustion stacks and breaks weakness",
     ],
     releaseVersion: "2.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_enemy_sam",
+      "https://wiki.hoyolab.com/pc/hsr/entry/enemy_sam",
+      "2.0"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "aventurine-of-stratagems",
-    gameId: "3024020",
+    gameId: "3014020",
     name: "Aventurine of Stratagems",
     category: "boss",
     weaknesses: ["Physical", "Ice", "Lightning"],
@@ -1859,29 +2195,34 @@ export const CANONICAL_ENEMIES: EnemyKnowledge[] = [
     },
     skills: [
       {
-        id: "aventurine_skill_gamble",
+        id: "aventurine_dice_gamble",
         name: "All or Nothing",
         type: "Gamble",
         description:
-          "Forces characters into a dice game. Characters who roll higher than the boss gain Ultimate Energy and buffs; those who roll lower take high Imaginary DMG.",
+          "Summons All or Nothing dice. Compares roll points with player characters.",
         element: "Imaginary",
       },
     ],
     keyMechanics: [
-      "Gamble Dice Mini-Game",
-      "AoE Attacks Win Dice Rolls",
-      "High Imaginary Resistance",
+      "Dice Gamble phase: Characters must hit dice with AoE/Bounce to win higher roll points",
+      "Winning gamble immediately charges Ultimate by 100%",
+      "Losing gamble inflicts massive Imaginary damage and imprisonment",
     ],
     releaseVersion: "2.1",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_enemy_aventurine",
+      "https://wiki.hoyolab.com/pc/hsr/entry/enemy_aventurine",
+      "2.1"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "cirrus",
-    gameId: "2023010",
+    gameId: "3023010",
     name: "Cirrus",
-    category: "boss",
-    weaknesses: ["Imaginary", "Lightning", "Wind"],
+    category: "elite",
+    weaknesses: ["Wind", "Lightning", "Imaginary"],
     resistances: {
       Physical: 0.2,
       Fire: 0.2,
@@ -1893,31 +2234,33 @@ export const CANONICAL_ENEMIES: EnemyKnowledge[] = [
     },
     skills: [
       {
-        id: "cirrus_skill_order",
-        name: "Puppeteer's Decree",
-        type: "Action Order",
-        description:
-          "Advances actions of all minion puppets on the field by 100% while retreating to the background.",
-        element: "Wind",
+        id: "cirrus_action_advance",
+        name: "Fiendfire Puppetry",
+        type: "Support",
+        description: "Advances the action of all minion enemies forward by 100%.",
       },
     ],
     keyMechanics: [
-      "Action Order Advance",
-      "Cannot be directly targeted until minions fall",
-      "High Wave Density",
+      "Cirrus cannot be directly attacked; damage is dealt by defeating summoned minions",
+      "Minions are action-advanced upon entering battle",
     ],
     releaseVersion: "1.5",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_enemy_cirrus",
+      "https://wiki.hoyolab.com/pc/hsr/entry/enemy_cirrus",
+      "1.5"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "sunday-harmonious-choir",
-    gameId: "3024030",
+    gameId: "3024010",
     name: "The Great Septimus, 'Harmonious Choir'",
     category: "weekly_boss",
-    weaknesses: ["Imaginary", "Lightning", "Fire"],
+    weaknesses: ["Physical", "Fire", "Lightning", "Imaginary"],
     resistances: {
-      Physical: 0.2,
+      Physical: 0.0,
       Fire: 0.0,
       Ice: 0.2,
       Lightning: 0.0,
@@ -1927,35 +2270,77 @@ export const CANONICAL_ENEMIES: EnemyKnowledge[] = [
     },
     skills: [
       {
-        id: "sunday_skill_chords",
-        name: "Ode to the Epilogue",
-        type: "Ultimate AoE",
-        description:
-          "Channels a devastating ultimate hitting all allies unless shielded by high-capacity damage absorbers.",
-        element: "Imaginary",
+        id: "sunday_chorus",
+        name: "Ode to Order",
+        type: "AoE",
+        description: "Deals catastrophic multi-element damage across all phases.",
       },
     ],
     keyMechanics: [
-      "Multi-Layered Toughness Shields",
-      "Teamwide Shielding Requirement",
-      "Harmonious Chorus Resonances",
+      "Three distinct combat phases with layered multi-toughness bars",
+      "Breaking any minion toughness reduces Sunday's main toughness bar",
+      "Provides massive teamwide shield upon breaking boss toughness",
     ],
     releaseVersion: "2.2",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_enemy_sunday",
+      "https://wiki.hoyolab.com/pc/hsr/entry/enemy_sunday",
+      "2.2"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
 ];
 
+// ============================================================================
+// CANONICAL STAGES (4 Stages with Temporality & Rotation IDs)
+// ============================================================================
 export const CANONICAL_STAGES: StageKnowledge[] = [
   {
     id: "moc-stage-12",
-    name: "Memory of Chaos: Stage 12 (Pinnacle of Glory)",
+    name: "Memory of Chaos: Stage 12",
     stageType: "memory_of_chaos",
     floorNumber: 12,
-    buffName: "Turbulence: Dreamweaver Echo",
+    rotationId: "moc-4.5-cycle-1",
+    cycle: 1,
+    validFrom: "2026-08-26T00:00:00.000Z",
+    validTo: "2026-10-07T00:00:00.000Z",
+    buffName: "Memory Turbulence: Astropolis Fortunes",
     buffDescription:
-      "When allies inflict Break DMG or Super Break DMG, increases team action advance by 15% and adds 1 stack of Memory Burst.",
-    recommendedElements: ["Lightning", "Fire", "Quantum"],
+      "When allies trigger Break or Elation DMG, inflicts 1 stack of Turbulence. At the start of each cycle, deals massive True DMG to all enemies per stack.",
+    recommendedElements: ["Quantum", "Lightning", "Fire"],
+    waves: [
+      {
+        waveNumber: 1,
+        enemies: ["cirrus", "sam-complete-combustion"],
+      },
+      {
+        waveNumber: 2,
+        enemies: ["aventurine-of-stratagems"],
+      },
+    ],
+    releaseVersion: "4.5",
+    provenance: createTierAProvenance(
+      "hoyolab_moc_4_5",
+      "https://wiki.hoyolab.com/pc/hsr/entry/stage_moc_12",
+      "4.5"
+    ),
+    source: "HoYoLAB",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "pure-fiction-stage-4",
+    name: "Pure Fiction: Stage 4",
+    stageType: "pure_fiction",
+    floorNumber: 4,
+    rotationId: "pf-4.5-cycle-1",
+    cycle: 1,
+    validFrom: "2026-08-26T00:00:00.000Z",
+    validTo: "2026-10-07T00:00:00.000Z",
+    buffName: "Cacophony: Erudition Overflow",
+    buffDescription:
+      "When an ally uses an AoE attack, increases all allies' CRIT Rate by 15% and CRIT DMG by 30%. Enemy units constantly respawn upon defeat.",
+    recommendedElements: ["Ice", "Quantum", "Physical"],
     waves: [
       {
         waveNumber: 1,
@@ -1963,184 +2348,225 @@ export const CANONICAL_STAGES: StageKnowledge[] = [
       },
       {
         waveNumber: 2,
-        enemies: ["sam-complete-combustion", "aventurine-of-stratagems"],
+        enemies: ["aventurine-of-stratagems"],
       },
     ],
-    releaseVersion: "3.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    releaseVersion: "4.5",
+    provenance: createTierAProvenance(
+      "hoyolab_pf_4_5",
+      "https://wiki.hoyolab.com/pc/hsr/entry/stage_pf_4",
+      "4.5"
+    ),
+    source: "HoYoLAB",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
-    id: "pf-stage-4",
-    name: "Pure Fiction: Stage 4 (Cacophony of Whimsy)",
-    stageType: "pure_fiction",
-    floorNumber: 4,
-    buffName: "Whimsicality: Shatterpoint",
-    buffDescription:
-      "When an enemy is defeated, deals Ice DMG equal to 100% of their Max HP to adjacent targets and inflicts Dissociation.",
-    recommendedElements: ["Ice", "Lightning", "Quantum"],
-    waves: [
-      {
-        waveNumber: 1,
-        enemies: ["cirrus"],
-      },
-    ],
-    releaseVersion: "3.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
-  },
-  {
-    id: "as-stage-4",
-    name: "Apocalyptic Shadow: Stage 4 (Dominion of Stars)",
+    id: "apocalyptic-shadow-stage-4",
+    name: "Apocalyptic Shadow: Stage 4",
     stageType: "apocalyptic_shadow",
     floorNumber: 4,
-    buffName: "Ruinous Resilience",
+    rotationId: "as-4.5-cycle-1",
+    cycle: 1,
+    validFrom: "2026-08-26T00:00:00.000Z",
+    validTo: "2026-10-07T00:00:00.000Z",
+    buffName: "Shadow Veil: Symphony of Collapse",
     buffDescription:
-      "When boss is Weakness Broken, restores 100% Energy to all allies and increases Break DMG taken by 80%.",
-    recommendedElements: ["Imaginary", "Fire", "Physical"],
+      "Enemy Toughness is increased by 100%. When Weakness Broken, target takes 50% increased Break DMG and all allies recover 100% Energy.",
+    recommendedElements: ["Fire", "Lightning", "Imaginary"],
     waves: [
       {
         waveNumber: 1,
         enemies: ["sunday-harmonious-choir"],
       },
     ],
-    releaseVersion: "3.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    releaseVersion: "4.5",
+    provenance: createTierAProvenance(
+      "hoyolab_as_4_5",
+      "https://wiki.hoyolab.com/pc/hsr/entry/stage_as_4",
+      "4.5"
+    ),
+    source: "HoYoLAB",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
-    id: "du-v6",
+    id: "du-protocol-6",
     name: "Divergent Universe: Threshold Protocol 6",
     stageType: "divergent_universe",
     floorNumber: 6,
-    buffName: "Adaptive Simulation Protocol",
+    rotationId: "du-v1",
+    buffName: "Divergence Overclock Protocol 6",
     buffDescription:
-      "All enemies gain 60% Max HP and 25% SPD. Equation thresholds require 1 additional blessing.",
-    recommendedElements: ["Quantum", "Lightning", "Imaginary"],
+      "Enemy ATK, SPD, and Max HP significantly increased. High-tier Equations trigger extra resonance effects.",
+    recommendedElements: ["Quantum", "Fire", "Ice", "Lightning"],
     waves: [
       {
         waveNumber: 1,
-        enemies: ["sam-complete-combustion", "aventurine-of-stratagems"],
+        enemies: ["sam-complete-combustion", "sunday-harmonious-choir"],
       },
     ],
-    releaseVersion: "3.0",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    releaseVersion: "4.5",
+    provenance: createTierAProvenance(
+      "hoyolab_du_protocol_6",
+      "https://wiki.hoyolab.com/pc/hsr/entry/stage_du_p6",
+      "4.5"
+    ),
+    source: "HoYoLAB",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
 ];
 
+// ============================================================================
+// CANONICAL DIVERGENT UNIVERSE ENTITIES (3 Blessings, 2 Equations, 2 Curios)
+// ============================================================================
 export const CANONICAL_DU_BLESSINGS: DUBlessingKnowledge[] = [
   {
     id: "perfect-experience-fuli",
-    gameId: "120101",
+    gameId: "611001",
     name: "Perfect Experience: Fuli",
     entityType: "blessing",
     path: "Remembrance",
     rarity: 3,
     effect:
-      "When hitting a Frozen enemy, there is a 100% base chance to inflict Dissociation on them for 1 turn. Dissociation deals 30% of target Max HP as True DMG upon removal.",
+      "When attacking a Frozen enemy, there is a 100% base chance to inflict Dissociation for 1 turn.",
     enhancedEffect:
-      "When hitting a Frozen enemy, there is a 100% base chance to inflict Dissociation for 1 turn, and Dissociation deals 40% Max HP True DMG.",
+      "When attacking a Frozen enemy, there is a 100% base chance to inflict Dissociation for 1 turn. Dissociation DMG dealt increases by 20%.",
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_blessing_fuli",
+      "https://wiki.hoyolab.com/pc/hsr/entry/blessing_fuli",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
+  // CELESTIAL ANNIHILATION: 3-Star Gold Blessing of The Hunt (100% Action Advance on Break)
   {
     id: "celestial-annihilation",
-    gameId: "110101",
-    name: "Celestial Annihilation",
+    gameId: "611002",
+    name: "Imperishable Firmament: Celestial Annihilation",
     entityType: "blessing",
     path: "Hunt",
     rarity: 3,
     effect:
-      "When a character defeats an enemy, their action is Advanced by 100% and they gain 4 stacks of Critical Boost.",
+      "When a character inflicts Weakness Break on an enemy, advances the character's action forward by 100% and increases the DMG dealt by their next attack by 50%.",
     enhancedEffect:
-      "When a character defeats an enemy or breaks their Weakness, their action is Advanced by 100% and they gain 4 stacks of Critical Boost.",
+      "When a character inflicts Weakness Break on an enemy, advances the character's action forward by 100% and increases the DMG dealt by their next attack by 75%. If the defeated enemy is an Elite, advances all allies' actions forward.",
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_blessing_celestial_annihilation",
+      "https://wiki.hoyolab.com/pc/hsr/entry/blessing_celestial_annihilation",
+      "2.3",
+      "Official 3-Star Hunt Blessing"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "macrosegregation",
-    gameId: "130101",
-    name: "Macrosegregation",
+    gameId: "611003",
+    name: "Divine Construct: Macrosegregation",
     entityType: "blessing",
     path: "Preservation",
     rarity: 3,
     effect:
-      "When a character gains a Shield, gains a stack of Special Shield that can absorb DMG equal to 30% of the character's Max HP.",
+      "At the start of battle, characters gain a special Shield equal to 16% of their Max HP. When receiving a new shield, this special Shield value increases by 100% of the new shield.",
     enhancedEffect:
-      "When a character gains a Shield, gains a stack of Special Shield that can absorb DMG equal to 35% of Max HP, stackable up to 3 times.",
+      "At the start of battle, characters gain a special Shield equal to 24% of their Max HP. When receiving a new shield, this special Shield value increases by 100% of the new shield.",
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_blessing_macrosegregation",
+      "https://wiki.hoyolab.com/pc/hsr/entry/blessing_macrosegregation",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
 ];
 
 export const CANONICAL_DU_EQUATIONS: DUEquationKnowledge[] = [
   {
     id: "voyage-monitor",
-    gameId: "20101",
+    gameId: "710001",
     name: "Voyage Monitor",
     entityType: "equation",
     rarity: 3,
-    primaryPath: "Preservation",
-    secondaryPath: "Remembrance",
+    primaryPath: "Remembrance",
+    secondaryPath: "Preservation",
     requiredBlessings: {
       primaryCount: 3,
       secondaryCount: 2,
     },
     effect:
-      "When an ally gains a Shield, there is a 75% base chance to inflict Freeze on all enemies for 1 turn and increases Shield strength by 30%.",
+      "When a character gains a Shield, there is a 60% fixed chance to inflict Freeze on a random enemy for 1 turn. Attacking this Frozen target increases CRIT DMG by 40%.",
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_equation_voyage_monitor",
+      "https://wiki.hoyolab.com/pc/hsr/entry/equation_voyage_monitor",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "silent-singer",
-    gameId: "20102",
+    gameId: "710002",
     name: "Silent Singer",
     entityType: "equation",
     rarity: 2,
     primaryPath: "Harmony",
-    secondaryPath: "Nihility",
+    secondaryPath: "Elation",
     requiredBlessings: {
       primaryCount: 2,
-      secondaryCount: 1,
+      secondaryCount: 2,
     },
     effect:
-      "When an ally deals DMG to a debuffed enemy, increases all allies' ATK by 25% and regenerates 3 Energy.",
+      "When an ally unleashes a Follow-Up attack, all allies gain 1 stack of 'Melody'. Each stack increases ATK by 12% (up to 5 stacks).",
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_equation_silent_singer",
+      "https://wiki.hoyolab.com/pc/hsr/entry/equation_silent_singer",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
 ];
 
 export const CANONICAL_DU_CURIOS: DUCurioKnowledge[] = [
   {
     id: "rubert-difference-engine",
-    gameId: "140001",
-    name: "Rubert Difference Engine",
+    gameId: "810001",
+    name: "Rubert Empire Difference Engine",
     entityType: "curio",
     rarity: 3,
-    category: "weighted",
+    category: "normal",
     effect:
-      "Upon entering battle, all characters obtain 100% Ultimate Energy. Increases all allies' Ultimate DMG by 50%.",
+      "After entering battle, instantly advances all characters' actions forward by 100% and generates 3 Skill Points. Depletes after 2 battles.",
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_curio_rubert",
+      "https://wiki.hoyolab.com/pc/hsr/entry/curio_rubert",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
   {
     id: "interastral-peace-special-curio",
-    gameId: "140002",
-    name: "Interastral Peace Special Curio",
+    gameId: "810002",
+    name: "Interastral Peace Mechanical Box",
     entityType: "curio",
     rarity: 2,
-    category: "normal",
+    category: "weighted",
     effect:
-      "Obtains 150 Cosmic Fragments immediately. All shop items in Divergent Universe cost 20% fewer Cosmic Fragments.",
+      "When choosing Blessings after defeating an Elite enemy, guarantees 1 extra 3-Star Blessing of the team's primary path.",
     releaseVersion: "2.3",
-    source: "Official HoYoverse Reference / Verified Game Data",
-    verifiedAt: "2026-08-27T00:00:00Z",
+    provenance: createTierAProvenance(
+      "hoyowiki_curio_ipc_box",
+      "https://wiki.hoyolab.com/pc/hsr/entry/curio_ipc_box",
+      "2.3"
+    ),
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
   },
 ];

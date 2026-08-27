@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CombatPathSchema } from "./character";
+import { FactProvenanceSchema } from "./provenance";
 
 export const DUEntityTypeSchema = z.enum(["blessing", "curio", "equation"]);
 
@@ -19,8 +20,9 @@ export const DUBlessingKnowledgeSchema = z.object({
   effect: z.string(),
   enhancedEffect: z.string(),
   releaseVersion: z.string(),
-  source: z.string(),
-  verifiedAt: z.string(),
+  provenance: FactProvenanceSchema,
+  source: z.string().optional(),
+  verifiedAt: z.string().optional(),
 });
 
 export type DUBlessingKnowledge = z.infer<typeof DUBlessingKnowledgeSchema>;
@@ -39,8 +41,9 @@ export const DUEquationKnowledgeSchema = z.object({
   }),
   effect: z.string(),
   releaseVersion: z.string(),
-  source: z.string(),
-  verifiedAt: z.string(),
+  provenance: FactProvenanceSchema,
+  source: z.string().optional(),
+  verifiedAt: z.string().optional(),
 });
 
 export type DUEquationKnowledge = z.infer<typeof DUEquationKnowledgeSchema>;
@@ -58,8 +61,9 @@ export const DUCurioKnowledgeSchema = z.object({
   category: DUCurioCategorySchema,
   effect: z.string(),
   releaseVersion: z.string(),
-  source: z.string(),
-  verifiedAt: z.string(),
+  provenance: FactProvenanceSchema,
+  source: z.string().optional(),
+  verifiedAt: z.string().optional(),
 });
 
 export type DUCurioKnowledge = z.infer<typeof DUCurioKnowledgeSchema>;
