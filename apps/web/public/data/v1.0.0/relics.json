@@ -1,0 +1,167 @@
+[
+  {
+    "id": "duran-dynasty-of-running-wolves",
+    "gameId": "314",
+    "name": "Duran, Dynasty of Running Wolves",
+    "type": "planar_ornament",
+    "twoPieceEffect": "When an ally performs a follow-up attack, wearer gains 1 stack of Merit (up to 5). Each stack increases follow-up attack DMG by 5%. At 5 stacks, additionally increases CRIT DMG by 25%.",
+    "pieces": [
+      {
+        "id": "duran_sphere",
+        "name": "Duran's Wolf Head Tent",
+        "slot": "planar_sphere"
+      },
+      {
+        "id": "duran_rope",
+        "name": "Duran's Bridle of Reins",
+        "slot": "link_rope"
+      }
+    ],
+    "releaseVersion": "2.3",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "forge-of-the-kalpagni-lantern",
+    "gameId": "315",
+    "name": "Forge of the Kalpagni Lantern",
+    "type": "planar_ornament",
+    "twoPieceEffect": "Increases the wearer's SPD by 6%. When the wearer hits an enemy with Fire Weakness, Break Effect increases by 40%, lasting for 1 turn(s).",
+    "pieces": [
+      {
+        "id": "kalpagni_sphere",
+        "name": "Kalpagni's Lotus Lantern",
+        "slot": "planar_sphere"
+      },
+      {
+        "id": "kalpagni_rope",
+        "name": "Kalpagni's Filament Cord",
+        "slot": "link_rope"
+      }
+    ],
+    "releaseVersion": "2.3",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "iron-cavalry",
+    "gameId": "119",
+    "name": "Iron Cavalry against Scourge",
+    "type": "cavern_relic",
+    "twoPieceEffect": "Increases Break Effect by 16%.",
+    "fourPieceEffect": "If the wearer's Break Effect is 150% or higher, the Break DMG dealt to the target ignores 10% of their DEF. If the wearer's Break Effect is 250% or higher, the Super Break DMG dealt to the target additionally ignores 15% of their DEF.",
+    "pieces": [
+      {
+        "id": "iron_cavalry_head",
+        "name": "Iron Cavalry's Homing Helm",
+        "slot": "head"
+      },
+      {
+        "id": "iron_cavalry_hands",
+        "name": "Iron Cavalry's Crushing Gauntlet",
+        "slot": "hands"
+      },
+      {
+        "id": "iron_cavalry_body",
+        "name": "Iron Cavalry's Chest Armor",
+        "slot": "body"
+      },
+      {
+        "id": "iron_cavalry_feet",
+        "name": "Iron Cavalry's Greaves",
+        "slot": "feet"
+      }
+    ],
+    "releaseVersion": "2.3",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "izumo-gensei",
+    "gameId": "313",
+    "name": "Izumo Gensei and Takama Divine Realm",
+    "type": "planar_ornament",
+    "twoPieceEffect": "Increases the wearer's ATK by 12%. Upon entering battle, if at least one other ally follows the same Path as the wearer, the wearer's CRIT Rate increases by 12%.",
+    "pieces": [
+      {
+        "id": "izumo_sphere",
+        "name": "Izumo's Magatama Realm",
+        "slot": "planar_sphere"
+      },
+      {
+        "id": "izumo_rope",
+        "name": "Takama's Blade of Divine",
+        "slot": "link_rope"
+      }
+    ],
+    "releaseVersion": "2.1",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "pioneer-diver",
+    "gameId": "118",
+    "name": "Pioneer Diver of Dead Waters",
+    "type": "cavern_relic",
+    "twoPieceEffect": "Increases DMG dealt to enemies debuffed by 12%.",
+    "fourPieceEffect": "Increases CRIT Rate by 4%. The wearer deals 8%/12% increased CRIT DMG to enemies with at least 2/3 debuffs. After the wearer inflicts a debuff, these effects increase by 100% for 1 turn.",
+    "pieces": [
+      {
+        "id": "pioneer_head",
+        "name": "Pioneer's Heatproof Mask",
+        "slot": "head"
+      },
+      {
+        "id": "pioneer_hands",
+        "name": "Pioneer's Lacquered Ring",
+        "slot": "hands"
+      },
+      {
+        "id": "pioneer_body",
+        "name": "Pioneer's Dazzling Lead",
+        "slot": "body"
+      },
+      {
+        "id": "pioneer_feet",
+        "name": "Pioneer's Starfaring Anchor",
+        "slot": "feet"
+      }
+    ],
+    "releaseVersion": "2.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "watchmaker",
+    "gameId": "117",
+    "name": "Watchmaker, Master of Dream Machinations",
+    "type": "cavern_relic",
+    "twoPieceEffect": "Increases Break Effect by 16%.",
+    "fourPieceEffect": "When the wearer uses their Ultimate on an ally, increases all allies' Break Effect by 30% for 2 turn(s). This effect cannot be stacked.",
+    "pieces": [
+      {
+        "id": "watchmaker_head",
+        "name": "Watchmaker's Telescoping Monocle",
+        "slot": "head"
+      },
+      {
+        "id": "watchmaker_hands",
+        "name": "Watchmaker's Hand of Clockwork",
+        "slot": "hands"
+      },
+      {
+        "id": "watchmaker_body",
+        "name": "Watchmaker's Tailored Suit",
+        "slot": "body"
+      },
+      {
+        "id": "watchmaker_feet",
+        "name": "Watchmaker's Engraved Boots",
+        "slot": "feet"
+      }
+    ],
+    "releaseVersion": "2.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  }
+]

@@ -1,0 +1,257 @@
+import * as fs from "node:fs";
+import * as path from "node:path";
+import * as crypto from "node:crypto";
+import * as prettier from "prettier";
+import {
+  CharacterKnowledgeSchema,
+  LightConeKnowledgeSchema,
+  RelicSetKnowledgeSchema,
+  EnemyKnowledgeSchema,
+  StageKnowledgeSchema,
+  DUBlessingKnowledgeSchema,
+  DUEquationKnowledgeSchema,
+  DUCurioKnowledgeSchema,
+  KnowledgeReleaseManifestSchema,
+  RootKnowledgeManifestSchema,
+  CANONICAL_CHARACTERS,
+  CANONICAL_LIGHT_CONES,
+  CANONICAL_RELICS,
+  CANONICAL_ENEMIES,
+  CANONICAL_STAGES,
+  CANONICAL_DU_BLESSINGS,
+  CANONICAL_DU_EQUATIONS,
+  CANONICAL_DU_CURIOS,
+  type KnowledgeFileEntry,
+  type KnowledgeReleaseManifest,
+  type RootKnowledgeManifest,
+} from "@astralyn/shared";
+
+const KNOWLEDGE_VERSION = "v1.0.0";
+const GAME_VERSION = "3.0.x";
+const SCHEMA_VERSION = "1.0.0";
+const MIN_APP_VERSION = "0.1.0";
+
+const DATA_DIR = path.resolve(__dirname, "../apps/web/public/data");
+const RELEASE_DIR = path.join(DATA_DIR, KNOWLEDGE_VERSION);
+
+function computeSha256(content: string): string {
+  return crypto.createHash("sha256").update(content, "utf8").digest("hex");
+}
+
+function deterministicSortById<T extends { id: string }>(items: T[]): T[] {
+  return [...items].sort((a, b) => a.id.localeCompare(b.id));
+}
+
+export async function buildKnowledgeRelease(): Promise<{
+  manifest: RootKnowledgeManifest;
+  releaseManifest: KnowledgeReleaseManifest;
+}> {
+  console.log(
+    `[Astralyn Knowledge Builder] Initializing build for release ${KNOWLEDGE_VERSION}...`
+  );
+
+  // 1. Validate all source fixtures through Zod 4 schemas
+  const characters = deterministicSortById(
+    CANONICAL_CHARACTERS.map((char) => CharacterKnowledgeSchema.parse(char))
+  );
+  const lightCones = deterministicSortById(
+    CANONICAL_LIGHT_CONES.map((lc) => LightConeKnowledgeSchema.parse(lc))
+  );
+  const relics = deterministicSortById(
+    CANONICAL_RELICS.map((r) => RelicSetKnowledgeSchema.parse(r))
+  );
+  const enemies = deterministicSortById(
+    CANONICAL_ENEMIES.map((e) => EnemyKnowledgeSchema.parse(e))
+  );
+  const stages = deterministicSortById(
+    CANONICAL_STAGES.map((s) => StageKnowledgeSchema.parse(s))
+  );
+  const duBlessings = deterministicSortById(
+    CANONICAL_DU_BLESSINGS.map((b) => DUBlessingKnowledgeSchema.parse(b))
+  );
+  const duEquations = deterministicSortById(
+    CANONICAL_DU_EQUATIONS.map((eq) => DUEquationKnowledgeSchema.parse(eq))
+  );
+  const duCurios = deterministicSortById(
+    CANONICAL_DU_CURIOS.map((c) => DUCurioKnowledgeSchema.parse(c))
+  );
+
+  // 2. Referential integrity validation
+  const enemyIdSet = new Set(enemies.map((e) => e.id));
+  for (const stage of stages) {
+    for (const wave of stage.waves) {
+      for (const enemyId of wave.enemies) {
+        if (!enemyIdSet.has(enemyId)) {
+          throw new Error(
+            `Referential Integrity Error: Stage '${stage.id}' references unknown enemy '${enemyId}'`
+          );
+        }
+      }
+    }
+  }
+
+  // Check unique IDs across all collections
+  const uniqueIdSet = new Set<string>();
+  const allCollections = [
+    { name: "characters", items: characters },
+    { name: "light-cones", items: lightCones },
+    { name: "relics", items: relics },
+    { name: "enemies", items: enemies },
+    { name: "stages", items: stages },
+    { name: "du-blessings", items: duBlessings },
+    { name: "du-equations", items: duEquations },
+    { name: "du-curios", items: duCurios },
+  ];
+
+  for (const col of allCollections) {
+    for (const item of col.items) {
+      if (uniqueIdSet.has(item.id)) {
+        throw new Error(
+          `Duplicate ID Detected: '${item.id}' in collection '${col.name}' is already defined`
+        );
+      }
+      uniqueIdSet.add(item.id);
+    }
+  }
+
+  // 3. Ensure target directory exists
+  if (!fs.existsSync(RELEASE_DIR)) {
+    fs.mkdirSync(RELEASE_DIR, { recursive: true });
+  }
+
+  // 4. Serialize entity data files and format with prettier
+  const filesPayloads: { filename: string; count: number; raw: unknown }[] = [
+    {
+      filename: "characters.json",
+      count: characters.length,
+      raw: characters,
+    },
+    {
+      filename: "light-cones.json",
+      count: lightCones.length,
+      raw: lightCones,
+    },
+    {
+      filename: "relics.json",
+      count: relics.length,
+      raw: relics,
+    },
+    {
+      filename: "enemies.json",
+      count: enemies.length,
+      raw: enemies,
+    },
+    {
+      filename: "stages.json",
+      count: stages.length,
+      raw: stages,
+    },
+    {
+      filename: "divergent-universe.json",
+      count: duBlessings.length + duEquations.length + duCurios.length,
+      raw: {
+        blessings: duBlessings,
+        equations: duEquations,
+        curios: duCurios,
+      },
+    },
+  ];
+
+  const fileEntries: KnowledgeFileEntry[] = [];
+  const checksums: Record<string, string> = {};
+
+  let combinedSourceContent = "";
+
+  for (const file of filesPayloads) {
+    const filePath = path.join(RELEASE_DIR, file.filename);
+    const formatted = await prettier.format(JSON.stringify(file.raw), {
+      filepath: filePath,
+    });
+    fs.writeFileSync(filePath, formatted, "utf8");
+    const hash = computeSha256(formatted);
+    const size = Buffer.byteLength(formatted, "utf8");
+
+    checksums[file.filename] = hash;
+    fileEntries.push({
+      filename: file.filename,
+      relPath: `${KNOWLEDGE_VERSION}/${file.filename}`,
+      entityCount: file.count,
+      sizeBytes: size,
+      checksum: hash,
+    });
+
+    combinedSourceContent += hash;
+  }
+
+  const sourceSnapshotHash = computeSha256(combinedSourceContent);
+  const nowIso = "2026-08-27T00:00:00.000Z";
+
+  // 5. Create and write release.json
+  const releaseManifest: KnowledgeReleaseManifest = {
+    knowledgeVersion: KNOWLEDGE_VERSION,
+    gameVersion: GAME_VERSION,
+    schemaVersion: SCHEMA_VERSION,
+    generatedAt: nowIso,
+    sourceSnapshotHash,
+    status: "published",
+    files: fileEntries,
+    checksums,
+    compatibility: {
+      minAppVersion: MIN_APP_VERSION,
+    },
+  };
+
+  KnowledgeReleaseManifestSchema.parse(releaseManifest);
+
+  const releaseFilePath = path.join(RELEASE_DIR, "release.json");
+  const releaseManifestFormatted = await prettier.format(
+    JSON.stringify(releaseManifest),
+    { filepath: releaseFilePath }
+  );
+  fs.writeFileSync(releaseFilePath, releaseManifestFormatted, "utf8");
+
+  // 6. Create and write root manifest.json
+  const rootManifest: RootKnowledgeManifest = {
+    currentKnowledgeVersion: KNOWLEDGE_VERSION,
+    gameVersion: GAME_VERSION,
+    schemaVersion: SCHEMA_VERSION,
+    publishedAt: nowIso,
+    availableReleases: [KNOWLEDGE_VERSION],
+    releases: {
+      [KNOWLEDGE_VERSION]: releaseManifest,
+    },
+  };
+
+  RootKnowledgeManifestSchema.parse(rootManifest);
+
+  const rootManifestPath = path.join(DATA_DIR, "manifest.json");
+  const rootManifestFormatted = await prettier.format(JSON.stringify(rootManifest), {
+    filepath: rootManifestPath,
+  });
+  fs.writeFileSync(rootManifestPath, rootManifestFormatted, "utf8");
+
+  console.log(
+    `[Astralyn Knowledge Builder] Successfully built release ${KNOWLEDGE_VERSION}:`
+  );
+  console.log(`  - Characters: ${characters.length}`);
+  console.log(`  - Light Cones: ${lightCones.length}`);
+  console.log(`  - Relic Sets: ${relics.length}`);
+  console.log(`  - Enemies: ${enemies.length}`);
+  console.log(`  - Stages: ${stages.length}`);
+  console.log(`  - DU Blessings: ${duBlessings.length}`);
+  console.log(`  - DU Equations: ${duEquations.length}`);
+  console.log(`  - DU Curios: ${duCurios.length}`);
+  console.log(`  - Output: ${RELEASE_DIR}`);
+
+  return { manifest: rootManifest, releaseManifest };
+}
+
+if (
+  require.main === module ||
+  (typeof process !== "undefined" && process.argv[1]?.includes("build-knowledge"))
+) {
+  buildKnowledgeRelease().catch((err) => {
+    console.error("[Astralyn Knowledge Builder] Build failed:", err);
+    process.exit(1);
+  });
+}

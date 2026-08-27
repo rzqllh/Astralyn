@@ -87,11 +87,31 @@ const indexRoute = createRoute({
   component: HomeView,
 });
 
+const isDevEnvironment =
+  Boolean(import.meta.env.DEV) || import.meta.env.VITE_ENABLE_DEV_DS === "true";
+
 // Internal Design System Showcase Route (Dev / Inspection)
 const designSystemRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/design-system",
-  component: DesignSystemView,
+  component: () => {
+    if (!isDevEnvironment) {
+      return (
+        <div className="flex items-center justify-center p-12" data-testid="not-found">
+          <EmptyState
+            title="Waypoint Not Found"
+            description="The requested coordinate does not exist. Please return to the Home command center."
+            action={
+              <Link to="/">
+                <Button variant="primary">Return Home</Button>
+              </Link>
+            }
+          />
+        </div>
+      );
+    }
+    return <DesignSystemView />;
+  },
 });
 
 const rosterRoute = createRoute({

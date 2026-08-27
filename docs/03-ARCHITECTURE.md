@@ -89,24 +89,26 @@ Cloudflare CDN / Static Cache
 ## 4. Data read strategy
 
 Client reads game knowledge in this order:
-1. IndexedDB cache;
-2. versioned static snapshot;
-3. database/API only for small dynamic metadata if required.
+1. Dexie IndexedDB client knowledge cache (`AstralynKnowledgeCache`);
+2. Versioned static JSON snapshot on Cloudflare Static Assets (`/data/<knowledge-version>/...`);
+3. Background synchronization: client checks `/data/manifest.json` for newer knowledge releases and transactionally updates IndexedDB cache.
 
-Do not query D1/Postgres for every character card, relic, build or DU entry.
+Do not query D1/Postgres for static game knowledge, characters, relics, light cones, or DU data.
 
-Example:
+Static snapshot file structure:
 
 ```text
 /data/manifest.json
-/data/<knowledge-version>/characters/index.json
-/data/<knowledge-version>/characters/castorice.json
-/data/<knowledge-version>/recommendations/castorice.json
-/data/<knowledge-version>/du/equations.json
-/data/<knowledge-version>/du/blessings.json
+/data/<knowledge-version>/release.json
+/data/<knowledge-version>/characters.json
+/data/<knowledge-version>/light-cones.json
+/data/<knowledge-version>/relics.json
+/data/<knowledge-version>/enemies.json
+/data/<knowledge-version>/stages.json
+/data/<knowledge-version>/divergent-universe.json
 ```
 
-`manifest.json` includes current game version, knowledge version, release hash, published timestamp, and minimum compatible app version.
+`manifest.json` includes `currentKnowledgeVersion`, `gameVersion`, `schemaVersion`, `publishedAt`, and release descriptor mapping with file SHA-256 checksums and minimum compatible app version.
 
 ## 5. User data strategy
 

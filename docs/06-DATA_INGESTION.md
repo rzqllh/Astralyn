@@ -128,18 +128,39 @@ Never bypass explicit anti-bot controls.
 
 If reliable automation is disallowed or unstable, use curated/manual adapter input with provenance instead of aggressive scraping.
 
-## Static publication
+## Static publication & Tooling
 
-Example release:
+Static snapshots are compiled deterministically and verified with dedicated CI tools:
+
+- `pnpm knowledge:build` (`tools/build-knowledge.ts`):
+  - Validates all source fixtures against Zod 4 runtime schemas.
+  - Sorts entities deterministically by ID.
+  - Writes static files to `apps/web/public/data/<knowledge-version>/`.
+  - Computes SHA-256 hashes and generates `release.json` and root `manifest.json`.
+- `pnpm knowledge:check` (`tools/check-knowledge.ts`):
+  - Validates root manifest and release descriptors.
+  - Verifies disk file existence and SHA-256 bit-for-bit checksum matches.
+  - Enforces schema validation, referential integrity (stage enemies), and duplicate ID rejection.
+  - Checks ID interoperability with visual asset manifests.
+
+Published release layout:
 
 ```text
-/data/4.4/2026.08.26.1/...
+/data/manifest.json
+/data/<knowledge-version>/release.json
+/data/<knowledge-version>/characters.json
+/data/<knowledge-version>/light-cones.json
+/data/<knowledge-version>/relics.json
+/data/<knowledge-version>/enemies.json
+/data/<knowledge-version>/stages.json
+/data/<knowledge-version>/divergent-universe.json
 ```
 
 `manifest.json` points clients to the active release. Older releases remain for rollback according to retention policy.
 
 ## Failure policy
 
-If ingestion fails, keep the last published release and never replace valid knowledge with a partial release.
+If ingestion or validation fails, keep the last published release and never replace valid knowledge with a partial release. Dexie client cache atomically guarantees that local clients retain their previous valid cache if a newly published release fails transmission or runtime validation.
 
 If official facts conflict with an editorial source, official facts win and affected recommendations must be recomputed.
+

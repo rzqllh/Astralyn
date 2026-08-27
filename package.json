@@ -18,10 +18,13 @@
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "assets:sync": "tsx tools/sync-assets.ts",
-    "assets:check": "tsx tools/check-assets.ts"
+    "assets:check": "tsx tools/check-assets.ts",
+    "knowledge:build": "tsx tools/build-knowledge.ts",
+    "knowledge:check": "tsx tools/check-knowledge.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.3",
     "eslint": "^10.9.1",
     "globals": "^17.11.0",
     "prettier": "^3.5.2",

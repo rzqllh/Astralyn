@@ -8,3 +8,5 @@ test-results
 .agents
 docs
 skills-lock.json
+apps/web/public/data
+apps/web/public/game-assets

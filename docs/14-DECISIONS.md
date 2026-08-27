@@ -107,9 +107,26 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 **Status:** Accepted.
 
 ## D-022 — Asset Pipeline Architecture, Conservative Provenance & UI Boundaries
-**Decision:** Formalize a three-tier asset architecture (Full Catalog Model, Data-Driven Sync Capability, Curated Dev Snapshot), conservative provenance classification (repository automation license != game artwork ownership), and strict separation between production UI and development/demo fixtures.
+**Decision:** Formalize a three-tier asset architecture (Full Catalog Model, Data-Driven Sync Capability, Curated Dev Snapshot), conservative provenance classification (repository automation license != game artwork ownership), and strict separation between production UI and development/demo fixtures.  
 **Reason:**
 1. Full Catalog support ensures Astralyn scales to all 17 entity types without bloating Git repository size with complete game archives during development.
 2. Conservative legal provenance protects the project by distinguishing repository code licenses (e.g. AGPL-3.0) from underlying HoYoverse visual copyrights (© COGNOSPHERE / HoYoverse), classifying uncredited platforms (Pinterest, DeviantArt) as strictly manual-only.
 3. Production/Dev boundary guarantees that internal tools (`/design-system`), mock state (`8 Owned`), and sample metrics are never presented to end-users as real persisted engine outputs.  
 **Status:** Accepted.
+
+## D-023 — Phase 2 Canonical Knowledge Schema Architecture & Zod 4 Authority
+**Decision:** Establish Zod 4 runtime schemas under `packages/shared/src/knowledge/` as the single source of truth for canonical Honkai: Star Rail entity contracts (Characters, Light Cones, Relics, Enemies, Stages, Divergent Universe Blessings, Equations, Curios, Game Versions, and Release Manifests).  
+**Reason:**
+1. Eliminates manual interface duplication by deriving all TypeScript types directly via `z.infer<typeof Schema>`.
+2. Extensible typed modeling natively supports modern Honkai: Star Rail combat archetypes (Memosprite summons, stance transformations, Super Break conversion, special non-energy ultimate resources) without dozens of nullable ad-hoc properties.
+3. Enforces strict factual immutability: canonical game facts cannot be mutated by user input, LLM prompts, OCR payloads, or client writes.  
+**Status:** Accepted.
+
+## D-024 — Static Knowledge Release Format, Checksum Verification & Dexie Client Cache
+**Decision:** Deliver canonical game knowledge via immutable versioned static JSON files (`/data/<knowledge-version>/...`), root manifest version negotiation (`/data/manifest.json`), SHA-256 integrity validation (`tools/check-knowledge.ts`), and local client caching via Dexie IndexedDB with transactional updates and fail-safe rollback protection.  
+**Reason:**
+1. Keeps public game knowledge delivery 100% free-first: static CDN edge assets serve all users with zero database reads on Cloudflare D1.
+2. Dexie IndexedDB cache enables instantaneous zero-latency client queries, indexed entity search, and reliable offline companion operation.
+3. Transactional cache syncer guarantees atomic replacement and never wipes or corrupts an existing valid local cache if a newly published release fails network transmission or schema validation.  
+**Status:** Accepted.
+

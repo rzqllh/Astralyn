@@ -53,57 +53,69 @@ Better Auth manages core authentication (`user`, `session`, `account`, `verifica
 - `character_id` (TEXT REFERENCES game_characters(id))
 - `PRIMARY KEY (team_id, slot)`
 
-## 3. Versioning
+## 3. Versioning & Release Contracts
 
-### game_versions
-Represents official HSR versions such as `3.0`.
+### GameVersion
+Represents official HSR client patches (e.g. `3.0.0`, `3.0`).
+- `id` (string): e.g. `'3.0.0'`
+- `versionNumber` (string): e.g. `'3.0'`
+- `title` (string): e.g. `'Pinnacle of Glory & The Dahlia in the Dark'`
+- `releasedAt` (ISO string)
+- `isActive` (boolean)
 
-Fields:
-- `id` (TEXT PRIMARY KEY)
-- `version_number` (TEXT: '3.0')
-- `released_at` (ISO timestamp TEXT)
-- `is_active` (INTEGER: 0 | 1)
+### KnowledgeReleaseManifest
+Immutable published knowledge release descriptor (`/data/<version>/release.json`).
+- `knowledgeVersion` (string): e.g. `'v1.0.0'`
+- `gameVersion` (string): e.g. `'3.0.x'`
+- `schemaVersion` (string): e.g. `'1.0.0'`
+- `generatedAt` (ISO string)
+- `sourceSnapshotHash` (SHA-256 string)
+- `status` (`'draft' | 'validated' | 'published' | 'superseded'`)
+- `files` (array of `KnowledgeFileEntry`: filename, relPath, entityCount, sizeBytes, checksum)
+- `checksums` (record of filename -> SHA-256 hash)
+- `compatibility` (`minAppVersion`)
 
-### knowledge_releases
-Immutable published knowledge release hash.
+## 4. Canonical Game Knowledge Schemas (`packages/shared/src/knowledge/`)
 
-Fields:
-- `id` (TEXT PRIMARY KEY)
-- `game_version_id` (TEXT REFERENCES game_versions(id))
-- `release_tag` (TEXT)
-- `published_at` (ISO timestamp TEXT)
-- `checksum` (TEXT)
+Single source of truth runtime Zod 4 schemas:
 
-## 4. Game Knowledge tables
+- `CharacterKnowledge`: `id`, `gameId`, `name`, `localizedNames` (`en`, `id`, `ja`, `zh`), `rarity` (4 | 5), `path` (8 Paths), `element` (7 Elements), `releaseVersion`, `roles`, `mechanicTags`, `baseStats` (HP, ATK, DEF, SPD, Taunt, Crit Rate, Crit DMG, Max Energy), `specialResourceType`, `abilities` (Basic, Skill, Ultimate, Talent, Technique, Enhanced variants), `memosprite` (Polly/summon stats and abilities), `transformation` (Stance duration & enhanced abilities), `majorTraces` (A2, A4, A6), `minorTraces`, `eidolons` (E1–E6).
+- `LightConeKnowledge`: `id`, `gameId`, `name`, `rarity` (3, 4, 5), `path`, `baseStats` (HP, ATK, DEF), `skill` (name, template, superimpositions 1–5), `releaseVersion`.
+- `RelicSetKnowledge`: `id`, `gameId`, `name`, `type` (`cavern_relic` | `planar_ornament`), `twoPieceEffect`, `fourPieceEffect` (optional for planar), `pieces` (slots).
+- `EnemyKnowledge`: `id`, `gameId`, `name`, `category` (`minion` | `elite` | `boss` | `weekly_boss`), `weaknesses` (array of Elements), `resistances` (Element -> % resistance), `skills`, `keyMechanics`.
+- `StageKnowledge`: `id`, `name`, `stageType` (`memory_of_chaos` | `pure_fiction` | `apocalyptic_shadow` | `divergent_universe`), `floorNumber`, `buffName`, `buffDescription`, `recommendedElements`, `waves`.
+- `DUBlessingKnowledge`: `id`, `gameId`, `name`, `path`, `rarity` (1, 2, 3), `effect`, `enhancedEffect`.
+- `DUEquationKnowledge`: `id`, `gameId`, `name`, `rarity` (1, 2, 3), `primaryPath`, `secondaryPath`, `requiredBlessings` (`primaryCount`, `secondaryCount`), `effect`.
+- `DUCurioKnowledge`: `id`, `gameId`, `name`, `rarity` (1, 2, 3), `category` (`normal` | `negative` | `weighted`), `effect`.
 
-- `game_characters`
-- `game_light_cones`
-- `game_relic_sets`
-- `game_planar_sets`
-- `game_du_blessings`
-- `game_du_curios`
-- `game_du_equations`
+## 5. Dexie IndexedDB Client Knowledge Cache (`apps/web/src/lib/knowledge/`)
 
-## 5. Editorial recommendations tables
+Local browser IndexedDB database (`AstralynKnowledgeCache`) mirroring the published static release:
+
+- `metadata`: `key` (PK) -> `activeKnowledgeVersion`, `gameVersion`, `cachedAt`, `sourceSnapshotHash`
+- `characters`: `id` (PK), `name`, `rarity`, `path`, `element`, `releaseVersion`, `*mechanicTags`
+- `lightCones`: `id` (PK), `name`, `rarity`, `path`, `releaseVersion`
+- `relicSets`: `id` (PK), `name`, `type`, `releaseVersion`
+- `enemies`: `id` (PK), `name`, `category`, `*weaknesses`, `releaseVersion`
+- `stages`: `id` (PK), `name`, `stageType`, `floorNumber`, `releaseVersion`
+- `duBlessings`: `id` (PK), `name`, `path`, `rarity`, `releaseVersion`
+- `duEquations`: `id` (PK), `name`, `rarity`, `primaryPath`, `secondaryPath`, `releaseVersion`
+- `duCurios`: `id` (PK), `name`, `rarity`, `category`, `releaseVersion`
+
+## 6. Editorial recommendations tables (Deferred to Phase 5)
 
 - `source_adapters`
 - `source_recommendations`
 
-## 6. Generated Astralyn intelligence
+## 7. Generated Astralyn intelligence (Deferred to Phase 5)
 
 - `consensus_recommendations`
 
-## 7. DU runtime
-
-For MVP, current DU state remains primarily in IndexedDB.
-
-Core recommendation code must not require cloud persistence.
-
 ## 8. Client snapshots
 
-The client consumes denormalized static JSON snapshots rather than querying the relational D1 database on every page.
+The client consumes denormalized static JSON snapshots (`/data/<knowledge-version>/...`) rather than querying the relational D1 database on every page.
 
-Cloudflare D1 is the canonical relational store; published static JSON is the product-serving format.
+Cloudflare D1 is the canonical relational store for user state; published static JSON is the product-serving format for Game Knowledge.
 
 ## 9. Visual Game Asset Manifest Model
 

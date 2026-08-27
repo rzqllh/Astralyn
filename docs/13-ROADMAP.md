@@ -43,18 +43,22 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - Domain component foundations (`CharacterTile`, `RecommendationPanel`, `SourceRankPanel`, `DecisionCard`);
 - 8-link locked production navigation contract + developer inspection showcase (`/design-system`).
 
-### Phase 1.1 — Visual Asset & Design Foundation Closure (Current)
+### Phase 1.1 — Visual Asset & Design Foundation Closure (Complete)
 - Versioned static game asset architecture (`/game-assets/<release>/...`) decoupled from knowledge domain;
 - Data-driven sync pipeline (`tools/sync-assets.ts`) with proven full catalog capability and curated dev snapshot;
 - Conservative legal provenance metadata (repository automation license != game artwork copyright);
 - Zero runtime third-party hotlinking and resilient vector fallback silhouettes (`<GameAssetImage>`);
-- Responsive layout verification at 1440px (desktop companion rail), 768px (tablet reflow), and 390px (dense mobile drawer & stacked components).
+- Responsive layout verification at 1440px (desktop companion rail), 768px (tablet reflow), and 390px (dense mobile drawer & stacked components);
+- Production route guard protecting internal `/design-system` surface.
 
-### Phase 2 — Canonical Knowledge Foundation
-- Strongly typed Zod schemas for all HSR entities (Characters, Light Cones, Relics, Paths, Elements, DU Blessings/Curios/Equations);
+### Phase 2 — Canonical Knowledge Foundation (Complete)
+- Strongly typed Zod 4 runtime schemas for all HSR entities (Characters, Light Cones, Relics, Enemies, Stages, Divergent Universe Blessings/Curios/Equations, Game Versions, Release Manifests);
+- Native typed modeling for modern mechanics (Castorice Memosprite Polly, Firefly Complete Combustion stance, Acheron Slashed Dream non-energy resource);
 - Canonical static knowledge fixtures and snapshot versioning contracts (`/data/<knowledge-version>/...`);
-- Client-side IndexedDB caching layer via Dexie for zero-latency local-first reads;
-- Immutable knowledge release manifest contracts.
+- Pre-publication integrity verification tooling (`pnpm knowledge:build`, `pnpm knowledge:check`);
+- Client-side IndexedDB caching layer via Dexie (`AstralynKnowledgeCache`) with transactional atomic population, version upgrade state machine, fail-safe rollback protection, and offline fallback;
+- KnowledgeRepository query abstraction with search normalization and canonical entity aliases;
+- 100% test coverage for schema acceptance, negative rejection, cache lifecycle, and asset interoperability.
 
 ### Phase 3 — Cloudflare Workers, D1 & Better Auth Foundation
 - Cloudflare Workers API backend (`apps/worker`);

@@ -1,0 +1,99 @@
+{
+  "blessings": [
+    {
+      "id": "celestial-annihilation",
+      "gameId": "110101",
+      "name": "Celestial Annihilation",
+      "entityType": "blessing",
+      "path": "Hunt",
+      "rarity": 3,
+      "effect": "When a character defeats an enemy, their action is Advanced by 100% and they gain 4 stacks of Critical Boost.",
+      "enhancedEffect": "When a character defeats an enemy or breaks their Weakness, their action is Advanced by 100% and they gain 4 stacks of Critical Boost.",
+      "releaseVersion": "2.3",
+      "source": "Official HoYoverse Reference / Verified Game Data",
+      "verifiedAt": "2026-08-27T00:00:00Z"
+    },
+    {
+      "id": "macrosegregation",
+      "gameId": "130101",
+      "name": "Macrosegregation",
+      "entityType": "blessing",
+      "path": "Preservation",
+      "rarity": 3,
+      "effect": "When a character gains a Shield, gains a stack of Special Shield that can absorb DMG equal to 30% of the character's Max HP.",
+      "enhancedEffect": "When a character gains a Shield, gains a stack of Special Shield that can absorb DMG equal to 35% of Max HP, stackable up to 3 times.",
+      "releaseVersion": "2.3",
+      "source": "Official HoYoverse Reference / Verified Game Data",
+      "verifiedAt": "2026-08-27T00:00:00Z"
+    },
+    {
+      "id": "perfect-experience-fuli",
+      "gameId": "120101",
+      "name": "Perfect Experience: Fuli",
+      "entityType": "blessing",
+      "path": "Remembrance",
+      "rarity": 3,
+      "effect": "When hitting a Frozen enemy, there is a 100% base chance to inflict Dissociation on them for 1 turn. Dissociation deals 30% of target Max HP as True DMG upon removal.",
+      "enhancedEffect": "When hitting a Frozen enemy, there is a 100% base chance to inflict Dissociation for 1 turn, and Dissociation deals 40% Max HP True DMG.",
+      "releaseVersion": "2.3",
+      "source": "Official HoYoverse Reference / Verified Game Data",
+      "verifiedAt": "2026-08-27T00:00:00Z"
+    }
+  ],
+  "equations": [
+    {
+      "id": "silent-singer",
+      "gameId": "20102",
+      "name": "Silent Singer",
+      "entityType": "equation",
+      "rarity": 2,
+      "primaryPath": "Harmony",
+      "secondaryPath": "Nihility",
+      "requiredBlessings": { "primaryCount": 2, "secondaryCount": 1 },
+      "effect": "When an ally deals DMG to a debuffed enemy, increases all allies' ATK by 25% and regenerates 3 Energy.",
+      "releaseVersion": "2.3",
+      "source": "Official HoYoverse Reference / Verified Game Data",
+      "verifiedAt": "2026-08-27T00:00:00Z"
+    },
+    {
+      "id": "voyage-monitor",
+      "gameId": "20101",
+      "name": "Voyage Monitor",
+      "entityType": "equation",
+      "rarity": 3,
+      "primaryPath": "Preservation",
+      "secondaryPath": "Remembrance",
+      "requiredBlessings": { "primaryCount": 3, "secondaryCount": 2 },
+      "effect": "When an ally gains a Shield, there is a 75% base chance to inflict Freeze on all enemies for 1 turn and increases Shield strength by 30%.",
+      "releaseVersion": "2.3",
+      "source": "Official HoYoverse Reference / Verified Game Data",
+      "verifiedAt": "2026-08-27T00:00:00Z"
+    }
+  ],
+  "curios": [
+    {
+      "id": "interastral-peace-special-curio",
+      "gameId": "140002",
+      "name": "Interastral Peace Special Curio",
+      "entityType": "curio",
+      "rarity": 2,
+      "category": "normal",
+      "effect": "Obtains 150 Cosmic Fragments immediately. All shop items in Divergent Universe cost 20% fewer Cosmic Fragments.",
+      "releaseVersion": "2.3",
+      "source": "Official HoYoverse Reference / Verified Game Data",
+      "verifiedAt": "2026-08-27T00:00:00Z"
+    },
+    {
+      "id": "rubert-difference-engine",
+      "gameId": "140001",
+      "name": "Rubert Difference Engine",
+      "entityType": "curio",
+      "rarity": 3,
+      "category": "weighted",
+      "effect": "Upon entering battle, all characters obtain 100% Ultimate Energy. Increases all allies' Ultimate DMG by 50%.",
+      "releaseVersion": "2.3",
+      "source": "Official HoYoverse Reference / Verified Game Data",
+      "verifiedAt": "2026-08-27T00:00:00Z"
+    }
+  ]
+}

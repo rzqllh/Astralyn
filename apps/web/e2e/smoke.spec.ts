@@ -114,35 +114,16 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
     await expect(page.getByTestId("home-view")).toBeVisible();
   });
 
-  test("navigates to /design-system and inspects game assets and components", async ({
+  test("guards internal /design-system route in production mode and displays Waypoint Not Found", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/design-system");
     await page.waitForLoadState("networkidle");
 
-    await expect(page.getByTestId("design-system-view")).toBeVisible();
-    await expect(page.getByText("Astralyn Design System & Game Assets")).toBeVisible();
-
-    // Tab 1 (Game Assets)
-    await expect(page.getByText("Combat Element Icons")).toBeVisible();
-    await expect(page.getByText("Combat Path Icons")).toBeVisible();
-
-    // Switch to CharacterTile v2 tab
-    await page.getByRole("tab", { name: "CharacterTile v2" }).click();
-    await expect(page.getByText("CharacterTile v2 States & Variants")).toBeVisible();
-
-    // Switch to Parchment & Panels tab
-    await page.getByRole("tab", { name: "Parchment & Panels" }).click();
-    await expect(page.getByText("Celestial Parchment Panel")).toBeVisible();
-
-    await ensureImagesDecoded(page);
-
-    // Screenshot design system showcase
-    await page.screenshot({
-      path: path.join(SCREENSHOT_DIR, "desktop_design_system_1440.png"),
-      fullPage: true,
-    });
+    await expect(page.getByTestId("not-found")).toBeVisible();
+    await expect(page.getByText("Waypoint Not Found")).toBeVisible();
+    await expect(page.getByTestId("design-system-view")).not.toBeAttached();
   });
 
   test("renders mobile viewport (390px) with responsive navigation and zero horizontal overflow", async ({

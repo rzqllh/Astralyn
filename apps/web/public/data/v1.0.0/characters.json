@@ -1,0 +1,1364 @@
+[
+  {
+    "id": "acheron",
+    "gameId": "1308",
+    "name": "Acheron",
+    "localizedNames": {
+      "en": "Acheron",
+      "id": "Acheron",
+      "ja": "黄泉",
+      "zh": "黄泉"
+    },
+    "rarity": 5,
+    "path": "Nihility",
+    "element": "Lightning",
+    "releaseVersion": "2.1",
+    "roles": ["hypercarry_dps", "debuffer"],
+    "mechanicTags": [
+      "special_resource_cost",
+      "debuff",
+      "res_penetration",
+      "aoe",
+      "single_target",
+      "bounce"
+    ],
+    "baseStats": {
+      "hp": 1125,
+      "atk": 698,
+      "def": 436,
+      "spd": 101,
+      "taunt": 100,
+      "critRate": 0.05,
+      "critDmg": 0.5,
+      "maxEnergy": null
+    },
+    "specialResourceType": "Slashed Dream / Crimson Knot",
+    "abilities": [
+      {
+        "id": "acheron_basic",
+        "name": "Trilateral Wilt",
+        "type": "basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "spCost": -1,
+        "description": "Deals Lightning DMG equal to 100% of Acheron's ATK to a single target enemy.",
+        "mechanics": ["single_target"]
+      },
+      {
+        "id": "acheron_skill",
+        "name": "Octobolt Flash",
+        "type": "skill",
+        "tag": "Blast",
+        "targetType": "blast_enemy",
+        "spCost": 1,
+        "description": "Gains 1 point of Slashed Dream. Inflicts 1 stack of Crimson Knot on a single target enemy, dealing Lightning DMG equal to 160% of Acheron's ATK to them, and Lightning DMG equal to 60% of Acheron's ATK to adjacent targets.",
+        "mechanics": ["blast", "special_resource_cost", "debuff"]
+      },
+      {
+        "id": "acheron_ultimate",
+        "name": "Slashed Dream Cries in Red",
+        "type": "ultimate",
+        "tag": "AoE",
+        "targetType": "all_enemies",
+        "specialResourceCost": 9,
+        "description": "Unleashes Rainblade 3 times and Stygian Resurge 1 time, dealing Lightning DMG up to 372% of Acheron's ATK to a single target and Lightning DMG up to 300% of Acheron's ATK to other targets. Reduces enemy All-Type RES by 20% during the Ultimate.",
+        "mechanics": [
+          "aoe",
+          "res_penetration",
+          "special_resource_cost",
+          "bounce"
+        ]
+      },
+      {
+        "id": "acheron_talent",
+        "name": "Atop Rainleaf Hangs Onset",
+        "type": "talent",
+        "tag": "Enhance",
+        "targetType": "self",
+        "description": "Acheron does not consume Energy and instead requires 9 points of Slashed Dream to activate Ultimate. When any unit inflicts a debuff on an enemy during an action, Acheron gains 1 point of Slashed Dream and inflicts 1 stack of Crimson Knot on the target enemy.",
+        "mechanics": ["special_resource_cost", "debuff"]
+      },
+      {
+        "id": "acheron_technique",
+        "name": "Quadruple Sever",
+        "type": "technique",
+        "tag": "Impair",
+        "targetType": "all_enemies",
+        "description": "Immediately attacks the enemy. At the start of each wave, deals Lightning DMG equal to 200% of Acheron's ATK to all enemies and reduces All-Type Toughness regardless of Weakness Type. Overworld regular enemies are instantly defeated without entering combat.",
+        "mechanics": ["aoe", "toughness_reduction"]
+      }
+    ],
+    "majorTraces": [
+      {
+        "id": "acheron_a2",
+        "name": "Red Oni",
+        "ascensionRequirement": "A2",
+        "description": "At the start of battle, immediately gains 5 points of Slashed Dream and applies 5 stacks of Crimson Knot to a random enemy. When Slashed Dream reaches maximum point cap, each excess point generates 1 stack of Quadruple Sever (up to 3).",
+        "mechanics": ["special_resource_cost"]
+      },
+      {
+        "id": "acheron_a4",
+        "name": "The Abyss",
+        "ascensionRequirement": "A4",
+        "description": "When there are 1/2 other Nihility characters in the team, Acheron's Basic ATK, Skill, and Ultimate DMG increase to 115%/160% of the original DMG.",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "id": "acheron_a6",
+        "name": "Thunder Core",
+        "ascensionRequirement": "A6",
+        "description": "When Rainblade hits enemies with Crimson Knot, Acheron's DMG increases by 30%, stacking up to 3 times for 3 turns, and deals additional DMG upon Stygian Resurge.",
+        "mechanics": ["stat_conversion"]
+      }
+    ],
+    "minorTraces": [
+      { "stat": "Crit DMG", "totalValue": 0.24, "unit": "percentage" },
+      {
+        "stat": "Lightning DMG Boost",
+        "totalValue": 0.08,
+        "unit": "percentage"
+      },
+      { "stat": "ATK%", "totalValue": 0.28, "unit": "percentage" }
+    ],
+    "eidolons": [
+      {
+        "rank": 1,
+        "name": "Silenced Sky Begins in Pale Reverie",
+        "description": "Crit Rate increases by 18% when dealing DMG to debuffed enemies.",
+        "keyMechanic": "+18% Crit Rate vs debuffed enemies",
+        "mechanics": ["debuff", "stat_conversion"]
+      },
+      {
+        "rank": 2,
+        "name": "Mute Thunder in Still Tempest",
+        "description": "The number of Nihility characters required for Trace 'The Abyss' is reduced by 1. At the start of Acheron's turn, gains 1 point of Slashed Dream and inflicts 1 stack of Crimson Knot on the enemy with the most Crimson Knot.",
+        "keyMechanic": "Reduces required Nihility allies from 2 to 1 and generates 1 Slashed Dream per turn",
+        "mechanics": ["special_resource_cost"]
+      },
+      {
+        "rank": 3,
+        "name": "Frosty Strife Among Cold Red",
+        "description": "Ultimate Lv. +2 (max Lv. 15), Basic ATK Lv. +1 (max Lv. 10).",
+        "keyMechanic": "Ultimate and Basic Attack level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 4,
+        "name": "Shrined Fire in Mirror Radiance",
+        "description": "When enemies enter combat, inflicts Ultimate DMG Vulnerability state on them, increasing Ultimate DMG taken by 8%.",
+        "keyMechanic": "+8% Ultimate Vulnerability to all entering enemies",
+        "mechanics": ["vulnerability", "debuff"]
+      },
+      {
+        "rank": 5,
+        "name": "Strewn Souls on Shattered Steps",
+        "description": "Skill Lv. +2 (max Lv. 15), Talent Lv. +2 (max Lv. 15).",
+        "keyMechanic": "Skill and Talent level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 6,
+        "name": "Apocalypse, the Embittered Harbinger",
+        "description": "Increases All-Type RES PEN of Ultimate DMG dealt by Acheron by 20%. The DMG dealt by Basic ATK and Skill is also considered Ultimate DMG and can reduce Toughness regardless of Weakness Type.",
+        "keyMechanic": "+20% All-Type RES PEN and converts all attacks to Ultimate Toughness-reducing DMG",
+        "mechanics": ["res_penetration", "toughness_reduction"]
+      }
+    ],
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "aventurine",
+    "gameId": "1304",
+    "name": "Aventurine",
+    "localizedNames": {
+      "en": "Aventurine",
+      "id": "Aventurine",
+      "ja": "アベンチュリン",
+      "zh": "砂金"
+    },
+    "rarity": 5,
+    "path": "Preservation",
+    "element": "Imaginary",
+    "releaseVersion": "2.1",
+    "roles": ["shielder", "sub_dps"],
+    "mechanicTags": [
+      "shield",
+      "follow_up",
+      "debuff",
+      "vulnerability",
+      "stat_conversion",
+      "bounce"
+    ],
+    "baseStats": {
+      "hp": 1203,
+      "atk": 446,
+      "def": 655,
+      "spd": 106,
+      "taunt": 150,
+      "critRate": 0.05,
+      "critDmg": 0.5,
+      "maxEnergy": 110
+    },
+    "abilities": [
+      {
+        "id": "aventurine_basic",
+        "name": "Straight Bet",
+        "type": "basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 20,
+        "spCost": -1,
+        "description": "Deals Imaginary DMG equal to 100% of Aventurine's DEF to a single enemy.",
+        "mechanics": ["single_target"]
+      },
+      {
+        "id": "aventurine_skill",
+        "name": "Cornerstone Deluxe",
+        "type": "skill",
+        "tag": "Defense",
+        "targetType": "all_allies",
+        "energyGain": 30,
+        "spCost": 1,
+        "description": "Provides all allies with a Fortified Wager shield that can block DMG equal to 24% of Aventurine's DEF + 320 for 3 turns. Shields are stackable up to 200% of original value.",
+        "mechanics": ["shield"]
+      },
+      {
+        "id": "aventurine_ultimate",
+        "name": "Roulette Shark",
+        "type": "ultimate",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 5,
+        "energyCost": 110,
+        "description": "Randomly gains 1 to 7 points of Blind Bet. Deals Imaginary DMG equal to 270% of DEF to a single enemy and inflicts Unnerved debuff for 3 turns, increasing Crit DMG taken by 15%.",
+        "mechanics": ["single_target", "debuff", "vulnerability"]
+      },
+      {
+        "id": "aventurine_talent",
+        "name": "Shot Loaded Right",
+        "type": "talent",
+        "tag": "Bounce",
+        "targetType": "bounce_enemy",
+        "description": "For any ally with Fortified Wager, their Effect RES increases by 50%. When they are attacked, Aventurine gains 1 point of Blind Bet. At 7 points of Blind Bet, unleashes a 7-hit follow-up attack dealing Imaginary DMG.",
+        "mechanics": ["shield", "follow_up", "bounce"]
+      },
+      {
+        "id": "aventurine_technique",
+        "name": "The Red and the Black",
+        "type": "technique",
+        "tag": "Defense",
+        "targetType": "all_allies",
+        "description": "Gains a roulette buff. At the start of battle, increases DEF of all allies by 24%, 36%, or 60% for 3 turns.",
+        "mechanics": ["shield", "stat_conversion"]
+      }
+    ],
+    "majorTraces": [
+      {
+        "id": "aventurine_a2",
+        "name": "Leverage",
+        "ascensionRequirement": "A2",
+        "description": "For every 100 DEF exceeding 1600, increases Crit Rate by 2% (up to 48%).",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "id": "aventurine_a4",
+        "name": "Hot Hand",
+        "ascensionRequirement": "A4",
+        "description": "When battle begins, immediately provides all allies with a Fortified Wager shield for 3 turns.",
+        "mechanics": ["shield"]
+      },
+      {
+        "id": "aventurine_a6",
+        "name": "Bingo!",
+        "ascensionRequirement": "A6",
+        "description": "After an ally with Fortified Wager performs a follow-up attack, Aventurine gains 1 Blind Bet point (up to 3 times per Aventurine turn).",
+        "mechanics": ["follow_up"]
+      }
+    ],
+    "minorTraces": [
+      { "stat": "DEF%", "totalValue": 0.35, "unit": "percentage" },
+      {
+        "stat": "Imaginary DMG Boost",
+        "totalValue": 0.144,
+        "unit": "percentage"
+      },
+      { "stat": "Effect RES", "totalValue": 0.1, "unit": "percentage" }
+    ],
+    "eidolons": [
+      {
+        "rank": 1,
+        "name": "Prisoner's Dilemma",
+        "description": "Increases Crit DMG of allies with Fortified Wager by 20%. Using Ultimate now grants all allies a Fortified Wager shield.",
+        "keyMechanic": "+20% team Crit DMG and grants team shield on Ultimate",
+        "mechanics": ["shield", "stat_conversion"]
+      },
+      {
+        "rank": 2,
+        "name": "Bounded Rationality",
+        "description": "When using Basic ATK, reduces target's All-Type RES by 12% for 3 turns.",
+        "keyMechanic": "-12% All-Type RES debuff on Basic ATK",
+        "mechanics": ["debuff", "res_penetration"]
+      },
+      {
+        "rank": 3,
+        "name": "Droprate Maxing",
+        "description": "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        "keyMechanic": "Ultimate and Basic Attack level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 4,
+        "name": "Unexpected Hanging Paradox",
+        "description": "When triggering follow-up attack, DEF increases by 40% for 2 turns and increases follow-up attack hits from 7 to 10.",
+        "keyMechanic": "+40% DEF and +3 extra hits on follow-up attack",
+        "mechanics": ["follow_up"]
+      },
+      {
+        "rank": 5,
+        "name": "Ambiguity Aversion",
+        "description": "Skill Lv. +2, Talent Lv. +2.",
+        "keyMechanic": "Skill and Talent level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 6,
+        "name": "Stag Hunt Game",
+        "description": "For every ally with a shield, Aventurine's DMG dealt increases by 50% (up to 150%).",
+        "keyMechanic": "Up to +150% personal DMG boost from shielded allies",
+        "mechanics": ["stat_conversion"]
+      }
+    ],
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "castorice",
+    "gameId": "1404",
+    "name": "Castorice",
+    "localizedNames": {
+      "en": "Castorice",
+      "id": "Castorice",
+      "ja": "キャストーリーチェ",
+      "zh": "卡斯托丽丝"
+    },
+    "rarity": 5,
+    "path": "Remembrance",
+    "element": "Quantum",
+    "releaseVersion": "3.0",
+    "roles": ["summon_dps", "sub_dps"],
+    "mechanicTags": [
+      "summon",
+      "memosprite",
+      "hp_consumption",
+      "freeze",
+      "dissociation",
+      "aoe"
+    ],
+    "baseStats": {
+      "hp": 1358,
+      "atk": 582,
+      "def": 533,
+      "spd": 104,
+      "taunt": 100,
+      "critRate": 0.05,
+      "critDmg": 0.5,
+      "maxEnergy": 140
+    },
+    "abilities": [
+      {
+        "id": "castorice_basic",
+        "name": "Ephemeral Thread",
+        "type": "basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 20,
+        "spCost": -1,
+        "description": "Deals Quantum DMG equal to 100% of Castorice's Max HP to a single target enemy.",
+        "mechanics": ["single_target"]
+      },
+      {
+        "id": "castorice_skill",
+        "name": "Weave of Recollection",
+        "type": "skill",
+        "tag": "Summon",
+        "targetType": "all_allies",
+        "energyGain": 30,
+        "spCost": 1,
+        "description": "Summons the Memosprite 'Polly' to the field or restores its HP by 50% of Castorice's Max HP, and applies Remembrance Resonance to all allies.",
+        "mechanics": ["summon", "memosprite"]
+      },
+      {
+        "id": "castorice_ultimate",
+        "name": "Tides of Oblivion",
+        "type": "ultimate",
+        "tag": "AoE",
+        "targetType": "all_enemies",
+        "energyGain": 5,
+        "energyCost": 140,
+        "description": "Consumes 20% of current HP of all allies and deals Quantum DMG equal to 300% of Castorice's Max HP to all enemies, inflicting Dissociation for 1 turn.",
+        "mechanics": ["aoe", "hp_consumption", "dissociation", "freeze"]
+      },
+      {
+        "id": "castorice_talent",
+        "name": "Memory's Echoing Core",
+        "type": "talent",
+        "tag": "Enhance",
+        "targetType": "self",
+        "description": "When Memosprite Polly takes action or when allies consume HP, Castorice gains 1 stack of Memory Tapestry, increasing Crit DMG by 12% per stack up to 4 stacks.",
+        "mechanics": ["summon", "memosprite", "stat_conversion"]
+      },
+      {
+        "id": "castorice_technique",
+        "name": "Gossamer Domain",
+        "type": "technique",
+        "tag": "Enhance",
+        "targetType": "all_enemies",
+        "description": "Creates a special dimension. After entering battle, immediately summons Memosprite Polly and deals Quantum DMG to all enemies.",
+        "mechanics": ["summon", "aoe"]
+      }
+    ],
+    "memosprite": {
+      "name": "Polly",
+      "baseSpdRatio": 1,
+      "baseHpRatio": 0.6,
+      "abilities": [
+        {
+          "id": "polly_skill",
+          "name": "Spectral Cleave",
+          "type": "memosprite_skill",
+          "tag": "Blast",
+          "targetType": "blast_enemy",
+          "description": "Deals Quantum DMG equal to 80% of Polly's Max HP to the target and 40% to adjacent enemies.",
+          "mechanics": ["blast", "memosprite"]
+        }
+      ],
+      "description": "Remembrance Memosprite summoned by Castorice that acts independently on the action order."
+    },
+    "majorTraces": [
+      {
+        "id": "castorice_a2",
+        "name": "Thread of Fate",
+        "ascensionRequirement": "A2",
+        "description": "When Memosprite Polly is on the field, all allies take 15% reduced DMG.",
+        "mechanics": ["shield"]
+      },
+      {
+        "id": "castorice_a4",
+        "name": "Woven Dreams",
+        "ascensionRequirement": "A4",
+        "description": "Whenever an ally loses HP from an ability, Memosprite Polly advances its action by 15%.",
+        "mechanics": ["action_advance", "hp_consumption"]
+      },
+      {
+        "id": "castorice_a6",
+        "name": "Shattered Memory",
+        "ascensionRequirement": "A6",
+        "description": "Increases Dissociation removal true DMG dealt to enemies by 25%.",
+        "mechanics": ["dissociation"]
+      }
+    ],
+    "minorTraces": [
+      { "stat": "Crit Rate", "totalValue": 0.12, "unit": "percentage" },
+      {
+        "stat": "Quantum DMG Boost",
+        "totalValue": 0.144,
+        "unit": "percentage"
+      },
+      { "stat": "HP%", "totalValue": 0.18, "unit": "percentage" }
+    ],
+    "eidolons": [
+      {
+        "rank": 1,
+        "name": "Spindle of Starlight",
+        "description": "When Castorice uses Ultimate, increases all allies' Quantum RES PEN by 20% for 2 turns.",
+        "keyMechanic": "+20% Quantum RES PEN on Ultimate",
+        "mechanics": ["res_penetration"]
+      },
+      {
+        "rank": 2,
+        "name": "Loom of Unremembered Hours",
+        "description": "Memosprite Polly's base SPD increases by 30, and its attacks ignore 20% of target DEF.",
+        "keyMechanic": "+30 SPD and 20% DEF ignore for Memosprite Polly",
+        "mechanics": ["defense_shred", "memosprite"]
+      },
+      {
+        "rank": 3,
+        "name": "Veil of Woven Tears",
+        "description": "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        "keyMechanic": "Ultimate and Basic Attack level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 4,
+        "name": "Shuttle Across The Void",
+        "description": "When an ally HP drops below 50%, immediately heals them for 30% of Castorice's Max HP (triggers once per ally per battle wave).",
+        "keyMechanic": "Emergency auto-heal on low HP ally",
+        "mechanics": ["heal"]
+      },
+      {
+        "rank": 5,
+        "name": "Needle in the Cosmic Fabric",
+        "description": "Skill Lv. +2, Talent Lv. +2.",
+        "keyMechanic": "Skill and Talent level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 6,
+        "name": "Tapestry of Eternal Return",
+        "description": "Allows Castorice to summon a second Memosprite Polly, and increases all Memosprite DMG by 50%.",
+        "keyMechanic": "Summons second Memosprite with +50% DMG multiplier",
+        "mechanics": ["summon", "memosprite"]
+      }
+    ],
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "firefly",
+    "gameId": "1310",
+    "name": "Firefly",
+    "localizedNames": {
+      "en": "Firefly",
+      "id": "Firefly",
+      "ja": "ホタル",
+      "zh": "流萤"
+    },
+    "rarity": 5,
+    "path": "Destruction",
+    "element": "Fire",
+    "releaseVersion": "2.3",
+    "roles": ["break_dps", "hypercarry_dps"],
+    "mechanicTags": [
+      "super_break",
+      "break_effect",
+      "hp_consumption",
+      "action_advance",
+      "weakness_break_efficiency",
+      "blast",
+      "single_target"
+    ],
+    "baseStats": {
+      "hp": 814,
+      "atk": 523,
+      "def": 776,
+      "spd": 104,
+      "taunt": 125,
+      "critRate": 0.05,
+      "critDmg": 0.5,
+      "maxEnergy": 240
+    },
+    "abilities": [
+      {
+        "id": "firefly_basic",
+        "name": "Order: Flare Propulsion",
+        "type": "basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 20,
+        "spCost": -1,
+        "description": "Deals Fire DMG equal to 100% of SAM's ATK to a single enemy.",
+        "mechanics": ["single_target"]
+      },
+      {
+        "id": "firefly_skill",
+        "name": "Order: Aerial Bombardment",
+        "type": "skill",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "spCost": 1,
+        "description": "Consumes 40% of Max HP to restore 60% of Max Energy, and deals Fire DMG equal to 200% of SAM's ATK to a single enemy. Advances Firefly's next action by 25%.",
+        "mechanics": ["hp_consumption", "energy_regen", "action_advance"]
+      },
+      {
+        "id": "firefly_ultimate",
+        "name": "Fyrefly Type-IV: Complete Combustion",
+        "type": "ultimate",
+        "tag": "Enhance",
+        "targetType": "self",
+        "energyGain": 5,
+        "energyCost": 240,
+        "description": "Enters Complete Combustion state, advances action by 100%, and enhances Basic ATK and Skill. Complete Combustion countdown appears with fixed 70 SPD.",
+        "mechanics": ["action_advance"]
+      },
+      {
+        "id": "firefly_enhanced_basic",
+        "name": "Fyrefly Type-IV: Pyrogenic Strife",
+        "type": "enhanced_basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "spCost": 0,
+        "description": "Restores 20% of Max HP and deals Fire DMG equal to 200% of ATK to a single enemy.",
+        "mechanics": ["heal", "single_target"]
+      },
+      {
+        "id": "firefly_enhanced_skill",
+        "name": "Fyrefly Type-IV: Deathstar Overload",
+        "type": "enhanced_skill",
+        "tag": "Blast",
+        "targetType": "blast_enemy",
+        "spCost": 1,
+        "description": "Restores 35% of Max HP. Applies Fire Weakness to the primary target for 2 turns. Deals Fire DMG based on ATK and Break Effect to target and adjacent enemies.",
+        "mechanics": ["blast", "break_effect", "heal"]
+      },
+      {
+        "id": "firefly_talent",
+        "name": "Chrysalid Pyronexus",
+        "type": "talent",
+        "tag": "Enhance",
+        "targetType": "self",
+        "description": "The lower SAM's HP, the less DMG taken (up to 40% DMG reduction). In Complete Combustion state, increases Break Effect and Weakness Break Efficiency by 50%.",
+        "mechanics": ["weakness_break_efficiency", "break_effect"]
+      },
+      {
+        "id": "firefly_technique",
+        "name": "Δ Order: Meteor Arrival",
+        "type": "technique",
+        "tag": "Enhance",
+        "targetType": "all_enemies",
+        "description": "Leaps into the air and drops down upon entering battle, dealing Fire DMG to all enemies and inflicting Fire Weakness on all enemies for 2 turns.",
+        "mechanics": ["aoe"]
+      }
+    ],
+    "transformation": {
+      "stanceName": "Complete Combustion",
+      "durationDescription": "Countdown entity on Action Order (70 SPD)",
+      "enhancedAbilities": [
+        {
+          "id": "firefly_enhanced_basic",
+          "name": "Fyrefly Type-IV: Pyrogenic Strife",
+          "type": "enhanced_basic",
+          "tag": "Single Target",
+          "targetType": "single_enemy",
+          "spCost": 0,
+          "description": "Enhanced single target attack restoring 20% HP.",
+          "mechanics": ["heal", "single_target"]
+        },
+        {
+          "id": "firefly_enhanced_skill",
+          "name": "Fyrefly Type-IV: Deathstar Overload",
+          "type": "enhanced_skill",
+          "tag": "Blast",
+          "targetType": "blast_enemy",
+          "spCost": 1,
+          "description": "Enhanced blast attack implanting Fire weakness and dealing Super Break DMG.",
+          "mechanics": ["blast", "break_effect", "super_break"]
+        }
+      ],
+      "description": "Complete Combustion form with +50% Weakness Break Efficiency and Super Break DMG conversion."
+    },
+    "majorTraces": [
+      {
+        "id": "firefly_a2",
+        "name": "Module α: Antilag Surge",
+        "ascensionRequirement": "A2",
+        "description": "During Complete Combustion, attacking enemies without Fire Weakness can still reduce their Toughness by 55% of the original ability.",
+        "mechanics": ["toughness_reduction"]
+      },
+      {
+        "id": "firefly_a4",
+        "name": "Module β: Autochthonous Armor",
+        "ascensionRequirement": "A4",
+        "description": "When Break Effect is 200%/360% or higher, converts 35%/50% of Toughness reduction into Super Break DMG on Weakness Broken targets.",
+        "mechanics": ["super_break"]
+      },
+      {
+        "id": "firefly_a6",
+        "name": "Module γ: Core Overload",
+        "ascensionRequirement": "A6",
+        "description": "For every 100 ATK exceeding 1800, increases Break Effect by 0.8%.",
+        "mechanics": ["stat_conversion"]
+      }
+    ],
+    "minorTraces": [
+      { "stat": "Break Effect", "totalValue": 0.373, "unit": "percentage" },
+      { "stat": "Effect RES", "totalValue": 0.18, "unit": "percentage" },
+      { "stat": "SPD", "totalValue": 5, "unit": "flat" }
+    ],
+    "eidolons": [
+      {
+        "rank": 1,
+        "name": "In Reddened Chrysalis, I Once Rested",
+        "description": "When using Enhanced Skill, does not consume Skill Points and ignores 15% of the target's DEF.",
+        "keyMechanic": "0 SP cost on Enhanced Skill + 15% DEF ignore",
+        "mechanics": ["defense_shred"]
+      },
+      {
+        "rank": 2,
+        "name": "From Unfallen Sky, I Once Fell",
+        "description": "In Complete Combustion, defeating an enemy or breaking their Weakness grants 1 extra turn (triggers once per 1 turn cooldown).",
+        "keyMechanic": "Extra turn on enemy defeat or Weakness Break",
+        "mechanics": ["action_advance"]
+      },
+      {
+        "rank": 3,
+        "name": "Amidst Silenced Stars, I Once Slept",
+        "description": "Skill Lv. +2, Basic ATK Lv. +1.",
+        "keyMechanic": "Skill and Basic Attack level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 4,
+        "name": "Upon Lighted Pyre, I Once Shone",
+        "description": "During Complete Combustion, increases SAM's Effect RES by 50%.",
+        "keyMechanic": "+50% Effect RES during Complete Combustion",
+        "mechanics": []
+      },
+      {
+        "rank": 5,
+        "name": "From Distant Dream, I Once Woke",
+        "description": "Ultimate Lv. +2, Talent Lv. +2.",
+        "keyMechanic": "Ultimate and Talent level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 6,
+        "name": "In Finalized Bloom, I Once Lived",
+        "description": "During Complete Combustion, increases SAM's Fire RES PEN by 20% and Weakness Break Efficiency by an additional 50%.",
+        "keyMechanic": "+20% Fire RES PEN and +50% Weakness Break Efficiency",
+        "mechanics": ["res_penetration", "weakness_break_efficiency"]
+      }
+    ],
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "gallagher",
+    "gameId": "1301",
+    "name": "Gallagher",
+    "localizedNames": {
+      "en": "Gallagher",
+      "id": "Gallagher",
+      "ja": "ギャラガー",
+      "zh": "加拉赫"
+    },
+    "rarity": 4,
+    "path": "Abundance",
+    "element": "Fire",
+    "releaseVersion": "2.1",
+    "roles": ["healer", "debuffer"],
+    "mechanicTags": [
+      "heal",
+      "debuff",
+      "break_effect",
+      "action_advance",
+      "cleanse",
+      "single_target",
+      "aoe"
+    ],
+    "baseStats": {
+      "hp": 1305,
+      "atk": 529,
+      "def": 441,
+      "spd": 98,
+      "taunt": 100,
+      "critRate": 0.05,
+      "critDmg": 0.5,
+      "maxEnergy": 110
+    },
+    "abilities": [
+      {
+        "id": "gallagher_basic",
+        "name": "Cork Charger",
+        "type": "basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 20,
+        "spCost": -1,
+        "description": "Deals Fire DMG equal to 100% of Gallagher's ATK to a single enemy.",
+        "mechanics": ["single_target"]
+      },
+      {
+        "id": "gallagher_skill",
+        "name": "Special Brew",
+        "type": "skill",
+        "tag": "Restore",
+        "targetType": "single_ally",
+        "energyGain": 30,
+        "spCost": 1,
+        "description": "Immediately heals a target ally for 1600 flat HP.",
+        "mechanics": ["heal"]
+      },
+      {
+        "id": "gallagher_ultimate",
+        "name": "Champagne Etiquette",
+        "type": "ultimate",
+        "tag": "AoE",
+        "targetType": "all_enemies",
+        "energyGain": 5,
+        "energyCost": 110,
+        "description": "Inflicts Besotted state on all enemies for 2 turns and deals Fire DMG. Advances Gallagher's next action by 100% and enhances his next Basic ATK into Nectar Blitz.",
+        "mechanics": ["aoe", "debuff", "action_advance"]
+      },
+      {
+        "id": "gallagher_enhanced_basic",
+        "name": "Nectar Blitz",
+        "type": "enhanced_basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 20,
+        "spCost": -1,
+        "description": "Deals Fire DMG equal to 250% of ATK to a single enemy and reduces their ATK by 15% for 2 turns.",
+        "mechanics": ["single_target", "debuff"]
+      },
+      {
+        "id": "gallagher_talent",
+        "name": "Novel Concoction",
+        "type": "talent",
+        "tag": "Restore",
+        "targetType": "all_allies",
+        "description": "Besotted enemies take 12% increased Break DMG. When an ally attacks a Besotted enemy, that ally restores 640 HP.",
+        "mechanics": ["heal", "debuff", "break_effect"]
+      },
+      {
+        "id": "gallagher_technique",
+        "name": "Elixir Sample",
+        "type": "technique",
+        "tag": "Impair",
+        "targetType": "all_enemies",
+        "description": "Attacks the enemy. Upon entering battle, inflicts Besotted on all enemies for 2 turns.",
+        "mechanics": ["debuff", "aoe"]
+      }
+    ],
+    "majorTraces": [
+      {
+        "id": "gallagher_a2",
+        "name": "Novel Formulation",
+        "ascensionRequirement": "A2",
+        "description": "Increases Outgoing Healing by an amount equal to 50% of Break Effect (up to 75% increase).",
+        "mechanics": ["stat_conversion", "break_effect", "heal"]
+      },
+      {
+        "id": "gallagher_a4",
+        "name": "Organic Yeast",
+        "ascensionRequirement": "A4",
+        "description": "After using Ultimate, immediately advances Gallagher's action by 100%.",
+        "mechanics": ["action_advance"]
+      },
+      {
+        "id": "gallagher_a6",
+        "name": "Bottoms Up",
+        "ascensionRequirement": "A6",
+        "description": "When Gallagher uses Nectar Blitz on Besotted enemies, heals all allies instead of just himself.",
+        "mechanics": ["heal"]
+      }
+    ],
+    "minorTraces": [
+      { "stat": "Break Effect", "totalValue": 0.28, "unit": "percentage" },
+      { "stat": "Effect RES", "totalValue": 0.18, "unit": "percentage" },
+      { "stat": "HP%", "totalValue": 0.1, "unit": "percentage" }
+    ],
+    "eidolons": [
+      {
+        "rank": 1,
+        "name": "Salty Dog",
+        "description": "When entering battle, regenerates 20 Energy and increases Effect RES by 50%.",
+        "keyMechanic": "+20 Energy at battle start and +50% Effect RES",
+        "mechanics": ["energy_regen"]
+      },
+      {
+        "rank": 2,
+        "name": "Lion's Tail",
+        "description": "Using Skill dispels 1 debuff from the target ally and increases their Effect RES by 30% for 2 turns.",
+        "keyMechanic": "Cleanse on Skill + 30% Effect RES buff",
+        "mechanics": ["cleanse"]
+      },
+      {
+        "rank": 3,
+        "name": "Corpse Reviver",
+        "description": "Skill Lv. +2, Basic ATK Lv. +1.",
+        "keyMechanic": "Skill and Basic Attack level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 4,
+        "name": "Last Word",
+        "description": "Extends duration of Besotted state by 1 turn.",
+        "keyMechanic": "+1 turn duration for Besotted debuff",
+        "mechanics": ["debuff"]
+      },
+      {
+        "rank": 5,
+        "name": "Death in the Afternoon",
+        "description": "Ultimate Lv. +2, Talent Lv. +2.",
+        "keyMechanic": "Ultimate and Talent level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 6,
+        "name": "Blood and Sand",
+        "description": "Increases Break Effect by 20% and Weakness Break Efficiency by 20%.",
+        "keyMechanic": "+20% Break Effect and +20% Weakness Break Efficiency",
+        "mechanics": ["break_effect", "weakness_break_efficiency"]
+      }
+    ],
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "robin",
+    "gameId": "1309",
+    "name": "Robin",
+    "localizedNames": {
+      "en": "Robin",
+      "id": "Robin",
+      "ja": "ロビン",
+      "zh": "知更鸟"
+    },
+    "rarity": 5,
+    "path": "Harmony",
+    "element": "Physical",
+    "releaseVersion": "2.2",
+    "roles": ["buffer"],
+    "mechanicTags": ["action_advance", "energy_regen", "stat_conversion"],
+    "baseStats": {
+      "hp": 1280,
+      "atk": 640,
+      "def": 485,
+      "spd": 102,
+      "taunt": 100,
+      "critRate": 0.05,
+      "critDmg": 0.5,
+      "maxEnergy": 160
+    },
+    "abilities": [
+      {
+        "id": "robin_basic",
+        "name": "Wingflip White Noise",
+        "type": "basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 20,
+        "spCost": -1,
+        "description": "Deals Physical DMG equal to 100% of Robin's ATK to a single enemy.",
+        "mechanics": ["single_target"]
+      },
+      {
+        "id": "robin_skill",
+        "name": "Pinion's Aria",
+        "type": "skill",
+        "tag": "Support",
+        "targetType": "all_allies",
+        "energyGain": 30,
+        "spCost": 1,
+        "description": "Increases DMG dealt by all allies by 50% for 3 turns. Duration decreases by 1 at the start of Robin's turn.",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "id": "robin_ultimate",
+        "name": "Vox Harmonique, Opus Cosmique",
+        "type": "ultimate",
+        "tag": "Support",
+        "targetType": "all_allies",
+        "energyGain": 5,
+        "energyCost": 160,
+        "description": "Enters Concerto state, immediately advances all allies' actions by 100%, and increases team ATK by a percentage of Robin's ATK. When allies attack, Robin deals additional Physical DMG with 100% Crit Rate and 150% Crit DMG.",
+        "mechanics": ["action_advance", "stat_conversion"]
+      },
+      {
+        "id": "robin_talent",
+        "name": "Tonal Resonance",
+        "type": "talent",
+        "tag": "Support",
+        "targetType": "all_allies",
+        "description": "Increases all allies' Crit DMG by 20%. When allies attack enemies, Robin regenerates 2 Energy.",
+        "mechanics": ["energy_regen", "stat_conversion"]
+      },
+      {
+        "id": "robin_technique",
+        "name": "Overture of Inebriation",
+        "type": "technique",
+        "tag": "Support",
+        "targetType": "self",
+        "description": "Creates a dimension that attracts enemies and regenerates 5 Energy for Robin at the start of each wave in battle.",
+        "mechanics": ["energy_regen"]
+      }
+    ],
+    "majorTraces": [
+      {
+        "id": "robin_a2",
+        "name": "Coloratura Cadenza",
+        "ascensionRequirement": "A2",
+        "description": "When battle begins, advances Robin's action by 25%.",
+        "mechanics": ["action_advance"]
+      },
+      {
+        "id": "robin_a4",
+        "name": "Impromptu Flourish",
+        "ascensionRequirement": "A4",
+        "description": "During Concerto state, increases Crit DMG of all allies' follow-up attacks by 25%.",
+        "mechanics": ["follow_up", "stat_conversion"]
+      },
+      {
+        "id": "robin_a6",
+        "name": "Sequential Passage",
+        "ascensionRequirement": "A6",
+        "description": "When using Skill, additionally regenerates 5 Energy.",
+        "mechanics": ["energy_regen"]
+      }
+    ],
+    "minorTraces": [
+      { "stat": "ATK%", "totalValue": 0.28, "unit": "percentage" },
+      { "stat": "HP%", "totalValue": 0.18, "unit": "percentage" },
+      { "stat": "SPD", "totalValue": 5, "unit": "flat" }
+    ],
+    "eidolons": [
+      {
+        "rank": 1,
+        "name": "Land of Smiles",
+        "description": "During Concerto state, increases all allies' All-Type RES PEN by 24%.",
+        "keyMechanic": "+24% All-Type RES PEN for entire team during Concerto",
+        "mechanics": ["res_penetration"]
+      },
+      {
+        "rank": 2,
+        "name": "Afternoon Tea for Two",
+        "description": "During Concerto state, increases all allies' SPD by 16% and Robin's Talent Energy regeneration by 1.",
+        "keyMechanic": "+16% team SPD and +1 Energy per ally attack",
+        "mechanics": ["energy_regen"]
+      },
+      {
+        "rank": 3,
+        "name": "Inverted Tuning",
+        "description": "Skill Lv. +2, Ultimate Lv. +2.",
+        "keyMechanic": "Skill and Ultimate level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 4,
+        "name": "Raindrop Key",
+        "description": "When using Ultimate, dispels Crowd Control debuffs from all allies. In Concerto state, all allies gain 50% Effect RES.",
+        "keyMechanic": "Team CC cleanse on Ult and +50% Effect RES",
+        "mechanics": ["cleanse"]
+      },
+      {
+        "rank": 5,
+        "name": "Lonestar's Lament",
+        "description": "Basic ATK Lv. +1, Talent Lv. +2.",
+        "keyMechanic": "Basic Attack and Talent level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 6,
+        "name": "Moonless Midnight",
+        "description": "Increases Crit DMG of additional Physical DMG in Concerto by 450% for the first 8 hits.",
+        "keyMechanic": "+450% Crit DMG on Robin's additional Physical hits",
+        "mechanics": ["stat_conversion"]
+      }
+    ],
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "the-herta",
+    "gameId": "1401",
+    "name": "The Herta",
+    "localizedNames": {
+      "en": "The Herta",
+      "id": "The Herta",
+      "ja": "マダム・ヘルタ",
+      "zh": "大黑塔"
+    },
+    "rarity": 5,
+    "path": "Erudition",
+    "element": "Ice",
+    "releaseVersion": "3.0",
+    "roles": ["hypercarry_dps", "sub_dps"],
+    "mechanicTags": ["aoe", "freeze", "stat_conversion", "bounce"],
+    "baseStats": {
+      "hp": 1086,
+      "atk": 679,
+      "def": 485,
+      "spd": 99,
+      "taunt": 75,
+      "critRate": 0.05,
+      "critDmg": 0.5,
+      "maxEnergy": 140
+    },
+    "abilities": [
+      {
+        "id": "the_herta_basic",
+        "name": "Cosmic Inquiry",
+        "type": "basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 20,
+        "spCost": -1,
+        "description": "Deals Ice DMG equal to 100% of The Herta's ATK to a single enemy.",
+        "mechanics": ["single_target"]
+      },
+      {
+        "id": "the_herta_skill",
+        "name": "Grand Hypothesis",
+        "type": "skill",
+        "tag": "AoE",
+        "targetType": "all_enemies",
+        "energyGain": 30,
+        "spCost": 1,
+        "description": "Deals Ice DMG equal to 140% of ATK to all enemies and gains 1 stack of Erudition Calculation.",
+        "mechanics": ["aoe"]
+      },
+      {
+        "id": "the_herta_ultimate",
+        "name": "Answer to All",
+        "type": "ultimate",
+        "tag": "AoE",
+        "targetType": "all_enemies",
+        "energyGain": 5,
+        "energyCost": 140,
+        "description": "Deals Ice DMG equal to 280% of ATK to all enemies, ignores 20% of their DEF, and triggers an immediate additional wave of Ice shattering damage.",
+        "mechanics": ["aoe", "defense_shred"]
+      },
+      {
+        "id": "the_herta_talent",
+        "name": "Genius's Uncompromising Truth",
+        "type": "talent",
+        "tag": "Enhance",
+        "targetType": "self",
+        "description": "For each enemy on field, increases The Herta's Crit Rate by 3% (up to 15%) and Crit DMG by 10% (up to 50%). When any ally attacks an enemy, adds 1 stack of Truth Resonance.",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "id": "the_herta_technique",
+        "name": "Eureka Moment",
+        "type": "technique",
+        "tag": "Enhance",
+        "targetType": "self",
+        "description": "Increases The Herta's ATK by 40% for 3 turns at the start of battle.",
+        "mechanics": ["stat_conversion"]
+      }
+    ],
+    "majorTraces": [
+      {
+        "id": "the_herta_a2",
+        "name": "Methodical Proof",
+        "ascensionRequirement": "A2",
+        "description": "When entering battle, immediately gains 30 Energy and 2 stacks of Erudition Calculation.",
+        "mechanics": ["energy_regen"]
+      },
+      {
+        "id": "the_herta_a4",
+        "name": "Peer Review",
+        "ascensionRequirement": "A4",
+        "description": "When there is another Erudition or Ice character in the team, increases The Herta's Ice DMG by 25%.",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "id": "the_herta_a6",
+        "name": "Absolute Axiom",
+        "ascensionRequirement": "A6",
+        "description": "Ultimate DMG dealt to Weakness Broken enemies increases by 35%.",
+        "mechanics": ["stat_conversion"]
+      }
+    ],
+    "minorTraces": [
+      { "stat": "Crit DMG", "totalValue": 0.24, "unit": "percentage" },
+      { "stat": "Ice DMG Boost", "totalValue": 0.144, "unit": "percentage" },
+      { "stat": "ATK%", "totalValue": 0.18, "unit": "percentage" }
+    ],
+    "eidolons": [
+      {
+        "rank": 1,
+        "name": "Postulate of Pure Reason",
+        "description": "When attacking enemies below 50% HP, Crit Rate increases by 20% and Crit DMG increases by 40%.",
+        "keyMechanic": "+20% Crit Rate and +40% Crit DMG vs low HP targets",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "rank": 2,
+        "name": "Paradox of the Infinite Set",
+        "description": "For every enemy defeated, regenerates 10 Energy and advances action by 15%.",
+        "keyMechanic": "+10 Energy and 15% Action Advance on kill",
+        "mechanics": ["energy_regen", "action_advance"]
+      },
+      {
+        "rank": 3,
+        "name": "Lemma of Complete Induction",
+        "description": "Skill Lv. +2, Ultimate Lv. +2.",
+        "keyMechanic": "Skill and Ultimate level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 4,
+        "name": "Theorem of Universal Solvability",
+        "description": "When The Herta is on field, all enemies take 12% increased AoE DMG.",
+        "keyMechanic": "+12% AoE vulnerability to all enemies",
+        "mechanics": ["vulnerability", "debuff"]
+      },
+      {
+        "rank": 5,
+        "name": "Corollary of the Golden Ratio",
+        "description": "Basic ATK Lv. +1, Talent Lv. +2.",
+        "keyMechanic": "Basic Attack and Talent level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 6,
+        "name": "Unsolved Conjectures of the Cosmos",
+        "description": "After using Ultimate, The Herta ignores 30% DEF for all attacks for 2 turns.",
+        "keyMechanic": "30% DEF ignore for all attacks after Ultimate",
+        "mechanics": ["defense_shred"]
+      }
+    ],
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "tingyun",
+    "gameId": "1202",
+    "name": "Tingyun",
+    "localizedNames": {
+      "en": "Tingyun",
+      "id": "Tingyun",
+      "ja": "停雲",
+      "zh": "停云"
+    },
+    "rarity": 4,
+    "path": "Harmony",
+    "element": "Lightning",
+    "releaseVersion": "1.0",
+    "roles": ["battery", "buffer"],
+    "mechanicTags": ["energy_regen", "stat_conversion", "single_target"],
+    "baseStats": {
+      "hp": 846,
+      "atk": 529,
+      "def": 396,
+      "spd": 112,
+      "taunt": 100,
+      "critRate": 0.05,
+      "critDmg": 0.5,
+      "maxEnergy": 130
+    },
+    "abilities": [
+      {
+        "id": "tingyun_basic",
+        "name": "Dislodged",
+        "type": "basic",
+        "tag": "Single Target",
+        "targetType": "single_enemy",
+        "energyGain": 20,
+        "spCost": -1,
+        "description": "Deals Lightning DMG equal to 100% of Tingyun's ATK to a single enemy.",
+        "mechanics": ["single_target"]
+      },
+      {
+        "id": "tingyun_skill",
+        "name": "Soothing Melody",
+        "type": "skill",
+        "tag": "Support",
+        "targetType": "single_ally",
+        "energyGain": 30,
+        "spCost": 1,
+        "description": "Grants Benediction to a target ally, increasing their ATK by up to 50% (capped at 25% of Tingyun's ATK) and causing their attacks to deal extra Lightning DMG for 3 turns.",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "id": "tingyun_ultimate",
+        "name": "Amidst the Rejoicing Clouds",
+        "type": "ultimate",
+        "tag": "Support",
+        "targetType": "single_ally",
+        "energyGain": 5,
+        "energyCost": 130,
+        "description": "Regenerates 50 flat Energy for a target ally and increases their DMG dealt by 50% for 2 turns.",
+        "mechanics": ["energy_regen", "stat_conversion"]
+      },
+      {
+        "id": "tingyun_talent",
+        "name": "Violet Sparknock",
+        "type": "talent",
+        "tag": "Enhance",
+        "targetType": "self",
+        "description": "When Tingyun attacks an enemy, the ally with Benediction immediately deals extra Lightning DMG to that enemy.",
+        "mechanics": []
+      },
+      {
+        "id": "tingyun_technique",
+        "name": "Gentle Breeze",
+        "type": "technique",
+        "tag": "Support",
+        "targetType": "self",
+        "description": "Immediately regenerates 50 Energy for Tingyun upon using Technique in overworld.",
+        "mechanics": ["energy_regen"]
+      }
+    ],
+    "majorTraces": [
+      {
+        "id": "tingyun_a2",
+        "name": "Nourished Joviality",
+        "ascensionRequirement": "A2",
+        "description": "Tingyun's SPD increases by 20% for 1 turn after using Skill.",
+        "mechanics": ["action_advance"]
+      },
+      {
+        "id": "tingyun_a4",
+        "name": "Knell Subdual",
+        "ascensionRequirement": "A4",
+        "description": "Basic ATK DMG increases by 40%.",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "id": "tingyun_a6",
+        "name": "Jubilant Passage",
+        "ascensionRequirement": "A6",
+        "description": "Tingyun immediately regenerates 5 Energy at the start of her turn.",
+        "mechanics": ["energy_regen"]
+      }
+    ],
+    "minorTraces": [
+      { "stat": "ATK%", "totalValue": 0.28, "unit": "percentage" },
+      {
+        "stat": "Lightning DMG Boost",
+        "totalValue": 0.144,
+        "unit": "percentage"
+      },
+      { "stat": "DEF%", "totalValue": 0.15, "unit": "percentage" }
+    ],
+    "eidolons": [
+      {
+        "rank": 1,
+        "name": "Windfall of Lucky Springs",
+        "description": "After an ally with Benediction uses their Ultimate, their SPD increases by 20% for 1 turn.",
+        "keyMechanic": "+20% SPD to buffed ally after their Ultimate",
+        "mechanics": ["action_advance"]
+      },
+      {
+        "rank": 2,
+        "name": "Gainers Reap, Losers Weep",
+        "description": "The ally with Benediction regenerates 5 Energy when defeating an enemy (once per turn).",
+        "keyMechanic": "+5 Energy to buffed ally on enemy kill",
+        "mechanics": ["energy_regen"]
+      },
+      {
+        "rank": 3,
+        "name": "Halcyon Bequest",
+        "description": "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        "keyMechanic": "Ultimate and Basic Attack level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 4,
+        "name": "Jovial Versatility",
+        "description": "The DMG multiplier provided by Benediction increases by 20%.",
+        "keyMechanic": "+20% multiplier to Benediction extra DMG",
+        "mechanics": ["stat_conversion"]
+      },
+      {
+        "rank": 5,
+        "name": "Sauntering Coquette",
+        "description": "Skill Lv. +2, Talent Lv. +2.",
+        "keyMechanic": "Skill and Talent level upgrades",
+        "mechanics": []
+      },
+      {
+        "rank": 6,
+        "name": "Peace to All, Diminishing Wealth",
+        "description": "Ultimate regenerates an additional 10 Energy for the target ally (total 60 Energy).",
+        "keyMechanic": "Increases Ultimate flat Energy battery from 50 to 60",
+        "mechanics": ["energy_regen"]
+      }
+    ],
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  }
+]

@@ -1,0 +1,141 @@
+[
+  {
+    "id": "aventurine-of-stratagems",
+    "gameId": "3024020",
+    "name": "Aventurine of Stratagems",
+    "category": "boss",
+    "weaknesses": ["Physical", "Ice", "Lightning"],
+    "resistances": {
+      "Physical": 0,
+      "Fire": 0.2,
+      "Ice": 0,
+      "Lightning": 0,
+      "Wind": 0.2,
+      "Quantum": 0.2,
+      "Imaginary": 0.4
+    },
+    "skills": [
+      {
+        "id": "aventurine_skill_gamble",
+        "name": "All or Nothing",
+        "type": "Gamble",
+        "description": "Forces characters into a dice game. Characters who roll higher than the boss gain Ultimate Energy and buffs; those who roll lower take high Imaginary DMG.",
+        "element": "Imaginary"
+      }
+    ],
+    "keyMechanics": [
+      "Gamble Dice Mini-Game",
+      "AoE Attacks Win Dice Rolls",
+      "High Imaginary Resistance"
+    ],
+    "releaseVersion": "2.1",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "cirrus",
+    "gameId": "2023010",
+    "name": "Cirrus",
+    "category": "boss",
+    "weaknesses": ["Imaginary", "Lightning", "Wind"],
+    "resistances": {
+      "Physical": 0.2,
+      "Fire": 0.2,
+      "Ice": 0.2,
+      "Lightning": 0,
+      "Wind": 0,
+      "Quantum": 0.2,
+      "Imaginary": 0
+    },
+    "skills": [
+      {
+        "id": "cirrus_skill_order",
+        "name": "Puppeteer's Decree",
+        "type": "Action Order",
+        "description": "Advances actions of all minion puppets on the field by 100% while retreating to the background.",
+        "element": "Wind"
+      }
+    ],
+    "keyMechanics": [
+      "Action Order Advance",
+      "Cannot be directly targeted until minions fall",
+      "High Wave Density"
+    ],
+    "releaseVersion": "1.5",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "sam-complete-combustion",
+    "gameId": "3024010",
+    "name": "Stellaron Hunter: Sam",
+    "category": "boss",
+    "weaknesses": ["Imaginary", "Lightning", "Quantum"],
+    "resistances": {
+      "Physical": 0.2,
+      "Fire": 0.4,
+      "Ice": 0.2,
+      "Lightning": 0,
+      "Wind": 0.2,
+      "Quantum": 0,
+      "Imaginary": 0
+    },
+    "skills": [
+      {
+        "id": "sam_skill_combustion",
+        "name": "DHG-DRK: Supernova Overload",
+        "type": "Ultimate",
+        "description": "Enters Complete Combustion state, illuminating the field with scorched earth, setting player Skill Points on fire and converting HP consumption into Energy.",
+        "element": "Fire"
+      },
+      {
+        "id": "sam_skill_blast",
+        "name": "BB-4: Hellfire Burst",
+        "type": "Blast",
+        "description": "Deals massive Fire DMG to target and adjacent allies.",
+        "element": "Fire"
+      }
+    ],
+    "keyMechanics": [
+      "Secondary Energy Core",
+      "Combustion Field HP Burn",
+      "Vulnerable when Toughness Broken"
+    ],
+    "releaseVersion": "2.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "sunday-harmonious-choir",
+    "gameId": "3024030",
+    "name": "The Great Septimus, 'Harmonious Choir'",
+    "category": "weekly_boss",
+    "weaknesses": ["Imaginary", "Lightning", "Fire"],
+    "resistances": {
+      "Physical": 0.2,
+      "Fire": 0,
+      "Ice": 0.2,
+      "Lightning": 0,
+      "Wind": 0.2,
+      "Quantum": 0.2,
+      "Imaginary": 0
+    },
+    "skills": [
+      {
+        "id": "sunday_skill_chords",
+        "name": "Ode to the Epilogue",
+        "type": "Ultimate AoE",
+        "description": "Channels a devastating ultimate hitting all allies unless shielded by high-capacity damage absorbers.",
+        "element": "Imaginary"
+      }
+    ],
+    "keyMechanics": [
+      "Multi-Layered Toughness Shields",
+      "Teamwide Shielding Requirement",
+      "Harmonious Chorus Resonances"
+    ],
+    "releaseVersion": "2.2",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  }
+]

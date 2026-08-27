@@ -1,0 +1,65 @@
+[
+  {
+    "id": "as-stage-4",
+    "name": "Apocalyptic Shadow: Stage 4 (Dominion of Stars)",
+    "stageType": "apocalyptic_shadow",
+    "floorNumber": 4,
+    "buffName": "Ruinous Resilience",
+    "buffDescription": "When boss is Weakness Broken, restores 100% Energy to all allies and increases Break DMG taken by 80%.",
+    "recommendedElements": ["Imaginary", "Fire", "Physical"],
+    "waves": [{ "waveNumber": 1, "enemies": ["sunday-harmonious-choir"] }],
+    "releaseVersion": "3.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "du-v6",
+    "name": "Divergent Universe: Threshold Protocol 6",
+    "stageType": "divergent_universe",
+    "floorNumber": 6,
+    "buffName": "Adaptive Simulation Protocol",
+    "buffDescription": "All enemies gain 60% Max HP and 25% SPD. Equation thresholds require 1 additional blessing.",
+    "recommendedElements": ["Quantum", "Lightning", "Imaginary"],
+    "waves": [
+      {
+        "waveNumber": 1,
+        "enemies": ["sam-complete-combustion", "aventurine-of-stratagems"]
+      }
+    ],
+    "releaseVersion": "3.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "moc-stage-12",
+    "name": "Memory of Chaos: Stage 12 (Pinnacle of Glory)",
+    "stageType": "memory_of_chaos",
+    "floorNumber": 12,
+    "buffName": "Turbulence: Dreamweaver Echo",
+    "buffDescription": "When allies inflict Break DMG or Super Break DMG, increases team action advance by 15% and adds 1 stack of Memory Burst.",
+    "recommendedElements": ["Lightning", "Fire", "Quantum"],
+    "waves": [
+      { "waveNumber": 1, "enemies": ["cirrus"] },
+      {
+        "waveNumber": 2,
+        "enemies": ["sam-complete-combustion", "aventurine-of-stratagems"]
+      }
+    ],
+    "releaseVersion": "3.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "pf-stage-4",
+    "name": "Pure Fiction: Stage 4 (Cacophony of Whimsy)",
+    "stageType": "pure_fiction",
+    "floorNumber": 4,
+    "buffName": "Whimsicality: Shatterpoint",
+    "buffDescription": "When an enemy is defeated, deals Ice DMG equal to 100% of their Max HP to adjacent targets and inflicts Dissociation.",
+    "recommendedElements": ["Ice", "Lightning", "Quantum"],
+    "waves": [{ "waveNumber": 1, "enemies": ["cirrus"] }],
+    "releaseVersion": "3.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  }
+]

@@ -54,15 +54,28 @@ Per adapter:
 
 Never test only against live websites.
 
-## Knowledge validation before publish
+## Knowledge validation & Snapshot Tests (Phase 2)
 
-- unique IDs;
-- no orphan references;
-- valid Path/element enums;
-- recommendation ranks 1–3;
-- source metadata present;
-- patch compatibility valid;
-- current sets reference existing entities.
+Automated tests in `apps/web/tests/`:
+- `knowledge-schemas.test.ts`:
+  - 100% acceptance of all canonical fixtures across all entity types.
+  - Verification of archetype mechanics: Memosprite summons (`Castorice` / `Polly`), Stance transformation (`Firefly` / `Complete Combustion`), and Special Non-Energy Resources (`Acheron` / `Slashed Dream`).
+  - Strict negative testing: rejection of negative base stats, invalid element/path enums, missing eidolons (< 6), invalid superimpositions (< 5), and malformed manifests.
+- `knowledge-cache.test.ts`:
+  - Dexie schema indexes and table initialization.
+  - Transactional bulk population across all collections with atomic metadata updates.
+  - Release upgrade state machine: version detection, download, and atomic replacement.
+  - Cache freshness verification (`status: fresh` on subsequent identical checks).
+  - Fail-safe rollback protection: if an incoming release fails validation, previous valid cache is strictly preserved and marked `update_rejected_previous_retained`.
+  - Offline fallback verification: serving queries from local cache when network is offline (`status: offline_cache_active`).
+  - Repository read queries and filter combinations (`path`, `element`, `rarity`, `role`, `tag`, `type`, `weakness`, `stageType`).
+  - Search normalization, punctuation/diacritic stripping, and canonical alias matching (e.g. `sam` -> `firefly`, `polly` -> `castorice`, `madam herta` -> `the-herta`).
+- `knowledge-interop.test.ts`:
+  - Referential integrity check verifying all canonical character IDs, elements, paths, and representative light cones/relics match corresponding entity IDs in visual asset manifest.
+
+Pre-publication CLI checks:
+- `pnpm knowledge:build`: Compiles fixtures into static release directory (`apps/web/public/data/v1.0.0/`) and computes SHA-256 checksums.
+- `pnpm knowledge:check`: Validates manifest structure, file existence, bit-for-bit SHA-256 hash match, schema conformity, duplicate ID rejection, and referential integrity.
 
 ## OCR tests
 

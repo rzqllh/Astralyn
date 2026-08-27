@@ -1,0 +1,178 @@
+[
+  {
+    "id": "along-the-passing-shore",
+    "gameId": "23024",
+    "name": "Along the Passing Shore",
+    "rarity": 5,
+    "path": "Nihility",
+    "baseStats": { "hp": 1058, "atk": 635, "def": 396 },
+    "skill": {
+      "name": "Steerer",
+      "descriptionTemplate": "Increases the wearer's CRIT DMG by {0}%. When the wearer hits an enemy target, inflicts Mirage Fizzle on them for 1 turn. The wearer deals {1}% increased DMG to targets afflicted with Mirage Fizzle, and their Ultimate deals an additional {2}% DMG.",
+      "superimpositions": [
+        "Increases CRIT DMG by 36%. Deals 24% increased DMG to Mirage Fizzle targets and Ultimate deals additional 24% DMG.",
+        "Increases CRIT DMG by 42%. Deals 28% increased DMG to Mirage Fizzle targets and Ultimate deals additional 28% DMG.",
+        "Increases CRIT DMG by 48%. Deals 32% increased DMG to Mirage Fizzle targets and Ultimate deals additional 32% DMG.",
+        "Increases CRIT DMG by 54%. Deals 36% increased DMG to Mirage Fizzle targets and Ultimate deals additional 36% DMG.",
+        "Increases CRIT DMG by 60%. Deals 40% increased DMG to Mirage Fizzle targets and Ultimate deals additional 40% DMG."
+      ]
+    },
+    "releaseVersion": "2.1",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "flowing-nightglow",
+    "gameId": "23026",
+    "name": "Flowing Nightglow",
+    "rarity": 5,
+    "path": "Harmony",
+    "baseStats": { "hp": 952, "atk": 635, "def": 463 },
+    "skill": {
+      "name": "Pacification",
+      "descriptionTemplate": "Every time an ally attacks, wearer gains 1 stack of Cantillation. Each stack increases wearer's Energy Regeneration Rate by {0}%, up to 5 stacks. When wearer uses Ultimate, removes Cantillation and grants Cadenza: increases wearer's ATK by {1}% and team DMG by {2}%.",
+      "superimpositions": [
+        "ERR +3.0%/stack. Cadenza: ATK +48%, team DMG +24%.",
+        "ERR +3.5%/stack. Cadenza: ATK +60%, team DMG +28%.",
+        "ERR +4.0%/stack. Cadenza: ATK +72%, team DMG +32%.",
+        "ERR +4.5%/stack. Cadenza: ATK +84%, team DMG +36%.",
+        "ERR +5.0%/stack. Cadenza: ATK +96%, team DMG +40%."
+      ]
+    },
+    "releaseVersion": "2.2",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "good-night-and-sleep-well",
+    "gameId": "21001",
+    "name": "Good Night and Sleep Well",
+    "rarity": 4,
+    "path": "Nihility",
+    "baseStats": { "hp": 952, "atk": 476, "def": 330 },
+    "skill": {
+      "name": "Toil and Trouble",
+      "descriptionTemplate": "For every debuff the target enemy has, the DMG dealt by the wearer increases by {0}%, stacking up to 3 time(s). This effect also applies to DoT.",
+      "superimpositions": [
+        "For every debuff the target enemy has, DMG dealt increases by 12%, stacking up to 3 times (max 36%).",
+        "For every debuff the target enemy has, DMG dealt increases by 15%, stacking up to 3 times (max 45%).",
+        "For every debuff the target enemy has, DMG dealt increases by 18%, stacking up to 3 times (max 54%).",
+        "For every debuff the target enemy has, DMG dealt increases by 21%, stacking up to 3 times (max 63%).",
+        "For every debuff the target enemy has, DMG dealt increases by 24%, stacking up to 3 times (max 72%)."
+      ]
+    },
+    "releaseVersion": "1.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "inherent-sols-unjust-destiny",
+    "gameId": "23023",
+    "name": "Inherently Unjust Destiny",
+    "rarity": 5,
+    "path": "Preservation",
+    "baseStats": { "hp": 1058, "atk": 423, "def": 661 },
+    "skill": {
+      "name": "All-In",
+      "descriptionTemplate": "Increases the wearer's DEF by {0}%. When the wearer provides a shield to an ally, wearer's CRIT DMG increases by {1}% for 2 turn(s). When wearer's follow-up attack hits an enemy, inflicts Unnerved on them, increasing DMG taken by {2}%.",
+      "superimpositions": [
+        "DEF +40%, CRIT DMG +40%, Unnerved DMG taken +10%.",
+        "DEF +46%, CRIT DMG +46%, Unnerved DMG taken +11.5%.",
+        "DEF +52%, CRIT DMG +52%, Unnerved DMG taken +13%.",
+        "DEF +58%, CRIT DMG +58%, Unnerved DMG taken +14.5%.",
+        "DEF +64%, CRIT DMG +64%, Unnerved DMG taken +16%."
+      ]
+    },
+    "releaseVersion": "2.1",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "memories-of-the-past",
+    "gameId": "21004",
+    "name": "Memories of the Past",
+    "rarity": 4,
+    "path": "Harmony",
+    "baseStats": { "hp": 952, "atk": 423, "def": 396 },
+    "skill": {
+      "name": "Old Photo",
+      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. When the wearer attacks, additionally regenerates {1} Energy (can trigger 1 time per turn).",
+      "superimpositions": [
+        "Break Effect +28%, regenerates 4 Energy.",
+        "Break Effect +35%, regenerates 5 Energy.",
+        "Break Effect +42%, regenerates 6 Energy.",
+        "Break Effect +49%, regenerates 7 Energy.",
+        "Break Effect +56%, regenerates 8 Energy."
+      ]
+    },
+    "releaseVersion": "1.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "past-and-future",
+    "gameId": "21025",
+    "name": "Past and Future",
+    "rarity": 4,
+    "path": "Harmony",
+    "baseStats": { "hp": 952, "atk": 423, "def": 396 },
+    "skill": {
+      "name": "Kintsuji",
+      "descriptionTemplate": "When the wearer uses their Skill, the next ally taking action (except the wearer) deals {0}% increased DMG for 1 turn(s).",
+      "superimpositions": [
+        "Next ally deals 16% increased DMG.",
+        "Next ally deals 20% increased DMG.",
+        "Next ally deals 24% increased DMG.",
+        "Next ally deals 28% increased DMG.",
+        "Next ally deals 32% increased DMG."
+      ]
+    },
+    "releaseVersion": "1.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "what-is-real",
+    "gameId": "21043",
+    "name": "What Is Real?",
+    "rarity": 4,
+    "path": "Abundance",
+    "baseStats": { "hp": 1058, "atk": 423, "def": 396 },
+    "skill": {
+      "name": "Hypothesis",
+      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. After using Basic ATK, restores HP equal to {1}% of Max HP + 800.",
+      "superimpositions": [
+        "Break Effect +24%, restores 2.0% Max HP + 800.",
+        "Break Effect +30%, restores 2.5% Max HP + 800.",
+        "Break Effect +36%, restores 3.0% Max HP + 800.",
+        "Break Effect +42%, restores 3.5% Max HP + 800.",
+        "Break Effect +48%, restores 4.0% Max HP + 800."
+      ]
+    },
+    "releaseVersion": "2.0",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "whereabouts-should-dreams-rest",
+    "gameId": "23025",
+    "name": "Whereabouts Should Dreams Rest",
+    "rarity": 5,
+    "path": "Destruction",
+    "baseStats": { "hp": 1164, "atk": 476, "def": 529 },
+    "skill": {
+      "name": "Metamorphosis",
+      "descriptionTemplate": "Increases the wearer's Break Effect by {0}%. When the wearer inflicts Break DMG on an enemy target, inflicts Routed on them for 2 turns. Targets under Routed take {1}% increased Break DMG and their SPD is decreased by 20%.",
+      "superimpositions": [
+        "Increases Break Effect by 60%. Routed targets take 24% increased Break DMG.",
+        "Increases Break Effect by 70%. Routed targets take 28% increased Break DMG.",
+        "Increases Break Effect by 80%. Routed targets take 32% increased Break DMG.",
+        "Increases Break Effect by 90%. Routed targets take 36% increased Break DMG.",
+        "Increases Break Effect by 100%. Routed targets take 40% increased Break DMG."
+      ]
+    },
+    "releaseVersion": "2.3",
+    "source": "Official HoYoverse Reference / Verified Game Data",
+    "verifiedAt": "2026-08-27T00:00:00Z"
+  }
+]
