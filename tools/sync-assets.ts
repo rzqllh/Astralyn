@@ -587,7 +587,11 @@ export interface UpstreamDiscoveryResult {
   categoryDiscovery: Record<
     AssetEntityType,
     {
-      status: "catalog_discovered" | "mapped_subset" | "not_yet_discoverable";
+      status:
+        | "catalog_discovered"
+        | "mapped_subset"
+        | "pipeline_discovery_pending"
+        | "not_yet_discoverable";
       discoveredCount: number;
       plannedVariantTargets: number;
       note: string;
@@ -633,7 +637,11 @@ export async function discoverUpstreamCatalog(): Promise<UpstreamDiscoveryResult
   const categoryDiscovery: Record<
     AssetEntityType,
     {
-      status: "catalog_discovered" | "mapped_subset" | "not_yet_discoverable";
+      status:
+        | "catalog_discovered"
+        | "mapped_subset"
+        | "pipeline_discovery_pending"
+        | "not_yet_discoverable";
       discoveredCount: number;
       plannedVariantTargets: number;
       note: string;
@@ -706,40 +714,40 @@ export async function discoverUpstreamCatalog(): Promise<UpstreamDiscoveryResult
       note: "Curated DU curios mapped; rogue item indexing scheduled in Phase 7",
     },
     relic_piece_icon: {
-      status: "not_yet_discoverable",
+      status: "pipeline_discovery_pending",
       discoveredCount: 0,
       plannedVariantTargets: 0,
-      note: "Schema supported; piece-level asset parser pending Phase 2",
+      note: "Upstream index exists (index_min/en/relics.json); piece-level parser scheduled in Phase 2",
     },
     eidolon_icon: {
-      status: "not_yet_discoverable",
+      status: "pipeline_discovery_pending",
       discoveredCount: 0,
       plannedVariantTargets: 0,
-      note: "Schema supported; character_ranks parser pending Phase 2",
+      note: "Upstream index exists (index_min/en/character_ranks.json); parser scheduled in Phase 2",
     },
     skill_icon: {
-      status: "not_yet_discoverable",
+      status: "pipeline_discovery_pending",
       discoveredCount: 0,
       plannedVariantTargets: 0,
-      note: "Schema supported; character_skills parser pending Phase 2",
+      note: "Upstream index exists (index_min/en/character_skills.json); parser scheduled in Phase 2",
     },
     trace_icon: {
-      status: "not_yet_discoverable",
+      status: "pipeline_discovery_pending",
       discoveredCount: 0,
       plannedVariantTargets: 0,
-      note: "Schema supported; character_skill_trees parser pending Phase 2",
+      note: "Upstream index exists (index_min/en/character_skill_trees.json); parser scheduled in Phase 2",
     },
     enemy_icon: {
       status: "not_yet_discoverable",
       discoveredCount: 0,
       plannedVariantTargets: 0,
-      note: "Schema supported; monster avatar parser pending Phase 2",
+      note: "Schema supported; monster avatar index not exposed in standard min indexes",
     },
     du_equation_icon: {
       status: "not_yet_discoverable",
       discoveredCount: 0,
       plannedVariantTargets: 0,
-      note: "Schema supported; formula parser pending Phase 7",
+      note: "Schema supported; DU formula icon index not exposed in standard min indexes",
     },
   };
 

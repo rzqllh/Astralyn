@@ -156,4 +156,17 @@ describe("Phase 1.1 Design System Component Tests", () => {
       ).toBeInTheDocument();
     }
   });
+
+  it("AppShell gates development-only Dev DS link based on environment", async () => {
+    const memoryHistory = createMemoryHistory({ initialEntries: ["/"] });
+    const testRouter = createAppRouter(memoryHistory);
+    render(<RouterProvider router={testRouter} />);
+
+    // In testing environment with import.meta.env.DEV active, Dev DS link is rendered
+    if (import.meta.env.DEV) {
+      expect(await screen.findByTestId("dev-ds-link")).toBeInTheDocument();
+    } else {
+      expect(screen.queryByTestId("dev-ds-link")).toBeNull();
+    }
+  });
 });

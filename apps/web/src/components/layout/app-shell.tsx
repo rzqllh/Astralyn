@@ -25,9 +25,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const location = useLocation();
   const isDev =
-    Boolean(import.meta.env.DEV) ||
-    import.meta.env.VITE_ENABLE_DEV_DS === "true" ||
-    (typeof window !== "undefined" && window.location.hostname.includes("localhost"));
+    Boolean(import.meta.env.DEV) || import.meta.env.VITE_ENABLE_DEV_DS === "true";
 
   // LOCKED Production Navigation
   const navigationLinks = [

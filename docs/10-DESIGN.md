@@ -141,7 +141,7 @@ Font stack:
 
 - **Three-Tier Architecture:**
   1. *Full Catalog Schema Model:* Comprehensive schema supporting all 17 entity types across Honkai: Star Rail (`AssetEntityTypeSchema`).
-  2. *Data-Driven Discovery & Sync Pipeline:* `tools/sync-assets.ts` with `--full` (dynamic upstream index discovery across 4300+ entities and 4500+ asset variant targets), `--dry-run` (non-destructive reporting distinguishing `catalog_discovered`, `mapped_subset`, and `not_yet_discoverable`), and default `--snapshot` (curated 51-asset dev subset).
+  2. *Data-Driven Discovery & Sync Pipeline:* `tools/sync-assets.ts` with `--full` (dynamic upstream index discovery across 4,359 entities and 4,557 asset variant targets), `--dry-run` (non-destructive reporting distinguishing `catalog_discovered`, `mapped_subset`, `pipeline_discovery_pending`, and `not_yet_discoverable`), and default `--snapshot` (curated 51-asset dev subset).
   3. *Dev Snapshot:* Curated representative subset (51 assets across all 8 roster fixtures, 7 elements, 8 paths, light cones, relics, and DU items) checked into Git for local development.
   4. *Production Release:* Release-tagged immutable assets (`/game-assets/<release>/...`) served via Cloudflare Static Assets.
 - **Context-Specific Sizing & Formats:**

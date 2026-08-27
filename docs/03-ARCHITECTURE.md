@@ -162,6 +162,7 @@ Visual game assets (icons, character previews, portraits, element badges, path s
 ```
 
 - **Manifest Schema:** Strongly typed via Zod (`AssetManifestSchema`, `AssetRecordSchema`), tracking entity type, entity ID, variant, local path, source URL, license, copyright owner, and SHA-256 checksum.
+- **Discovery Taxonomy:** Distinguishes dynamic upstream discovery (`catalog_discovered`: 8 types including characters, light cones, relic sets, elements, paths, materials), curated development subsets (`mapped_subset`: planar ornaments, DU blessings/curios), verified upstream structured indexes with parser integration scheduled in Phase 2 (`pipeline_discovery_pending`: eidolon, skill, trace, relic piece icons), and unexposed index types (`not_yet_discoverable`: enemy icons, DU equation icons).
 - **Asset Loading Semantics:**
   - Same-origin static image loading;
   - Reserved dimensions and aspect-ratio containers to guarantee zero layout shift;

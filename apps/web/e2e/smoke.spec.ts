@@ -240,4 +240,23 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
       expect(boundingBox.width).toBeGreaterThanOrEqual(44);
     }
   });
+
+  test("verifies production build hides Dev DS link and isolates development-only controls", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+
+    // In production build preview, Dev DS link is not rendered in navigation rail
+    const devDsLink = page.getByTestId("dev-ds-link");
+    await expect(devDsLink).not.toBeAttached();
+
+    // Verify mobile drawer also hides dev link in production
+    await page.setViewportSize({ width: 390, height: 844 });
+    const menuBtn = page.getByRole("button", { name: "Toggle navigation menu" });
+    await menuBtn.click();
+    const mobileDevDsLink = page.getByTestId("mobile-dev-ds-link");
+    await expect(mobileDevDsLink).not.toBeAttached();
+  });
 });
