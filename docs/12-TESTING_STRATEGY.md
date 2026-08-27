@@ -109,6 +109,29 @@ Focus on structural contracts:
 - roster grid;
 - DU recommendation.
 
-## Accessibility
+## Game Asset Integrity Verification
 
-Automated checks where practical plus manual keyboard, focus order, reduced motion, contrast, touch target and non-color-label tests.
+Automated pipeline check via `pnpm assets:check`:
+- Every asset record in `manifest.json` has a corresponding file on disk.
+- File SHA-256 hash matches the manifest checksum.
+- Zero runtime third-party URLs (no external CDN leaks).
+- Representative character fixtures have verified icons and artwork.
+- Combat elements (7/7) and combat paths (8/8) are completely verified.
+
+## Accessibility Verification & Standards
+
+- **Automated Scanning:** Axe-core integrated via `@axe-core/playwright` (`a11y.spec.ts`).
+- **Claim Accuracy Standard:** Automated tests prove *0 automated Axe violations detected on the tested routes/states*. Full WCAG conformance requires continuous manual verification.
+- **Manual Verification Gates:**
+  - Keyboard navigation and visible focus rings (`:focus-visible` on tiles, tabs, buttons).
+  - Dialog focus trap and escape handling.
+  - Screen reader accessible names (`aria-label`, `aria-pressed`, `aria-describedby`).
+  - Text contrast against dark cosmic surfaces and light celestial parchment surfaces.
+  - Responsive reflow at 360px, 390px, 768px, 1280px, and 1440px with zero horizontal clipping.
+  - `prefers-reduced-motion` respect for HUD animations.
+
+## Destructive Git & Filesystem Safety Policy
+
+- Never execute unguarded destructive operations (`git clean -fd`, `git reset --hard`, `bulk rm`).
+- Prior to any cleanup, always inspect status via `git status` and dry-run `git clean -nd`.
+- If untracked files contain user work or ambiguous state, halt and confirm before deletion.

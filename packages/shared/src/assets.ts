@@ -44,6 +44,7 @@ export const AssetRecordSchema = z.object({
   localPath: z.string(),
   source: z.string(),
   sourceUrl: z.string().optional(),
+  repositoryLicense: z.string().optional(),
   license: z.string(),
   copyrightOwner: z.string(),
   usageStatus: AssetUsageStatusSchema,

@@ -105,3 +105,11 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 3. Enforces strict asset provenance and licensing compliance: primary assets derived from community-maintained static archives (e.g. `Mar-7th/StarRailRes` under Fair Use / Fan Content Policy), while maintaining strict exclusion of uncredited art platforms.
 4. Guaranteed error resilience: missing or broken asset URLs resolve to high-contrast Astralyn vector silhouettes without layout shift or browser alt-text leakage.  
 **Status:** Accepted.
+
+## D-022 — Asset Pipeline Architecture, Conservative Provenance & UI Boundaries
+**Decision:** Formalize a three-tier asset architecture (Full Catalog Model, Data-Driven Sync Capability, Curated Dev Snapshot), conservative provenance classification (repository automation license != game artwork ownership), and strict separation between production UI and development/demo fixtures.
+**Reason:**
+1. Full Catalog support ensures Astralyn scales to all 17 entity types without bloating Git repository size with complete game archives during development.
+2. Conservative legal provenance protects the project by distinguishing repository code licenses (e.g. AGPL-3.0) from underlying HoYoverse visual copyrights (© COGNOSPHERE / HoYoverse), classifying uncredited platforms (Pinterest, DeviantArt) as strictly manual-only.
+3. Production/Dev boundary guarantees that internal tools (`/design-system`), mock state (`8 Owned`), and sample metrics are never presented to end-users as real persisted engine outputs.  
+**Status:** Accepted.

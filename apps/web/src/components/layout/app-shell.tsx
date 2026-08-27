@@ -32,7 +32,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       to: "/roster",
       icon: <Users className="h-4 w-4" />,
       label: "Roster",
-      badge: "8 Owned",
     },
     { to: "/characters", icon: <Sparkles className="h-4 w-4" />, label: "Characters" },
     {
@@ -188,8 +187,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <footer className="border-t border-[#1a2338] px-4 sm:px-6 py-4 bg-[#07090f] text-xs text-[#9ba5be]">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-2 max-w-[1440px] mx-auto">
                 <p>
-                  Astralyn &bull; Honkai: Star Rail Tactical Companion &bull; Asset
-                  Release v1.0.0
+                  Astralyn &bull; Honkai: Star Rail Tactical Companion &bull; Fan-made
+                  companion tool
                 </p>
                 <p className="text-[11px] text-[#9ba5be] text-center sm:text-right">
                   Game assets &copy; COGNOSPHERE / HoYoverse. Astralyn is a fan project

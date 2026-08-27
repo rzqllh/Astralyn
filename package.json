@@ -17,7 +17,8 @@
     "test:e2e": "pnpm --filter @astralyn/web test:e2e",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "assets:sync": "tsx tools/sync-assets.ts"
+    "assets:sync": "tsx tools/sync-assets.ts",
+    "assets:check": "tsx tools/check-assets.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

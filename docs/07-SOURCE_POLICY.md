@@ -25,25 +25,36 @@ Tier C never silently overrides Tier A mechanics.
 
 Game factual knowledge and visual game assets are strictly separate domains.
 
-### 1. Primary Static Asset Pipeline
-- Primary asset repository: Community static game resource mirrors (e.g., `Mar-7th/StarRailRes`).
-- Tooling License: AGPL-3.0 (Scripting and manifest tooling).
-- Game Asset Copyright: &copy; COGNOSPHERE / HoYoverse (HoYoverse Fan Content & Fair Use Policy).
-- Ingestion mechanism: Offline/CI synchronization via `tools/sync-assets.ts`.
-- Deployment destination: Static bundle deployed to Cloudflare Static Assets under `/game-assets/<release>/`.
-- Manifest generation: Automated generation of `manifest.json` with SHA-256 integrity checksums.
+### 1. Fundamental Legal Distinction: Repository License vs. Underlying Artwork
+- **Source-code repository license != copyright ownership of underlying game artwork.**
+- For example, while `Mar-7th/StarRailRes` distributes its repository automation scripts and metadata definitions under `AGPL-3.0`, the underlying character illustrations, icons, element symbols, and audio-visual assets remain the exclusive intellectual property of **© COGNOSPHERE / HoYoverse**.
+- Astralyn treats all game visuals conservatively under the **HoYoverse Fan Content Policy & Fair Use**.
+- In the asset manifest (`manifest.json`), external game assets are marked with:
+  ```json
+  "source": "StarRailRes",
+  "repositoryLicense": "AGPL-3.0",
+  "license": "HoYoverse Fan Content Policy & Fair Use",
+  "copyrightOwner": "COGNOSPHERE / HoYoverse",
+  "usageStatus": "manual_review"
+  ```
 
-### 2. Secondary & Alternative Asset Sources
-- Secondary: `Dimbreath/StarRailData` (Raw config/text dump).
-- Tertiary: `Fortex66/Honkai-Star-Rail-Assets` / `Yatta-top` (Static asset dumps).
+### 2. Structured Asset Sources Evaluation
 
-### 3. Strict Exclusion of Unvetted Platforms
-- Art aggregation platforms (e.g. Pinterest, DeviantArt, uncredited fan art aggregators) are **strictly forbidden** from automated crawling or scraping.
-- Any bespoke community art requires explicit author consent, manual review, attribution, and recorded usage licensing before inclusion.
+| Source | Maintenance Status | Coverage | License | Copyright Caveat | Classification |
+|---|---|---|---|---|---|
+| **Mar-7th/StarRailRes** | Active (updated per HSR patch) | Characters, Light Cones, Relics, Paths, Elements, DU Items (High-res PNG) | AGPL-3.0 (code/metadata) | Visuals © COGNOSPHERE / HoYoverse | **PRIMARY** |
+| **Dimbreath/StarRailData** | Active (per-patch data dumps) | Raw internal client JSON/hashes, skill parameters, avatar configs | Unlicensed / Public Dump | Game configs © COGNOSPHERE / HoYoverse | **FALLBACK** (ID/text mapping) |
+| **Fortex66/Honkai-Star-Rail-Assets (Yatta-top)** | Active (curated with Yatta.top) | Clean renders of characters, weapons, items, equipment | Open / Community | Game art © COGNOSPHERE / HoYoverse | **FALLBACK** (Alternative CDN assets) |
+| **Pinterest / DeviantArt** | Unmanaged aggregation | Variable / uncurated | Mixed / Unlicensed | Uploader != copyright owner | **MANUAL-ONLY** (Strictly excluded from automation) |
+
+### 3. Policy on Art Platforms (Pinterest, DeviantArt, Uncredited Reposts)
+- Art aggregation platforms are **MANUAL-ONLY** and strictly forbidden from automated crawlers, scrapers, or bot ingestion.
+- Reposted images do not convey copyright or permission from uploaders.
+- Any future bespoke community artwork requires explicit creator consent, documented author attribution, manual review, and recorded license metadata before inclusion.
 
 ### 4. Zero Runtime Third-Party Hotlinking
 - The frontend client must **never** load images directly from third-party remote origins (e.g. GitHub raw URLs, third-party wikis) during runtime user sessions.
-- All production asset requests are served from local static assets (`/game-assets/<release>/...`).
+- All production asset requests are served from versioned static asset storage (`/game-assets/<release>/...`).
 
 ### 5. Graceful Fallback Guarantee
 - If an asset is missing, unapproved, or corrupted, the client `<GameAssetImage>` component renders a high-contrast Astralyn vector fallback silhouette without throwing exceptions, shifting layout, or leaking browser broken image icons.

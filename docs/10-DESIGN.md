@@ -123,12 +123,23 @@ Font stack:
 
 ---
 
-## 7. Versioned Game Asset Pipeline & Resilience
+## 7. Versioned Game Asset Pipeline, Optimization & Caching Strategy
 
-- **Static Asset Serving:** Game assets are statically served via `/game-assets/<release>/` directly through Cloudflare Static Assets.
-- **No Third-Party Runtime Hotlinking:** Runtime fetches to external GitHub/wiki repositories are strictly forbidden.
+- **Three-Tier Architecture:**
+  1. *Full Catalog Model:* Comprehensive schema supporting all 17 entity types across Honkai: Star Rail.
+  2. *Data-Driven Sync Pipeline:* `tools/sync-assets.ts` with `--full` (all registered catalog assets) and default `--snapshot` (dev subset).
+  3. *Dev Snapshot:* Curated representative subset (50+ assets across all 8 roster fixtures, 7 elements, 8 paths, light cones, relics, and DU items) checked into Git for development.
+  4. *Production Release:* Release-tagged immutable assets (`/game-assets/<release>/...`) served via Cloudflare Static Assets.
+- **Context-Specific Sizing & Formats:**
+  - *Character Previews:* 512x512px clean alpha PNG (~45–80 KB), high-resolution for tactical roster tiles and character profile hero.
+  - *Character Icons:* 128x128px circular PNG (~10–25 KB), optimized for compact lists and HUD avatars.
+  - *Combat Elements & Paths:* Crisp transparent PNGs (~2–8 KB), preserving exact silhouette alpha.
+  - *Light Cones & Relics:* 256x256px crisp PNG (~20–40 KB).
+- **Static Cache & Invalidation Model:**
+  - Immutable asset URLs: `Cache-Control: public, max-age=31536000, immutable` (safe for 1-year CDN edge caching).
+  - Dynamic Manifest (`manifest.json`): `Cache-Control: public, max-age=300, stale-while-revalidate=3600`.
 - **Graceful Vector Fallback:** The `<GameAssetImage>` component automatically falls back to an accessible, non-broken Astralyn SVG vector silhouette upon load error or missing manifest entry without layout shift.
-- **Entity Coverage:** 17 normalized asset types supported (character icons, character previews, element icons, path icons, light cones, relic sets, DU curios, DU blessings).
+- **No Third-Party Runtime Hotlinking:** Runtime fetches to external GitHub/wiki repositories are strictly forbidden.
 
 ---
 

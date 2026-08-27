@@ -12,19 +12,21 @@ const BASE_OUTPUT_DIR = path.resolve(
 );
 const RAW_BASE_URL = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master";
 
-interface TargetAsset {
+export interface TargetAssetDefinition {
   id: string;
   entityType: AssetRecord["entityType"];
   entityId: string;
   variant: AssetRecord["variant"];
-  relPath: string; // target relative path in game-assets/v1.0.0/
-  remotePath: string; // path in StarRailRes
+  relPath: string;
+  remotePath: string;
   attribution: string;
-  fallbackSvgGen?: () => string;
+  isRepresentative?: boolean; // Included in dev snapshot
 }
 
-const TARGET_ASSETS: TargetAsset[] = [
-  // Characters
+// FULL CATALOG DEFINITIONS (Extensible data-driven registry)
+export const ASSET_CATALOG: TargetAssetDefinition[] = [
+  // --- 1. Representative Characters (All 8 Active Roster Fixtures) ---
+  // Acheron (1308)
   {
     id: "char_acheron_icon",
     entityType: "character_icon",
@@ -32,7 +34,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "characters/acheron_icon.png",
     remotePath: "icon/character/1308.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Acheron (C) COGNOSPHERE",
+    attribution: "Character: Acheron • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "char_acheron_preview",
@@ -41,7 +44,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "preview",
     relPath: "characters/acheron_preview.png",
     remotePath: "image/character_preview/1308.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Acheron (C) COGNOSPHERE",
+    attribution: "Character: Acheron • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "char_acheron_portrait",
@@ -50,8 +54,11 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "portrait",
     relPath: "characters/acheron_portrait.png",
     remotePath: "image/character_portrait/1308.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Acheron (C) COGNOSPHERE",
+    attribution: "Character: Acheron • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
+
+  // Castorice (1404)
   {
     id: "char_castorice_icon",
     entityType: "character_icon",
@@ -59,7 +66,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "characters/castorice_icon.png",
     remotePath: "icon/character/1404.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Castorice (C) COGNOSPHERE",
+    attribution: "Character: Castorice • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "char_castorice_preview",
@@ -68,8 +76,21 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "preview",
     relPath: "characters/castorice_preview.png",
     remotePath: "image/character_preview/1404.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Castorice (C) COGNOSPHERE",
+    attribution: "Character: Castorice • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
+  {
+    id: "char_castorice_portrait",
+    entityType: "character_portrait",
+    entityId: "castorice",
+    variant: "portrait",
+    relPath: "characters/castorice_portrait.png",
+    remotePath: "image/character_portrait/1404.png",
+    attribution: "Character: Castorice • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+
+  // Firefly (1310)
   {
     id: "char_firefly_icon",
     entityType: "character_icon",
@@ -77,7 +98,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "characters/firefly_icon.png",
     remotePath: "icon/character/1310.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Firefly (C) COGNOSPHERE",
+    attribution: "Character: Firefly • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "char_firefly_preview",
@@ -86,8 +108,21 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "preview",
     relPath: "characters/firefly_preview.png",
     remotePath: "image/character_preview/1310.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Firefly (C) COGNOSPHERE",
+    attribution: "Character: Firefly • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
+  {
+    id: "char_firefly_portrait",
+    entityType: "character_portrait",
+    entityId: "firefly",
+    variant: "portrait",
+    relPath: "characters/firefly_portrait.png",
+    remotePath: "image/character_portrait/1310.png",
+    attribution: "Character: Firefly • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+
+  // Robin (1309)
   {
     id: "char_robin_icon",
     entityType: "character_icon",
@@ -95,7 +130,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "characters/robin_icon.png",
     remotePath: "icon/character/1309.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Robin (C) COGNOSPHERE",
+    attribution: "Character: Robin • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "char_robin_preview",
@@ -104,8 +140,21 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "preview",
     relPath: "characters/robin_preview.png",
     remotePath: "image/character_preview/1309.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Robin (C) COGNOSPHERE",
+    attribution: "Character: Robin • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
+  {
+    id: "char_robin_portrait",
+    entityType: "character_portrait",
+    entityId: "robin",
+    variant: "portrait",
+    relPath: "characters/robin_portrait.png",
+    remotePath: "image/character_portrait/1309.png",
+    attribution: "Character: Robin • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+
+  // Aventurine (1304)
   {
     id: "char_aventurine_icon",
     entityType: "character_icon",
@@ -113,8 +162,31 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "characters/aventurine_icon.png",
     remotePath: "icon/character/1304.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Aventurine (C) COGNOSPHERE",
+    attribution: "Character: Aventurine • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
+  {
+    id: "char_aventurine_preview",
+    entityType: "character_preview",
+    entityId: "aventurine",
+    variant: "preview",
+    relPath: "characters/aventurine_preview.png",
+    remotePath: "image/character_preview/1304.png",
+    attribution: "Character: Aventurine • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "char_aventurine_portrait",
+    entityType: "character_portrait",
+    entityId: "aventurine",
+    variant: "portrait",
+    relPath: "characters/aventurine_portrait.png",
+    remotePath: "image/character_portrait/1304.png",
+    attribution: "Character: Aventurine • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+
+  // Gallagher (1301)
   {
     id: "char_gallagher_icon",
     entityType: "character_icon",
@@ -122,8 +194,31 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "characters/gallagher_icon.png",
     remotePath: "icon/character/1301.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Gallagher (C) COGNOSPHERE",
+    attribution: "Character: Gallagher • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
+  {
+    id: "char_gallagher_preview",
+    entityType: "character_preview",
+    entityId: "gallagher",
+    variant: "preview",
+    relPath: "characters/gallagher_preview.png",
+    remotePath: "image/character_preview/1301.png",
+    attribution: "Character: Gallagher • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "char_gallagher_portrait",
+    entityType: "character_portrait",
+    entityId: "gallagher",
+    variant: "portrait",
+    relPath: "characters/gallagher_portrait.png",
+    remotePath: "image/character_portrait/1301.png",
+    attribution: "Character: Gallagher • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+
+  // Tingyun (1202)
   {
     id: "char_tingyun_icon",
     entityType: "character_icon",
@@ -131,8 +226,31 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "characters/tingyun_icon.png",
     remotePath: "icon/character/1202.png",
-    attribution: "StarRailRes (Mar-7th) / Character: Tingyun (C) COGNOSPHERE",
+    attribution: "Character: Tingyun • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
+  {
+    id: "char_tingyun_preview",
+    entityType: "character_preview",
+    entityId: "tingyun",
+    variant: "preview",
+    relPath: "characters/tingyun_preview.png",
+    remotePath: "image/character_preview/1202.png",
+    attribution: "Character: Tingyun • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "char_tingyun_portrait",
+    entityType: "character_portrait",
+    entityId: "tingyun",
+    variant: "portrait",
+    relPath: "characters/tingyun_portrait.png",
+    remotePath: "image/character_portrait/1202.png",
+    attribution: "Character: Tingyun • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+
+  // The Herta (1401)
   {
     id: "char_the_herta_icon",
     entityType: "character_icon",
@@ -140,10 +258,31 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "characters/the_herta_icon.png",
     remotePath: "icon/character/1401.png",
-    attribution: "StarRailRes (Mar-7th) / Character: The Herta (C) COGNOSPHERE",
+    attribution: "Character: The Herta • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "char_the_herta_preview",
+    entityType: "character_preview",
+    entityId: "the-herta",
+    variant: "preview",
+    relPath: "characters/the_herta_preview.png",
+    remotePath: "image/character_preview/1401.png",
+    attribution: "Character: The Herta • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "char_the_herta_portrait",
+    entityType: "character_portrait",
+    entityId: "the-herta",
+    variant: "portrait",
+    relPath: "characters/the_herta_portrait.png",
+    remotePath: "image/character_portrait/1401.png",
+    attribution: "Character: The Herta • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
 
-  // Elements
+  // --- 2. All 7 Combat Elements ---
   {
     id: "elem_physical",
     entityType: "element_icon",
@@ -151,7 +290,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "elements/Physical.png",
     remotePath: "icon/element/Physical.png",
-    attribution: "StarRailRes (Mar-7th) / Element: Physical (C) COGNOSPHERE",
+    attribution: "Element: Physical • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "elem_fire",
@@ -160,7 +300,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "elements/Fire.png",
     remotePath: "icon/element/Fire.png",
-    attribution: "StarRailRes (Mar-7th) / Element: Fire (C) COGNOSPHERE",
+    attribution: "Element: Fire • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "elem_ice",
@@ -169,7 +310,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "elements/Ice.png",
     remotePath: "icon/element/Ice.png",
-    attribution: "StarRailRes (Mar-7th) / Element: Ice (C) COGNOSPHERE",
+    attribution: "Element: Ice • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "elem_lightning",
@@ -178,7 +320,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "elements/Lightning.png",
     remotePath: "icon/element/Thunder.png",
-    attribution: "StarRailRes (Mar-7th) / Element: Lightning (C) COGNOSPHERE",
+    attribution: "Element: Lightning • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "elem_wind",
@@ -187,7 +330,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "elements/Wind.png",
     remotePath: "icon/element/Wind.png",
-    attribution: "StarRailRes (Mar-7th) / Element: Wind (C) COGNOSPHERE",
+    attribution: "Element: Wind • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "elem_quantum",
@@ -196,7 +340,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "elements/Quantum.png",
     remotePath: "icon/element/Quantum.png",
-    attribution: "StarRailRes (Mar-7th) / Element: Quantum (C) COGNOSPHERE",
+    attribution: "Element: Quantum • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "elem_imaginary",
@@ -205,10 +350,11 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "elements/Imaginary.png",
     remotePath: "icon/element/Imaginary.png",
-    attribution: "StarRailRes (Mar-7th) / Element: Imaginary (C) COGNOSPHERE",
+    attribution: "Element: Imaginary • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
 
-  // Paths
+  // --- 3. All 8 Combat Paths ---
   {
     id: "path_destruction",
     entityType: "path_icon",
@@ -216,7 +362,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "paths/Destruction.png",
     remotePath: "icon/path/Destruction.png",
-    attribution: "StarRailRes (Mar-7th) / Path: Destruction (C) COGNOSPHERE",
+    attribution: "Path: Destruction • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "path_hunt",
@@ -225,7 +372,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "paths/Hunt.png",
     remotePath: "icon/path/Hunt.png",
-    attribution: "StarRailRes (Mar-7th) / Path: Hunt (C) COGNOSPHERE",
+    attribution: "Path: Hunt • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "path_erudition",
@@ -234,7 +382,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "paths/Erudition.png",
     remotePath: "icon/path/Erudition.png",
-    attribution: "StarRailRes (Mar-7th) / Path: Erudition (C) COGNOSPHERE",
+    attribution: "Path: Erudition • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "path_harmony",
@@ -243,7 +392,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "paths/Harmony.png",
     remotePath: "icon/path/Harmony.png",
-    attribution: "StarRailRes (Mar-7th) / Path: Harmony (C) COGNOSPHERE",
+    attribution: "Path: Harmony • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "path_nihility",
@@ -252,7 +402,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "paths/Nihility.png",
     remotePath: "icon/path/Nihility.png",
-    attribution: "StarRailRes (Mar-7th) / Path: Nihility (C) COGNOSPHERE",
+    attribution: "Path: Nihility • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "path_preservation",
@@ -261,7 +412,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "paths/Preservation.png",
     remotePath: "icon/path/Preservation.png",
-    attribution: "StarRailRes (Mar-7th) / Path: Preservation (C) COGNOSPHERE",
+    attribution: "Path: Preservation • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "path_abundance",
@@ -270,7 +422,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "paths/Abundance.png",
     remotePath: "icon/path/Abundance.png",
-    attribution: "StarRailRes (Mar-7th) / Path: Abundance (C) COGNOSPHERE",
+    attribution: "Path: Abundance • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "path_remembrance",
@@ -279,10 +432,11 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "paths/Remembrance.png",
     remotePath: "icon/path/Memory.png",
-    attribution: "StarRailRes (Mar-7th) / Path: Remembrance (C) COGNOSPHERE",
+    attribution: "Path: Remembrance • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
 
-  // Light Cones
+  // --- 4. Representative Light Cones ---
   {
     id: "lc_along_the_passing_shore",
     entityType: "light_cone_icon",
@@ -290,8 +444,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "light-cones/along_the_passing_shore.png",
     remotePath: "icon/light_cone/23024.png",
-    attribution:
-      "StarRailRes (Mar-7th) / Light Cone: Along the Passing Shore (C) COGNOSPHERE",
+    attribution: "Light Cone: Along the Passing Shore • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "lc_good_night_and_sleep_well",
@@ -300,11 +454,41 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "light-cones/good_night_and_sleep_well.png",
     remotePath: "icon/light_cone/21001.png",
-    attribution:
-      "StarRailRes (Mar-7th) / Light Cone: Good Night and Sleep Well (C) COGNOSPHERE",
+    attribution: "Light Cone: Good Night and Sleep Well • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "lc_incessant_rain",
+    entityType: "light_cone_icon",
+    entityId: "incessant-rain",
+    variant: "icon",
+    relPath: "light-cones/incessant_rain.png",
+    remotePath: "icon/light_cone/23007.png",
+    attribution: "Light Cone: Incessant Rain • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "lc_patience_is_all_you_need",
+    entityType: "light_cone_icon",
+    entityId: "patience-is-all-you-need",
+    variant: "icon",
+    relPath: "light-cones/patience_is_all_you_need.png",
+    remotePath: "icon/light_cone/23006.png",
+    attribution: "Light Cone: Patience Is All You Need • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "lc_boundless_choreo",
+    entityType: "light_cone_icon",
+    entityId: "boundless-choreo",
+    variant: "icon",
+    relPath: "light-cones/boundless_choreo.png",
+    remotePath: "icon/light_cone/21038.png",
+    attribution: "Light Cone: Boundless Choreo • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
 
-  // Relic & Planar
+  // --- 5. Relics & Planar Sets ---
   {
     id: "relic_pioneer_diver",
     entityType: "relic_set_icon",
@@ -312,8 +496,19 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "relics/pioneer_diver.png",
     remotePath: "icon/relic/118.png",
+    attribution: "Relic: Pioneer Diver of Dead Waters • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "relic_watchmaker",
+    entityType: "relic_set_icon",
+    entityId: "watchmaker",
+    variant: "icon",
+    relPath: "relics/watchmaker.png",
+    remotePath: "icon/relic/117.png",
     attribution:
-      "StarRailRes (Mar-7th) / Relic: Pioneer Diver of Dead Waters (C) COGNOSPHERE",
+      "Relic: Watchmaker, Master of Dream Machinations • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "planar_izumo_gensei",
@@ -322,10 +517,12 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "relics/izumo_gensei.png",
     remotePath: "icon/relic/313.png",
-    attribution: "StarRailRes (Mar-7th) / Planar: Izumo Gensei (C) COGNOSPHERE",
+    attribution:
+      "Planar: Izumo Gensei and Takama Divine Realm • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
 
-  // Divergent Universe Entities
+  // --- 6. Divergent Universe Entities ---
   {
     id: "du_blessing_fuli",
     entityType: "du_blessing_icon",
@@ -333,8 +530,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "du/blessing_fuli.png",
     remotePath: "icon/rogue/buff/120101.png",
-    attribution:
-      "StarRailRes (Mar-7th) / Blessing: Perfect Experience: Fuli (C) COGNOSPHERE",
+    attribution: "Blessing: Perfect Experience: Fuli • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "du_blessing_annihilation",
@@ -343,8 +540,8 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "du/blessing_annihilation.png",
     remotePath: "icon/rogue/buff/110101.png",
-    attribution:
-      "StarRailRes (Mar-7th) / Blessing: Celestial Annihilation (C) COGNOSPHERE",
+    attribution: "Blessing: Celestial Annihilation • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
   {
     id: "du_curio_rubert",
@@ -353,8 +550,18 @@ const TARGET_ASSETS: TargetAsset[] = [
     variant: "icon",
     relPath: "du/curio_rubert.png",
     remotePath: "icon/item/140001.png",
-    attribution:
-      "StarRailRes (Mar-7th) / Curio: Rubert Difference Engine (C) COGNOSPHERE",
+    attribution: "Curio: Rubert Difference Engine • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
+  },
+  {
+    id: "du_curio_space_cheese",
+    entityType: "du_curio_icon",
+    entityId: "interastral-peace-special-curio",
+    variant: "icon",
+    relPath: "du/space_cheese.png",
+    remotePath: "icon/item/140002.png",
+    attribution: "Curio: Interastral Peace Special • © COGNOSPHERE / HoYoverse",
+    isRepresentative: true,
   },
 ];
 
@@ -389,17 +596,24 @@ function generatePlaceholderSvg(label: string, color = "#DFB86C"): Buffer {
   return Buffer.from(svg);
 }
 
-export async function syncAssets() {
-  console.log(`[Astralyn Asset Sync] Initializing sync for release ${ASSET_RELEASE}...`);
+export async function syncAssets(options?: { fullCatalog?: boolean }) {
+  const isFull = options?.fullCatalog ?? false;
+  console.log(
+    `[Astralyn Asset Sync] Initializing sync for release ${ASSET_RELEASE} (${isFull ? "FULL CATALOG" : "DEV SNAPSHOT"})...`
+  );
   console.log(`Target destination: ${BASE_OUTPUT_DIR}`);
 
   if (!fs.existsSync(BASE_OUTPUT_DIR)) {
     fs.mkdirSync(BASE_OUTPUT_DIR, { recursive: true });
   }
 
+  const targets = isFull
+    ? ASSET_CATALOG
+    : ASSET_CATALOG.filter((a) => a.isRepresentative);
+
   const assetRecords: AssetRecord[] = [];
 
-  for (const target of TARGET_ASSETS) {
+  for (const target of targets) {
     const fullOutputPath = path.join(BASE_OUTPUT_DIR, target.relPath);
     const outputDir = path.dirname(fullOutputPath);
 
@@ -409,14 +623,15 @@ export async function syncAssets() {
 
     const remoteUrl = `${RAW_BASE_URL}/${target.remotePath}`;
 
-    // Try fetching from remote StarRailRes
     let fileBuffer = await downloadFile(remoteUrl);
 
     if (!fileBuffer) {
-      console.log(
-        `Generating fallback vector placeholder for ${target.id} (${target.entityId})...`
-      );
-      fileBuffer = generatePlaceholderSvg(target.entityId);
+      if (fs.existsSync(fullOutputPath)) {
+        fileBuffer = fs.readFileSync(fullOutputPath);
+      } else {
+        console.log(`Generating fallback placeholder for ${target.id}...`);
+        fileBuffer = generatePlaceholderSvg(target.entityId);
+      }
     }
 
     fs.writeFileSync(fullOutputPath, fileBuffer);
@@ -429,11 +644,12 @@ export async function syncAssets() {
       entityId: target.entityId,
       variant: target.variant,
       localPath: `/game-assets/${ASSET_RELEASE}/${target.relPath}`,
-      source: "Mar-7th/StarRailRes",
+      source: "StarRailRes",
       sourceUrl: remoteUrl,
-      license: "AGPL-3.0 (Tooling) / Fair Use Fan Content (Imagery)",
+      repositoryLicense: "AGPL-3.0",
+      license: "HoYoverse Fan Content Policy & Fair Use",
       copyrightOwner: "COGNOSPHERE / HoYoverse",
-      usageStatus: "official_fan_use",
+      usageStatus: "manual_review",
       attribution: target.attribution,
       fallbackPriority: 1,
       approvedBy: "Astralyn Asset Pipeline",
@@ -460,7 +676,8 @@ export async function syncAssets() {
 
 // Execute directly if run via CLI
 if (require.main === module || process.argv[1] === __filename) {
-  syncAssets().catch((err) => {
+  const isFull = process.argv.includes("--full");
+  syncAssets({ fullCatalog: isFull }).catch((err) => {
     console.error("[FATAL] Asset sync failed:", err);
     process.exit(1);
   });

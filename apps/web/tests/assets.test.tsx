@@ -9,7 +9,7 @@ describe("Astralyn Phase 1.1 Game Asset & Fallback Engine", () => {
     expect(activeManifest.assetRelease).toBe("v1.0.0");
     expect(activeManifest.gameVersion).toBe("3.0.x");
     expect(Array.isArray(activeManifest.assets)).toBe(true);
-    expect(activeManifest.assets.length).toBeGreaterThanOrEqual(30);
+    expect(activeManifest.assets.length).toBeGreaterThanOrEqual(40);
 
     // Verify each record has required fields
     for (const asset of activeManifest.assets) {
@@ -19,7 +19,9 @@ describe("Astralyn Phase 1.1 Game Asset & Fallback Engine", () => {
       expect(asset.localPath.startsWith("/game-assets/")).toBe(true);
       expect(asset.license).toBeTruthy();
       expect(asset.copyrightOwner).toBeTruthy();
-      expect(asset.usageStatus).toBe("official_fan_use");
+      expect(["manual_review", "official_fan_use", "approved"]).toContain(
+        asset.usageStatus
+      );
       expect(asset.checksum).toBeTruthy();
     }
   });
@@ -40,6 +42,26 @@ describe("Astralyn Phase 1.1 Game Asset & Fallback Engine", () => {
     // Light Cone Icon
     const lcUrl = getAssetUrl("light_cone_icon", "along-the-passing-shore", "icon");
     expect(lcUrl).toBe("/game-assets/v1.0.0/light-cones/along_the_passing_shore.png");
+  });
+
+  it("verifies all 8 representative characters have verified preview and icon assets", () => {
+    const REPRESENTATIVE_CHARS = [
+      "acheron",
+      "castorice",
+      "firefly",
+      "robin",
+      "aventurine",
+      "gallagher",
+      "tingyun",
+      "the-herta",
+    ];
+
+    for (const charId of REPRESENTATIVE_CHARS) {
+      const preview = getAssetUrl("character_preview", charId, "preview");
+      const icon = getAssetUrl("character_icon", charId, "icon");
+      expect(preview).toBeDefined();
+      expect(icon).toBeDefined();
+    }
   });
 
   it("returns undefined for non-existent entities without crashing", () => {

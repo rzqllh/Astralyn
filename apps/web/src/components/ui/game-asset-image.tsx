@@ -21,12 +21,11 @@ export function GameAssetImage({
   alt,
   fallbackLabel,
   fallbackIcon,
-  aspectRatio = "square",
+  aspectRatio,
   className,
   ...props
 }: GameAssetImageProps) {
   const [hasError, setHasError] = React.useState(false);
-  const [isLoaded, setIsLoaded] = React.useState(false);
 
   const assetUrl = React.useMemo(() => {
     return getAssetUrl(entityType, entityId, variant);
@@ -69,7 +68,7 @@ export function GameAssetImage({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xs bg-[#090c13]/50 select-none",
+        "relative overflow-hidden rounded-xs select-none",
         aspectRatio === "square" && "aspect-square",
         aspectRatio === "portrait" && "aspect-[3/4]",
         aspectRatio === "preview" && "aspect-[16/9]",
@@ -79,18 +78,10 @@ export function GameAssetImage({
       <img
         src={assetUrl}
         alt={alt}
-        loading="lazy"
         onError={() => setHasError(true)}
-        onLoad={() => setIsLoaded(true)}
-        className={cn(
-          "h-full w-full object-contain transition-opacity duration-200",
-          isLoaded ? "opacity-100" : "opacity-0"
-        )}
+        className="h-full w-full object-contain"
         {...props}
       />
-      {!isLoaded && !hasError && (
-        <div className="absolute inset-0 animate-pulse bg-[#121828]/60" />
-      )}
     </div>
   );
 }

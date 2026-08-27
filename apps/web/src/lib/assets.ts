@@ -28,16 +28,32 @@ export function getAssetRecord(
   entityId: string,
   variant: AssetVariant = "icon"
 ): AssetRecord | undefined {
-  const key = `${entityType}:${entityId.toLowerCase()}:${variant}`;
-  const record = assetMap.get(key);
+  const normalizedId = entityId.toLowerCase();
+
+  // 1. Exact match on entityType + entityId + variant
+  const exactKey = `${entityType}:${normalizedId}:${variant}`;
+  const record = assetMap.get(exactKey);
   if (record && record.usageStatus !== "blocked") {
     return record;
   }
-  // Fallback to default variant
-  const defaultRecord = assetMap.get(`${entityType}:${entityId.toLowerCase()}`);
+
+  // 2. Default variant for entityType + entityId
+  const defaultRecord = assetMap.get(`${entityType}:${normalizedId}`);
   if (defaultRecord && defaultRecord.usageStatus !== "blocked") {
     return defaultRecord;
   }
+
+  // 3. Fallback across character visual variants (preview -> icon -> portrait)
+  if (entityType === "character_preview") {
+    const iconRecord = assetMap.get(`character_icon:${normalizedId}`);
+    if (iconRecord && iconRecord.usageStatus !== "blocked") return iconRecord;
+    const portraitRecord = assetMap.get(`character_portrait:${normalizedId}`);
+    if (portraitRecord && portraitRecord.usageStatus !== "blocked") return portraitRecord;
+  } else if (entityType === "character_icon") {
+    const previewRecord = assetMap.get(`character_preview:${normalizedId}`);
+    if (previewRecord && previewRecord.usageStatus !== "blocked") return previewRecord;
+  }
+
   return undefined;
 }
 

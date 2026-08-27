@@ -22,28 +22,38 @@ function PlaceholderView({
   path: string;
 }) {
   return (
-    <div className="space-y-6" data-testid={`view-${path.replace("/", "")}`}>
-      <div className="border-b border-[#1a2338] pb-4">
-        <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
-          Planned Module
-        </span>
+    <div className="space-y-4 max-w-2xl" data-testid={`view-${path.replace("/", "")}`}>
+      <div className="border-b border-[#1a2338] pb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
+            Milestone Status
+          </span>
+          <span className="text-[10px] font-mono text-[#9ba5be]">
+            • Phase 1 Visual System Locked
+          </span>
+        </div>
         <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#f0f3fa] mt-1">
           {title}
         </h1>
         <p className="text-xs text-[#9ba5be] mt-1">{description}</p>
       </div>
 
-      <EmptyState
-        title={`${title} (Upcoming)`}
-        description={`The ${title} module is scheduled for implementation in upcoming milestones. The underlying visual and asset foundations are verified.`}
-        action={
-          <Link to="/">
-            <Button variant="secondary" size="sm">
-              Return to Home
-            </Button>
-          </Link>
-        }
-      />
+      <div className="p-4 rounded-xs border border-[#1f2940] bg-[#0c101a] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="space-y-0.5">
+          <p className="text-xs font-semibold text-[#f0f3fa]">
+            Module Scheduled for Implementation
+          </p>
+          <p className="text-[11px] text-[#9ba5be]">
+            The visual and asset design system for this module is verified. Feature
+            business logic will unlock in Phase 2+.
+          </p>
+        </div>
+        <Link to="/" className="shrink-0">
+          <Button variant="secondary" size="sm">
+            Return Home
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
