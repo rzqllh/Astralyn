@@ -13,6 +13,12 @@ import {
   DUEquationKnowledgeSchema,
   DUCurioKnowledgeSchema,
   AssetManifestSchema,
+  REQUIRED_KNOWLEDGE_FILENAMES,
+  validateKnowledgeReleaseConsistency,
+  SemVerCoreSchema,
+  type RequiredKnowledgeFilename,
+  type RootKnowledgeManifest,
+  type KnowledgeReleaseManifest,
   type CharacterKnowledge,
   type LightConeKnowledge,
   type RelicSetKnowledge,
@@ -23,28 +29,71 @@ import {
   type DUCurioKnowledge,
 } from "@astralyn/shared";
 
-const DATA_DIR = path.resolve(__dirname, "../apps/web/public/data");
-const ASSET_MANIFEST_PATH = path.resolve(
+const DEFAULT_DATA_DIR = path.resolve(__dirname, "../apps/web/public/data");
+const DEFAULT_ASSET_MANIFEST_PATH = path.resolve(
   __dirname,
   "../apps/web/public/game-assets/v1.0.0/manifest.json"
 );
+const WEB_PKG_PATH = path.resolve(__dirname, "../apps/web/package.json");
 
-function computeSha256(content: string): string {
-  return crypto.createHash("sha256").update(content, "utf8").digest("hex");
+function computeSha256(content: string | Buffer): string {
+  return crypto.createHash("sha256").update(content).digest("hex");
 }
 
-export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] } {
+function getDefaultAppVersion(): string {
+  try {
+    const raw = fs.readFileSync(WEB_PKG_PATH, "utf8");
+    const parsed = JSON.parse(raw);
+    return SemVerCoreSchema.parse(parsed.version);
+  } catch {
+    return "0.0.1";
+  }
+}
+
+export interface CheckKnowledgeOptions {
+  dataDir?: string;
+  assetManifestPath?: string;
+  appVersion?: string;
+  silent?: boolean;
+}
+
+export interface CheckKnowledgeResult {
+  success: boolean;
+  errors: string[];
+  activeVersion?: string;
+  rootManifest?: RootKnowledgeManifest;
+  releaseManifest?: KnowledgeReleaseManifest;
+}
+
+export function checkKnowledgeIntegrity(
+  options: CheckKnowledgeOptions = {}
+): CheckKnowledgeResult {
+  const dataDir = options.dataDir ?? DEFAULT_DATA_DIR;
+  const assetManifestPath = options.assetManifestPath ?? DEFAULT_ASSET_MANIFEST_PATH;
+  const appVersion = options.appVersion ?? getDefaultAppVersion();
+  const silent = options.silent ?? false;
+
+  const log = (msg: string) => {
+    if (!silent) console.log(msg);
+  };
+  const logWarn = (msg: string) => {
+    if (!silent) console.warn(msg);
+  };
+  const logError = (msg: string) => {
+    if (!silent) console.error(msg);
+  };
+
   const errors: string[] = [];
-  console.log("[Astralyn Knowledge Integrity Checker] Starting validation...");
+  log("[Astralyn Knowledge Integrity Checker] Starting validation...");
 
   // 1. Check Root manifest.json
-  const rootManifestPath = path.join(DATA_DIR, "manifest.json");
+  const rootManifestPath = path.join(dataDir, "manifest.json");
   if (!fs.existsSync(rootManifestPath)) {
     errors.push(`Missing root knowledge manifest at ${rootManifestPath}`);
     return { success: false, errors };
   }
 
-  let rootManifest;
+  let rootManifest: RootKnowledgeManifest;
   try {
     const rawRoot = fs.readFileSync(rootManifestPath, "utf8");
     const parsedRoot = JSON.parse(rawRoot);
@@ -56,22 +105,22 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
   }
 
   const activeVersion = rootManifest.currentKnowledgeVersion;
-  console.log(`  - Root manifest valid (Active Version: ${activeVersion})`);
+  log(`  - Root manifest valid (Active Version: ${activeVersion})`);
 
   // 2. Check Release Directory & release.json
-  const releaseDir = path.join(DATA_DIR, activeVersion);
+  const releaseDir = path.join(dataDir, activeVersion);
   if (!fs.existsSync(releaseDir)) {
     errors.push(`Release directory not found at ${releaseDir}`);
-    return { success: false, errors };
+    return { success: false, errors, activeVersion, rootManifest };
   }
 
   const releaseManifestPath = path.join(releaseDir, "release.json");
   if (!fs.existsSync(releaseManifestPath)) {
     errors.push(`Release manifest missing at ${releaseManifestPath}`);
-    return { success: false, errors };
+    return { success: false, errors, activeVersion, rootManifest };
   }
 
-  let releaseManifest;
+  let releaseManifest: KnowledgeReleaseManifest;
   try {
     const rawRelease = fs.readFileSync(releaseManifestPath, "utf8");
     const parsedRelease = JSON.parse(rawRelease);
@@ -79,16 +128,10 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     errors.push(`Release manifest validation failed: ${message}`);
-    return { success: false, errors };
+    return { success: false, errors, activeVersion, rootManifest };
   }
 
-  if (releaseManifest.knowledgeVersion !== activeVersion) {
-    errors.push(
-      `Version mismatch: Root manifest claims ${activeVersion} but release.json has ${releaseManifest.knowledgeVersion}`
-    );
-  }
-
-  // 3. Verify all release files and checksums
+  // 3. Verify all canonical release files, sizes, checksums, and entity counts
   let characters: CharacterKnowledge[] = [];
   let lightCones: LightConeKnowledge[] = [];
   let relics: RelicSetKnowledge[] = [];
@@ -98,33 +141,59 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
   let duEquations: DUEquationKnowledge[] = [];
   let duCurios: DUCurioKnowledge[] = [];
 
-  for (const fileEntry of releaseManifest.files) {
-    const filePath = path.join(releaseDir, fileEntry.filename);
+  const entityCounts: Record<RequiredKnowledgeFilename, number> = {
+    "characters.json": 0,
+    "light-cones.json": 0,
+    "relics.json": 0,
+    "enemies.json": 0,
+    "stages.json": 0,
+    "divergent-universe.json": 0,
+  };
+
+  for (const filename of REQUIRED_KNOWLEDGE_FILENAMES) {
+    const filePath = path.join(releaseDir, filename);
     if (!fs.existsSync(filePath)) {
       errors.push(`Required release file missing on disk: ${filePath}`);
       continue;
     }
 
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const actualChecksum = computeSha256(fileContent);
+    const fileEntry = releaseManifest.files.find((f) => f.filename === filename);
+    if (!fileEntry) {
+      errors.push(
+        `Required file '${filename}' missing from release manifest files array`
+      );
+      continue;
+    }
+
+    const rawBuffer = fs.readFileSync(filePath);
+    const actualSizeBytes = rawBuffer.byteLength;
+    const actualChecksum = computeSha256(rawBuffer);
+
+    if (actualSizeBytes !== fileEntry.sizeBytes) {
+      errors.push(
+        `Byte size mismatch for ${filename}: manifest=${fileEntry.sizeBytes}, actual=${actualSizeBytes}`
+      );
+    }
 
     if (actualChecksum !== fileEntry.checksum) {
       errors.push(
-        `Checksum mismatch for ${fileEntry.filename}: manifest=${fileEntry.checksum}, actual=${actualChecksum}`
+        `Checksum mismatch for ${filename}: manifest=${fileEntry.checksum}, actual=${actualChecksum}`
       );
     }
 
-    if (releaseManifest.checksums[fileEntry.filename] !== actualChecksum) {
+    if (releaseManifest.checksums[filename] !== actualChecksum) {
       errors.push(
-        `Manifest checksums record mismatch for ${fileEntry.filename}: recorded=${releaseManifest.checksums[fileEntry.filename]}, actual=${actualChecksum}`
+        `Manifest checksums record mismatch for ${filename}: recorded=${releaseManifest.checksums[filename]}, actual=${actualChecksum}`
       );
     }
+
+    const fileContent = rawBuffer.toString("utf8");
 
     // Parse and validate individual file contents
     try {
       const jsonContent = JSON.parse(fileContent);
 
-      if (fileEntry.filename === "characters.json") {
+      if (filename === "characters.json") {
         if (!Array.isArray(jsonContent)) {
           errors.push("characters.json must be an array");
         } else {
@@ -139,8 +208,9 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
               return item;
             }
           });
+          entityCounts["characters.json"] = characters.length;
         }
-      } else if (fileEntry.filename === "light-cones.json") {
+      } else if (filename === "light-cones.json") {
         if (!Array.isArray(jsonContent)) {
           errors.push("light-cones.json must be an array");
         } else {
@@ -155,8 +225,9 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
               return item;
             }
           });
+          entityCounts["light-cones.json"] = lightCones.length;
         }
-      } else if (fileEntry.filename === "relics.json") {
+      } else if (filename === "relics.json") {
         if (!Array.isArray(jsonContent)) {
           errors.push("relics.json must be an array");
         } else {
@@ -171,8 +242,9 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
               return item;
             }
           });
+          entityCounts["relics.json"] = relics.length;
         }
-      } else if (fileEntry.filename === "enemies.json") {
+      } else if (filename === "enemies.json") {
         if (!Array.isArray(jsonContent)) {
           errors.push("enemies.json must be an array");
         } else {
@@ -187,8 +259,9 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
               return item;
             }
           });
+          entityCounts["enemies.json"] = enemies.length;
         }
-      } else if (fileEntry.filename === "stages.json") {
+      } else if (filename === "stages.json") {
         if (!Array.isArray(jsonContent)) {
           errors.push("stages.json must be an array");
         } else {
@@ -203,8 +276,9 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
               return item;
             }
           });
+          entityCounts["stages.json"] = stages.length;
         }
-      } else if (fileEntry.filename === "divergent-universe.json") {
+      } else if (filename === "divergent-universe.json") {
         if (typeof jsonContent !== "object" || jsonContent === null) {
           errors.push(
             "divergent-universe.json must be an object with blessings, equations, curios"
@@ -219,15 +293,38 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
           duCurios = (jsonContent.curios || []).map((item: unknown) =>
             DUCurioKnowledgeSchema.parse(item)
           );
+          entityCounts["divergent-universe.json"] =
+            duBlessings.length + duEquations.length + duCurios.length;
         }
       }
     } catch (parseErr: unknown) {
       const msg = parseErr instanceof Error ? parseErr.message : String(parseErr);
-      errors.push(`JSON syntax error in ${fileEntry.filename}: ${msg}`);
+      errors.push(`JSON syntax error in ${filename}: ${msg}`);
     }
   }
 
-  // 4. Validate unique IDs, provenance, and referential relationships
+  // 4. Validate sourceSnapshotHash derivation from canonical checksums
+  let combinedChecksums = "";
+  for (const filename of REQUIRED_KNOWLEDGE_FILENAMES) {
+    combinedChecksums += releaseManifest.checksums[filename] ?? "";
+  }
+  const computedSourceSnapshotHash = computeSha256(combinedChecksums);
+  if (computedSourceSnapshotHash !== releaseManifest.sourceSnapshotHash) {
+    errors.push(
+      `Source snapshot hash mismatch: manifest claims '${releaseManifest.sourceSnapshotHash}' but SHA-256 of canonical checksums is '${computedSourceSnapshotHash}'`
+    );
+  }
+
+  // 5. Cross-document and entity count consistency validation
+  const consistencyErrors = validateKnowledgeReleaseConsistency({
+    rootManifest,
+    releaseManifest,
+    entityCounts,
+    appVersion,
+  });
+  errors.push(...consistencyErrors);
+
+  // 6. Validate unique IDs, provenance, and referential relationships
   const uniqueIdSet = new Set<string>();
   const allCollections = [
     { name: "characters", items: characters },
@@ -279,26 +376,25 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
     }
   }
 
-  // 5. Interoperability with Visual Asset Manifest
-  if (fs.existsSync(ASSET_MANIFEST_PATH)) {
+  // 7. Interoperability with Visual Asset Manifest
+  if (fs.existsSync(assetManifestPath)) {
     try {
-      const rawAssetManifest = fs.readFileSync(ASSET_MANIFEST_PATH, "utf8");
+      const rawAssetManifest = fs.readFileSync(assetManifestPath, "utf8");
       const parsedAssetManifest = AssetManifestSchema.parse(JSON.parse(rawAssetManifest));
       const assetEntityIds = new Set(parsedAssetManifest.assets.map((a) => a.entityId));
 
-      // Verify each canonical character ID has corresponding visual asset entries
       for (const char of characters) {
         if (!assetEntityIds.has(char.id)) {
-          console.warn(
+          logWarn(
             `  [Warning] Canonical Character '${char.id}' has no matching asset entity in ${parsedAssetManifest.assetRelease}`
           );
         }
       }
-      console.log(
+      log(
         `  - Visual asset manifest interoperability verified (${parsedAssetManifest.assets.length} assets checked)`
       );
     } catch (assetErr: unknown) {
-      console.warn(
+      logWarn(
         `  [Warning] Could not verify asset manifest interoperability: ${assetErr}`
       );
     }
@@ -306,19 +402,25 @@ export function checkKnowledgeIntegrity(): { success: boolean; errors: string[] 
 
   const success = errors.length === 0;
   if (success) {
-    console.log(
+    log(
       `[Astralyn Knowledge Integrity Checker] PASS: All knowledge snapshot contracts verified for ${activeVersion}`
     );
   } else {
-    console.error(
+    logError(
       `[Astralyn Knowledge Integrity Checker] FAIL: Found ${errors.length} integrity violations:`
     );
     for (const err of errors) {
-      console.error(`  - ${err}`);
+      logError(`  - ${err}`);
     }
   }
 
-  return { success, errors };
+  return {
+    success,
+    errors,
+    activeVersion,
+    rootManifest,
+    releaseManifest,
+  };
 }
 
 if (

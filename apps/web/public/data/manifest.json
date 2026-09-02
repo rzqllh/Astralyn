@@ -64,7 +64,7 @@
         "stages.json": "e8e8a1729795cc7abf251660b8655553bf8a93c77c80095ec2392c767ade3e52",
         "divergent-universe.json": "5366a5978a8721e9ecc39e88c6c2849425e7904f07f133b0147c56e40136e99c"
       },
-      "compatibility": { "minAppVersion": "0.1.0" }
+      "compatibility": { "minAppVersion": "0.0.1" }
     }
   }
 }

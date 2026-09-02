@@ -19,6 +19,7 @@
   },
   "references": [{ "path": "../../packages/shared" }],
   "include": [
+    "package.json",
     "src",
     "public/**/*.json",
     "tests",

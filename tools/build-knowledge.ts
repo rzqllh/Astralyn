@@ -13,6 +13,9 @@ import {
   DUCurioKnowledgeSchema,
   KnowledgeReleaseManifestSchema,
   RootKnowledgeManifestSchema,
+  SemVerCoreSchema,
+  assertKnowledgeReleaseConsistency,
+  type RequiredKnowledgeFilename,
   CANONICAL_CHARACTERS,
   CANONICAL_LIGHT_CONES,
   CANONICAL_RELICS,
@@ -29,10 +32,10 @@ import {
 const KNOWLEDGE_VERSION = "v1.0.0";
 const GAME_VERSION = "4.5";
 const SCHEMA_VERSION = "1.0.0";
-const MIN_APP_VERSION = "0.1.0";
 
 const DATA_DIR = path.resolve(__dirname, "../apps/web/public/data");
 const RELEASE_DIR = path.join(DATA_DIR, KNOWLEDGE_VERSION);
+const WEB_PKG_PATH = path.resolve(__dirname, "../apps/web/package.json");
 
 function computeSha256(content: string): string {
   return crypto.createHash("sha256").update(content, "utf8").digest("hex");
@@ -42,12 +45,19 @@ function deterministicSortById<T extends { id: string }>(items: T[]): T[] {
   return [...items].sort((a, b) => a.id.localeCompare(b.id));
 }
 
+function getWebPackageVersion(): string {
+  const rawPkg = fs.readFileSync(WEB_PKG_PATH, "utf8");
+  const pkg = JSON.parse(rawPkg);
+  return SemVerCoreSchema.parse(pkg.version);
+}
+
 export async function buildKnowledgeRelease(): Promise<{
   manifest: RootKnowledgeManifest;
   releaseManifest: KnowledgeReleaseManifest;
 }> {
+  const minAppVersion = getWebPackageVersion();
   console.log(
-    `[Astralyn Knowledge Builder] Initializing build for release ${KNOWLEDGE_VERSION} (Game Version: ${GAME_VERSION})...`
+    `[Astralyn Knowledge Builder] Initializing build for release ${KNOWLEDGE_VERSION} (Game Version: ${GAME_VERSION}, Min App Version: ${minAppVersion})...`
   );
 
   // 1. Validate all source fixtures through Zod 4 schemas
@@ -137,8 +147,12 @@ export async function buildKnowledgeRelease(): Promise<{
     fs.mkdirSync(RELEASE_DIR, { recursive: true });
   }
 
-  // 4. Serialize entity data files and format with prettier
-  const filesPayloads: { filename: string; count: number; raw: unknown }[] = [
+  // 4. Serialize entity data files in REQUIRED_KNOWLEDGE_FILENAMES canonical order
+  const filesPayloads: {
+    filename: RequiredKnowledgeFilename;
+    count: number;
+    raw: unknown;
+  }[] = [
     {
       filename: "characters.json",
       count: characters.length,
@@ -204,7 +218,7 @@ export async function buildKnowledgeRelease(): Promise<{
   const sourceSnapshotHash = computeSha256(combinedSourceContent);
   const nowIso = "2026-08-27T00:00:00.000Z";
 
-  // 5. Create and write release.json
+  // 5. Create and validate release.json
   const releaseManifest: KnowledgeReleaseManifest = {
     knowledgeVersion: KNOWLEDGE_VERSION,
     gameVersion: GAME_VERSION,
@@ -215,20 +229,13 @@ export async function buildKnowledgeRelease(): Promise<{
     files: fileEntries,
     checksums,
     compatibility: {
-      minAppVersion: MIN_APP_VERSION,
+      minAppVersion,
     },
   };
 
   KnowledgeReleaseManifestSchema.parse(releaseManifest);
 
-  const releaseFilePath = path.join(RELEASE_DIR, "release.json");
-  const releaseManifestFormatted = await prettier.format(
-    JSON.stringify(releaseManifest),
-    { filepath: releaseFilePath }
-  );
-  fs.writeFileSync(releaseFilePath, releaseManifestFormatted, "utf8");
-
-  // 6. Create and write root manifest.json
+  // 6. Create and validate root manifest.json
   const rootManifest: RootKnowledgeManifest = {
     currentKnowledgeVersion: KNOWLEDGE_VERSION,
     gameVersion: GAME_VERSION,
@@ -241,6 +248,30 @@ export async function buildKnowledgeRelease(): Promise<{
   };
 
   RootKnowledgeManifestSchema.parse(rootManifest);
+
+  // 7. Assert cross-document and entity count consistency before writing final files
+  const entityCounts: Record<RequiredKnowledgeFilename, number> = {
+    "characters.json": characters.length,
+    "light-cones.json": lightCones.length,
+    "relics.json": relics.length,
+    "enemies.json": enemies.length,
+    "stages.json": stages.length,
+    "divergent-universe.json": duBlessings.length + duEquations.length + duCurios.length,
+  };
+
+  assertKnowledgeReleaseConsistency({
+    rootManifest,
+    releaseManifest,
+    entityCounts,
+    appVersion: minAppVersion,
+  });
+
+  const releaseFilePath = path.join(RELEASE_DIR, "release.json");
+  const releaseManifestFormatted = await prettier.format(
+    JSON.stringify(releaseManifest),
+    { filepath: releaseFilePath }
+  );
+  fs.writeFileSync(releaseFilePath, releaseManifestFormatted, "utf8");
 
   const rootManifestPath = path.join(DATA_DIR, "manifest.json");
   const rootManifestFormatted = await prettier.format(JSON.stringify(rootManifest), {

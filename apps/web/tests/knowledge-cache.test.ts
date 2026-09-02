@@ -3,11 +3,13 @@ import { AstralynKnowledgeDB } from "../src/lib/knowledge/db";
 import {
   KnowledgeSnapshotLoader,
   ChecksumMismatchError,
+  ByteSizeMismatchError,
 } from "../src/lib/knowledge/loader";
 import { KnowledgeCacheSyncer } from "../src/lib/knowledge/syncer";
 import { KnowledgeRepository } from "../src/lib/knowledge/repository";
 import {
   CharacterKnowledgeSchema,
+  KnowledgeReleaseIntegrityError,
   CANONICAL_CHARACTERS,
   CANONICAL_LIGHT_CONES,
   CANONICAL_RELICS,
@@ -17,96 +19,48 @@ import {
   CANONICAL_DU_EQUATIONS,
   CANONICAL_DU_CURIOS,
   type RootKnowledgeManifest,
-  type KnowledgeReleaseManifest,
 } from "@astralyn/shared";
+import {
+  createValidRootManifest,
+  createValidReleaseManifest,
+  createValidLoadedRelease,
+  FAKE_VALID_HASH_1,
+} from "./helpers/knowledge-fixtures";
 
-// Create test mock releases
-const MOCK_ROOT_MANIFEST_V1: RootKnowledgeManifest = {
+const MOCK_ROOT_MANIFEST_V1 = createValidRootManifest({
   currentKnowledgeVersion: "v1.0.0",
-  gameVersion: "4.5",
-  schemaVersion: "1.0.0",
-  publishedAt: "2026-08-27T00:00:00Z",
-  availableReleases: ["v1.0.0"],
-  releases: {
-    "v1.0.0": {
-      knowledgeVersion: "v1.0.0",
-      gameVersion: "4.5",
-      schemaVersion: "1.0.0",
-      generatedAt: "2026-08-27T00:00:00Z",
-      sourceSnapshotHash: "mock_hash_v1",
-      status: "published",
-      files: [],
-      checksums: {},
-      compatibility: { minAppVersion: "0.1.0" },
-    },
-  },
-};
+});
 
-const MOCK_ROOT_MANIFEST_V2: RootKnowledgeManifest = {
+const MOCK_ROOT_MANIFEST_V2 = createValidRootManifest({
   currentKnowledgeVersion: "v1.1.0",
-  gameVersion: "4.5",
-  schemaVersion: "1.0.0",
-  publishedAt: "2026-09-01T00:00:00Z",
   availableReleases: ["v1.0.0", "v1.1.0"],
   releases: {
-    "v1.1.0": {
-      knowledgeVersion: "v1.1.0",
-      gameVersion: "4.5",
-      schemaVersion: "1.0.0",
-      generatedAt: "2026-09-01T00:00:00Z",
-      sourceSnapshotHash: "mock_hash_v2",
-      status: "published",
-      files: [],
-      checksums: {},
-      compatibility: { minAppVersion: "0.1.0" },
-    },
+    "v1.0.0": createValidReleaseManifest({ knowledgeVersion: "v1.0.0" }),
+    "v1.1.0": createValidReleaseManifest({ knowledgeVersion: "v1.1.0" }),
   },
-};
+});
 
 function createMockLoader(
-  rootManifest: RootKnowledgeManifest = MOCK_ROOT_MANIFEST_V1
+  rootManifest: RootKnowledgeManifest = MOCK_ROOT_MANIFEST_V1,
+  appVersion = "0.0.1"
 ): KnowledgeSnapshotLoader {
-  const loader = new KnowledgeSnapshotLoader();
+  const loader = new KnowledgeSnapshotLoader("/data", appVersion);
 
   loader.fetchRootManifest = async () => rootManifest;
   loader.fetchReleaseManifest = async (ver) => {
-    return {
-      knowledgeVersion: ver,
-      gameVersion: rootManifest.gameVersion,
-      schemaVersion: "1.0.0",
-      generatedAt: "2026-08-27T00:00:00Z",
-      sourceSnapshotHash: "mock_hash_" + ver,
-      status: "published",
-      files: [],
-      checksums: {},
-      compatibility: { minAppVersion: "0.1.0" },
-    };
+    return (
+      rootManifest.releases[ver] ??
+      createValidReleaseManifest({
+        knowledgeVersion: ver,
+        gameVersion: rootManifest.gameVersion,
+      })
+    );
   };
   loader.loadFullRelease = async (version, manifest) => {
-    const releaseManifest: KnowledgeReleaseManifest = {
-      knowledgeVersion: version,
-      gameVersion: manifest.gameVersion,
-      schemaVersion: "1.0.0",
-      generatedAt: "2026-08-27T00:00:00Z",
-      sourceSnapshotHash: "mock_hash_" + version,
-      status: "published",
-      files: [],
-      checksums: {},
-      compatibility: { minAppVersion: "0.1.0" },
-    };
-
-    return {
-      manifest,
-      releaseManifest,
-      characters: CANONICAL_CHARACTERS,
-      lightCones: CANONICAL_LIGHT_CONES,
-      relicSets: CANONICAL_RELICS,
-      enemies: CANONICAL_ENEMIES,
-      stages: CANONICAL_STAGES,
-      duBlessings: CANONICAL_DU_BLESSINGS,
-      duEquations: CANONICAL_DU_EQUATIONS,
-      duCurios: CANONICAL_DU_CURIOS,
-    };
+    return createValidLoadedRelease(
+      { currentKnowledgeVersion: version },
+      { knowledgeVersion: version, gameVersion: manifest.gameVersion }
+    );
   };
 
   return loader;
@@ -116,7 +70,6 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
   let db: AstralynKnowledgeDB;
 
   beforeEach(async () => {
-    // Unique in-memory DB per test
     const testDbName = `AstralynTestDB_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
     db = new AstralynKnowledgeDB(testDbName);
     await db.open();
@@ -143,9 +96,15 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     expect(await db.duEquations.count()).toBe(2);
     expect(await db.duCurios.count()).toBe(2);
 
-    // Verify metadata record
+    // Verify metadata records including entityCounts
     const metaVer = await db.metadata.get("activeKnowledgeVersion");
     expect(metaVer?.value).toBe("v1.0.0");
+
+    const countMeta = await db.metadata.get("entityCounts");
+    expect(countMeta).toBeDefined();
+    const counts = JSON.parse(countMeta!.value);
+    expect(counts.characters).toBe(9);
+    expect(counts.relicSets).toBe(6);
   });
 
   it("detects same version on subsequent sync and returns status: fresh", async () => {
@@ -192,7 +151,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     expect(await db.characters.count()).toBe(9);
 
     // 2. Mock loader with broken v1.1.0 release that throws error during load
-    const brokenLoader = new KnowledgeSnapshotLoader();
+    const brokenLoader = new KnowledgeSnapshotLoader("/data", "0.0.1");
     brokenLoader.fetchRootManifest = async () => MOCK_ROOT_MANIFEST_V2;
     brokenLoader.loadFullRelease = async () => {
       throw new Error(
@@ -220,7 +179,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     await syncer.sync();
 
     // 2. Simulate offline network error
-    const offlineLoader = new KnowledgeSnapshotLoader();
+    const offlineLoader = new KnowledgeSnapshotLoader("/data", "0.0.1");
     offlineLoader.fetchRootManifest = async () => {
       throw new Error("Failed to fetch: NetworkError / Offline");
     };
@@ -235,7 +194,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
   });
 
   it("handles offline state with NO local cache (status: unavailable)", async () => {
-    const offlineLoader = new KnowledgeSnapshotLoader();
+    const offlineLoader = new KnowledgeSnapshotLoader("/data", "0.0.1");
     offlineLoader.fetchRootManifest = async () => {
       throw new Error("Failed to fetch: NetworkError / Offline");
     };
@@ -247,19 +206,296 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     expect(result.isOffline).toBe(true);
     expect(result.activeKnowledgeVersion).toBeNull();
   });
+});
 
+describe("Phase 2 Cache Completeness & Corruption Rejections", () => {
+  let db: AstralynKnowledgeDB;
+
+  beforeEach(async () => {
+    const testDbName = `AstralynCorruptionDB_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    db = new AstralynKnowledgeDB(testDbName);
+    await db.open();
+  });
+
+  it("rejects local cache when entityCounts metadata is missing", async () => {
+    // Populate cache without entityCounts
+    const loader = createMockLoader(MOCK_ROOT_MANIFEST_V1);
+    const syncer = new KnowledgeCacheSyncer(db, loader);
+    await syncer.sync();
+
+    // Manually delete entityCounts metadata to simulate legacy/corrupt cache
+    await db.metadata.delete("entityCounts");
+
+    const inspection = await syncer.inspectLocalCache();
+    expect(inspection.isValid).toBe(false);
+
+    // Offline check should return unavailable instead of offline_cache_active
+    const offlineLoader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    offlineLoader.fetchRootManifest = async () => {
+      throw new Error("Network offline");
+    };
+    const offlineSyncer = new KnowledgeCacheSyncer(db, offlineLoader);
+    const result = await offlineSyncer.sync();
+
+    expect(result.status).toBe("unavailable");
+  });
+
+  it("rejects local cache when a non-character table is missing rows (partial cache)", async () => {
+    const loader = createMockLoader(MOCK_ROOT_MANIFEST_V1);
+    const syncer = new KnowledgeCacheSyncer(db, loader);
+    await syncer.sync();
+
+    // Delete one relic set so table has 5 instead of 6
+    const firstRelic = await db.relicSets.toCollection().first();
+    if (firstRelic) {
+      await db.relicSets.delete(firstRelic.id);
+    }
+
+    const inspection = await syncer.inspectLocalCache();
+    expect(inspection.isValid).toBe(false);
+
+    // Online sync of same version should repair transactionally (status: updated) instead of returning "fresh"
+    const repairResult = await syncer.sync();
+    expect(repairResult.status).toBe("updated");
+    expect(await db.relicSets.count()).toBe(6);
+  });
+
+  it("rejects local cache containing a schema-invalid row", async () => {
+    const loader = createMockLoader(MOCK_ROOT_MANIFEST_V1);
+    const syncer = new KnowledgeCacheSyncer(db, loader);
+    await syncer.sync();
+
+    // Corrupt one character row in Dexie
+    const acheron = await db.characters.get("acheron");
+    if (acheron) {
+      await db.characters.put({
+        ...acheron,
+        element: "InvalidElementCorrupted" as unknown as typeof acheron.element,
+      });
+    }
+
+    const inspection = await syncer.inspectLocalCache();
+    expect(inspection.isValid).toBe(false);
+
+    // Offline sync refuses invalid cache
+    const offlineLoader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    offlineLoader.fetchRootManifest = async () => {
+      throw new Error("Network offline");
+    };
+    const offlineSyncer = new KnowledgeCacheSyncer(db, offlineLoader);
+    const result = await offlineSyncer.sync();
+
+    expect(result.status).toBe("unavailable");
+  });
+
+  it("returns unavailable when new release fails and prior cache is invalid (no fake retention)", async () => {
+    // Populate initially
+    const loader = createMockLoader(MOCK_ROOT_MANIFEST_V1);
+    const syncer = new KnowledgeCacheSyncer(db, loader);
+    await syncer.sync();
+
+    // Corrupt local metadata
+    await db.metadata.delete("sourceSnapshotHash");
+
+    // Attempt upgrade with failing release
+    const brokenLoader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    brokenLoader.fetchRootManifest = async () => MOCK_ROOT_MANIFEST_V2;
+    brokenLoader.loadFullRelease = async () => {
+      throw new Error("Release v1.1.0 load failed");
+    };
+
+    const syncerBroken = new KnowledgeCacheSyncer(db, brokenLoader);
+    const result = await syncerBroken.sync();
+
+    expect(result.status).toBe("unavailable");
+  });
+});
+
+describe("Phase 2 KnowledgeSnapshotLoader Verification & Integrity Rejections", () => {
   it("rejects corrupt payload before JSON decoding via SHA-256 checksum verification", async () => {
-    const loader = new KnowledgeSnapshotLoader();
-    loader.fetchRawText = async () => '{"corrupted": true}';
+    const loader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    const encoder = new TextEncoder();
+    const mockBytes = encoder.encode('{"corrupted": true}');
+
+    loader.fetchRawBuffer = async () => mockBytes;
+
+    const fileEntry = {
+      filename: "characters.json" as const,
+      relPath: "v1.0.0/characters.json",
+      entityCount: 1,
+      sizeBytes: mockBytes.byteLength,
+      checksum: FAKE_VALID_HASH_1,
+    };
 
     await expect(
       loader.fetchVerifiedJson(
         "/data/v1.0.0/characters.json",
-        "characters.json",
-        "expected_correct_hash_12345",
+        fileEntry,
         CharacterKnowledgeSchema.array()
       )
     ).rejects.toThrow(ChecksumMismatchError);
+  });
+
+  it("rejects payload when byte size does not match manifest sizeBytes", async () => {
+    const loader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    const encoder = new TextEncoder();
+    const mockBytes = encoder.encode("[]");
+
+    loader.fetchRawBuffer = async () => mockBytes;
+
+    const fileEntry = {
+      filename: "characters.json" as const,
+      relPath: "v1.0.0/characters.json",
+      entityCount: 0,
+      sizeBytes: 9999, // Mismatch
+      checksum: FAKE_VALID_HASH_1,
+    };
+
+    await expect(
+      loader.fetchVerifiedJson(
+        "/data/v1.0.0/characters.json",
+        fileEntry,
+        CharacterKnowledgeSchema.array()
+      )
+    ).rejects.toThrow(ByteSizeMismatchError);
+  });
+
+  it("loads full release and verifies all 8 runtime collections when release is compatible and consistent", async () => {
+    const releaseManifest = createValidReleaseManifest({
+      compatibility: { minAppVersion: "0.0.1" },
+    });
+    const rootManifest = createValidRootManifest({}, releaseManifest);
+
+    const loader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    loader.fetchReleaseManifest = async () => releaseManifest;
+
+    loader.fetchVerifiedJson = async <T>(
+      _url: string,
+      entry: { filename: string }
+    ): Promise<T> => {
+      if (entry.filename === "characters.json")
+        return CANONICAL_CHARACTERS as unknown as T;
+      if (entry.filename === "light-cones.json")
+        return CANONICAL_LIGHT_CONES as unknown as T;
+      if (entry.filename === "relics.json") return CANONICAL_RELICS as unknown as T;
+      if (entry.filename === "enemies.json") return CANONICAL_ENEMIES as unknown as T;
+      if (entry.filename === "stages.json") return CANONICAL_STAGES as unknown as T;
+      if (entry.filename === "divergent-universe.json")
+        return {
+          blessings: CANONICAL_DU_BLESSINGS,
+          equations: CANONICAL_DU_EQUATIONS,
+          curios: CANONICAL_DU_CURIOS,
+        } as unknown as T;
+      throw new Error(`Unexpected filename: ${entry.filename}`);
+    };
+
+    const loaded = await loader.loadFullRelease("v1.0.0", rootManifest);
+
+    expect(loaded.characters.length).toBe(9);
+    expect(loaded.lightCones.length).toBe(9);
+    expect(loaded.relicSets.length).toBe(6);
+    expect(loaded.enemies.length).toBe(4);
+    expect(loaded.stages.length).toBe(4);
+    expect(loaded.duBlessings.length).toBe(3);
+    expect(loaded.duEquations.length).toBe(2);
+    expect(loaded.duCurios.length).toBe(2);
+  });
+
+  it("rejects release when loader appVersion is lower than minAppVersion", async () => {
+    const releaseManifest = createValidReleaseManifest({
+      compatibility: { minAppVersion: "0.1.0" },
+    });
+    const rootManifest = createValidRootManifest({}, releaseManifest);
+
+    const loader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    loader.fetchReleaseManifest = async () => releaseManifest;
+    loader.fetchVerifiedJson = async <T>(
+      _url: string,
+      entry: { filename: string }
+    ): Promise<T> => {
+      if (entry.filename === "characters.json")
+        return CANONICAL_CHARACTERS as unknown as T;
+      if (entry.filename === "light-cones.json")
+        return CANONICAL_LIGHT_CONES as unknown as T;
+      if (entry.filename === "relics.json") return CANONICAL_RELICS as unknown as T;
+      if (entry.filename === "enemies.json") return CANONICAL_ENEMIES as unknown as T;
+      if (entry.filename === "stages.json") return CANONICAL_STAGES as unknown as T;
+      if (entry.filename === "divergent-universe.json")
+        return {
+          blessings: CANONICAL_DU_BLESSINGS,
+          equations: CANONICAL_DU_EQUATIONS,
+          curios: CANONICAL_DU_CURIOS,
+        } as unknown as T;
+      throw new Error(`Unexpected filename: ${entry.filename}`);
+    };
+
+    await expect(loader.loadFullRelease("v1.0.0", rootManifest)).rejects.toThrow(
+      KnowledgeReleaseIntegrityError
+    );
+  });
+
+  it("rejects release when actual parsed entity count disagrees with manifest entityCount", async () => {
+    const releaseManifest = createValidReleaseManifest();
+    const rootManifest = createValidRootManifest({}, releaseManifest);
+
+    const loader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    loader.fetchReleaseManifest = async () => releaseManifest;
+    loader.fetchVerifiedJson = async <T>(
+      _url: string,
+      entry: { filename: string }
+    ): Promise<T> => {
+      if (entry.filename === "characters.json")
+        return CANONICAL_CHARACTERS.slice(0, 5) as unknown as T;
+      if (entry.filename === "light-cones.json")
+        return CANONICAL_LIGHT_CONES as unknown as T;
+      if (entry.filename === "relics.json") return CANONICAL_RELICS as unknown as T;
+      if (entry.filename === "enemies.json") return CANONICAL_ENEMIES as unknown as T;
+      if (entry.filename === "stages.json") return CANONICAL_STAGES as unknown as T;
+      if (entry.filename === "divergent-universe.json")
+        return {
+          blessings: CANONICAL_DU_BLESSINGS,
+          equations: CANONICAL_DU_EQUATIONS,
+          curios: CANONICAL_DU_CURIOS,
+        } as unknown as T;
+      throw new Error(`Unexpected filename: ${entry.filename}`);
+    };
+
+    await expect(loader.loadFullRelease("v1.0.0", rootManifest)).rejects.toThrow(
+      KnowledgeReleaseIntegrityError
+    );
+  });
+
+  it("rejects release when root embedded descriptor disagrees with release manifest", async () => {
+    const releaseManifest = createValidReleaseManifest({
+      gameVersion: "4.5",
+    });
+    const rootManifest = createValidRootManifest({}, { gameVersion: "4.4" });
+
+    const loader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    loader.fetchReleaseManifest = async () => releaseManifest;
+    loader.fetchVerifiedJson = async <T>(
+      _url: string,
+      entry: { filename: string }
+    ): Promise<T> => {
+      if (entry.filename === "characters.json")
+        return CANONICAL_CHARACTERS as unknown as T;
+      if (entry.filename === "light-cones.json")
+        return CANONICAL_LIGHT_CONES as unknown as T;
+      if (entry.filename === "relics.json") return CANONICAL_RELICS as unknown as T;
+      if (entry.filename === "enemies.json") return CANONICAL_ENEMIES as unknown as T;
+      if (entry.filename === "stages.json") return CANONICAL_STAGES as unknown as T;
+      if (entry.filename === "divergent-universe.json")
+        return {
+          blessings: CANONICAL_DU_BLESSINGS,
+          equations: CANONICAL_DU_EQUATIONS,
+          curios: CANONICAL_DU_CURIOS,
+        } as unknown as T;
+      throw new Error(`Unexpected filename: ${entry.filename}`);
+    };
+
+    await expect(loader.loadFullRelease("v1.0.0", rootManifest)).rejects.toThrow(
+      KnowledgeReleaseIntegrityError
+    );
   });
 });
 
@@ -317,7 +553,7 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
     expect(elationLCs[0].id).toBe("flame-of-carnival");
 
     const harmonyLCs = await repo.listLightCones({ path: "Harmony" });
-    expect(harmonyLCs.length).toBe(3); // Flowing Nightglow, Memories of the Past, Past and Future
+    expect(harmonyLCs.length).toBe(3);
   });
 
   it("reads relic sets and filters by type", async () => {

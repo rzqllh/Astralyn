@@ -1,5 +1,15 @@
 import { AstralynKnowledgeDB } from "./db";
 import { KnowledgeSnapshotLoader, type LoadedKnowledgeRelease } from "./loader";
+import {
+  CharacterKnowledgeSchema,
+  LightConeKnowledgeSchema,
+  RelicSetKnowledgeSchema,
+  EnemyKnowledgeSchema,
+  StageKnowledgeSchema,
+  DUBlessingKnowledgeSchema,
+  DUEquationKnowledgeSchema,
+  DUCurioKnowledgeSchema,
+} from "@astralyn/shared";
 
 export type KnowledgeSyncStatus =
   | "uninitialized"
@@ -17,6 +27,15 @@ export interface KnowledgeSyncResult {
   cachedAt: string | null;
   error?: string;
   isOffline: boolean;
+}
+
+export interface CachedKnowledgeInspection {
+  isValid: boolean;
+  activeKnowledgeVersion: string | null;
+  gameVersion: string | null;
+  cachedAt: string | null;
+  sourceSnapshotHash: string | null;
+  expectedCounts: Record<string, number> | null;
 }
 
 export class KnowledgeCacheSyncer {
@@ -44,17 +63,165 @@ export class KnowledgeCacheSyncer {
     return this.lastResult;
   }
 
-  async sync(): Promise<KnowledgeSyncResult> {
-    // 1. Check existing local cache metadata
-    const cachedVersionRecord = await this.db.metadata.get("activeKnowledgeVersion");
-    const cachedGameVersionRecord = await this.db.metadata.get("gameVersion");
-    const cachedAtRecord = await this.db.metadata.get("cachedAt");
-    const cachedVersion = cachedVersionRecord?.value ?? null;
-    const cachedGameVersion = cachedGameVersionRecord?.value ?? null;
-    const cachedAt = cachedAtRecord?.value ?? null;
+  async inspectLocalCache(): Promise<CachedKnowledgeInspection> {
+    const [
+      cachedVersionRecord,
+      cachedGameVersionRecord,
+      cachedAtRecord,
+      sourceHashRecord,
+      entityCountsRecord,
+    ] = await Promise.all([
+      this.db.metadata.get("activeKnowledgeVersion"),
+      this.db.metadata.get("gameVersion"),
+      this.db.metadata.get("cachedAt"),
+      this.db.metadata.get("sourceSnapshotHash"),
+      this.db.metadata.get("entityCounts"),
+    ]);
 
-    const existingCharCount = await this.db.characters.count();
-    const hasValidLocalCache = Boolean(cachedVersion && existingCharCount > 0);
+    const activeKnowledgeVersion = cachedVersionRecord?.value ?? null;
+    const gameVersion = cachedGameVersionRecord?.value ?? null;
+    const cachedAt = cachedAtRecord?.value ?? null;
+    const sourceSnapshotHash = sourceHashRecord?.value ?? null;
+    const rawEntityCounts = entityCountsRecord?.value ?? null;
+
+    if (
+      !activeKnowledgeVersion ||
+      !gameVersion ||
+      !cachedAt ||
+      !sourceSnapshotHash ||
+      !rawEntityCounts
+    ) {
+      return {
+        isValid: false,
+        activeKnowledgeVersion,
+        gameVersion,
+        cachedAt,
+        sourceSnapshotHash,
+        expectedCounts: null,
+      };
+    }
+
+    let expectedCounts: Record<string, number>;
+    try {
+      expectedCounts = JSON.parse(rawEntityCounts);
+    } catch {
+      return {
+        isValid: false,
+        activeKnowledgeVersion,
+        gameVersion,
+        cachedAt,
+        sourceSnapshotHash,
+        expectedCounts: null,
+      };
+    }
+
+    // 1. Validate all 8 table counts match expected
+    const [
+      actualCharCount,
+      actualLcCount,
+      actualRelicCount,
+      actualEnemyCount,
+      actualStageCount,
+      actualDuBlessingCount,
+      actualDuEquationCount,
+      actualDuCurioCount,
+    ] = await Promise.all([
+      this.db.characters.count(),
+      this.db.lightCones.count(),
+      this.db.relicSets.count(),
+      this.db.enemies.count(),
+      this.db.stages.count(),
+      this.db.duBlessings.count(),
+      this.db.duEquations.count(),
+      this.db.duCurios.count(),
+    ]);
+
+    if (
+      typeof expectedCounts.characters !== "number" ||
+      actualCharCount !== expectedCounts.characters ||
+      typeof expectedCounts.lightCones !== "number" ||
+      actualLcCount !== expectedCounts.lightCones ||
+      typeof expectedCounts.relicSets !== "number" ||
+      actualRelicCount !== expectedCounts.relicSets ||
+      typeof expectedCounts.enemies !== "number" ||
+      actualEnemyCount !== expectedCounts.enemies ||
+      typeof expectedCounts.stages !== "number" ||
+      actualStageCount !== expectedCounts.stages ||
+      typeof expectedCounts.duBlessings !== "number" ||
+      actualDuBlessingCount !== expectedCounts.duBlessings ||
+      typeof expectedCounts.duEquations !== "number" ||
+      actualDuEquationCount !== expectedCounts.duEquations ||
+      typeof expectedCounts.duCurios !== "number" ||
+      actualDuCurioCount !== expectedCounts.duCurios
+    ) {
+      return {
+        isValid: false,
+        activeKnowledgeVersion,
+        gameVersion,
+        cachedAt,
+        sourceSnapshotHash,
+        expectedCounts,
+      };
+    }
+
+    // 2. Validate row schemas for all cached tables
+    try {
+      const [
+        allChars,
+        allLcs,
+        allRelics,
+        allEnemies,
+        allStages,
+        allDuBlessings,
+        allDuEquations,
+        allDuCurios,
+      ] = await Promise.all([
+        this.db.characters.toArray(),
+        this.db.lightCones.toArray(),
+        this.db.relicSets.toArray(),
+        this.db.enemies.toArray(),
+        this.db.stages.toArray(),
+        this.db.duBlessings.toArray(),
+        this.db.duEquations.toArray(),
+        this.db.duCurios.toArray(),
+      ]);
+
+      for (const item of allChars) CharacterKnowledgeSchema.parse(item);
+      for (const item of allLcs) LightConeKnowledgeSchema.parse(item);
+      for (const item of allRelics) RelicSetKnowledgeSchema.parse(item);
+      for (const item of allEnemies) EnemyKnowledgeSchema.parse(item);
+      for (const item of allStages) StageKnowledgeSchema.parse(item);
+      for (const item of allDuBlessings) DUBlessingKnowledgeSchema.parse(item);
+      for (const item of allDuEquations) DUEquationKnowledgeSchema.parse(item);
+      for (const item of allDuCurios) DUCurioKnowledgeSchema.parse(item);
+    } catch {
+      return {
+        isValid: false,
+        activeKnowledgeVersion,
+        gameVersion,
+        cachedAt,
+        sourceSnapshotHash,
+        expectedCounts,
+      };
+    }
+
+    return {
+      isValid: true,
+      activeKnowledgeVersion,
+      gameVersion,
+      cachedAt,
+      sourceSnapshotHash,
+      expectedCounts,
+    };
+  }
+
+  async sync(): Promise<KnowledgeSyncResult> {
+    // 1. Thoroughly inspect local cache validity
+    const cacheInspection = await this.inspectLocalCache();
+    const hasValidLocalCache = cacheInspection.isValid;
+    const cachedVersion = cacheInspection.activeKnowledgeVersion;
+    const cachedGameVersion = cacheInspection.gameVersion;
+    const cachedAt = cacheInspection.cachedAt;
 
     // 2. Fetch root manifest
     let rootManifest;
@@ -82,7 +249,7 @@ export class KnowledgeCacheSyncer {
         activeKnowledgeVersion: null,
         gameVersion: null,
         cachedAt: null,
-        error: `Network unavailable (${errMsg}) and no local cache exists.`,
+        error: `Network unavailable (${errMsg}) and no valid local cache exists.`,
         isOffline: true,
       };
       return this.lastResult;
@@ -90,7 +257,7 @@ export class KnowledgeCacheSyncer {
 
     const targetVersion = rootManifest.currentKnowledgeVersion;
 
-    // 3. Compare published version with cached version
+    // 3. Compare published version with cached version (only valid cache returns "fresh")
     if (hasValidLocalCache && cachedVersion === targetVersion) {
       this.currentStatus = "fresh";
       this.lastResult = {
@@ -103,7 +270,7 @@ export class KnowledgeCacheSyncer {
       return this.lastResult;
     }
 
-    // 4. Download and validate new release
+    // 4. Download and validate new release (or repair corrupt local cache of same version)
     this.currentStatus = "updating";
     let loadedRelease: LoadedKnowledgeRelease;
     try {
@@ -138,8 +305,19 @@ export class KnowledgeCacheSyncer {
       return this.lastResult;
     }
 
-    // 5. Transactionally populate Dexie cache
+    // 5. Transactionally populate Dexie cache with complete tables and entityCounts metadata
     const nowIso = new Date().toISOString();
+    const countsRecord = {
+      characters: loadedRelease.characters.length,
+      lightCones: loadedRelease.lightCones.length,
+      relicSets: loadedRelease.relicSets.length,
+      enemies: loadedRelease.enemies.length,
+      stages: loadedRelease.stages.length,
+      duBlessings: loadedRelease.duBlessings.length,
+      duEquations: loadedRelease.duEquations.length,
+      duCurios: loadedRelease.duCurios.length,
+    };
+
     await this.db.transaction(
       "rw",
       [
@@ -195,6 +373,10 @@ export class KnowledgeCacheSyncer {
           this.db.metadata.put({
             key: "sourceSnapshotHash",
             value: loadedRelease.releaseManifest.sourceSnapshotHash,
+          }),
+          this.db.metadata.put({
+            key: "entityCounts",
+            value: JSON.stringify(countsRecord),
           }),
         ]);
       }
