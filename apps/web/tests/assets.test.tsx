@@ -1,50 +1,50 @@
 import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { activeManifest, getAssetUrl, getAssetRecord } from "../src/lib/assets";
-import { GameAssetImage } from "../src/components/ui/game-asset-image";
+import { activeManifest, getAssetUrl, getAssetRecord } from "../src/dev/assets";
+import { GameAssetImage } from "../src/dev/components/game-asset-image";
 
-describe("Astralyn Phase 1.1 Game Asset & Fallback Engine", () => {
-  it("loads the static asset manifest and validates schema fields", () => {
+describe("Astralyn Phase 2.5 Dev Game Asset & Fallback Engine", () => {
+  it("loads the dev asset manifest and validates schema fields for all 52 candidates", () => {
     expect(activeManifest).toBeDefined();
     expect(activeManifest.assetRelease).toBe("v1.0.0");
     expect(activeManifest.gameVersion).toBe("3.0.x");
     expect(Array.isArray(activeManifest.assets)).toBe(true);
-    expect(activeManifest.assets.length).toBeGreaterThanOrEqual(40);
+    expect(activeManifest.assets.length).toBe(52);
 
-    // Verify each record has required fields
+    // Verify each record has required fields and truthful dev status
     for (const asset of activeManifest.assets) {
       expect(asset.id).toBeTruthy();
       expect(asset.entityType).toBeTruthy();
       expect(asset.entityId).toBeTruthy();
-      expect(asset.localPath.startsWith("/game-assets/")).toBe(true);
+      expect(asset.localPath.startsWith("/src/dev/game-assets/")).toBe(true);
       expect(asset.license).toBeTruthy();
       expect(asset.copyrightOwner).toBeTruthy();
-      expect(["manual_review", "official_fan_use", "approved"]).toContain(
-        asset.usageStatus
-      );
+      expect(asset.usageStatus).toBe("manual_review");
       expect(asset.checksum).toBeTruthy();
     }
   });
 
-  it("synchronously resolves known assets across categories", () => {
+  it("synchronously resolves known assets across categories in dev", () => {
     // Character Icon
     const acheronUrl = getAssetUrl("character_icon", "acheron", "icon");
-    expect(acheronUrl).toBe("/game-assets/v1.0.0/characters/acheron_icon.png");
+    expect(acheronUrl).toBe("/src/dev/game-assets/v1.0.0/characters/acheron_icon.png");
 
     // Element Icon
     const lightningUrl = getAssetUrl("element_icon", "Lightning", "icon");
-    expect(lightningUrl).toBe("/game-assets/v1.0.0/elements/Lightning.png");
+    expect(lightningUrl).toBe("/src/dev/game-assets/v1.0.0/elements/Lightning.png");
 
     // Path Icon
     const nihilityUrl = getAssetUrl("path_icon", "Nihility", "icon");
-    expect(nihilityUrl).toBe("/game-assets/v1.0.0/paths/Nihility.png");
+    expect(nihilityUrl).toBe("/src/dev/game-assets/v1.0.0/paths/Nihility.png");
 
     // Light Cone Icon
     const lcUrl = getAssetUrl("light_cone_icon", "along-the-passing-shore", "icon");
-    expect(lcUrl).toBe("/game-assets/v1.0.0/light-cones/along_the_passing_shore.png");
+    expect(lcUrl).toBe(
+      "/src/dev/game-assets/v1.0.0/light-cones/along_the_passing_shore.png"
+    );
   });
 
-  it("verifies all 8 representative characters have verified preview and icon assets", () => {
+  it("verifies all 8 representative characters have verified preview and icon assets in dev", () => {
     const REPRESENTATIVE_CHARS = [
       "acheron",
       "castorice",
@@ -82,7 +82,10 @@ describe("Astralyn Phase 1.1 Game Asset & Fallback Engine", () => {
     );
 
     const img = screen.getByRole("img");
-    expect(img).toHaveAttribute("src", "/game-assets/v1.0.0/elements/Quantum.png");
+    expect(img).toHaveAttribute(
+      "src",
+      "/src/dev/game-assets/v1.0.0/elements/Quantum.png"
+    );
     expect(img).toHaveAttribute("alt", "Quantum Element");
   });
 
@@ -97,7 +100,9 @@ describe("Astralyn Phase 1.1 Game Asset & Fallback Engine", () => {
     );
 
     // Should render fallback container with aria-label and fallback text
-    const fallback = screen.getByRole("img", { name: "Missing Hero Fallback" });
+    const fallback = screen.getByRole("img", {
+      name: "Missing Hero Fallback (Asset unavailable)",
+    });
     expect(fallback).toBeInTheDocument();
     expect(screen.getByText("MH")).toBeInTheDocument();
   });

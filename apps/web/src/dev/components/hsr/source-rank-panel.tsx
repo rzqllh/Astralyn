@@ -1,8 +1,13 @@
 import { Info, Layers } from "lucide-react";
-import { cn } from "../../lib/utils";
-import { Badge } from "../ui/badge";
-import { Panel, PanelHeader, PanelTitle, PanelContent } from "../ui/panel";
-import type { SourceComparisonFixture } from "../../lib/fixtures";
+import { cn } from "../../../lib/utils";
+import { Badge } from "../../../components/ui/badge";
+import {
+  Panel,
+  PanelHeader,
+  PanelTitle,
+  PanelContent,
+} from "../../../components/ui/panel";
+import type { SourceComparisonFixture } from "../../../../tests/fixtures/ui-fixtures";
 
 export interface SourceRankPanelProps {
   sourceData: SourceComparisonFixture;

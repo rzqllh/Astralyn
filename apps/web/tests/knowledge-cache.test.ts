@@ -602,35 +602,89 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
     expect(equations.length).toBe(2);
   });
 
-  it("performs search normalization and matches canonical aliases", async () => {
-    // Search "sam" -> resolves Firefly
-    const samResults = await repo.searchEntities("sam");
-    expect(samResults.length).toBeGreaterThan(0);
-    expect(samResults[0].id).toBe("firefly");
+  it("sets isInitialized true only on valid active knowledge version and false on unavailable", async () => {
+    expect(repo.isInitialized()).toBe(true);
 
-    // Search "netherwing" -> resolves Castorice
-    const netherwingResults = await repo.searchEntities("netherwing");
-    expect(netherwingResults.length).toBeGreaterThan(0);
-    expect(netherwingResults[0].id).toBe("castorice");
+    const uninitDb = new AstralynKnowledgeDB(`AstralynUninitDB_${Date.now()}`);
+    await uninitDb.open();
+    const offlineLoader = new KnowledgeSnapshotLoader("/data", "0.0.1");
+    offlineLoader.fetchRootManifest = async () => {
+      throw new Error("Network offline");
+    };
+    const uninitRepo = new KnowledgeRepository(uninitDb, offlineLoader);
+    expect(uninitRepo.isInitialized()).toBe(false);
 
-    // Search "waveflair" / "elation aventurine" -> resolves Aventurine • Waveflair
-    const waveflairResults = await repo.searchEntities("waveflair");
-    expect(waveflairResults.length).toBeGreaterThan(0);
-    expect(waveflairResults[0].id).toBe("aventurine-waveflair");
+    const initResult = await uninitRepo.initialize();
+    expect(initResult.status).toBe("unavailable");
+    expect(uninitRepo.isInitialized()).toBe(false);
+  });
 
-    // Search "raiden mei" -> resolves Acheron
-    const raidenResults = await repo.searchEntities("raiden mei");
-    expect(raidenResults.length).toBeGreaterThan(0);
-    expect(raidenResults[0].id).toBe("acheron");
+  it("performs search normalization across all 8 canonical entity stores using version-owned fields", async () => {
+    // 1. Character by canonical name & ID
+    const acheronResults = await repo.searchEntities("Acheron");
+    expect(acheronResults.length).toBeGreaterThan(0);
+    expect(acheronResults[0].entityType).toBe("character");
+    expect(acheronResults[0].id).toBe("acheron");
+    expect(acheronResults[0].element).toBe("Lightning");
+    expect(acheronResults[0].path).toBe("Nihility");
 
-    // Search "madam herta" -> resolves The Herta
-    const hertaResults = await repo.searchEntities("madam herta");
-    expect(hertaResults.length).toBeGreaterThan(0);
-    expect(hertaResults[0].id).toBe("the-herta");
+    // 2. Character by localized name
+    const castoResults = await repo.searchEntities("Castorice");
+    expect(castoResults.length).toBeGreaterThan(0);
+    expect(castoResults[0].entityType).toBe("character");
+    expect(castoResults[0].id).toBe("castorice");
 
-    // Search "dead waters" -> resolves Pioneer Diver
-    const relicResults = await repo.searchEntities("dead waters");
+    // 3. Light Cone
+    const lcResults = await repo.searchEntities("Passing Shore");
+    expect(lcResults.length).toBeGreaterThan(0);
+    expect(lcResults[0].entityType).toBe("light_cone");
+    expect(lcResults[0].id).toBe("along-the-passing-shore");
+
+    // 4. Relic Set
+    const relicResults = await repo.searchEntities("Pioneer Diver");
     expect(relicResults.length).toBeGreaterThan(0);
+    expect(relicResults[0].entityType).toBe("relic_set");
     expect(relicResults[0].id).toBe("pioneer-diver");
+    expect(relicResults[0].category).toBe("cavern_relic");
+
+    // 5. Enemy
+    const enemyResults = await repo.searchEntities("Combustion");
+    expect(enemyResults.length).toBeGreaterThan(0);
+    expect(enemyResults[0].entityType).toBe("enemy");
+    expect(enemyResults[0].id).toBe("sam-complete-combustion");
+
+    // 6. Stage
+    const stageResults = await repo.searchEntities("Stage 12");
+    expect(stageResults.length).toBeGreaterThan(0);
+    expect(stageResults[0].entityType).toBe("stage");
+    expect(stageResults[0].id).toBe("moc-stage-12");
+
+    // 7. DU Blessing
+    const blessingResults = await repo.searchEntities("Fuli");
+    expect(blessingResults.length).toBeGreaterThan(0);
+    expect(blessingResults[0].entityType).toBe("du_blessing");
+    expect(blessingResults[0].id).toBe("perfect-experience-fuli");
+
+    // 8. DU Equation
+    const eqResults = await repo.searchEntities("Silent Singer");
+    expect(eqResults.length).toBeGreaterThan(0);
+    expect(eqResults[0].entityType).toBe("du_equation");
+    expect(eqResults[0].id).toBe("silent-singer");
+
+    // 9. DU Curio
+    const curioResults = await repo.searchEntities("Rubert");
+    expect(curioResults.length).toBeGreaterThan(0);
+    expect(curioResults[0].entityType).toBe("du_curio");
+    expect(curioResults[0].id).toBe("rubert-difference-engine");
+
+    // 10. Empty query returns []
+    expect(await repo.searchEntities("")).toEqual([]);
+    expect(await repo.searchEntities("   ")).toEqual([]);
+
+    // 11. Unversioned community shorthand with no canonical field match returns valid empty []
+    const unversionedAliasResult = await repo.searchEntities(
+      "random_unmatched_alias_xyz"
+    );
+    expect(unversionedAliasResult).toEqual([]);
   });
 });

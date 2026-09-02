@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
-import type { CharacterFixture } from "../../lib/fixtures";
-import { GameAssetImage } from "../ui/game-asset-image";
+import { cn } from "../../../lib/utils";
+import type { CharacterFixture } from "../../../../tests/fixtures/ui-fixtures";
+import { GameAssetImage } from "../game-asset-image";
 
 export interface CharacterTileProps extends React.HTMLAttributes<HTMLDivElement> {
   character: CharacterFixture;

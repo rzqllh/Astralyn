@@ -8,7 +8,6 @@ import {
 } from "@tanstack/react-router";
 import { AppShell } from "./components/layout/app-shell";
 import { HomeView } from "./routes/home-view";
-import { DesignSystemView } from "./routes/design-system-view";
 import { EmptyState } from "./components/ui/empty-state";
 import { Button } from "./components/ui/button";
 
@@ -26,11 +25,9 @@ function PlaceholderView({
       <div className="border-b border-[#1a2338] pb-3">
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
-            Milestone Status
+            Module Status
           </span>
-          <span className="text-[10px] font-mono text-[#9ba5be]">
-            • Phase 1 Visual System Locked
-          </span>
+          <span className="text-[10px] font-mono text-[#9ba5be]">• Unavailable</span>
         </div>
         <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#f0f3fa] mt-1">
           {title}
@@ -41,11 +38,10 @@ function PlaceholderView({
       <div className="p-4 rounded-xs border border-[#1f2940] bg-[#0c101a] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="space-y-0.5">
           <p className="text-xs font-semibold text-[#f0f3fa]">
-            Module Scheduled for Implementation
+            Unavailable in this build
           </p>
           <p className="text-[11px] text-[#9ba5be]">
-            The visual and asset design system for this module is verified. Feature
-            business logic will unlock in Phase 2+.
+            This module is not available in the current build.
           </p>
         </div>
         <Link to="/" className="shrink-0">
@@ -85,33 +81,6 @@ const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
   component: HomeView,
-});
-
-const isDevEnvironment =
-  Boolean(import.meta.env.DEV) || import.meta.env.VITE_ENABLE_DEV_DS === "true";
-
-// Internal Design System Showcase Route (Dev / Inspection)
-const designSystemRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/design-system",
-  component: () => {
-    if (!isDevEnvironment) {
-      return (
-        <div className="flex items-center justify-center p-12" data-testid="not-found">
-          <EmptyState
-            title="Waypoint Not Found"
-            description="The requested coordinate does not exist. Please return to the Home command center."
-            action={
-              <Link to="/">
-                <Button variant="primary">Return Home</Button>
-              </Link>
-            }
-          />
-        </div>
-      );
-    }
-    return <DesignSystemView />;
-  },
 });
 
 const rosterRoute = createRoute({
@@ -201,7 +170,6 @@ const settingsRoute = createRoute({
 // Route tree
 const routeTree = rootRoute.addChildren([
   indexRoute,
-  designSystemRoute,
   rosterRoute,
   charactersRoute,
   bestCharactersRoute,

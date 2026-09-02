@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { AssetEntityType, AssetVariant } from "@astralyn/shared";
-import { getAssetUrl } from "../../lib/assets";
+import { getAssetUrl } from "../assets";
 import { cn } from "../../lib/utils";
 
 export interface GameAssetImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -31,12 +31,13 @@ export function GameAssetImage({
     return getAssetUrl(entityType, entityId, variant);
   }, [entityType, entityId, variant]);
 
-  // If asset URL is missing, or error triggered, render deliberate Astralyn fallback
+  // If asset URL is missing, or error triggered, render deliberate Astralyn fallback labelled "Asset unavailable"
   if (!assetUrl || hasError) {
+    const accessibleLabel = alt ? `${alt} (Asset unavailable)` : "Asset unavailable";
     return (
       <div
         role="img"
-        aria-label={alt}
+        aria-label={accessibleLabel}
         className={cn(
           "relative flex items-center justify-center overflow-hidden rounded-xs border border-[#1f2940] bg-gradient-to-br from-[#121828] to-[#090c13] text-[#dfb86c] select-none",
           aspectRatio === "square" && "aspect-square",
@@ -54,11 +55,9 @@ export function GameAssetImage({
               <div className="h-5 w-5 rotate-45 border border-[#dfb86c]/60 bg-[#161f33]" />
               <div className="absolute h-1.5 w-1.5 rotate-45 bg-[#dfb86c]" />
             </div>
-            {fallbackLabel && (
-              <span className="text-[10px] font-mono font-bold tracking-tight text-[#9ba5be] truncate max-w-full">
-                {fallbackLabel}
-              </span>
-            )}
+            <span className="text-[10px] font-mono font-bold tracking-tight text-[#9ba5be] truncate max-w-full">
+              {fallbackLabel || "Asset unavailable"}
+            </span>
           </div>
         )}
       </div>

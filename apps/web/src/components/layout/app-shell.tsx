@@ -96,15 +96,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <span className="text-xs text-[#9ba5be]">Companion Mode</span>
                 </div>
                 {isDev && (
-                  <Link
-                    to="/design-system"
+                  <a
+                    href="/design-system.html"
                     title="Internal Design System Showcase (Development Only)"
                     data-testid="dev-ds-link"
                     className="flex items-center gap-1 text-[10px] font-mono text-[#9ba5be] hover:text-[#dfb86c] transition-colors p-1 rounded-xs"
                   >
                     <Code className="h-3 w-3" />
                     <span>Dev DS</span>
-                  </Link>
+                  </a>
                 )}
               </div>
             </div>
@@ -147,10 +147,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2 px-2.5 py-1 rounded-xs border border-[#1f2940] bg-[#101524] text-xs">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#dfb86c]" />
-                  <span className="text-[#f0f3fa] font-medium">Trailblazer</span>
-                  <span className="text-[10px] font-mono font-bold text-[#dfb86c] px-1 py-0.5 rounded-xs bg-[#dfb86c]/10 border border-[#dfb86c]/30">
-                    FIXTURE
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#9ba5be]" />
+                  <span className="text-[#9ba5be] font-mono text-[11px]">
+                    Account unavailable
                   </span>
                 </div>
               </div>
@@ -174,15 +173,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   ))}
                   {isDev && (
                     <div className="pt-4 border-t border-[#1a2338]">
-                      <Link
-                        to="/design-system"
+                      <a
+                        href="/design-system.html"
                         onClick={() => setMobileMenuOpen(false)}
                         data-testid="mobile-dev-ds-link"
                         className="flex items-center gap-2 px-3.5 py-2 text-xs text-[#9ba5be] hover:text-[#dfb86c]"
                       >
                         <Code className="h-4 w-4" />
                         <span>Internal Design System Showcase</span>
-                      </Link>
+                      </a>
                     </div>
                   )}
                 </nav>

@@ -2,6 +2,9 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { createMemoryHistory, RouterProvider } from "@tanstack/react-router";
 import { createAppRouter } from "../src/router";
+import { DesignSystemView } from "../src/dev/design-system-view";
+import { ToastProvider } from "../src/components/ui/toast";
+import { TooltipProvider } from "../src/components/ui/tooltip";
 import { ASTRALYN_SERVICE_NAME } from "@astralyn/shared";
 import { z } from "zod";
 import { create } from "zustand";
@@ -30,18 +33,28 @@ describe("Astralyn Phase 1.1 Web Application Smoke Test", () => {
 
     // HSR Component Assertions
     expect(screen.getByTestId("home-view")).toBeInTheDocument();
-    expect(screen.getByText("Team Optimization Guidance")).toBeInTheDocument();
-    expect(screen.getByText("Divergent Universe Assistant")).toBeInTheDocument();
-    expect(screen.getByText("Trailblazer Character Roster")).toBeInTheDocument();
-    expect(screen.getByText("Acheron Profile")).toBeInTheDocument();
   });
 
-  it("renders the /design-system showcase route cleanly", async () => {
+  it("verifies production router returns not-found for /design-system", async () => {
     const memoryHistory = createMemoryHistory({ initialEntries: ["/design-system"] });
     const testRouter = createAppRouter(memoryHistory);
     render(<RouterProvider router={testRouter} />);
 
-    expect(await screen.findByTestId("design-system-view")).toBeInTheDocument();
+    expect(await screen.findByTestId("not-found")).toBeInTheDocument();
+    expect(screen.getByText("Waypoint Not Found")).toBeInTheDocument();
+    expect(screen.queryByTestId("design-system-view")).not.toBeInTheDocument();
+  });
+
+  it("renders the isolated DesignSystemView directly in dev harness", () => {
+    render(
+      <TooltipProvider>
+        <ToastProvider>
+          <DesignSystemView />
+        </ToastProvider>
+      </TooltipProvider>
+    );
+
+    expect(screen.getByTestId("design-system-view")).toBeInTheDocument();
     expect(screen.getByText("Astralyn Design System & Game Assets")).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: "Tokens & Palette" })).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: "Game Assets" })).toBeInTheDocument();

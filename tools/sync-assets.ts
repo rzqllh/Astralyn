@@ -1,18 +1,14 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as crypto from "node:crypto";
-import {
-  AssetEntityTypeSchema,
-  type AssetEntityType,
-  type AssetManifest,
-  type AssetRecord,
-} from "@astralyn/shared";
+import { type AssetManifest, type AssetRecord } from "../packages/shared/src/assets";
+import { isPngBuffer, isSvgDisguisedAsRaster } from "./check-assets";
 
 const ASSET_RELEASE = "v1.0.0";
 const GAME_VERSION = "3.0.x";
 const BASE_OUTPUT_DIR = path.resolve(
   __dirname,
-  "../apps/web/public/game-assets",
+  "../apps/web/src/dev/game-assets",
   ASSET_RELEASE
 );
 const RAW_BASE_URL = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master";
@@ -29,7 +25,7 @@ export interface TargetAssetDefinition {
 }
 
 // ==========================================
-// 1. COMMITTED REPRESENTATIVE DEV SNAPSHOT (51 Curated Assets)
+// 1. COMMITTED REPRESENTATIVE DEV SNAPSHOT (52 Curated Real Format Assets)
 // ==========================================
 export const REPRESENTATIVE_DEV_SNAPSHOT: TargetAssetDefinition[] = [
   // --- Acheron (1308) ---
@@ -570,37 +566,7 @@ export const REPRESENTATIVE_DEV_SNAPSHOT: TargetAssetDefinition[] = [
     isRepresentative: true,
   },
 
-  // --- Divergent Universe Entities ---
-  {
-    id: "du_blessing_fuli",
-    entityType: "du_blessing_icon",
-    entityId: "perfect-experience-fuli",
-    variant: "icon",
-    relPath: "du/blessing_fuli.png",
-    remotePath: "icon/rogue/buff/120101.png",
-    attribution: "Blessing: Perfect Experience: Fuli • © COGNOSPHERE / HoYoverse",
-    isRepresentative: true,
-  },
-  {
-    id: "du_blessing_annihilation",
-    entityType: "du_blessing_icon",
-    entityId: "celestial-annihilation",
-    variant: "icon",
-    relPath: "du/blessing_annihilation.png",
-    remotePath: "icon/rogue/buff/110101.png",
-    attribution: "Blessing: Celestial Annihilation • © COGNOSPHERE / HoYoverse",
-    isRepresentative: true,
-  },
-  {
-    id: "du_curio_rubert",
-    entityType: "du_curio_icon",
-    entityId: "rubert-difference-engine",
-    variant: "icon",
-    relPath: "du/curio_rubert.png",
-    remotePath: "icon/item/140001.png",
-    attribution: "Curio: Rubert Difference Engine • © COGNOSPHERE / HoYoverse",
-    isRepresentative: true,
-  },
+  // --- Divergent Universe Entities (Curio Real Icon) ---
   {
     id: "du_curio_space_cheese",
     entityType: "du_curio_icon",
@@ -615,33 +581,7 @@ export const REPRESENTATIVE_DEV_SNAPSHOT: TargetAssetDefinition[] = [
 
 export const ASSET_CATALOG = REPRESENTATIVE_DEV_SNAPSHOT;
 
-// ==========================================
-// 2. DYNAMIC UPSTREAM CATALOG DISCOVERY ENGINE
-// ==========================================
-export interface UpstreamDiscoveryResult {
-  charactersCount: number;
-  lightConesCount: number;
-  relicSetsCount: number;
-  pathsCount: number;
-  elementsCount: number;
-  itemsCount: number;
-  totalEntities: number;
-  categoryDiscovery: Record<
-    AssetEntityType,
-    {
-      status:
-        | "catalog_discovered"
-        | "mapped_subset"
-        | "pipeline_discovery_pending"
-        | "not_yet_discoverable";
-      discoveredCount: number;
-      plannedVariantTargets: number;
-      note: string;
-    }
-  >;
-}
-
-export async function discoverUpstreamCatalog(): Promise<UpstreamDiscoveryResult> {
+export async function discoverUpstreamCatalog() {
   const fetchIndex = async (subpath: string): Promise<Record<string, unknown> | null> => {
     try {
       const res = await fetch(`${RAW_BASE_URL}/${subpath}`);
@@ -668,131 +608,6 @@ export async function discoverUpstreamCatalog(): Promise<UpstreamDiscoveryResult
   const elementsCount = elems ? Object.keys(elems).length : 7;
   const itemsCount = items ? Object.keys(items).length : 4017;
 
-  const totalEntities =
-    charactersCount +
-    lightConesCount +
-    relicSetsCount +
-    pathsCount +
-    elementsCount +
-    itemsCount;
-
-  const categoryDiscovery: Record<
-    AssetEntityType,
-    {
-      status:
-        | "catalog_discovered"
-        | "mapped_subset"
-        | "pipeline_discovery_pending"
-        | "not_yet_discoverable";
-      discoveredCount: number;
-      plannedVariantTargets: number;
-      note: string;
-    }
-  > = {
-    character_icon: {
-      status: "catalog_discovered",
-      discoveredCount: charactersCount,
-      plannedVariantTargets: charactersCount,
-      note: "Discovered via index_min/en/characters.json",
-    },
-    character_preview: {
-      status: "catalog_discovered",
-      discoveredCount: charactersCount,
-      plannedVariantTargets: charactersCount,
-      note: "Discovered via index_min/en/characters.json",
-    },
-    character_portrait: {
-      status: "catalog_discovered",
-      discoveredCount: charactersCount,
-      plannedVariantTargets: charactersCount,
-      note: "Discovered via index_min/en/characters.json",
-    },
-    path_icon: {
-      status: "catalog_discovered",
-      discoveredCount: 8,
-      plannedVariantTargets: 8,
-      note: "Discovered via index_min/en/paths.json (Combat Paths)",
-    },
-    element_icon: {
-      status: "catalog_discovered",
-      discoveredCount: elementsCount,
-      plannedVariantTargets: elementsCount,
-      note: "Discovered via index_min/en/elements.json",
-    },
-    light_cone_icon: {
-      status: "catalog_discovered",
-      discoveredCount: lightConesCount,
-      plannedVariantTargets: lightConesCount,
-      note: "Discovered via index_min/en/light_cones.json",
-    },
-    relic_set_icon: {
-      status: "catalog_discovered",
-      discoveredCount: relicSetsCount,
-      plannedVariantTargets: relicSetsCount,
-      note: "Discovered via index_min/en/relic_sets.json",
-    },
-    material_icon: {
-      status: "catalog_discovered",
-      discoveredCount: itemsCount,
-      plannedVariantTargets: itemsCount,
-      note: "Discovered via index_min/en/items.json",
-    },
-    planar_ornament_icon: {
-      status: "mapped_subset",
-      discoveredCount: 1,
-      plannedVariantTargets: 1,
-      note: "Representative planar snapshot mapped; full indexing scheduled in Phase 2",
-    },
-    du_blessing_icon: {
-      status: "mapped_subset",
-      discoveredCount: 2,
-      plannedVariantTargets: 2,
-      note: "Curated DU blessings mapped; rogue buff indexing scheduled in Phase 7",
-    },
-    du_curio_icon: {
-      status: "mapped_subset",
-      discoveredCount: 2,
-      plannedVariantTargets: 2,
-      note: "Curated DU curios mapped; rogue item indexing scheduled in Phase 7",
-    },
-    relic_piece_icon: {
-      status: "pipeline_discovery_pending",
-      discoveredCount: 0,
-      plannedVariantTargets: 0,
-      note: "Upstream index exists (index_min/en/relics.json); piece-level parser scheduled in Phase 2",
-    },
-    eidolon_icon: {
-      status: "pipeline_discovery_pending",
-      discoveredCount: 0,
-      plannedVariantTargets: 0,
-      note: "Upstream index exists (index_min/en/character_ranks.json); parser scheduled in Phase 2",
-    },
-    skill_icon: {
-      status: "pipeline_discovery_pending",
-      discoveredCount: 0,
-      plannedVariantTargets: 0,
-      note: "Upstream index exists (index_min/en/character_skills.json); parser scheduled in Phase 2",
-    },
-    trace_icon: {
-      status: "pipeline_discovery_pending",
-      discoveredCount: 0,
-      plannedVariantTargets: 0,
-      note: "Upstream index exists (index_min/en/character_skill_trees.json); parser scheduled in Phase 2",
-    },
-    enemy_icon: {
-      status: "not_yet_discoverable",
-      discoveredCount: 0,
-      plannedVariantTargets: 0,
-      note: "Schema supported; monster avatar index not exposed in standard min indexes",
-    },
-    du_equation_icon: {
-      status: "not_yet_discoverable",
-      discoveredCount: 0,
-      plannedVariantTargets: 0,
-      note: "Schema supported; DU formula icon index not exposed in standard min indexes",
-    },
-  };
-
   return {
     charactersCount,
     lightConesCount,
@@ -800,8 +615,13 @@ export async function discoverUpstreamCatalog(): Promise<UpstreamDiscoveryResult
     pathsCount,
     elementsCount,
     itemsCount,
-    totalEntities,
-    categoryDiscovery,
+    totalEntities:
+      charactersCount +
+      lightConesCount +
+      relicSetsCount +
+      pathsCount +
+      elementsCount +
+      itemsCount,
   };
 }
 
@@ -820,89 +640,45 @@ async function downloadFile(url: string): Promise<Buffer | null> {
   }
 }
 
-function generatePlaceholderSvg(label: string, color = "#DFB86C"): Buffer {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#121828"/>
-      <stop offset="100%" stop-color="#090C13"/>
-    </linearGradient>
-  </defs>
-  <rect width="128" height="128" rx="8" fill="url(#bg)" stroke="${color}" stroke-width="2"/>
-  <circle cx="64" cy="52" r="24" fill="${color}" fill-opacity="0.15" stroke="${color}" stroke-width="1.5"/>
-  <path d="M64 36 L70 48 L84 50 L74 60 L76 74 L64 68 L52 74 L54 60 L44 50 L58 48 Z" fill="${color}" fill-opacity="0.6"/>
-  <text x="64" y="104" font-family="sans-serif" font-size="11" font-weight="bold" fill="#F0F3FA" text-anchor="middle">${label.substring(0, 14)}</text>
-</svg>`;
-  return Buffer.from(svg);
-}
-
 export interface SyncOptions {
+  baseDir?: string;
   fullCatalog?: boolean;
   dryRun?: boolean;
 }
 
 export async function syncAssets(options?: SyncOptions) {
+  const baseDir = options?.baseDir ?? BASE_OUTPUT_DIR;
   const isFull = options?.fullCatalog ?? false;
   const isDryRun = options?.dryRun ?? false;
 
   console.log(
-    `[Astralyn Asset Sync] Initializing sync for release ${ASSET_RELEASE} (${isFull ? "UPSTREAM DISCOVERED CATALOG" : "DEV SNAPSHOT"})${isDryRun ? " [DRY-RUN MODE]" : ""}...`
+    `[Astralyn Asset Sync] Initializing sync for release ${ASSET_RELEASE}${isDryRun ? " [DRY-RUN MODE]" : ""}...`
   );
-  console.log(`Target destination: ${BASE_OUTPUT_DIR}`);
+  console.log(`Target destination: ${baseDir}`);
 
-  // --- DRY RUN / DISCOVERY AUDIT MODE ---
+  if (isFull) {
+    throw new Error(
+      "[FATAL] Full upstream catalog sync is not supported in Phase 2.5; only curated dev snapshot is permitted. Use --dry-run to discover catalog without writing."
+    );
+  }
+
   if (isDryRun) {
-    console.log(
-      "\n==================== [UPSTREAM CATALOG DISCOVERY DRY-RUN] ===================="
-    );
     const discovery = await discoverUpstreamCatalog();
-
     console.log(
-      `Mode:                             ${isFull ? "DYNAMIC UPSTREAM DISCOVERY" : "DEV SNAPSHOT VERIFICATION"}`
-    );
-    console.log(`Upstream Characters Discovered:   ${discovery.charactersCount}`);
-    console.log(`Upstream Light Cones Discovered:  ${discovery.lightConesCount}`);
-    console.log(`Upstream Relic Sets Discovered:   ${discovery.relicSetsCount}`);
-    console.log(`Upstream Combat Elements:         ${discovery.elementsCount}`);
-    console.log(`Upstream Combat Paths:            8 (Combat)`);
-    console.log(`Upstream Items / Materials:       ${discovery.itemsCount}`);
-    console.log(`Total Upstream Entities Indexed:  ${discovery.totalEntities}`);
-    console.log(`Planned Base Output Dir:          ${BASE_OUTPUT_DIR}`);
-
-    console.log("\n--- Category Breakdown (All 17 Schema Types) ---");
-    const allSchemaTypes = AssetEntityTypeSchema.options;
-    let totalPlannedTargets = 0;
-    for (const cat of allSchemaTypes) {
-      const info = discovery.categoryDiscovery[cat];
-      totalPlannedTargets += info.plannedVariantTargets;
-      const statusLabel = `[${info.status.toUpperCase()}]`.padEnd(25);
-      const countLabel =
-        `${info.discoveredCount} entities (${info.plannedVariantTargets} targets)`.padEnd(
-          28
-        );
-      console.log(`  • ${cat.padEnd(24)} : ${statusLabel} ${countLabel} -> ${info.note}`);
-    }
-
-    console.log(`\nTotal Planned Asset Targets:      ${totalPlannedTargets}`);
-    console.log(
-      `[DRY-RUN RESULT] Dynamic upstream catalog discovery verified. 0 files written to disk in dry-run mode.`
-    );
-    console.log(
-      "==============================================================================\n"
+      `[DRY-RUN] Upstream discovery: ${discovery.totalEntities} entities across index sets.`
     );
     return;
   }
 
-  // --- ACTUAL SYNC MODE (Curated Dev Snapshot) ---
-  if (!fs.existsSync(BASE_OUTPUT_DIR)) {
-    fs.mkdirSync(BASE_OUTPUT_DIR, { recursive: true });
+  if (!fs.existsSync(baseDir)) {
+    fs.mkdirSync(baseDir, { recursive: true });
   }
 
   const targets = REPRESENTATIVE_DEV_SNAPSHOT;
   const assetRecords: AssetRecord[] = [];
 
   for (const target of targets) {
-    const fullOutputPath = path.join(BASE_OUTPUT_DIR, target.relPath);
+    const fullOutputPath = path.join(baseDir, target.relPath);
     const outputDir = path.dirname(fullOutputPath);
 
     if (!fs.existsSync(outputDir)) {
@@ -910,20 +686,31 @@ export async function syncAssets(options?: SyncOptions) {
     }
 
     const remoteUrl = `${RAW_BASE_URL}/${target.remotePath}`;
-
     let fileBuffer = await downloadFile(remoteUrl);
 
     if (!fileBuffer) {
       if (fs.existsSync(fullOutputPath)) {
         fileBuffer = fs.readFileSync(fullOutputPath);
       } else {
-        console.log(`Generating fallback placeholder for ${target.id}...`);
-        fileBuffer = generatePlaceholderSvg(target.entityId);
+        throw new Error(
+          `[FATAL] Missing asset on disk and remote fetch failed for ${target.id} (${remoteUrl}). Fail-closed: refusing to generate placeholder.`
+        );
       }
     }
 
-    fs.writeFileSync(fullOutputPath, fileBuffer);
+    const ext = path.extname(target.relPath).toLowerCase();
+    if (isSvgDisguisedAsRaster(fileBuffer, ext)) {
+      throw new Error(
+        `[FATAL] Security verification failed: Asset ${target.id} is an SVG payload disguised as ${ext}.`
+      );
+    }
+    if (ext === ".png" && !isPngBuffer(fileBuffer)) {
+      throw new Error(
+        `[FATAL] Verification failed: Asset ${target.id} does not contain a valid PNG header.`
+      );
+    }
 
+    fs.writeFileSync(fullOutputPath, fileBuffer);
     const checksum = crypto.createHash("sha256").update(fileBuffer).digest("hex");
 
     assetRecords.push({
@@ -931,7 +718,7 @@ export async function syncAssets(options?: SyncOptions) {
       entityType: target.entityType,
       entityId: target.entityId,
       variant: target.variant,
-      localPath: `/game-assets/${ASSET_RELEASE}/${target.relPath}`,
+      localPath: `/src/dev/game-assets/${ASSET_RELEASE}/${target.relPath}`,
       source: "StarRailRes",
       sourceUrl: remoteUrl,
       repositoryLicense: "AGPL-3.0",
@@ -940,8 +727,6 @@ export async function syncAssets(options?: SyncOptions) {
       usageStatus: "manual_review",
       attribution: target.attribution,
       fallbackPriority: 1,
-      approvedBy: "Astralyn Asset Pipeline",
-      approvedAt: new Date().toISOString(),
       checksum,
     });
 
@@ -955,19 +740,20 @@ export async function syncAssets(options?: SyncOptions) {
     assets: assetRecords,
   };
 
-  const manifestPath = path.join(BASE_OUTPUT_DIR, "manifest.json");
+  const manifestPath = path.join(baseDir, "manifest.json");
   fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), "utf-8");
 
   console.log(`[Astralyn Asset Sync] Manifest written to ${manifestPath}`);
-  console.log(`[Astralyn Asset Sync] Total assets registered: ${assetRecords.length}`);
+  console.log(
+    `[Astralyn Asset Sync] Total verified assets registered: ${assetRecords.length}`
+  );
 }
 
-// Execute directly if run via CLI
 if (require.main === module || process.argv[1] === __filename) {
   const isFull = process.argv.includes("--full");
   const isDryRun = process.argv.includes("--dry-run");
   syncAssets({ fullCatalog: isFull, dryRun: isDryRun }).catch((err) => {
-    console.error("[FATAL] Asset sync failed:", err);
+    console.error("[FATAL] Asset sync failed:", err.message);
     process.exit(1);
   });
 }

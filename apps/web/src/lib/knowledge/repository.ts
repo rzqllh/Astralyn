@@ -5,7 +5,7 @@ import {
   type KnowledgeSyncResult,
   type KnowledgeSyncStatus,
 } from "./syncer";
-import { normalizeSearchString, CANONICAL_ALIASES } from "./search";
+import { normalizeSearchString } from "./search";
 import type {
   CharacterKnowledge,
   LightConeKnowledge,
@@ -75,7 +75,6 @@ export interface SearchResultItem {
   element?: CombatElement;
   path?: CombatPath;
   category?: string;
-  matchedAlias?: string;
   score: number;
 }
 
@@ -93,9 +92,27 @@ export class KnowledgeRepository {
   }
 
   async initialize(): Promise<KnowledgeSyncResult> {
-    const result = await this.syncer.sync();
-    this.initialized = true;
-    return result;
+    try {
+      const result = await this.syncer.sync();
+      const validStatuses: KnowledgeSyncStatus[] = [
+        "fresh",
+        "updated",
+        "offline_cache_active",
+        "update_rejected_previous_retained",
+      ];
+      if (
+        result.activeKnowledgeVersion !== null &&
+        validStatuses.includes(result.status)
+      ) {
+        this.initialized = true;
+      } else {
+        this.initialized = false;
+      }
+      return result;
+    } catch (err) {
+      this.initialized = false;
+      throw err;
+    }
   }
 
   isInitialized(): boolean {
@@ -277,49 +294,49 @@ export class KnowledgeRepository {
     return results;
   }
 
-  // --- Search Normalization & Unified Search ---
+  // --- Search Normalization & Unified Search Across All 8 Stores ---
   async searchEntities(rawQuery: string): Promise<SearchResultItem[]> {
     const query = normalizeSearchString(rawQuery);
     if (!query) return [];
 
     const results: SearchResultItem[] = [];
 
-    // Search Characters
+    const calculateScore = (
+      id: string,
+      name: string,
+      extraFields: string[] = []
+    ): number => {
+      const normId = normalizeSearchString(id);
+      const normName = normalizeSearchString(name);
+      const normExtras = extraFields.map(normalizeSearchString);
+
+      if (id === query || normId === query || normName === query) {
+        return 100;
+      }
+      if (
+        normId.startsWith(query) ||
+        normName.startsWith(query) ||
+        normExtras.some((e) => e.startsWith(query))
+      ) {
+        return 80;
+      }
+      if (
+        normId.includes(query) ||
+        normName.includes(query) ||
+        normExtras.some((e) => e.includes(query))
+      ) {
+        return 60;
+      }
+      return 0;
+    };
+
+    // 1. Search Characters
     const allChars = await this.db.characters.toArray();
     for (const char of allChars) {
-      const normName = normalizeSearchString(char.name);
-      const aliases = CANONICAL_ALIASES[char.id] ?? [];
-      const localizedEn = normalizeSearchString(char.localizedNames.en);
-      const localizedId = normalizeSearchString(char.localizedNames.id);
-
-      let matchedAlias: string | undefined;
-      let score = 0;
-
-      if (char.id === query || normName === query) {
-        score = 100;
-      } else if (
-        normName.startsWith(query) ||
-        localizedEn.startsWith(query) ||
-        localizedId.startsWith(query)
-      ) {
-        score = 80;
-      } else if (
-        normName.includes(query) ||
-        localizedEn.includes(query) ||
-        localizedId.includes(query)
-      ) {
-        score = 60;
-      } else {
-        for (const alias of aliases) {
-          const normAlias = normalizeSearchString(alias);
-          if (normAlias.includes(query)) {
-            matchedAlias = alias;
-            score = normAlias === query ? 75 : 50;
-            break;
-          }
-        }
-      }
-
+      const score = calculateScore(char.id, char.name, [
+        char.localizedNames?.en ?? "",
+        char.localizedNames?.id ?? "",
+      ]);
       if (score > 0) {
         results.push({
           id: char.id,
@@ -328,37 +345,15 @@ export class KnowledgeRepository {
           rarity: char.rarity,
           element: char.element,
           path: char.path,
-          matchedAlias,
           score,
         });
       }
     }
 
-    // Search Light Cones
+    // 2. Search Light Cones
     const allLCs = await this.db.lightCones.toArray();
     for (const lc of allLCs) {
-      const normName = normalizeSearchString(lc.name);
-      const aliases = CANONICAL_ALIASES[lc.id] ?? [];
-      let matchedAlias: string | undefined;
-      let score = 0;
-
-      if (lc.id === query || normName === query) {
-        score = 100;
-      } else if (normName.startsWith(query)) {
-        score = 80;
-      } else if (normName.includes(query)) {
-        score = 60;
-      } else {
-        for (const alias of aliases) {
-          const normAlias = normalizeSearchString(alias);
-          if (normAlias.includes(query)) {
-            matchedAlias = alias;
-            score = 50;
-            break;
-          }
-        }
-      }
-
+      const score = calculateScore(lc.id, lc.name);
       if (score > 0) {
         results.push({
           id: lc.id,
@@ -366,44 +361,98 @@ export class KnowledgeRepository {
           entityType: "light_cone",
           rarity: lc.rarity,
           path: lc.path,
-          matchedAlias,
           score,
         });
       }
     }
 
-    // Search Relics
+    // 3. Search Relic Sets
     const allRelics = await this.db.relicSets.toArray();
     for (const relic of allRelics) {
-      const normName = normalizeSearchString(relic.name);
-      const aliases = CANONICAL_ALIASES[relic.id] ?? [];
-      let matchedAlias: string | undefined;
-      let score = 0;
-
-      if (relic.id === query || normName === query) {
-        score = 100;
-      } else if (normName.startsWith(query)) {
-        score = 80;
-      } else if (normName.includes(query)) {
-        score = 60;
-      } else {
-        for (const alias of aliases) {
-          const normAlias = normalizeSearchString(alias);
-          if (normAlias.includes(query)) {
-            matchedAlias = alias;
-            score = 50;
-            break;
-          }
-        }
-      }
-
+      const score = calculateScore(relic.id, relic.name);
       if (score > 0) {
         results.push({
           id: relic.id,
           name: relic.name,
           entityType: "relic_set",
           category: relic.type,
-          matchedAlias,
+          score,
+        });
+      }
+    }
+
+    // 4. Search Enemies
+    const allEnemies = await this.db.enemies.toArray();
+    for (const enemy of allEnemies) {
+      const score = calculateScore(enemy.id, enemy.name);
+      if (score > 0) {
+        results.push({
+          id: enemy.id,
+          name: enemy.name,
+          entityType: "enemy",
+          category: enemy.category,
+          score,
+        });
+      }
+    }
+
+    // 5. Search Stages
+    const allStages = await this.db.stages.toArray();
+    for (const stage of allStages) {
+      const score = calculateScore(stage.id, stage.name);
+      if (score > 0) {
+        results.push({
+          id: stage.id,
+          name: stage.name,
+          entityType: "stage",
+          category: stage.stageType,
+          score,
+        });
+      }
+    }
+
+    // 6. Search DU Blessings
+    const allBlessings = await this.db.duBlessings.toArray();
+    for (const blessing of allBlessings) {
+      const score = calculateScore(blessing.id, blessing.name);
+      if (score > 0) {
+        results.push({
+          id: blessing.id,
+          name: blessing.name,
+          entityType: "du_blessing",
+          rarity: blessing.rarity,
+          path: blessing.path,
+          score,
+        });
+      }
+    }
+
+    // 7. Search DU Equations
+    const allEquations = await this.db.duEquations.toArray();
+    for (const equation of allEquations) {
+      const score = calculateScore(equation.id, equation.name);
+      if (score > 0) {
+        results.push({
+          id: equation.id,
+          name: equation.name,
+          entityType: "du_equation",
+          rarity: equation.rarity,
+          path: equation.primaryPath,
+          score,
+        });
+      }
+    }
+
+    // 8. Search DU Curios
+    const allCurios = await this.db.duCurios.toArray();
+    for (const curio of allCurios) {
+      const score = calculateScore(curio.id, curio.name);
+      if (score > 0) {
+        results.push({
+          id: curio.id,
+          name: curio.name,
+          entityType: "du_curio",
+          rarity: curio.rarity,
           score,
         });
       }

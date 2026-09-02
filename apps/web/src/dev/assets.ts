@@ -5,8 +5,8 @@ import type {
   AssetVariant,
 } from "@astralyn/shared";
 
-// Static import of the manifest for client-side synchronous lookups
-import manifestData from "../../public/game-assets/v1.0.0/manifest.json";
+// Static import of the dev manifest for client-side dev inspection
+import manifestData from "./game-assets/v1.0.0/manifest.json";
 
 export const activeManifest = manifestData as unknown as AssetManifest;
 

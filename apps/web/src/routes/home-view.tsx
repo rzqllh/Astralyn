@@ -1,32 +1,24 @@
-import * as React from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, BookOpen } from "lucide-react";
+import {
+  Users,
+  Sparkles,
+  Layers,
+  Wand2,
+  AlertTriangle,
+  CheckCircle2,
+  WifiOff,
+  ArrowRight,
+  Clock,
+} from "lucide-react";
 import { SectionHeader } from "../components/ui/section-header";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Panel, PanelHeader, PanelTitle, PanelContent } from "../components/ui/panel";
-import { CharacterTile } from "../components/hsr/character-tile";
-import { RecommendationPanel } from "../components/hsr/recommendation-panel";
-import { SourceRankPanel } from "../components/hsr/source-rank-panel";
-import { DecisionCard } from "../components/hsr/decision-card";
-import { GameAssetImage } from "../components/ui/game-asset-image";
-import { useToast } from "../components/ui/toast";
-import {
-  FIXTURE_CHARACTERS,
-  FIXTURE_RECOMMENDATION,
-  FIXTURE_SOURCE_COMPARISON,
-  FIXTURE_DECISION,
-} from "../lib/fixtures";
+import { Skeleton } from "../components/ui/skeleton";
+import { useKnowledgeInit } from "../lib/knowledge/use-knowledge";
 
 export function HomeView() {
-  const [selectedCharId, setSelectedCharId] = React.useState<string>("acheron");
-  const { addToast } = useToast();
-
-  const activeChar = React.useMemo(() => {
-    return (
-      FIXTURE_CHARACTERS.find((c) => c.id === selectedCharId) || FIXTURE_CHARACTERS[0]
-    );
-  }, [selectedCharId]);
+  const { syncResult, loading, error } = useKnowledgeInit();
 
   return (
     <div className="space-y-8" data-testid="home-view">
@@ -38,7 +30,9 @@ export function HomeView() {
               <Badge variant="gold" size="sm">
                 Tactical Companion
               </Badge>
-              <span className="text-xs text-[#9ba5be]">Interactive Preview</span>
+              <span className="text-xs text-[#9ba5be]">
+                Production Readiness Baseline
+              </span>
             </div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-[#f4d38f] tracking-tight uppercase mt-2">
               Honkai: Star Rail Assistant
@@ -59,160 +53,261 @@ export function HomeView() {
         </div>
       </div>
 
-      {/* Grid Row 1: Active Recommendation & DU Quick Decision */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7">
-          <SectionHeader
-            title="Team Optimization Guidance"
-            category="Astralyn Verdict"
-            subtitle="Tailored team allocation and synergy rationale (Sample Output)"
-          />
-          <RecommendationPanel recommendation={FIXTURE_RECOMMENDATION} className="mt-2" />
-        </div>
-
-        <div className="lg:col-span-5">
-          <SectionHeader
-            title="Divergent Universe Assistant"
-            category="Live Decision"
-            subtitle="Fast pick recommendation for blessings and curios (Sample Output)"
-          />
-          <DecisionCard
-            decision={FIXTURE_DECISION}
-            onConfirm={() =>
-              addToast({
-                title: "Blessing Choice Recorded",
-                description: "Applied Perfect Experience: Fuli to active session.",
-                variant: "success",
-              })
-            }
-            className="mt-2"
-          />
-        </div>
-      </div>
-
-      {/* Grid Row 2: Roster Selection with CharacterTile v2 + Parchment Detail Inspection Panel */}
+      {/* Canonical Knowledge Release Status Section */}
       <div>
         <SectionHeader
-          title="Trailblazer Character Roster"
-          category="Roster Selection"
-          subtitle="Select any character to inspect tactical parameters and equipment profile"
+          title="Canonical Knowledge Baseline"
+          category="System Status"
+          subtitle="Validated canonical data release and local cache synchronization state"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-3">
-          {/* Character Tiles Grid (8 cols on desktop) */}
-          <div className="lg:col-span-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-              {FIXTURE_CHARACTERS.map((char) => (
-                <CharacterTile
-                  key={char.id}
-                  character={char}
-                  selected={selectedCharId === char.id}
-                  onClick={() => {
-                    setSelectedCharId(char.id);
-                    addToast({
-                      title: `Selected ${char.name}`,
-                      description: `Loaded tactical profile for ${char.rarity}★ ${char.element} ${char.path}.`,
-                      variant: "info",
-                    });
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Warm Celestial Parchment Tactical Detail Panel (Validating Light Contrast) */}
-          <div className="lg:col-span-4">
-            <Panel variant="parchment" className="h-full flex flex-col justify-between">
-              <PanelHeader className="border-[#d4ccbd] bg-[#e4dcce]/60 pb-3">
-                <div className="flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 text-[#634812]" />
-                  <div>
-                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#634812] uppercase">
-                      Tactical Dossier
-                    </span>
-                    <PanelTitle className="text-base font-bold text-[#181d28]">
-                      {activeChar.name} Profile
-                    </PanelTitle>
-                  </div>
+        <div className="mt-3">
+          {loading ? (
+            <Panel variant="default" className="p-5 space-y-3">
+              <div className="flex items-center gap-3">
+                <Skeleton className="h-5 w-5 rounded-full" />
+                <Skeleton className="h-5 w-48" />
+              </div>
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+            </Panel>
+          ) : syncResult &&
+            (syncResult.status === "fresh" || syncResult.status === "updated") ? (
+            <Panel variant="default" className="border-[#34d399]/40 bg-[#0a141c]">
+              <PanelHeader className="border-[#1a2e38] bg-[#0d1c24]">
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 className="h-4 w-4 text-[#34d399]" />
+                  <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                    Knowledge Base Synchronized
+                  </PanelTitle>
                 </div>
-                <span className="px-2 py-0.5 rounded-xs text-[10px] font-mono font-bold uppercase bg-[#181d28] text-[#eee8dc]">
-                  {activeChar.rarity}★ {activeChar.element}
-                </span>
+                <Badge variant="success" size="sm">
+                  Active
+                </Badge>
               </PanelHeader>
-
-              <PanelContent className="space-y-4 p-4 text-[#181d28]">
-                {/* Character Preview Art & Role */}
-                <div className="flex items-center gap-3.5 bg-white/70 p-3 rounded-xs border border-[#d4ccbd]">
-                  <div className="h-16 w-16 shrink-0 rounded-xs overflow-hidden border border-[#634812]/40 bg-[#121828]">
-                    <GameAssetImage
-                      entityType="character_preview"
-                      entityId={activeChar.id}
-                      alt={activeChar.name}
-                      variant="preview"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-[#181d28]">
-                      {activeChar.name}
-                    </h4>
-                    <p className="text-xs text-[#565f75] mt-0.5">
-                      Path: <strong>{activeChar.path}</strong>
-                    </p>
-                    <p className="text-xs text-[#634812] font-semibold mt-0.5">
-                      {activeChar.role}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Tactical Parameters */}
-                <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-[#d4ccbd]">
-                    <span className="text-[#565f75]">Combat Element</span>
-                    <strong className="text-[#181d28]">{activeChar.element}</strong>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-[#d4ccbd]">
-                    <span className="text-[#565f75]">Current Eidolon</span>
-                    <strong className="font-mono text-[#634812]">
-                      E{activeChar.eidolon ?? 0}
+              <PanelContent className="p-4 space-y-3 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-2.5 rounded-xs bg-[#071118] border border-[#142834]">
+                    <span className="text-[#9ba5be] block font-mono text-[10px] uppercase">
+                      Knowledge Release
+                    </span>
+                    <strong className="text-[#f0f3fa] font-mono text-sm">
+                      {syncResult.activeKnowledgeVersion}
                     </strong>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#d4ccbd]">
-                    <span className="text-[#565f75]">Level Status</span>
-                    <strong className="font-mono text-[#181d28]">
-                      Lv. {activeChar.level ?? 80}
+                  <div className="p-2.5 rounded-xs bg-[#071118] border border-[#142834]">
+                    <span className="text-[#9ba5be] block font-mono text-[10px] uppercase">
+                      Game Version
+                    </span>
+                    <strong className="text-[#dfb86c] font-mono text-sm">
+                      {syncResult.gameVersion ?? "N/A"}
                     </strong>
                   </div>
-                </div>
-
-                <div className="p-2.5 sm:p-3 rounded-xs bg-[#e4dcce]/70 border border-[#d4ccbd] text-xs text-[#565f75] leading-relaxed">
-                  <span className="font-semibold text-[#181d28]">Inspection Notice:</span>{" "}
-                  This warm parchment surface provides high-contrast inspection
-                  readability, anchoring detailed character mechanics alongside the dark
-                  analytical workspace.
+                  <div className="p-2.5 rounded-xs bg-[#071118] border border-[#142834]">
+                    <span className="text-[#9ba5be] block font-mono text-[10px] uppercase">
+                      Cache Timestamp
+                    </span>
+                    <strong className="text-[#f0f3fa] font-mono text-xs flex items-center gap-1 mt-0.5">
+                      <Clock className="h-3 w-3 text-[#9ba5be]" />
+                      {syncResult.cachedAt
+                        ? new Date(syncResult.cachedAt).toLocaleDateString()
+                        : "Active"}
+                    </strong>
+                  </div>
                 </div>
               </PanelContent>
-
-              <div className="p-4 pt-0">
-                <Link to="/characters">
-                  <Button variant="parchment" size="sm" className="w-full">
-                    View Full Character Database
-                  </Button>
-                </Link>
-              </div>
             </Panel>
-          </div>
+          ) : syncResult?.status === "offline_cache_active" ? (
+            <Panel variant="default" className="border-[#fbbf24]/40 bg-[#16130b]">
+              <PanelHeader className="border-[#2e2614] bg-[#1f1b0e]">
+                <div className="flex items-center gap-2.5">
+                  <WifiOff className="h-4 w-4 text-[#fbbf24]" />
+                  <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                    Offline Local Cache Active
+                  </PanelTitle>
+                </div>
+                <Badge variant="warning" size="sm">
+                  Offline Cache
+                </Badge>
+              </PanelHeader>
+              <PanelContent className="p-4 space-y-2 text-xs">
+                <p className="text-[#f0f3fa]">
+                  Remote manifest is unreachable. Serving validated local knowledge cache
+                  (
+                  <span className="font-mono font-bold text-[#dfb86c]">
+                    {syncResult.activeKnowledgeVersion}
+                  </span>
+                  ).
+                </p>
+                {syncResult.error && (
+                  <p className="text-[11px] text-[#9ba5be] font-mono">
+                    {syncResult.error}
+                  </p>
+                )}
+              </PanelContent>
+            </Panel>
+          ) : syncResult?.status === "update_rejected_previous_retained" ? (
+            <Panel variant="default" className="border-[#fbbf24]/40 bg-[#16130b]">
+              <PanelHeader className="border-[#2e2614] bg-[#1f1b0e]">
+                <div className="flex items-center gap-2.5">
+                  <AlertTriangle className="h-4 w-4 text-[#fbbf24]" />
+                  <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                    Update Rejected • Prior Cache Retained
+                  </PanelTitle>
+                </div>
+                <Badge variant="warning" size="sm">
+                  Retained
+                </Badge>
+              </PanelHeader>
+              <PanelContent className="p-4 space-y-2 text-xs">
+                <p className="text-[#f0f3fa]">
+                  Latest release failed integrity validation. Retained prior valid cache (
+                  <span className="font-mono font-bold text-[#dfb86c]">
+                    {syncResult.activeKnowledgeVersion}
+                  </span>
+                  ).
+                </p>
+                {syncResult.error && (
+                  <p className="text-[11px] text-[#9ba5be] font-mono">
+                    {syncResult.error}
+                  </p>
+                )}
+              </PanelContent>
+            </Panel>
+          ) : (
+            <Panel variant="default" className="border-[#f87171]/40 bg-[#1a0c0e]">
+              <PanelHeader className="border-[#38161a] bg-[#240e11]">
+                <div className="flex items-center gap-2.5">
+                  <AlertTriangle className="h-4 w-4 text-[#f87171]" />
+                  <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                    Knowledge Unavailable
+                  </PanelTitle>
+                </div>
+                <Badge variant="danger" size="sm">
+                  Unavailable
+                </Badge>
+              </PanelHeader>
+              <PanelContent className="p-4 space-y-2 text-xs">
+                <p className="text-[#f0f3fa]">
+                  Canonical knowledge release is currently unreachable and no validated
+                  local cache exists.
+                </p>
+                <p className="text-[11px] text-[#9ba5be] font-mono">
+                  {error?.message ||
+                    syncResult?.error ||
+                    "Knowledge synchronization failed."}
+                </p>
+              </PanelContent>
+            </Panel>
+          )}
         </div>
       </div>
 
-      {/* Grid Row 3: 3-Source Consensus Matrix */}
-      <div>
-        <SectionHeader
-          title="Meta Consensus Matrix"
-          category="Multi-Source Verification"
-          subtitle="Side-by-side comparative analysis of leading community build guides (Illustrative Layout)"
-        />
-        <SourceRankPanel sourceData={FIXTURE_SOURCE_COMPARISON} className="mt-2" />
+      {/* Grid: Explicit Module Status Cards (No fabricated gameplay or user data) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Module 1: Character Roster */}
+        <Panel variant="default">
+          <PanelHeader>
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4 text-[#dfb86c]" />
+              <div>
+                <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
+                  Roster Management
+                </span>
+                <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                  Character Roster
+                </PanelTitle>
+              </div>
+            </div>
+            <Badge variant="outline" size="sm">
+              Unavailable
+            </Badge>
+          </PanelHeader>
+          <PanelContent className="p-4 text-xs text-[#9ba5be] space-y-2">
+            <p>
+              Account and roster persistence unavailable in this build. Real player roster
+              synchronization will unlock in a later phase.
+            </p>
+          </PanelContent>
+        </Panel>
+
+        {/* Module 2: Team Optimization Guidance */}
+        <Panel variant="default">
+          <PanelHeader>
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-[#dfb86c]" />
+              <div>
+                <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
+                  Tactical Recommendations
+                </span>
+                <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                  Team Optimization Guidance
+                </PanelTitle>
+              </div>
+            </div>
+            <Badge variant="outline" size="sm">
+              Unavailable
+            </Badge>
+          </PanelHeader>
+          <PanelContent className="p-4 text-xs text-[#9ba5be] space-y-2">
+            <p>
+              Deterministic recommendation engine unavailable in this build. Personalized
+              team allocations will be available once the calculation engine is deployed.
+            </p>
+          </PanelContent>
+        </Panel>
+
+        {/* Module 3: Divergent Universe Assistant */}
+        <Panel variant="default">
+          <PanelHeader>
+            <div className="flex items-center gap-2">
+              <Wand2 className="h-4 w-4 text-[#dfb86c]" />
+              <div>
+                <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
+                  Decision Engine
+                </span>
+                <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                  Divergent Universe Assistant
+                </PanelTitle>
+              </div>
+            </div>
+            <Badge variant="outline" size="sm">
+              Unavailable
+            </Badge>
+          </PanelHeader>
+          <PanelContent className="p-4 text-xs text-[#9ba5be] space-y-2">
+            <p>
+              Real-time blessing and curio decision assistant unavailable in this build.
+              OCR and live game decision support will be introduced in Phase 7.
+            </p>
+          </PanelContent>
+        </Panel>
+
+        {/* Module 4: Multi-Source Meta Consensus */}
+        <Panel variant="default">
+          <PanelHeader>
+            <div className="flex items-center gap-2">
+              <Layers className="h-4 w-4 text-[#dfb86c]" />
+              <div>
+                <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
+                  Multi-Source Verification
+                </span>
+                <PanelTitle className="text-sm font-bold text-[#f0f3fa]">
+                  Meta Consensus Matrix
+                </PanelTitle>
+              </div>
+            </div>
+            <Badge variant="outline" size="sm">
+              Unavailable
+            </Badge>
+          </PanelHeader>
+          <PanelContent className="p-4 text-xs text-[#9ba5be] space-y-2">
+            <p>
+              Multi-source consensus scoring unavailable in this build. Comparative build
+              consensus across community sources will unlock in Phase 5.
+            </p>
+          </PanelContent>
+        </Panel>
       </div>
     </div>
   );

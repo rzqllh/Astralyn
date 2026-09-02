@@ -21,6 +21,7 @@
   "include": [
     "package.json",
     "src",
+    "src/**/*.json",
     "public/**/*.json",
     "tests",
     "e2e",

@@ -5,14 +5,14 @@ import { createMemoryHistory, RouterProvider } from "@tanstack/react-router";
 import { createAppRouter } from "../src/router";
 import { Button } from "../src/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../src/components/ui/tabs";
-import { CharacterTile } from "../src/components/hsr/character-tile";
-import { DecisionCard } from "../src/components/hsr/decision-card";
-import { RecommendationPanel } from "../src/components/hsr/recommendation-panel";
+import { CharacterTile } from "../src/dev/components/hsr/character-tile";
+import { DecisionCard } from "../src/dev/components/hsr/decision-card";
+import { RecommendationPanel } from "../src/dev/components/hsr/recommendation-panel";
 import {
   FIXTURE_CHARACTERS,
   FIXTURE_DECISION,
   FIXTURE_RECOMMENDATION,
-} from "../src/lib/fixtures";
+} from "./fixtures/ui-fixtures";
 
 describe("Phase 1.1 Design System Component Tests", () => {
   it("Button renders variants and responds to click events", async () => {
@@ -128,14 +128,13 @@ describe("Phase 1.1 Design System Component Tests", () => {
     expect(screen.getByText("Key Tactical Rationale")).toBeInTheDocument();
   });
 
-  it("AppShell exposes 8 locked production navigation links and explicit FIXTURE state", async () => {
+  it("AppShell exposes 8 locked production navigation links and truthful account state", async () => {
     const memoryHistory = createMemoryHistory({ initialEntries: ["/"] });
     const testRouter = createAppRouter(memoryHistory);
     render(<RouterProvider router={testRouter} />);
 
-    // Fixture user state has explicit FIXTURE disclosure badge
-    expect(await screen.findByText("Trailblazer")).toBeInTheDocument();
-    expect(screen.getByText("FIXTURE")).toBeInTheDocument();
+    // Truthful account state
+    expect(await screen.findByText("Account unavailable")).toBeInTheDocument();
 
     // 8 Locked Production Navigation Modules in Main Navigation
     const nav = await screen.findByRole("navigation", { name: "Main Navigation" });
@@ -164,7 +163,9 @@ describe("Phase 1.1 Design System Component Tests", () => {
 
     // In testing environment with import.meta.env.DEV active, Dev DS link is rendered
     if (import.meta.env.DEV) {
-      expect(await screen.findByTestId("dev-ds-link")).toBeInTheDocument();
+      const devLink = await screen.findByTestId("dev-ds-link");
+      expect(devLink).toBeInTheDocument();
+      expect(devLink).toHaveAttribute("href", "/design-system.html");
     } else {
       expect(screen.queryByTestId("dev-ds-link")).toBeNull();
     }

@@ -1,8 +1,13 @@
 import { Sparkles, CheckCircle2 } from "lucide-react";
-import { cn } from "../../lib/utils";
-import { ConfidenceBadge, Badge } from "../ui/badge";
-import { Panel, PanelHeader, PanelTitle, PanelContent } from "../ui/panel";
-import type { RecommendationFixture } from "../../lib/fixtures";
+import { cn } from "../../../lib/utils";
+import { ConfidenceBadge, Badge } from "../../../components/ui/badge";
+import {
+  Panel,
+  PanelHeader,
+  PanelTitle,
+  PanelContent,
+} from "../../../components/ui/panel";
+import type { RecommendationFixture } from "../../../../tests/fixtures/ui-fixtures";
 
 export interface RecommendationPanelProps {
   recommendation: RecommendationFixture;

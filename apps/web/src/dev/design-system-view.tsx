@@ -18,17 +18,17 @@ import {
 } from "../components/ui/dialog";
 import { Tooltip, TooltipTrigger, TooltipContent } from "../components/ui/tooltip";
 import { useToast } from "../components/ui/toast";
-import { CharacterTile } from "../components/hsr/character-tile";
-import { RecommendationPanel } from "../components/hsr/recommendation-panel";
-import { SourceRankPanel } from "../components/hsr/source-rank-panel";
-import { DecisionCard } from "../components/hsr/decision-card";
-import { GameAssetImage } from "../components/ui/game-asset-image";
+import { CharacterTile } from "./components/hsr/character-tile";
+import { RecommendationPanel } from "./components/hsr/recommendation-panel";
+import { SourceRankPanel } from "./components/hsr/source-rank-panel";
+import { DecisionCard } from "./components/hsr/decision-card";
+import { GameAssetImage } from "./components/game-asset-image";
 import {
   FIXTURE_CHARACTERS,
   FIXTURE_RECOMMENDATION,
   FIXTURE_SOURCE_COMPARISON,
   FIXTURE_DECISION,
-} from "../lib/fixtures";
+} from "../../tests/fixtures/ui-fixtures";
 
 export function DesignSystemView() {
   const { addToast } = useToast();

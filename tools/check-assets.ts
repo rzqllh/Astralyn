@@ -4,17 +4,57 @@ import * as crypto from "node:crypto";
 import { AssetManifestSchema } from "../packages/shared/src/assets";
 
 const ASSET_RELEASE = "v1.0.0";
-const BASE_OUTPUT_DIR = path.resolve(
+const DEFAULT_DEV_DIR = path.resolve(
   __dirname,
-  "../apps/web/public/game-assets",
+  "../apps/web/src/dev/game-assets",
   ASSET_RELEASE
 );
 
-export async function checkAssetIntegrity() {
-  console.log(`[Astralyn Asset Integrity Check] Checking release ${ASSET_RELEASE}...`);
-  console.log(`Location: ${BASE_OUTPUT_DIR}`);
+export interface CheckAssetOptions {
+  baseDir?: string;
+  isProduction?: boolean;
+}
 
-  const manifestPath = path.join(BASE_OUTPUT_DIR, "manifest.json");
+export function isPngBuffer(buf: Buffer): boolean {
+  return (
+    buf.length >= 8 &&
+    buf[0] === 0x89 &&
+    buf[1] === 0x50 &&
+    buf[2] === 0x4e &&
+    buf[3] === 0x47 &&
+    buf[4] === 0x0d &&
+    buf[5] === 0x0a &&
+    buf[6] === 0x1a &&
+    buf[7] === 0x0a
+  );
+}
+
+export function isWebpBuffer(buf: Buffer): boolean {
+  if (buf.length < 12) return false;
+  const riff = buf.subarray(0, 4).toString("ascii");
+  const webp = buf.subarray(8, 12).toString("ascii");
+  return riff === "RIFF" && webp === "WEBP";
+}
+
+export function isSvgDisguisedAsRaster(buf: Buffer, ext: string): boolean {
+  if (ext === ".png" || ext === ".webp" || ext === ".jpg" || ext === ".jpeg") {
+    const textSample = buf.subarray(0, Math.min(buf.length, 512)).toString("utf8");
+    if (textSample.includes("<svg") || textSample.includes("<?xml")) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export async function checkAssetIntegrity(options?: CheckAssetOptions) {
+  const baseDir = options?.baseDir ?? DEFAULT_DEV_DIR;
+  const isProduction = options?.isProduction ?? false;
+
+  console.log(`[Astralyn Asset Integrity Check] Checking release ${ASSET_RELEASE}...`);
+  console.log(`Target directory: ${baseDir}`);
+  console.log(`Mode: ${isProduction ? "PRODUCTION" : "DEVELOPMENT"}`);
+
+  const manifestPath = path.join(baseDir, "manifest.json");
   if (!fs.existsSync(manifestPath)) {
     throw new Error(`Manifest not found at ${manifestPath}`);
   }
@@ -27,12 +67,12 @@ export async function checkAssetIntegrity() {
       "[FAIL] Manifest schema validation failed:",
       parsedManifest.error.format()
     );
-    process.exit(1);
+    throw new Error("Manifest schema validation failed");
   }
 
   const manifest = parsedManifest.data;
   console.log(
-    `✓ Manifest Schema Valid (v${manifest.assetRelease}, Game: ${manifest.gameVersion}, Total: ${manifest.assets.length} assets)`
+    `✓ Manifest Schema Valid (Release: ${manifest.assetRelease}, Game: ${manifest.gameVersion}, Total: ${manifest.assets.length} assets)`
   );
 
   const seenIds = new Set<string>();
@@ -46,9 +86,28 @@ export async function checkAssetIntegrity() {
     }
     seenIds.add(asset.id);
 
-    // 2. Local file existence check
-    const localRel = asset.localPath.replace(`/game-assets/${ASSET_RELEASE}/`, "");
-    const fullPath = path.join(BASE_OUTPUT_DIR, localRel);
+    // 2. Production policy check (production cannot contain manual_review or blocked assets)
+    if (isProduction) {
+      if (asset.usageStatus !== "approved" && asset.usageStatus !== "official_fan_use") {
+        console.error(
+          `[ERROR] Asset ${asset.id} has usageStatus '${asset.usageStatus}' which is prohibited in production.`
+        );
+        errors++;
+      }
+      if (!asset.approvedBy || !asset.approvedAt) {
+        console.error(
+          `[ERROR] Production asset ${asset.id} must have explicit approvedBy and approvedAt fields.`
+        );
+        errors++;
+      }
+    }
+
+    // 3. Local file existence check
+    const localRel = asset.localPath.replace(
+      /^\/(src\/dev\/)?game-assets\/v[0-9.]+\//,
+      ""
+    );
+    const fullPath = path.join(baseDir, localRel);
 
     if (!fs.existsSync(fullPath)) {
       console.error(`[ERROR] File missing on disk: ${fullPath} for asset ${asset.id}`);
@@ -56,9 +115,29 @@ export async function checkAssetIntegrity() {
       continue;
     }
 
-    // 3. SHA-256 checksum verification
+    const fileBuffer = fs.readFileSync(fullPath);
+    const ext = path.extname(fullPath).toLowerCase();
+
+    // 4. Magic header / media format sniff check
+    if (isSvgDisguisedAsRaster(fileBuffer, ext)) {
+      console.error(
+        `[ERROR] Hard security failure: Asset ${asset.id} (${fullPath}) is an SVG disguised as raster (${ext}).`
+      );
+      errors++;
+    } else if (ext === ".png" && !isPngBuffer(fileBuffer)) {
+      console.error(
+        `[ERROR] Corrupt PNG header: Asset ${asset.id} (${fullPath}) does not start with valid PNG signature.`
+      );
+      errors++;
+    } else if (ext === ".webp" && !isWebpBuffer(fileBuffer)) {
+      console.error(
+        `[ERROR] Corrupt WebP header: Asset ${asset.id} (${fullPath}) does not start with valid WebP signature.`
+      );
+      errors++;
+    }
+
+    // 5. SHA-256 checksum verification
     if (asset.checksum) {
-      const fileBuffer = fs.readFileSync(fullPath);
       const actualChecksum = crypto.createHash("sha256").update(fileBuffer).digest("hex");
       if (actualChecksum !== asset.checksum) {
         console.error(
@@ -66,113 +145,30 @@ export async function checkAssetIntegrity() {
         );
         errors++;
       }
-    }
-
-    // 4. Local path pattern check
-    if (!asset.localPath.startsWith(`/game-assets/${ASSET_RELEASE}/`)) {
-      console.error(`[ERROR] Invalid localPath format: ${asset.localPath}`);
-      errors++;
-    }
-  }
-
-  // 5. Representative character coverage check
-  const REQUIRED_REPRESENTATIVE_CHARS = [
-    "acheron",
-    "castorice",
-    "firefly",
-    "robin",
-    "aventurine",
-    "gallagher",
-    "tingyun",
-    "the-herta",
-    "aventurine-waveflair",
-  ];
-
-  for (const charId of REQUIRED_REPRESENTATIVE_CHARS) {
-    const hasIcon = manifest.assets.some(
-      (a) => a.entityType === "character_icon" && a.entityId.toLowerCase() === charId
-    );
-    const hasPreview = manifest.assets.some(
-      (a) => a.entityType === "character_preview" && a.entityId.toLowerCase() === charId
-    );
-
-    if (!hasIcon) {
-      console.error(
-        `[ERROR] Missing character_icon for representative character: ${charId}`
-      );
-      errors++;
-    }
-    if (!hasPreview) {
-      console.error(
-        `[ERROR] Missing character_preview for representative character: ${charId}`
-      );
-      errors++;
-    }
-  }
-
-  // 6. Element & Path full coverage check
-  const REQUIRED_ELEMENTS = [
-    "Physical",
-    "Fire",
-    "Ice",
-    "Lightning",
-    "Wind",
-    "Quantum",
-    "Imaginary",
-  ];
-  const REQUIRED_PATHS = [
-    "Destruction",
-    "Hunt",
-    "Erudition",
-    "Harmony",
-    "Nihility",
-    "Preservation",
-    "Abundance",
-    "Remembrance",
-    "Elation",
-  ];
-
-  for (const elem of REQUIRED_ELEMENTS) {
-    const hasElem = manifest.assets.some(
-      (a) =>
-        a.entityType === "element_icon" && a.entityId.toLowerCase() === elem.toLowerCase()
-    );
-    if (!hasElem) {
-      console.error(`[ERROR] Missing element_icon for: ${elem}`);
-      errors++;
-    }
-  }
-
-  for (const pathName of REQUIRED_PATHS) {
-    const hasPath = manifest.assets.some(
-      (a) =>
-        a.entityType === "path_icon" &&
-        a.entityId.toLowerCase() === pathName.toLowerCase()
-    );
-    if (!hasPath) {
-      console.error(`[ERROR] Missing path_icon for: ${pathName}`);
+    } else {
+      console.error(`[ERROR] Asset ${asset.id} is missing mandatory SHA-256 checksum.`);
       errors++;
     }
   }
 
   if (errors > 0) {
     console.error(`\n[FAIL] Asset integrity check failed with ${errors} error(s).`);
-    process.exit(1);
+    throw new Error(`Asset integrity check failed with ${errors} error(s)`);
   }
 
   console.log(
-    `\n✓ All ${manifest.assets.length} game assets verified on disk with matching SHA-256 checksums.`
+    `\n✓ All ${manifest.assets.length} game assets verified on disk with valid media signatures and matching SHA-256 checksums.`
   );
-  console.log(
-    `✓ All 9 representative characters have verified icons and preview artwork.`
-  );
-  console.log(`✓ All 7 Combat Elements and 9 Combat Paths verified.`);
   console.log(`[PASS] Astralyn Game Asset Integrity Gate PASSED.\n`);
+  return { manifest, assetCount: manifest.assets.length };
 }
 
 if (require.main === module || process.argv[1] === __filename) {
-  checkAssetIntegrity().catch((err) => {
-    console.error("[FATAL] Integrity check failed:", err);
+  const isProd = process.argv.includes("--production");
+  const customDir = process.argv.find((arg) => arg.startsWith("--dir="))?.split("=")[1];
+
+  checkAssetIntegrity({ baseDir: customDir, isProduction: isProd }).catch((err) => {
+    console.error("[FATAL] Integrity check failed:", err.message);
     process.exit(1);
   });
 }

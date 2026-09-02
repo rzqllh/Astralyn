@@ -8,13 +8,13 @@ import {
   CombatPathSchema,
 } from "@astralyn/shared";
 
-describe("Phase 2 Knowledge & Visual Asset Interoperability", () => {
+describe("Phase 2 Knowledge & Dev Asset Snapshot Interoperability", () => {
   const assetManifestPath = path.resolve(
     __dirname,
-    "../public/game-assets/v1.0.0/manifest.json"
+    "../src/dev/game-assets/v1.0.0/manifest.json"
   );
 
-  it("verifies that all canonical character IDs exist in the visual asset manifest", () => {
+  it("verifies that all canonical character IDs exist in the dev asset manifest", () => {
     expect(fs.existsSync(assetManifestPath)).toBe(true);
     const raw = fs.readFileSync(assetManifestPath, "utf8");
     const assetManifest = AssetManifestSchema.parse(JSON.parse(raw));
@@ -28,12 +28,12 @@ describe("Phase 2 Knowledge & Visual Asset Interoperability", () => {
     for (const char of CANONICAL_CHARACTERS) {
       expect(
         characterAssetEntityIds.has(char.id),
-        `Canonical Character '${char.id}' must have a corresponding character_icon in asset manifest`
+        `Canonical Character '${char.id}' must have a corresponding character_icon in dev asset manifest`
       ).toBe(true);
     }
   });
 
-  it("verifies all combat element and path asset mappings", () => {
+  it("verifies all combat element and path dev asset mappings", () => {
     const raw = fs.readFileSync(assetManifestPath, "utf8");
     const assetManifest = AssetManifestSchema.parse(JSON.parse(raw));
 
@@ -46,7 +46,7 @@ describe("Phase 2 Knowledge & Visual Asset Interoperability", () => {
     for (const elem of CombatElementSchema.options) {
       expect(
         elementAssetIds.has(elem),
-        `Element '${elem}' must exist in asset manifest`
+        `Element '${elem}' must exist in dev asset manifest`
       ).toBe(true);
     }
 
@@ -57,11 +57,13 @@ describe("Phase 2 Knowledge & Visual Asset Interoperability", () => {
     );
 
     for (const p of CombatPathSchema.options) {
-      expect(pathAssetIds.has(p), `Path '${p}' must exist in asset manifest`).toBe(true);
+      expect(pathAssetIds.has(p), `Path '${p}' must exist in dev asset manifest`).toBe(
+        true
+      );
     }
   });
 
-  it("verifies that representative synced light cones and relics map cleanly", () => {
+  it("verifies that representative synced light cones and relics map cleanly in dev snapshot", () => {
     const raw = fs.readFileSync(assetManifestPath, "utf8");
     const assetManifest = AssetManifestSchema.parse(JSON.parse(raw));
 
@@ -72,7 +74,7 @@ describe("Phase 2 Knowledge & Visual Asset Interoperability", () => {
     for (const lcId of representativeLCs) {
       expect(
         assetEntityIds.has(lcId),
-        `Representative LightCone '${lcId}' must map to asset entity`
+        `Representative LightCone '${lcId}' must map to dev asset entity`
       ).toBe(true);
     }
 
@@ -81,7 +83,7 @@ describe("Phase 2 Knowledge & Visual Asset Interoperability", () => {
     for (const relicId of representativeRelics) {
       expect(
         assetEntityIds.has(relicId),
-        `Representative Relic '${relicId}' must map to asset entity`
+        `Representative Relic '${relicId}' must map to dev asset entity`
       ).toBe(true);
     }
   });

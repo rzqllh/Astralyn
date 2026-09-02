@@ -1,9 +1,15 @@
 import { Zap, Check, AlertCircle, ArrowRight } from "lucide-react";
-import { cn } from "../../lib/utils";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
-import { Panel, PanelHeader, PanelTitle, PanelContent, PanelFooter } from "../ui/panel";
-import type { DecisionFixture } from "../../lib/fixtures";
+import { cn } from "../../../lib/utils";
+import { Button } from "../../../components/ui/button";
+import { Badge } from "../../../components/ui/badge";
+import {
+  Panel,
+  PanelHeader,
+  PanelTitle,
+  PanelContent,
+  PanelFooter,
+} from "../../../components/ui/panel";
+import type { DecisionFixture } from "../../../../tests/fixtures/ui-fixtures";
 
 export interface DecisionCardProps {
   decision: DecisionFixture;

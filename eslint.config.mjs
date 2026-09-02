@@ -41,5 +41,23 @@ export default tseslint.config(
       ],
       "@typescript-eslint/no-explicit-any": "warn",
     },
+  },
+  {
+    files: ["apps/web/src/**/*.{ts,tsx}"],
+    ignores: ["apps/web/src/dev/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["**/dev/**", "**/tests/**", "**/fixtures/**", "**/game-assets/**"],
+              message:
+                "Production code must not import from dev, tests, fixtures, or game-assets.",
+            },
+          ],
+        },
+      ],
+    },
   }
 );

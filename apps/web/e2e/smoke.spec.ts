@@ -31,8 +31,8 @@ async function ensureImagesDecoded(page: import("@playwright/test").Page) {
   });
 }
 
-test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
-  test("loads desktop application shell with navigation rail, brand mark, CharacterTile v2, and parchment dossier (1440px)", async ({
+test.describe("Astralyn Phase 2.5 E2E Smoke & Production Readiness Suite", () => {
+  test("loads desktop application shell with navigation rail, brand mark, and truthful Home status (1440px)", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -42,10 +42,11 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
     // Verify Brand & Navigation
     await expect(page.getByText("Astralyn", { exact: false }).first()).toBeVisible();
     await expect(page.getByTestId("home-view")).toBeVisible();
+    await expect(page.getByText("Canonical Knowledge Baseline")).toBeVisible();
     await expect(page.getByText("Team Optimization Guidance")).toBeVisible();
     await expect(page.getByText("Divergent Universe Assistant")).toBeVisible();
-    await expect(page.getByRole("button", { name: /Acheron/i })).toBeVisible();
-    await expect(page.getByText("Acheron Profile")).toBeVisible();
+    await expect(page.getByText("Character Roster")).toBeVisible();
+    await expect(page.getByText("Meta Consensus Matrix")).toBeVisible();
 
     // Verify locked production navigation links exist
     await expect(page.getByRole("link", { name: "Home", exact: true })).toBeVisible();
@@ -61,32 +62,8 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
     await expect(page.getByRole("link", { name: /^Assistant/i })).toBeVisible();
     await expect(page.getByRole("link", { name: "Settings", exact: true })).toBeVisible();
 
-    // Verify Trailblazer identity has explicit FIXTURE tag
-    await expect(page.getByText("Trailblazer", { exact: true })).toBeVisible();
-    await expect(page.getByText("FIXTURE", { exact: true })).toBeVisible();
-
-    // Verify all 8 representative character tiles exist and interact
-    const repCharacters = [
-      "Aventurine",
-      "Gallagher",
-      "Tingyun",
-      "The Herta",
-      "Castorice",
-      "Firefly",
-      "Robin",
-    ];
-    for (const charName of repCharacters) {
-      const tileBtn = page.getByRole("button", { name: new RegExp(charName, "i") });
-      await expect(tileBtn).toBeVisible();
-    }
-
-    // Click Aventurine and verify dossier updates
-    await page.getByRole("button", { name: /Aventurine/i }).click();
-    await expect(page.getByText("Aventurine Profile")).toBeVisible();
-
-    // Click Gallagher and verify dossier updates
-    await page.getByRole("button", { name: /Gallagher/i }).click();
-    await expect(page.getByText("Gallagher Profile")).toBeVisible();
+    // Verify header renders truthful account unavailable status
+    await expect(page.getByText("Account unavailable", { exact: true })).toBeVisible();
 
     await ensureImagesDecoded(page);
 
@@ -97,7 +74,7 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
     });
   });
 
-  test("navigates to planned milestone placeholder routes (/roster) with compact status panel", async ({
+  test("navigates to planned milestone placeholder routes (/roster) with truthful unavailable status", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -106,8 +83,8 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
 
     await expect(page.getByTestId("view-roster")).toBeVisible();
     await expect(page.getByText("Character Roster")).toBeVisible();
-    await expect(page.getByText("Milestone Status")).toBeVisible();
-    await expect(page.getByText("Module Scheduled for Implementation")).toBeVisible();
+    await expect(page.getByText("Module Status")).toBeVisible();
+    await expect(page.getByText("Unavailable in this build")).toBeVisible();
 
     // Return to Home via button
     await page.getByRole("button", { name: "Return Home" }).click();
@@ -175,7 +152,7 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
     await page.waitForLoadState("networkidle");
 
     await expect(page.getByTestId("home-view")).toBeVisible();
-    await expect(page.getByText("Team Optimization Guidance")).toBeVisible();
+    await expect(page.getByText("Canonical Knowledge Baseline")).toBeVisible();
 
     await ensureImagesDecoded(page);
 
@@ -184,42 +161,6 @@ test.describe("Astralyn Phase 1.1 E2E Smoke & Visual QA Suite", () => {
       path: path.join(SCREENSHOT_DIR, "tablet_home_768.png"),
       fullPage: true,
     });
-  });
-
-  test("renders dense mobile component state (390px) proving CharacterTile + RecommendationPanel readability and stacking", async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
-
-    await expect(page.getByTestId("home-view")).toBeVisible();
-    await expect(page.getByText("Team Optimization Guidance")).toBeVisible();
-
-    // Verify CharacterTile and RecommendationPanel in mobile view
-    const acheronTile = page.getByRole("button", { name: /Acheron/i });
-    await expect(acheronTile).toBeVisible();
-
-    // Ensure images are fully decoded
-    await ensureImagesDecoded(page);
-
-    // Scroll to position showing RecommendationPanel and CharacterTiles together in stacked mobile view
-    await page.evaluate(() => {
-      window.scrollTo(0, 140);
-    });
-
-    // Capture the dense mobile state screenshot
-    await page.screenshot({
-      path: path.join(SCREENSHOT_DIR, "mobile_dense_state_390.png"),
-    });
-
-    // Verify touch target dimensions on mobile CharacterTile >= 44px
-    const boundingBox = await acheronTile.boundingBox();
-    expect(boundingBox).not.toBeNull();
-    if (boundingBox) {
-      expect(boundingBox.height).toBeGreaterThanOrEqual(44);
-      expect(boundingBox.width).toBeGreaterThanOrEqual(44);
-    }
   });
 
   test("verifies production build hides Dev DS link and isolates development-only controls", async ({
