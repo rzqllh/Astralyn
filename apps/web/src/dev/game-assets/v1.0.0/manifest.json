@@ -1,7 +1,7 @@
 {
   "assetRelease": "v1.0.0",
   "gameVersion": "3.0.x",
-  "generatedAt": "2026-09-02T12:03:40.794Z",
+  "generatedAt": "2026-09-02T12:11:12.501Z",
   "assets": [
     {
       "id": "char_acheron_icon",
@@ -58,14 +58,14 @@
       "variant": "icon",
       "localPath": "/src/dev/game-assets/v1.0.0/characters/castorice_icon.png",
       "source": "StarRailRes",
-      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/icon/character/1404.png",
+      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/icon/character/1407.png",
       "repositoryLicense": "AGPL-3.0",
       "license": "HoYoverse Fan Content Policy (Subject to Manual Review)",
       "copyrightOwner": "COGNOSPHERE / HoYoverse",
       "usageStatus": "manual_review",
       "attribution": "Character: Castorice • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
-      "checksum": "b2640bdf6298ec514bd88b7846cb4e0dd780d8d4fdfacf8f95e13d87e14eefc7"
+      "checksum": "6a42f6eec6a07392f3fcb0bee38cefd2bd471065898328c34f786f9d4d60af24"
     },
     {
       "id": "char_castorice_preview",
@@ -74,14 +74,14 @@
       "variant": "preview",
       "localPath": "/src/dev/game-assets/v1.0.0/characters/castorice_preview.png",
       "source": "StarRailRes",
-      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/image/character_preview/1404.png",
+      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/image/character_preview/1407.png",
       "repositoryLicense": "AGPL-3.0",
       "license": "HoYoverse Fan Content Policy (Subject to Manual Review)",
       "copyrightOwner": "COGNOSPHERE / HoYoverse",
       "usageStatus": "manual_review",
       "attribution": "Character: Castorice • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
-      "checksum": "ea9fd532990c7428913f6460323694827da2b3daa9501aa414f3f22af5af09ea"
+      "checksum": "a8591025b6b1012d421167b3dc69fd40e7eb6e02975d8a08328f848d61c313eb"
     },
     {
       "id": "char_castorice_portrait",
@@ -90,14 +90,14 @@
       "variant": "portrait",
       "localPath": "/src/dev/game-assets/v1.0.0/characters/castorice_portrait.png",
       "source": "StarRailRes",
-      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/image/character_portrait/1404.png",
+      "sourceUrl": "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/image/character_portrait/1407.png",
       "repositoryLicense": "AGPL-3.0",
       "license": "HoYoverse Fan Content Policy (Subject to Manual Review)",
       "copyrightOwner": "COGNOSPHERE / HoYoverse",
       "usageStatus": "manual_review",
       "attribution": "Character: Castorice • © COGNOSPHERE / HoYoverse",
       "fallbackPriority": 1,
-      "checksum": "9dd211ea35886847eb72db11e777f52b2d126e23d71b17e808dc8ca1e224fcc6"
+      "checksum": "cf7bbaa42a7e81983d95e331cd6463143a3be643afa446d29160a6234aed8fd6"
     },
     {
       "id": "char_firefly_icon",

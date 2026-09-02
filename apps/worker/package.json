@@ -7,13 +7,18 @@
     "build": "wrangler deploy --dry-run --outdir dist",
     "typecheck": "tsc -b",
     "lint": "eslint src test",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply astralyn-db --local --persist-to=.wrangler/state/v3",
+    "db:migrate:remote": "wrangler d1 migrations apply astralyn-db --remote"
   },
   "dependencies": {
-    "@astralyn/shared": "workspace:*"
+    "@astralyn/shared": "workspace:*",
+    "drizzle-orm": "^0.45.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260826.1",
+    "drizzle-kit": "^0.31.10",
     "typescript": "^5.9.3",
     "vitest": "^4.1.11",
     "wrangler": "^4.126.0"

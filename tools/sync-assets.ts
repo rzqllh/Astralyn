@@ -60,14 +60,14 @@ export const REPRESENTATIVE_DEV_SNAPSHOT: TargetAssetDefinition[] = [
     isRepresentative: true,
   },
 
-  // --- Castorice (1404) ---
+  // --- Castorice (1407) ---
   {
     id: "char_castorice_icon",
     entityType: "character_icon",
     entityId: "castorice",
     variant: "icon",
     relPath: "characters/castorice_icon.png",
-    remotePath: "icon/character/1404.png",
+    remotePath: "icon/character/1407.png",
     attribution: "Character: Castorice • © COGNOSPHERE / HoYoverse",
     isRepresentative: true,
   },
@@ -77,7 +77,7 @@ export const REPRESENTATIVE_DEV_SNAPSHOT: TargetAssetDefinition[] = [
     entityId: "castorice",
     variant: "preview",
     relPath: "characters/castorice_preview.png",
-    remotePath: "image/character_preview/1404.png",
+    remotePath: "image/character_preview/1407.png",
     attribution: "Character: Castorice • © COGNOSPHERE / HoYoverse",
     isRepresentative: true,
   },
@@ -87,7 +87,7 @@ export const REPRESENTATIVE_DEV_SNAPSHOT: TargetAssetDefinition[] = [
     entityId: "castorice",
     variant: "portrait",
     relPath: "characters/castorice_portrait.png",
-    remotePath: "image/character_portrait/1404.png",
+    remotePath: "image/character_portrait/1407.png",
     attribution: "Character: Castorice • © COGNOSPHERE / HoYoverse",
     isRepresentative: true,
   },

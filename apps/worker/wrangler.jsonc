@@ -7,4 +7,12 @@
   "observability": {
     "enabled": true,
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "astralyn-db",
+      "database_id": "35c47a27-8cd4-4b9b-aa06-8bbc53a9e165",
+      "migrations_dir": "drizzle/migrations",
+    },
+  ],
 }
