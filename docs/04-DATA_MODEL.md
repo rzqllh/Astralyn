@@ -8,7 +8,7 @@ A. Identity and user data — authenticated user domain (Better Auth + Astralyn 
 B. Canonical Game Knowledge — official facts normalized from authoritative Tier A HoYoverse sources with strongly typed `FactProvenance`.  
 C. Editorial recommendations — source-specific guide/ranking data with provenance (Tier C).  
 D. Generated Astralyn intelligence — consensus, scores, reason codes and publishable snapshots.  
-E. Visual Game Assets — versioned static asset manifest and localized game imagery.
+E. Visual Game Assets — versioned static asset manifest and candidate imagery (52 dev-only manual-review candidates in `src/dev/game-assets/`; 0 production-approved assets currently shipped).
 
 A user write must never cross into B/C/D/E canonical tables or static assets.
 

@@ -8,9 +8,10 @@ The design borrows HSR's information hierarchy, panel composition, navigation rh
 
 Astralyn maintains:
 - Original celestial branding and vector emblem lockups;
-- Versioned static game asset pipeline (StarRailRes release v1.0.0 via Cloudflare Static Assets);
+- Conservative visual asset pipeline with explicit vector fallback silhouettes (`Asset unavailable` in production; 52 candidate assets quarantined in dev showcase);
 - Original accessible component implementations (Radix UI primitives + Tailwind CSS v4);
-- Responsive web accessibility targeting WCAG 2.2 AA.
+- Responsive web accessibility targeting WCAG 2.2 AA;
+- Strict production data boundary isolating all developer showcase views and UI fixtures..
 
 ---
 
@@ -205,7 +206,7 @@ The user-facing navigation rail strictly exposes 8 production modules:
 7. `Assistant` (`/assistant`)
 8. `Settings` (`/settings`)
 
-Internal design system showcase (`/design-system`) is placed as a development-gated utility link in the bottom footer of the navigation rail (`isDev`).
+The internal design system showcase is hosted at a dedicated developer entry point (`design-system.html`) that is entirely excluded from production routing. A dev-only anchor link is rendered in the footer rail strictly in local Vite development mode (`import.meta.env.DEV`).
 
 ---
 
@@ -224,11 +225,10 @@ To prevent developer aids or demo data from being mistaken for production functi
 | UI Element / State | Route / Location | Classification | Operational Intent |
 |---|---|---|---|
 | **Production Navigation (8 Links)** | Navigation Rail (`/`, `/roster`, etc.) | `production_valid` | Locked user-facing navigation structure. |
-| **Dev DS Link** | Navigation Footer (`/design-system`) | `development_only` | Secondary link strictly for internal component inspection during development (`isDev` gated). |
-| **Design System Showcase** | Route `/design-system` | `development_only` | Development testing and visual regression target; not exposed in primary user navigation. |
-| **Trailblazer Identity Chip** | Top HUD Header | `fixture_only` | Explicit `FIXTURE` labeled user identity; replaced with authenticated profile in Phase 4. |
-| **Companion Preview Badges** | Header & Assistant Nav (`Preview`) | `preview_only` | Indicates interactive companion preview milestone state. |
-| **Astralyn Verdict Sample Output** | Home Recommendation Section | `fixture_only` | Honest indicator that displayed recommendation is static sample data before Phase 5 engine activation. |
-| **(Illustrative Demo) Metric** | Score Gauge (`97% Score`) | `fixture_only` | Explicit disclosure on score gauge that numbers are representative demo values. |
-| **Active Roster Fixtures (8 Chars)** | Home Roster Grid (`FIXTURE_CHARACTERS`) | `fixture_only` | Curated development dataset for UI verification; replaced by user-owned roster in Phase 4. |
-| **Diagnostic Asset Release Metadata** | `/design-system` Tabs | `development_only` | Diagnostic release tagging (`v1.0.0`, `3.0.x`); excluded from end-user views. |
+| **Dev DS Link** | Navigation Footer (`design-system.html`) | `development_only` | Standalone link rendered strictly in dev mode (`isDev`) pointing to isolated multi-page entry. |
+| **Design System Showcase** | `design-system.html` | `development_only` | Standalone development entry mounting `DesignSystemView`; isolated from production router. |
+| **Account Unavailable State** | Top HUD Header | `production_valid` | Truthful state indicating authenticated profiles will be connected in Phase 4. |
+| **Home Knowledge Sync Card** | Home (`/`) | `production_valid` | Live display of current synchronized canonical knowledge release version and status. |
+| **Static Unsupported Module Cards** | Home (`/`) | `production_valid` | Clear truthful status indicators for upcoming modules without synthetic roster or score data. |
+| **Quarantined Asset Candidates (52 PNGs)** | `src/dev/game-assets/v1.0.0/` | `development_only` | Verified PNG candidate assets retained strictly for dev showcase inspection. |
+| **Production Image Silhouettes** | Component Surfaces | `production_valid` | High-contrast accessible vector fallback (`Asset unavailable`) rendered in production runtime. |

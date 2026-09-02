@@ -54,7 +54,7 @@ Per adapter:
 
 Never test only against live websites.
 
-## Knowledge validation & Snapshot Tests (Phase 2)
+## Knowledge validation & Snapshot Tests (Phase 2 & Phase 2.5)
 
 Automated tests in `apps/web/tests/`:
 - `knowledge-schemas.test.ts`:
@@ -69,13 +69,22 @@ Automated tests in `apps/web/tests/`:
   - Fail-safe rollback protection: if an incoming release fails validation, previous valid cache is strictly preserved and marked `update_rejected_previous_retained`.
   - Offline fallback verification: serving queries from local cache when network is offline (`status: offline_cache_active`).
   - Repository read queries and filter combinations (`path`, `element`, `rarity`, `role`, `tag`, `type`, `weakness`, `stageType`).
-  - Search normalization, punctuation/diacritic stripping, and canonical alias matching (e.g. `sam` -> `firefly`, `polly` -> `castorice`, `madam herta` -> `the-herta`).
+  - Canonical 8-store search without unversioned community alias maps.
+- `knowledge-hooks.test.tsx`:
+  - Hook error-state discrimination (`error: Error | null`) across `useKnowledgeInit`, `useCharacters`, `useCharacter`, `useLightCones`, `useRelicSets`, and `useEntitySearch`.
+  - Verifies distinction between valid empty responses (`[]` / `null`) and network/DB rejections.
+- `production-data-boundary.test.ts`:
+  - Enforces zero dev/fixture imports in production source files.
+  - Verifies 0 reachability of mock data from production bundle entry points.
 - `knowledge-interop.test.ts`:
   - Referential integrity check verifying all canonical character IDs, elements, paths, and representative light cones/relics match corresponding entity IDs in visual asset manifest.
 
 Pre-publication CLI checks:
 - `pnpm knowledge:build`: Compiles fixtures into static release directory (`apps/web/public/data/v1.0.0/`) and computes SHA-256 checksums.
 - `pnpm knowledge:check`: Validates manifest structure, file existence, bit-for-bit SHA-256 hash match, schema conformity, duplicate ID rejection, and referential integrity.
+- `pnpm data:check` (`tools/check-production-data.ts`): Enforces build-time production boundary integrity.
+- `pnpm assets:check` (`tools/check-assets.ts`): Verifies PNG/WebP binary magic headers and SHA-256 hashes, failing closed on unapproved assets.
+- `tools/tests/asset-pipeline.test.ts`: Unit test suite verifying format sniffing and production rejection of unapproved assets.
 
 ## OCR tests
 

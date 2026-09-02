@@ -46,11 +46,12 @@ Primary:
 - Testing Library
 - Playwright
 
-### CI / Ingestion & Asset Sync
+### CI / Ingestion, Asset Pipeline & Boundary Checks
 - GitHub Actions
 - scheduled source polling
 - manual workflow dispatch for patch-day sync
-- versioned static game asset pipeline (`tools/sync-assets.ts`)
+- versioned static game asset pipeline (`tools/sync-assets.ts`, `tools/check-assets.ts`)
+- build-time production boundary validator (`tools/check-production-data.ts`)
 
 ## 3. Runtime topology
 
@@ -58,12 +59,16 @@ Primary:
 User Browser
 │
 ├── Static Astralyn App (Cloudflare CDN / Static Assets)
-│   ├── React UI
+│   ├── React UI (with strict production data boundary)
 │   ├── Recommendation Engine (Deterministic)
 │   ├── OCR Worker (In-Browser Web Worker)
 │   ├── IndexedDB Cache (Dexie)
 │   ├── Published Knowledge Snapshots (/data/<version>/...)
-│   └── Versioned Static Game Assets (/game-assets/<release>/...)
+│   └── Vector Fallback Silhouettes (0 production-approved assets shipped in v0.0)
+│
+├── Development Showcase (Isolated Multi-Page Entry: design-system.html)
+│   ├── Dev Design System Showcase
+│   └── Dev-Only Manual-Review Game Assets (/src/dev/game-assets/<release>/...)
 │
 └── Authenticated Worker API (/api/...)
     ├── Better Auth Handler (/api/auth/*)

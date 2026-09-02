@@ -1,7 +1,7 @@
 # Astralyn Documentation Pack
 
-Status: Planning baseline  
-Planning date: 2026-08-26  
+Status: Phase 2 (Knowledge Integrity) & Phase 2.5 (Production Data Readiness) Complete; Phase 3A (D1 + Drizzle Persistence Foundation) Planned  
+Planning date: 2026-08-26 (Updated: 2026-09-02)  
 Product: Astralyn — Honkai: Star Rail assistant  
 Primary principle: free-first, source-grounded, roster-aware, deterministic at the core.
 

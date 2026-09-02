@@ -17,7 +17,7 @@ Astralyn separates game domain concerns into five strictly partitioned layers:
    Deterministic evaluation output synthesized from multi-source consensus, official mechanical rules, and user roster context.
 
 5. **Visual Game Assets:**
-   Versioned static game imagery (`/game-assets/<release>/...`) decoupled from knowledge domain, managed conservatively under the HoYoverse Fan Content Policy.
+   Versioned static game imagery decoupled from knowledge domain, managed conservatively under the HoYoverse Fan Content Policy. In the current verified repository state, 52 candidate PNG assets are quarantined strictly as dev-only data (`/src/dev/game-assets/<release>/...`) with `usageStatus: "manual_review"`, while 0 assets are approved for production bundles (which render accessible vector fallback silhouettes).
 
 ---
 
@@ -34,3 +34,5 @@ Astralyn separates game domain concerns into five strictly partitioned layers:
 - **Runtime Checksum Verification:** Pre-decode byte hash verification in client loaders ensuring raw JSON matches the release manifest SHA-256 before decoding and caching.
 - **Fail-Safe Rollback:** Cache update invariant guaranteeing that if a newly published release fails network transmission or runtime schema validation, the client strictly preserves the previous valid cache.
 - **Search Normalization & Alias Boundary:** Deterministic lowercased, diacritic-stripped string representation separating official localized names from classified community/acronym aliases.
+- **Production Data Boundary:** Build-time and lint-enforced boundary guaranteeing zero reachability of dev/fixture assets or test mock states from production web bundles.
+- **Fail-Closed Asset Pipeline:** Binary header sniffing and integrity verification (`tools/check-assets.ts`) rejecting disguised formats and preventing unapproved assets from leaking into production.

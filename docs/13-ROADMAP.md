@@ -5,15 +5,19 @@
 The implementation of Astralyn follows a strict, sequential 9-phase dependency model. Earlier phases provide architectural contracts and foundational layers required by downstream features.
 
 ```text
-Phase 0: Tooling & Monorepo Baseline (Verified)
+Phase 0: Tooling & Monorepo Baseline (Complete)
   ↓
 Phase 1: Design Tokens & Primitive Foundation (Complete)
   ↓
-Phase 1.1: Visual Asset & Design Foundation Closure (Current)
+Phase 1.1: Visual Asset & Design Foundation Closure (Complete)
   ↓
-Phase 2: Canonical Knowledge Schemas, Static Knowledge Fixtures, Snapshot Contracts, Dexie Client Knowledge Cache
+Phase 2: Canonical Knowledge Schemas, Static Knowledge Fixtures, Snapshot Contracts, Dexie Client Knowledge Cache (Complete)
   ↓
-Phase 3: Cloudflare Worker, D1, Drizzle ORM, Better Auth Foundation
+Phase 2.5: Production Data Readiness, Asset Quarantine & Build-Time Boundary Enforcement (Complete)
+  ↓
+Phase 3A: Cloudflare Worker, D1 Database, Drizzle ORM Persistence Foundation (Current / Planned)
+  ↓
+Phase 3B: Better Auth, Google OAuth & Session Management
   ↓
 Phase 4: Authentication-Driven Onboarding, Roster Management, User State Synchronization
   ↓
@@ -32,8 +36,8 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 
 ## Detailed Phase Breakdown
 
-### Phase 0 — Tooling & Monorepo Baseline (Verified)
-- Node.js LTS + pnpm monorepo workspace (`apps/web`, `apps/worker`, `packages/shared`, `tools/`);
+### Phase 0 — Tooling & Monorepo Baseline (Complete)
+- Node.js LTS (24.19.x) + pnpm monorepo workspace (`apps/web`, `apps/worker`, `packages/shared`, `tools/`);
 - TypeScript composite project reference configuration (`tsconfig.json`, `tsconfig.base.json`);
 - ESLint, Prettier, Vitest, and Playwright baseline test runners.
 
@@ -41,15 +45,14 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - HSR-native design token system (Cosmic Void surfaces, celestial parchment contrast, astral gold split tokens);
 - Headless accessible UI primitives (Radix UI + Tailwind CSS v4);
 - Domain component foundations (`CharacterTile`, `RecommendationPanel`, `SourceRankPanel`, `DecisionCard`);
-- 8-link locked production navigation contract + developer inspection showcase (`/design-system`).
+- 8-link locked production navigation contract.
 
 ### Phase 1.1 — Visual Asset & Design Foundation Closure (Complete)
-- Versioned static game asset architecture (`/game-assets/<release>/...`) decoupled from knowledge domain;
+- Versioned static game asset architecture decoupled from knowledge domain;
 - Data-driven sync pipeline (`tools/sync-assets.ts`) with proven full catalog capability and curated dev snapshot;
 - Conservative legal provenance metadata (repository automation license != game artwork copyright);
 - Zero runtime third-party hotlinking and resilient vector fallback silhouettes (`<GameAssetImage>`);
-- Responsive layout verification at 1440px (desktop companion rail), 768px (tablet reflow), and 390px (dense mobile drawer & stacked components);
-- Production route guard protecting internal `/design-system` surface.
+- Responsive layout verification at 1440px (desktop companion rail), 768px (tablet reflow), and 390px (dense mobile drawer & stacked components).
 
 ### Phase 2 — Canonical Knowledge Foundation & Factual Integrity (Complete)
 - Strongly typed Zod 4 runtime schemas for all HSR entities (Characters, Light Cones, Relics, Enemies, Stages, Divergent Universe Blessings/Curios/Equations, Game Versions, Release Manifests);
@@ -62,14 +65,32 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - Canonical static knowledge fixtures and snapshot versioning contracts (`/data/<knowledge-version>/...`);
 - Pre-publication integrity verification tooling (`pnpm knowledge:build`, `pnpm knowledge:check`);
 - Client-side IndexedDB caching layer via Dexie (`AstralynKnowledgeCache`) with pre-decode raw SHA-256 byte checksum validation, transactional atomic population, version upgrade state machine, fail-safe rollback protection, and offline fallback;
-- KnowledgeRepository query abstraction with search normalization and canonical entity aliases;
+- KnowledgeRepository query abstraction with search normalization across all 8 canonical entity stores;
 - Reproducible performance benchmark suite (`tools/benchmark-knowledge.ts` via `pnpm knowledge:benchmark`).
 - 100% test coverage for schema acceptance, negative rejection, cache lifecycle, and asset interoperability.
 
-### Phase 3 — Cloudflare Workers, D1 & Better Auth Foundation
-- Cloudflare Workers API backend (`apps/worker`);
-- Cloudflare D1 (SQLite) relational persistence using Drizzle ORM;
-- Better Auth setup with Google OAuth integration;
+### Phase 2.5 — Production Data Readiness & Build-Time Boundary Isolation (Complete)
+- Complete isolation of dev-only design system showcase into standalone multi-page HTML entry (`design-system.html`);
+- Removal of `/design-system` route and mock fixture data from production runtime;
+- Honest production UI states: `HomeView` synchronized with live `useKnowledgeInit()` status + static unsupported module cards; `Account unavailable` header identity;
+- Knowledge hooks error-state discrimination (`error: Error | null`) distinguishing valid empty data from read failures;
+- Asset snapshot quarantine: 52 valid PNG candidate assets moved to `src/dev/game-assets/v1.0.0/` with `usageStatus: "manual_review"`; 3 disguised SVG placeholders renamed to truthful `.svg` fixtures in `tests/fixtures/assets/`;
+- Deletion of `apps/web/public/game-assets` from production tree (0 production-approved game assets);
+- Fail-closed asset tools (`tools/check-assets.ts`, `tools/sync-assets.ts`) with magic binary header sniffing and fail-closed validation;
+- Build-time production boundary validator (`tools/check-production-data.ts`, `pnpm data:check`) and ESLint `no-restricted-imports` rule;
+- 100% test pass rate across unit, boundary, asset integrity, and Playwright E2E suites.
+
+### Phase 3A — Cloudflare Worker D1 + Drizzle Persistence Foundation (Planned)
+- Cloudflare D1 (SQLite) binding configuration in Worker (`apps/worker`);
+- Drizzle ORM integration and typed repository data-access boundary;
+- Migration tooling, migration generation, and migration safety validation;
+- Minimal persistence schema foundation with future auth foreign-key seam;
+- Local development & testing database isolation;
+- Zero fake production seed data.
+
+### Phase 3B — Better Auth, Google OAuth & Session Management (Planned)
+- Better Auth setup with Drizzle adapter;
+- Google OAuth provider configuration;
 - Worker-level invariant authorization middleware (`session.user.id`).
 
 ### Phase 4 — Authentication, Onboarding & User State

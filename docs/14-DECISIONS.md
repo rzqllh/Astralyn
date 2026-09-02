@@ -140,4 +140,13 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 5. Strict separation between official kit facts and Astralyn deterministic taxonomy (`roles`, `mechanicTags`, `archetypes`) preserves clean architectural boundaries.  
 **Status:** Accepted.
 
+## D-026 — Phase 2.5 Production Data Readiness, Asset Quarantine & Build-Time Boundary Enforcement
+**Decision:** Fully isolate development-only fixtures and showcase components from the production bundle graph, quarantine unapproved candidate game assets (52 PNGs preserved as dev-only data under `src/dev/game-assets/`; 3 disguised SVGs renamed and quarantined under test fixtures), enforce zero reachability via ESLint restricted imports and `tools/check-production-data.ts`, implement magic file header sniffing in asset tooling (`tools/check-assets.ts`, `tools/sync-assets.ts`), and establish truthful fallback states (`Asset unavailable`, `Account unavailable`, live knowledge sync status).  
+**Reason:**
+1. Production runtime must never simulate or fabricate account state, character ownership, recommendation scores, or asset availability.
+2. Eliminates disguised raster formats (SVGs masked as PNGs) and prevents unapproved manual-review visual assets from leaking into production web bundles.
+3. Preserves developer showcase capabilities via an isolated multi-page entry (`design-system.html`) without exposing dev routes on the production router.
+4. Guaranteed automated enforcement via CI boundary checks (`pnpm data:check`, `pnpm assets:check`) ensuring future development cannot accidentally violate the production data boundary.  
+**Status:** Accepted.
+
 

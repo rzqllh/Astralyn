@@ -2,23 +2,24 @@
 
 ## 1. Source Classification Hierarchy
 
-Game factual mechanics, editorial theorycraft guides, and visual game assets belong to distinct domains with clear tier boundaries:
+Game factual mechanics, structured community mappings, editorial theorycraft guides, and visual game assets belong to distinct domains with clear tier boundaries:
 
-### Tier A — Official Factual Mechanics & Metadata
-- **Examples:** Official *Honkai: Star Rail* website, official HoYoLAB game notices, in-game client text mappings.
-- **Role:** Canonical authority for patch versioning, official character names, element/path designations, base multipliers, and official mechanics.
+### Tier A (`tier_a_official`) — Official Factual Mechanics & Metadata
+- **Examples:** Official *Honkai: Star Rail* website, official HoYoLAB game notices, in-game client text mappings, HoYoWiki.
+- **Role:** Canonical authority for patch versioning, official character names, element/path designations, base multipliers, official mechanics, traces, and Eidolons.
 - **Classification:** **OFFICIAL REFERENCE**
 
-### Tier B — Established Editorial Guides & Theorycraft
-- **Examples:** Recognized build repositories, verified theorycrafter damage calculation sheets, editorial guide services (e.g. Prydwen, Game8, sheet theory).
+### Tier B (`tier_b_structured_community`) — Structured Community Mapping & Asset Archives
+- **Examples:** Structured open data and asset archives (e.g. `StarRailRes`, `TurnBasedGameData`).
+- **Role:** Asset file paths, internal game IDs, sprite coordinates, and texture mapping. Non-authoritative for factual balance, kit multipliers, or mechanics.
+- **Classification:** **COMMUNITY MAPPING REFERENCE**
+
+### Tier C (`tier_c_editorial`) — Established Editorial Guides & Multi-Source Theorycraft
+- **Examples:** Recognized build repositories, verified theorycrafter damage calculation sheets, editorial guide services (e.g. Prydwen, Game8, Guobie / theorycrafter calculation sheets).
 - **Role:** Input sources for light cone priority rankings, relic set rankings, main-stat priorities, team compositions, and tier evaluations.
 - **Consensus Requirement:** Target at least three independent editorial sources where available.
-- **Classification:** **EDITORIAL REFERENCE**
-
-### Tier C — Community & Emergent Strategy
-- **Examples:** Community guides, forum discussion threads, specialized Divergent Universe path/equation combinations.
-- **Role:** Emergent gameplay tricks, niche synergy discoveries, and experience-based edge cases.
 - **Boundary:** Tier C inputs never silently override Tier A official mechanics.
+- **Classification:** **EDITORIAL THEORYCRAFT REFERENCE**
 
 ---
 
@@ -32,6 +33,7 @@ Visual game assets (icons, character previews, portraits, element badges, path s
 - Character illustrations, weapon artwork, element emblems, and audio-visual assets remain the exclusive intellectual property of **© COGNOSPHERE / HoYoverse**.
 - Astralyn treats all game visuals conservatively under the **HoYoverse Fan Content Policy (Subject to Manual Review)**.
 - **Astralyn does NOT assert "fair use" or "used under fair use" as a settled legal conclusion.**
+- Currently, **0 assets are approved for production bundles**. A curated set of 52 candidate PNG assets is isolated under `apps/web/src/dev/game-assets/v1.0.0/` strictly as DEV-ONLY data with `usageStatus: "manual_review"`.
 - All visual assets in the versioned asset manifest (`manifest.json`) are tagged with conservative, factual metadata:
   ```json
   "source": "StarRailRes",
