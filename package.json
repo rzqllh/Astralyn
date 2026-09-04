@@ -21,6 +21,8 @@
     "db:generate": "pnpm --filter @astralyn/worker db:generate",
     "db:check": "tsx tools/check-migrations.ts",
     "db:migrate:local": "pnpm --filter @astralyn/worker db:migrate:local",
+    "auth:schema:generate": "pnpm --filter @astralyn/worker auth:schema:generate",
+    "auth:schema:check": "tsx tools/check-auth-schema.ts",
     "data:check": "tsx tools/check-production-data.ts",
     "assets:sync": "tsx tools/sync-assets.ts",
     "assets:check": "tsx tools/check-assets.ts",

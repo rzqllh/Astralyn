@@ -80,29 +80,45 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - Build-time production boundary validator (`tools/check-production-data.ts`, `pnpm data:check`) and ESLint `no-restricted-imports` rule;
 - 100% test pass rate across unit, boundary, asset integrity, and Playwright E2E suites.
 
-### Phase 3A — Cloudflare Worker D1 + Drizzle Persistence Foundation (Planned)
+### Phase 3A — Cloudflare Worker D1 + Drizzle Persistence Foundation (Complete)
 - Cloudflare D1 (SQLite) binding configuration in Worker (`apps/worker`);
 - Drizzle ORM integration and typed repository data-access boundary;
-- Migration tooling, migration generation, and migration safety validation;
+- Migration tooling, migration generation, and migration safety validation (`tools/check-migrations.ts`, `pnpm db:check`);
 - Minimal persistence schema foundation with future auth foreign-key seam;
 - Local development & testing database isolation;
 - Zero fake production seed data.
 
-### Phase 3B — Better Auth, Google OAuth & Session Management (Planned)
-- Better Auth setup with Drizzle adapter;
-- Google OAuth provider configuration;
-- Worker-level invariant authorization middleware (`session.user.id`).
+### Phase 3B — Better Auth, Google OAuth & Session Management (Local Implementation Complete)
+- Better Auth 1.7.2 native Cloudflare D1 runtime integration with shared canonical schema options (`apps/worker/src/auth/schema-options.ts`);
+- Canonical 4-table persistence baseline (`user`, `session`, `account`, `verification`) generated via `auth generate` and `drizzle-kit generate` (`0000_high_shape.sql`);
+- Worker-level Better Auth handler (`/api/auth/*`) and typed `AuthContext` resolver with sanitized error boundaries;
+- Local Google OAuth end-to-end smoke verification (Google login, session persistence, logout/revocation, cancel/deny all PASS);
+- Local test suites, schema integrity gates (`pnpm auth:schema:check`), and migration integrity gates (`pnpm db:check`) 100% PASS;
+- *Note:* Production deployment gates (production origin, production Google OAuth credentials, remote secrets, remote D1 migration, and remote OAuth smoke) are intentionally deferred to the pre-release deployment gate (Phase 9) since the project is in active local development without an existing production deployment. Phase 4 local development proceeds unblocked.
 
-### Phase 4 — Authentication, Onboarding & User State
-- Authentication-driven onboarding flow;
-- User roster selection, light cone ownership, and eidolon level management;
-- User state cloud synchronization between IndexedDB local cache and Cloudflare D1 database.
+### Phase 4 — Authentication, Onboarding & User State (Complete)
+- Typed client auth integration (`useAuth()`, `useSession()`) with live header identity and reactive sign-in/out states;
+- Profile and user roster persistence foundation in Cloudflare D1 (`profiles`, `user_roster`, migration `0001_wonderful_rocket_raccoon.sql`);
+- Worker authenticated endpoints (`GET /api/me`, `PUT /api/onboarding/complete`, `GET /api/roster`, `PUT /api/roster`, `DELETE /api/roster/:id`) guarded by strict `AuthContext` invariant (HTTP 401 for unauthenticated callers);
+- Multi-step onboarding wizard (`/onboarding`) enforcing selection before configuration, with Level (1–80) and Eidolon (0–6) configurators and atomic D1 batch persistence;
+- In-app Roster Manager (`/roster`) with dynamic candidate exclusion (owned characters excluded, reactive addition/deletion, search, element, and path filters);
+- Local manual smoke gates (Gate 1: Onboarding Flow, Gate 2: Roster Management) 100% PASS with verified D1 persistence;
+- 100% automated test pass rate across unit, boundary, lint, typecheck, and git whitespace checks.
+- *Note:* Production deployment gates (remote D1 migrations, remote secrets, production OAuth origins) remain intentionally deferred to the pre-release deployment gate (Phase 9). Local foundation is fully ready for Phase 5.
 
-### Phase 5 — Deterministic Recommendation Engine
-- Core deterministic recommendation scoring algorithm (role coverage, tag synergy, speed tuning, anti-synergy rules);
-- Multi-source weighted consensus calculation (Prydwen, Game8, theorycraft guides);
-- Astralyn Verdict synthesis rules with transparent reason codes and confidence weighting;
-- Golden recommendation regression test suite.
+### Phase 5 — Deterministic Recommendation Engine (Complete)
+- 100% deterministic pure integer fixed-point recommendation scoring algorithm in `@astralyn/shared` (Decision D-028);
+- Role coverage evaluation (sustain, carry, amplifier presence/deficit and penalty constraints);
+- Canonical mechanic cross-tag synergy modeling (Super Break, Memosprite acceleration, Slashed Dream debuff feeding, Energy battery);
+- Kit-verified trace and Eidolon constraints (Acheron Trace A4 Nihility deficit penalty, relaxed by Eidolon 2);
+- Roster-aware combination search generating deterministic 4-character teams exclusively from authenticated user's D1 roster;
+- Deterministic UTF-16 code-unit tie-breaking policy (`compareCodeUnits`, `buildTeamSignature`);
+- Structured explainability with machine-readable reason codes, category labels, score deltas, and human explanations;
+- User UI surfaces in Web HUD (`/recommendations` and `/teams`) with interactive elemental weakness toggling and focus character anchor badge;
+- Client-side recommendation caching keyed by deterministic composite tuple `(knowledgeVersion, rosterSignature, context)` with automatic invalidation on roster additions/updates/deletions and manual bypass via Recalculate;
+- Local manual smoke gates (Gate 1: Recommendation Engine, Gate 2: Navigation & Invalidation) PASS;
+- 100% automated test pass rate (119 web tests, 34 worker tests, 14 shared golden regression tests).
+- *Note:* Production deployment gates remain deferred to Phase 9. Local Phase 5 foundation complete.
 
 ### Phase 6 — Character, Build & Team Recommender Surfaces
 - Character detail views with 3-source side-by-side comparison;

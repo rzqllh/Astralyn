@@ -1,6 +1,6 @@
 # Phase 3B — Better Auth + Identity
 
-Status: implementation plan only. Target executor: Gemini 3.7 Flash High. Research and repository audit date: 2026-09-02.
+Status: Local implementation and smoke verification complete. Production deployment & remote migration deferred to Release Gate (Phase 9). Verification date: 2026-09-03.
 
 ## 1. Objective
 
@@ -712,3 +712,20 @@ Stop conditions:
 Final validation is the exact Section 17 sequence, followed by the approved remote migration list and manual OAuth evidence. Do not claim completion for skipped commands or gates.
 
 Final executor report must state: changed files; pinned dependency versions; generated auth tables; migration filename/hash and local/remote status; automated command results; cookie/origin/session security evidence; manual OAuth results; confirmation of no secrets/fake identity/product data/Phase 4 work; risks; and deferred items.
+
+---
+
+## 20. Local Implementation & Smoke Verification Closure
+
+- **Local Better Auth + D1 Integration:** Complete. Pinned to `better-auth@1.7.2` using native Cloudflare D1 runtime (`database: env.DB`) and shared canonical database field mappings in `apps/worker/src/auth/schema-options.ts`.
+- **Baseline Migration:** `apps/worker/drizzle/migrations/0000_high_shape.sql` (SHA-256: `EE11D93857E58596AE3C895674D6122AC6A261452B5EF2B4E111FD92EF0F06AE`).
+- **Core Tables (4 only):** `user`, `session`, `account`, `verification`. Zero Phase 4 tables or product data created.
+- **Local OAuth Smoke Results:**
+  - Google login: PASS
+  - Session persistence: PASS (verified against Worker `:8787` and Vite proxy `:5173`)
+  - Logout / session revocation: PASS (session row deleted in D1, subsequent requests return 200 null)
+  - Cancel / deny: PASS (clean 302 redirect, no session created, table counts unchanged)
+  - Branding observation: Google Cloud Console OAuth consent screen currently named "Lumina" (marked for manual rename to "Astralyn").
+- **Verification Gates:** `pnpm auth:schema:check` (PASS), `pnpm db:check` (PASS), `pnpm --filter @astralyn/worker test` (20/20 PASS), `pnpm --filter @astralyn/web test` (100/100 PASS), `pnpm typecheck` (PASS), `pnpm lint` (PASS), `pnpm data:check` (PASS), `git diff --check` (PASS).
+- **Deferred Production Scope:** Because Astralyn is in active development with no deployed production environment, production deployment gates (production application origin, production Google OAuth client credentials, remote secrets via `wrangler secret put`, remote D1 migration execution, and remote OAuth smoke) are deferred to the pre-release deployment gate (Phase 9).
+- **Phase 4 Handoff:** Local development for Phase 4 (Authentication, Onboarding & User State) is unblocked and ready to proceed using the verified local Better Auth + D1 foundation.

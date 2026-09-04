@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { execSync } from "node:child_process";
 
@@ -28,7 +28,8 @@ function validateMigrationState(): void {
     process.exit(1);
   }
 
-  // Parse journal metadata
+  // Parse and validate journal metadata
+  let entryTags: Set<string>;
   try {
     const journalRaw = readFileSync(JOURNAL_PATH, "utf-8");
     const journal = JSON.parse(journalRaw);
@@ -36,10 +37,38 @@ function validateMigrationState(): void {
       console.error("[FAIL] Malformed _journal.json in drizzle/migrations/meta");
       process.exit(1);
     }
+
+    entryTags = new Set<string>();
+    for (const entry of journal.entries) {
+      if (!entry.tag || typeof entry.tag !== "string") {
+        console.error("[FAIL] Missing or invalid tag in journal entry:", entry);
+        process.exit(1);
+      }
+      const migrationFile = resolve(MIGRATIONS_DIR, `${entry.tag}.sql`);
+      if (!existsSync(migrationFile)) {
+        console.error(
+          `[FAIL] Migration file listed in journal does not exist on disk: ${migrationFile}`
+        );
+        process.exit(1);
+      }
+      entryTags.add(`${entry.tag}.sql`);
+    }
+
     console.log(`✓ Journal metadata valid (Entries: ${journal.entries.length})`);
   } catch (error) {
     console.error("[FAIL] Error reading migration journal:", error);
     process.exit(1);
+  }
+
+  // Validate that all physical .sql files in migrations directory are in journal
+  const physicalSqlFiles = readdirSync(MIGRATIONS_DIR).filter((f) => f.endsWith(".sql"));
+  for (const file of physicalSqlFiles) {
+    if (!entryTags.has(file)) {
+      console.error(
+        `[FAIL] Unrecorded migration file found on disk that is not in _journal.json: ${file}`
+      );
+      process.exit(1);
+    }
   }
 
   // Run drizzle-kit generate check to detect schema drift
@@ -57,7 +86,10 @@ function validateMigrationState(): void {
     ) {
       console.log("✓ Zero schema drift: schema and migration journal are in sync.");
     } else {
-      console.log("✓ Generation executed cleanly.");
+      console.error(
+        "[FAIL] Uncommitted schema drift detected! drizzle-kit generate generated unexpected migration output."
+      );
+      process.exit(1);
     }
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);

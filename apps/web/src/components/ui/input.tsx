@@ -101,7 +101,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           disabled={disabled}
           className={cn(
-            "flex h-10 w-full rounded-sm bg-[#0a0e1a] px-3.5 py-2 text-sm text-[#f0f3fa] border transition-colors duration-150 cursor-pointer",
+            "flex h-10 w-full rounded-sm bg-[#0a0e1a] px-3.5 py-2 text-sm text-[#f0f3fa] border transition-colors duration-150 cursor-pointer [color-scheme:dark]",
             "border-[#1f2940] hover:border-[#303f5e] focus:border-[#dfb86c] focus:outline-hidden focus:ring-1 focus:ring-[#dfb86c]",
             "disabled:cursor-not-allowed disabled:opacity-40",
             error && "border-[#f87171] focus:border-[#f87171] focus:ring-[#f87171]",

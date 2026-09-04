@@ -27,10 +27,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : "button";
-
     const baseStyles =
-      "inline-flex items-center justify-center font-medium tracking-wide transition-all duration-150 select-none cursor-pointer disabled:pointer-events-none disabled:opacity-40 active:scale-[0.98]";
+      "inline-flex items-center justify-center whitespace-nowrap font-medium tracking-wide transition-all duration-150 select-none cursor-pointer disabled:pointer-events-none disabled:opacity-40 active:scale-[0.98] [&>svg]:shrink-0";
 
     const sizeStyles = {
       sm: "h-8 px-3 text-xs gap-1.5 rounded-sm",
@@ -58,21 +56,33 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         "bg-[#eee8dc] text-[#181d28] font-semibold border border-[#d4ccbd] hover:bg-[#f7f3ec] shadow-sm",
     }[variant];
 
+    if (asChild) {
+      return (
+        <Slot
+          ref={ref}
+          className={cn(baseStyles, sizeStyles, variantStyles, className)}
+          {...props}
+        >
+          {children}
+        </Slot>
+      );
+    }
+
     return (
-      <Comp
+      <button
         ref={ref}
         disabled={disabled || loading}
         className={cn(baseStyles, sizeStyles, variantStyles, className)}
         {...props}
       >
         {loading ? (
-          <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent shrink-0" />
         ) : (
           iconLeft
         )}
-        <span>{children}</span>
+        {children}
         {!loading && iconRight}
-      </Comp>
+      </button>
     );
   }
 );

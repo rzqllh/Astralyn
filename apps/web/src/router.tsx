@@ -10,6 +10,9 @@ import { AppShell } from "./components/layout/app-shell";
 import { HomeView } from "./routes/home-view";
 import { EmptyState } from "./components/ui/empty-state";
 import { Button } from "./components/ui/button";
+import { AuthProvider } from "./features/auth";
+import { RosterManager } from "./features/roster";
+import { OnboardingWizard } from "./features/onboarding";
 
 function PlaceholderView({
   title,
@@ -57,9 +60,11 @@ function PlaceholderView({
 // Root Route layout
 const rootRoute = createRootRoute({
   component: () => (
-    <AppShell>
-      <Outlet />
-    </AppShell>
+    <AuthProvider>
+      <AppShell>
+        <Outlet />
+      </AppShell>
+    </AuthProvider>
   ),
   notFoundComponent: () => (
     <div className="flex items-center justify-center p-12" data-testid="not-found">
@@ -86,11 +91,17 @@ const indexRoute = createRoute({
 const rosterRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/roster",
+  component: RosterManager,
+});
+
+const onboardingRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/onboarding",
   component: () => (
-    <PlaceholderView
-      path="/roster"
-      title="Character Roster"
-      description="Manage local owned characters, light cones, and eidolon levels."
+    <OnboardingWizard
+      onComplete={() => {
+        window.location.href = "/roster";
+      }}
     />
   ),
 });
@@ -119,16 +130,18 @@ const bestCharactersRoute = createRoute({
   ),
 });
 
+import { RecommendationsView } from "./routes/recommendations-view";
+
 const teamsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/teams",
-  component: () => (
-    <PlaceholderView
-      path="/teams"
-      title="Teams & Synergies"
-      description="Evaluate team synergy scores, speed tuning, and action advance rotations."
-    />
-  ),
+  component: RecommendationsView,
+});
+
+const recommendationsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/recommendations",
+  component: RecommendationsView,
 });
 
 const contentRoute = createRoute({
@@ -170,10 +183,12 @@ const settingsRoute = createRoute({
 // Route tree
 const routeTree = rootRoute.addChildren([
   indexRoute,
+  onboardingRoute,
   rosterRoute,
   charactersRoute,
   bestCharactersRoute,
   teamsRoute,
+  recommendationsRoute,
   contentRoute,
   assistantRoute,
   settingsRoute,

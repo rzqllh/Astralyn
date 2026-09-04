@@ -1,1 +1,20 @@
-{ "version": "7", "dialect": "sqlite", "entries": [] }
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1788411038558,
+      "tag": "0000_high_shape",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788420658455,
+      "tag": "0001_wonderful_rocket_raccoon",
+      "breakpoints": true
+    }
+  ]
+}

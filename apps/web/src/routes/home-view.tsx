@@ -16,12 +16,42 @@ import { Badge } from "../components/ui/badge";
 import { Panel, PanelHeader, PanelTitle, PanelContent } from "../components/ui/panel";
 import { Skeleton } from "../components/ui/skeleton";
 import { useKnowledgeInit } from "../lib/knowledge/use-knowledge";
+import { useAuth } from "../features/auth";
+import { useRoster } from "../features/roster";
 
 export function HomeView() {
   const { syncResult, loading, error } = useKnowledgeInit();
+  const { user, status, needsOnboarding, signIn } = useAuth();
+  const { roster, loading: rosterLoading } = useRoster();
 
   return (
     <div className="space-y-8" data-testid="home-view">
+      {/* Onboarding Callout Banner for Authenticated Unonboarded Users */}
+      {status === "authenticated" && needsOnboarding && (
+        <div
+          data-testid="onboarding-banner"
+          className="p-4 sm:p-5 rounded-xs border border-[#dfb86c] bg-[#16140b] shadow-[0_0_15px_rgba(223,184,108,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+        >
+          <div className="flex items-center gap-3.5">
+            <div className="h-10 w-10 rounded-xs bg-[#dfb86c]/20 border border-[#dfb86c]/50 flex items-center justify-center text-[#dfb86c] shrink-0">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-[#f0f3fa]">
+                Welcome aboard, {user?.name || "Trailblazer"}! Setup your character roster
+              </h3>
+              <p className="text-xs text-[#9ba5be] mt-0.5">
+                Complete onboarding by selecting your unlocked characters to enable personalized recommendations.
+              </p>
+            </div>
+          </div>
+          <Link to="/onboarding" className="shrink-0">
+            <Button variant="primary" size="sm" iconRight={<ArrowRight className="h-4 w-4" />}>
+              Start Onboarding
+            </Button>
+          </Link>
+        </div>
+      )}
       {/* Top Welcome / Status Hero Banner */}
       <div className="relative overflow-hidden rounded-sm border border-[#dfb86c]/40 bg-gradient-to-r from-[#1c160a] via-[#12182b] to-[#0c101c] p-5 sm:p-6 shadow-xl">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -206,10 +236,12 @@ export function HomeView() {
       {/* Grid: Explicit Module Status Cards (No fabricated gameplay or user data) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Module 1: Character Roster */}
-        <Panel variant="default">
+        <Panel variant="default" className="border-[#1a2338] bg-[#0c101a] hover:border-[#25324e] transition-colors">
           <PanelHeader>
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-[#dfb86c]" />
+            <div className="flex items-center gap-2.5">
+              <div className="h-7 w-7 rounded-xs bg-[#dfb86c]/10 border border-[#dfb86c]/30 flex items-center justify-center text-[#dfb86c]">
+                <Users className="h-4 w-4" />
+              </div>
               <div>
                 <span className="text-[10px] font-mono font-bold tracking-widest text-[#dfb86c] uppercase">
                   Roster Management
@@ -219,15 +251,69 @@ export function HomeView() {
                 </PanelTitle>
               </div>
             </div>
-            <Badge variant="outline" size="sm">
-              Unavailable
-            </Badge>
+            {status === "authenticated" ? (
+              <Badge variant="success" size="sm">
+                Active
+              </Badge>
+            ) : status === "loading" ? (
+              <Badge variant="outline" size="sm">
+                Checking...
+              </Badge>
+            ) : (
+              <Badge variant="outline" size="sm">
+                Sign In Required
+              </Badge>
+            )}
           </PanelHeader>
-          <PanelContent className="p-4 text-xs text-[#9ba5be] space-y-2">
-            <p>
-              Account and roster persistence unavailable in this build. Real player roster
-              synchronization will unlock in a later phase.
-            </p>
+          <PanelContent className="p-4 text-xs text-[#9ba5be] space-y-3">
+            {status === "loading" || rosterLoading ? (
+              <p>Verifying authentication and roster state...</p>
+            ) : status === "authenticated" ? (
+              needsOnboarding ? (
+                <div className="space-y-2">
+                  <p className="text-[#f0f3fa]">
+                    Account connected. Complete setup to synchronize your unlocked characters with Astralyn.
+                  </p>
+                  <Link to="/onboarding">
+                    <Button variant="primary" size="sm" className="mt-1 flex items-center gap-1.5 text-xs">
+                      <span>Complete Onboarding</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
+                </div>
+              ) : (
+                <div className="space-y-2.5">
+                  <p className="text-[#f0f3fa]">
+                    Local persistence active. You have{" "}
+                    <span className="font-mono font-bold text-[#dfb86c]">
+                      {roster.length}
+                    </span>{" "}
+                    owned {roster.length === 1 ? "character" : "characters"} configured with custom levels and Eidolons.
+                  </p>
+                  <Link to="/roster">
+                    <Button variant="secondary" size="sm" className="flex items-center gap-1.5 text-xs text-[#dfb86c] hover:text-[#f4d38f]">
+                      <span>Manage Roster</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
+                </div>
+              )
+            ) : (
+              <div className="space-y-2.5">
+                <p>
+                  Local D1 persistence ready. Sign in with Google to synchronize your character roster, customize levels (1–80), and configure Eidolons (E0–E6).
+                </p>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => void signIn()}
+                  className="flex items-center gap-1.5 text-xs text-[#dfb86c]"
+                >
+                  <span>Sign in with Google</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            )}
           </PanelContent>
         </Panel>
 
@@ -245,15 +331,53 @@ export function HomeView() {
                 </PanelTitle>
               </div>
             </div>
-            <Badge variant="outline" size="sm">
-              Unavailable
+            <Badge variant="outline" size="sm" className="border-[#dfb86c]/40 text-[#dfb86c]">
+              Active (D-028)
             </Badge>
           </PanelHeader>
-          <PanelContent className="p-4 text-xs text-[#9ba5be] space-y-2">
-            <p>
-              Deterministic recommendation engine unavailable in this build. Personalized
-              team allocations will be available once the calculation engine is deployed.
-            </p>
+          <PanelContent className="p-4 text-xs text-[#9ba5be] space-y-2.5">
+            {status === "authenticated" ? (
+              roster.length >= 4 ? (
+                <div className="space-y-2">
+                  <p className="text-[#f0f3fa]">
+                    Deterministic recommendation engine ready. Evaluates your{" "}
+                    <span className="font-mono font-bold text-[#dfb86c]">{roster.length}</span>{" "}
+                    characters against verified role completeness and canonical synergies.
+                  </p>
+                  <Link to="/recommendations">
+                    <Button variant="secondary" size="sm" className="flex items-center gap-1.5 text-xs text-[#dfb86c] hover:text-[#f4d38f]">
+                      <span>View Recommendations</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <p className="text-[#f0f3fa]">
+                    At least 4 owned characters required for team recommendations. You currently have{" "}
+                    <span className="font-mono font-bold text-[#dfb86c]">{roster.length}</span>.
+                  </p>
+                  <Link to="/roster">
+                    <Button variant="secondary" size="sm" className="flex items-center gap-1.5 text-xs text-[#dfb86c]">
+                      <span>Add to Roster</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
+                </div>
+              )
+            ) : (
+              <div className="space-y-2">
+                <p>
+                  Deterministic recommendation engine active. Evaluates 4-character combinations using pure fixed-point integer scoring and verified canonical synergies.
+                </p>
+                <Link to="/recommendations">
+                  <Button variant="secondary" size="sm" className="flex items-center gap-1.5 text-xs text-[#dfb86c]">
+                    <span>Explore Engine</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Button>
+                </Link>
+              </div>
+            )}
           </PanelContent>
         </Panel>
 

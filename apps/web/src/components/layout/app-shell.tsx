@@ -13,6 +13,8 @@ import {
   X,
   Compass,
   Code,
+  LogIn,
+  LogOut,
 } from "lucide-react";
 import { BrandMark } from "./brand-mark";
 import { NavItem } from "./nav-item";
@@ -20,12 +22,19 @@ import { IconButton } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { ToastProvider } from "../ui/toast";
 import { TooltipProvider } from "../ui/tooltip";
+import { useAuth } from "../../features/auth";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const location = useLocation();
+  const { status, user, profile, signIn, signOut } = useAuth();
+  const [avatarImgError, setAvatarImgError] = React.useState(false);
   const isDev =
     Boolean(import.meta.env.DEV) || import.meta.env.VITE_ENABLE_DEV_DS === "true";
+
+  React.useEffect(() => {
+    setAvatarImgError(false);
+  }, [user?.image]);
 
   // LOCKED Production Navigation
   const navigationLinks = [
@@ -83,7 +92,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   icon={item.icon}
                   label={item.label}
                   badge={item.badge}
-                  active={location.pathname === item.to}
+                  active={
+                    location.pathname === item.to ||
+                    (item.to === "/teams" && location.pathname === "/recommendations")
+                  }
                 />
               ))}
             </nav>
@@ -146,12 +158,59 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 px-2.5 py-1 rounded-xs border border-[#1f2940] bg-[#101524] text-xs">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#9ba5be]" />
-                  <span className="text-[#9ba5be] font-mono text-[11px]">
-                    Account unavailable
-                  </span>
-                </div>
+                {status === "loading" && (
+                  <div className="flex items-center gap-2 px-2.5 py-1 rounded-xs border border-[#1f2940] bg-[#101524] text-xs">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#dfb86c] animate-pulse" />
+                    <span className="text-[#9ba5be] font-mono text-[11px]">Verifying...</span>
+                  </div>
+                )}
+                {status === "unauthenticated" && (
+                  <button
+                    type="button"
+                    onClick={() => void signIn()}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xs border border-[#dfb86c]/40 bg-[#dfb86c]/10 text-[#dfb86c] hover:bg-[#dfb86c]/20 hover:border-[#dfb86c] text-xs font-semibold transition-all cursor-pointer"
+                  >
+                    <LogIn className="h-3.5 w-3.5" />
+                    <span>Sign in with Google</span>
+                  </button>
+                )}
+                {status === "authenticated" && user && (
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 px-2.5 py-1 rounded-xs border border-[#1f2940] bg-[#101524] text-xs">
+                      {user.image && !avatarImgError ? (
+                        <img
+                          src={user.image}
+                          alt={user.name}
+                          referrerPolicy="no-referrer"
+                          onError={() => setAvatarImgError(true)}
+                          className="h-4 w-4 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-4 w-4 rounded-full bg-[#dfb86c]/20 border border-[#dfb86c]/40 flex items-center justify-center text-[10px] text-[#dfb86c] font-bold">
+                          {user.name ? user.name[0].toUpperCase() : "T"}
+                        </div>
+                      )}
+                      <span className="text-[#f0f3fa] font-medium text-xs max-w-[120px] truncate">
+                        {profile?.displayName || user.name}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => void signOut()}
+                      title="Sign out"
+                      aria-label="Sign out"
+                      className="p-1.5 rounded-xs text-[#9ba5be] hover:text-[#f87171] hover:bg-[#1f2940]/50 transition-colors cursor-pointer"
+                    >
+                      <LogOut className="h-4 w-4" />
+                    </button>
+                  </div>
+                )}
+                {status === "error" && (
+                  <div className="flex items-center gap-2 px-2.5 py-1 rounded-xs border border-[#f87171]/30 bg-[#f87171]/10 text-xs">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#f87171]" />
+                    <span className="text-[#f87171] font-mono text-[11px]">Auth error</span>
+                  </div>
+                )}
               </div>
             </header>
 
@@ -166,7 +225,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                       icon={item.icon}
                       label={item.label}
                       badge={item.badge}
-                      active={location.pathname === item.to}
+                      active={
+                        location.pathname === item.to ||
+                        (item.to === "/teams" && location.pathname === "/recommendations")
+                      }
                       onClick={() => setMobileMenuOpen(false)}
                       className="py-3 text-sm"
                     />

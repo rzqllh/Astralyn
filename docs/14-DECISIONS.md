@@ -149,4 +149,22 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 4. Guaranteed automated enforcement via CI boundary checks (`pnpm data:check`, `pnpm assets:check`) ensuring future development cannot accidentally violate the production data boundary.  
 **Status:** Accepted.
 
+## D-027 — Phase 3B Local Better Auth Identity & Deferred Deployment Gates
+**Decision:** Complete Phase 3B identity foundation locally using Better Auth 1.7.2 native Cloudflare D1 integration with shared canonical schema options (`apps/worker/src/auth/schema-options.ts`), generating a clean 4-table persistence baseline (`0000_high_shape.sql`), while deferring all production-only deployment tasks (production origin, production Google OAuth client credentials, remote secrets via `wrangler secret put`, remote D1 migration execution, and remote OAuth smoke) to the pre-release deployment gate (Phase 9).
+**Reason:**
+1. Astralyn is in active local development without an active production deployment or fixed production URL.
+2. Local OAuth and session verification are 100% complete and passing (Google login, session persistence, logout/revocation, cancel/deny).
+3. Deferring remote deployment gates keeps local development agile while ensuring remote D1 remains pristine with zero unverified schema drift.
+4. Unblocks Phase 4 local user onboarding, profile provisioning, and roster development without fabricating a production environment.
+**Status:** Accepted.
 
+## D-028 — Phase 5 Deterministic Scoring Policy & Versioned Engineering Heuristics
+**Decision:** Formalize Astralyn's deterministic recommendation engine under strict mathematical determinism, explicit separation between canonical game facts and engineering heuristics, pure fixed-point integer arithmetic, and locale-independent code-unit tie-breaking.
+**Key Tenets:**
+1. Scoring parameters (weights, synergy bonuses, anti-synergy deductions) are engineering policy and heuristics, NOT canonical game facts. They are versioned, documented, and explicitly distinct from Tier A official mechanics.
+2. Current weights and constants are provisional tuning parameters subject to golden fixture calibration. Weights must never be tuned ad-hoc merely to force a preconceived team ranking.
+3. Golden regression tests freeze approved engine behavior across code changes; they do not prove in-game meta truth. Canonical mechanics and reason-code unit tests remain strictly decoupled from ranking regression tests.
+4. Pure fixed-point integer math: all weighted contributions use integer multiplication and explicit half-up integer division (`Math.floor((weighted + 50) / 100)`), clamped to `[0, 100]`. Zero floating-point arithmetic is permitted in engine scoring.
+5. Deterministic tie-breaking uses code-unit lexical comparison (`<` and `>`), strictly avoiding `String.prototype.localeCompare()` to guarantee identical results across all operating systems, runtimes, and system locales.
+6. Zero recommendation persistence: recommendations are computed purely in-memory as derived projections of the live roster and static knowledge snapshots, introducing zero new D1 tables and zero database quota overhead.
+**Status:** Accepted.

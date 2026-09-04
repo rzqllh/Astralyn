@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="astralyn-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a210d" />
+      <stop offset="50%" stop-color="#181920" />
+      <stop offset="100%" stop-color="#0f1422" />
+    </linearGradient>
+    <filter id="gold-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#dfb86c" flood-opacity="0.6" />
+    </filter>
+    <filter id="inner-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="1" flood-color="#f4d38f" flood-opacity="0.8" />
+    </filter>
+  </defs>
+
+  <!-- Outer Astralyn Celestial Diamond -->
+  <rect
+    x="7"
+    y="7"
+    width="18"
+    height="18"
+    rx="2"
+    transform="rotate(45 16 16)"
+    fill="url(#astralyn-bg)"
+    stroke="#dfb86c"
+    stroke-width="2"
+    filter="url(#gold-glow)"
+  />
+
+  <!-- Inner Gold Core Gem -->
+  <rect
+    x="12"
+    y="12"
+    width="8"
+    height="8"
+    rx="1"
+    transform="rotate(45 16 16)"
+    fill="#f4d38f"
+    filter="url(#inner-glow)"
+  />
+
+  <!-- Celestial Spark at Top-Right -->
+  <circle cx="24.5" cy="7.5" r="1.5" fill="#dfb86c" />
+  <circle cx="24.5" cy="7.5" r="0.75" fill="#ffffff" />
+</svg>

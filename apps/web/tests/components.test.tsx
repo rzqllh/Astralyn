@@ -133,8 +133,12 @@ describe("Phase 1.1 Design System Component Tests", () => {
     const testRouter = createAppRouter(memoryHistory);
     render(<RouterProvider router={testRouter} />);
 
-    // Truthful account state
-    expect(await screen.findByText("Account unavailable")).toBeInTheDocument();
+    // Wait for layout to mount
+    expect(await screen.findAllByText(/Astralyn/i)).toBeTruthy();
+
+    // Truthful account state (Phase 4 dynamic auth state)
+    const authElements = await screen.findAllByText(/Sign in with Google|Verifying|Auth error/i);
+    expect(authElements.length).toBeGreaterThan(0);
 
     // 8 Locked Production Navigation Modules in Main Navigation
     const nav = await screen.findByRole("navigation", { name: "Main Navigation" });
