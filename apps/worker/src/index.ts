@@ -28,6 +28,77 @@ export interface Env extends AuthEnv {
   GOOGLE_CLIENT_SECRET?: string;
 }
 
+function validateTeamMembers(members: unknown):
+  | { valid: true; members: Array<{ slot: number; characterId: string }> }
+  | { valid: false; error: string; code: string } {
+  if (!Array.isArray(members) || members.length !== 4) {
+    return {
+      valid: false,
+      error: "Saved team must contain exactly 4 members",
+      code: "INVALID_MEMBERS_COUNT",
+    };
+  }
+
+  const slotsSeen = new Set<number>();
+  const charsSeen = new Set<string>();
+  const parsedMembers: Array<{ slot: number; characterId: string }> = [];
+
+  for (const item of members) {
+    if (!item || typeof item !== "object") {
+      return { valid: false, error: "Invalid member object", code: "INVALID_MEMBER" };
+    }
+    const slot = (item as Record<string, unknown>).slot;
+    const characterId = (item as Record<string, unknown>).characterId;
+    if (typeof slot !== "number" || !Number.isInteger(slot) || slot < 1 || slot > 4) {
+      return {
+        valid: false,
+        error: "Slot must be an integer between 1 and 4",
+        code: "INVALID_SLOT",
+      };
+    }
+    if (typeof characterId !== "string" || !characterId.trim()) {
+      return {
+        valid: false,
+        error: "Missing or invalid characterId",
+        code: "INVALID_CHARACTER",
+      };
+    }
+    const cleanCharId = characterId.trim();
+    if (!CANONICAL_CHARACTERS.some((c) => c.id === cleanCharId)) {
+      return {
+        valid: false,
+        error: `Character ID '${cleanCharId}' is not recognized in canonical knowledge`,
+        code: "UNKNOWN_CHARACTER_ID",
+      };
+    }
+    if (slotsSeen.has(slot)) {
+      return {
+        valid: false,
+        error: `Duplicate slot '${slot}' in team members`,
+        code: "DUPLICATE_SLOT",
+      };
+    }
+    if (charsSeen.has(cleanCharId)) {
+      return {
+        valid: false,
+        error: `Duplicate character '${cleanCharId}' in team members`,
+        code: "DUPLICATE_MEMBERS",
+      };
+    }
+    slotsSeen.add(slot);
+    charsSeen.add(cleanCharId);
+    parsedMembers.push({ slot, characterId: cleanCharId });
+  }
+
+  for (let s = 1; s <= 4; s++) {
+    if (!slotsSeen.has(s)) {
+      return { valid: false, error: `Missing required slot ${s}`, code: "MISSING_SLOT" };
+    }
+  }
+
+  return { valid: true, members: parsedMembers.sort((a, b) => a.slot - b.slot) };
+}
+
 export default {
   async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
@@ -263,6 +334,142 @@ export default {
 
       return jsonResponse({ error: "Method not allowed", code: "METHOD_NOT_ALLOWED" }, 405);
     }
+
+    // 5. Saved Teams APIs (/api/saved-teams, /api/saved-teams/:id)
+    if (url.pathname === "/api/saved-teams" || url.pathname === "/api/saved-teams/") {
+      const auth = await resolveAuthContext(request, env);
+      if (auth.status !== "authenticated") {
+        return jsonResponse({ error: "Unauthorized", code: "UNAUTHORIZED" }, 401);
+      }
+      if (!env.DB) {
+        return jsonResponse({ error: "Database unavailable", code: "DB_UNAVAILABLE" }, 503);
+      }
+      const userRepo = new UserRepository(env.DB);
+
+      if (request.method === "GET") {
+        const teams = await userRepo.getSavedTeams(auth.userId);
+        return jsonResponse({ teams });
+      }
+
+      if (request.method === "POST") {
+        let rawBody: Record<string, unknown>;
+        try {
+          rawBody = (await request.json()) as Record<string, unknown>;
+        } catch {
+          return jsonResponse({ error: "Invalid JSON payload", code: "INVALID_BODY" }, 400);
+        }
+
+        if (
+          !rawBody ||
+          typeof rawBody.name !== "string" ||
+          !rawBody.name.trim() ||
+          rawBody.name.trim().length > 50
+        ) {
+          return jsonResponse(
+            { error: "Team name must be between 1 and 50 characters", code: "INVALID_NAME" },
+            400
+          );
+        }
+
+        const memberValidation = validateTeamMembers(rawBody.members);
+        if (!memberValidation.valid) {
+          return jsonResponse(
+            { error: memberValidation.error, code: memberValidation.code },
+            400
+          );
+        }
+
+        const team = await userRepo.createSavedTeam(auth.userId, {
+          name: rawBody.name.trim(),
+          mode: typeof rawBody.mode === "string" ? rawBody.mode.trim() : undefined,
+          members: memberValidation.members,
+        });
+
+        return jsonResponse({ success: true, team }, 201);
+      }
+
+      return jsonResponse({ error: "Method not allowed", code: "METHOD_NOT_ALLOWED" }, 405);
+    }
+
+    if (url.pathname.startsWith("/api/saved-teams/")) {
+      const auth = await resolveAuthContext(request, env);
+      if (auth.status !== "authenticated") {
+        return jsonResponse({ error: "Unauthorized", code: "UNAUTHORIZED" }, 401);
+      }
+      if (!env.DB) {
+        return jsonResponse({ error: "Database unavailable", code: "DB_UNAVAILABLE" }, 503);
+      }
+      const teamId = decodeURIComponent(url.pathname.substring("/api/saved-teams/".length)).trim();
+      if (!teamId) {
+        return jsonResponse({ error: "Missing teamId", code: "INVALID_TEAM_ID" }, 400);
+      }
+      const userRepo = new UserRepository(env.DB);
+
+      if (request.method === "GET") {
+        const team = await userRepo.getSavedTeamById(auth.userId, teamId);
+        if (!team) {
+          return jsonResponse({ error: "Saved team not found", code: "NOT_FOUND" }, 404);
+        }
+        return jsonResponse({ team });
+      }
+
+      if (request.method === "PUT") {
+        let rawBody: Record<string, unknown>;
+        try {
+          rawBody = (await request.json()) as Record<string, unknown>;
+        } catch {
+          return jsonResponse({ error: "Invalid JSON payload", code: "INVALID_BODY" }, 400);
+        }
+
+        if (rawBody.name !== undefined) {
+          if (
+            typeof rawBody.name !== "string" ||
+            !rawBody.name.trim() ||
+            rawBody.name.trim().length > 50
+          ) {
+            return jsonResponse(
+              { error: "Team name must be between 1 and 50 characters", code: "INVALID_NAME" },
+              400
+            );
+          }
+        }
+
+        let validatedMembers: Array<{ slot: number; characterId: string }> | undefined = undefined;
+        if (rawBody.members !== undefined) {
+          const memberValidation = validateTeamMembers(rawBody.members);
+          if (!memberValidation.valid) {
+            return jsonResponse(
+              { error: memberValidation.error, code: memberValidation.code },
+              400
+            );
+          }
+          validatedMembers = memberValidation.members;
+        }
+
+        const updated = await userRepo.updateSavedTeam(auth.userId, teamId, {
+          name: typeof rawBody.name === "string" ? rawBody.name.trim() : undefined,
+          mode: typeof rawBody.mode === "string" ? rawBody.mode.trim() : undefined,
+          members: validatedMembers,
+        });
+
+        if (!updated) {
+          return jsonResponse({ error: "Saved team not found", code: "NOT_FOUND" }, 404);
+        }
+
+        return jsonResponse({ success: true, team: updated });
+      }
+
+      if (request.method === "DELETE") {
+        const deleted = await userRepo.deleteSavedTeam(auth.userId, teamId);
+        if (!deleted) {
+          return jsonResponse({ error: "Saved team not found", code: "NOT_FOUND" }, 404);
+        }
+        return jsonResponse({ success: true, deleted: teamId });
+      }
+
+      return jsonResponse({ error: "Method not allowed", code: "METHOD_NOT_ALLOWED" }, 405);
+    }
+
 
     // 5. Team Recommendation API (/api/recommendations/teams)
     if (

@@ -15,17 +15,17 @@ Phase 2: Canonical Knowledge Schemas, Static Knowledge Fixtures, Snapshot Contra
   ↓
 Phase 2.5: Production Data Readiness, Asset Quarantine & Build-Time Boundary Enforcement (Complete)
   ↓
-Phase 3A: Cloudflare Worker, D1 Database, Drizzle ORM Persistence Foundation (Current / Planned)
+Phase 3A: Cloudflare Worker, D1 Database, Drizzle ORM Persistence Foundation (Complete)
   ↓
-Phase 3B: Better Auth, Google OAuth & Session Management
+Phase 3B: Better Auth, Google OAuth & Session Management (Complete)
   ↓
-Phase 4: Authentication-Driven Onboarding, Roster Management, User State Synchronization
+Phase 4: Authentication-Driven Onboarding, Roster Management, User State Synchronization (Complete)
   ↓
-Phase 5: Deterministic Recommendation Engine & Multi-Source Consensus Core
+Phase 5: Deterministic Recommendation Engine & Multi-Source Consensus Core (Complete)
   ↓
-Phase 6: Character, Build & Source Comparison Surfaces, Team Recommender
+Phase 6: Character, Build & Source Comparison Surfaces, Team Recommender (Complete)
   ↓
-Phase 7: Client OCR Pipeline, Divergent Universe Live Decision Assistant
+Phase 7: Client OCR Pipeline, Divergent Universe Live Decision Assistant (Current / Planned)
   ↓
 Phase 8: Automated Scheduled Ingestion & Knowledge Publishing Pipeline
   ↓
@@ -120,11 +120,20 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - 100% automated test pass rate (119 web tests, 34 worker tests, 14 shared golden regression tests).
 - *Note:* Production deployment gates remain deferred to Phase 9. Local Phase 5 foundation complete.
 
-### Phase 6 — Character, Build & Team Recommender Surfaces
-- Character detail views with 3-source side-by-side comparison;
-- Best-in-slot build recommendations (Light Cones, Relics, Planar Ornaments, Stat priorities);
-- "Best Team From My Roster" personalization engine and teammate synergy evaluator;
-- Meta character tier rankings with contextual role and game mode dimensions.
+### Phase 6 — Character, Build & Team Recommender Surfaces (Complete)
+- Interactive Character Database (`/characters`) supporting all 9 verified canonical characters with live D1 roster ownership badges, search, and Path/Element/Rarity/Ownership filters;
+- Comprehensive Character Detail & Build Dossiers (`/characters/:characterId`) with Lv.80 base attributes, complete kit mechanics, Major Traces (A2/A4/A6), and Eidolons (E1–E6);
+- Truthful engineering associations: "Path-Compatible Light Cones" strictly filtered by wearer Combat Path, and "Mechanically Synergistic Relics" matched deterministically by canonical mechanic tags;
+- Single honest editorial unavailable notice confirming third-party consensus is scheduled for Phase 8; zero fabricated BiS rankings or simulated 3-source rank cards;
+- "Best Team From My Roster" personalized focus anchor recommendation powered directly by exported Phase 5 deterministic engine (`generateTeamRecommendations`);
+- Non-scoring kit synergy teammate cards exposing verified kit interactions sorted deterministically by ID; zero secondary scoring engines or point weight duplication;
+- Mode-neutral Meta Character Role Matrix (`/best-characters`) categorizing canonical characters into Sustain Specialists, Primary Carries, and Amplifiers with owned roster coverage; zero fabricated S/S+/A tiers or unverified MoC/PF/AS scores;
+- User-curated Saved Teams management (`/teams`) with authenticated Cloudflare D1 CRUD API (`saved_teams`, `saved_team_members`), Drizzle SQLite table-level CHECK constraints (slot 1..4, trimmed name length 1..50), atomic 4-member batch operations, and cascade deletion;
+- Local manual smoke gates (Gate 1: Character Catalog, Gate 2: Character Dossier, Gate 3: Save Recommended Team, Gate 4: Best Characters, Gate 5: Saved Teams CRUD) 100% PASS;
+- Saved Teams Local D1 persistence verified via `wrangler d1 execute` with clean cascade deletion proof;
+- Migration `0002_hesitant_harry_osborn.sql` applied locally only; remote migration deferred to pre-release deployment gate (Phase 9);
+- 100% automated validation pass rate across typecheck, ESLint, data boundary (`pnpm data:check`, 59 production files intact), auth schema, db drift check, and 186 unit/integration tests (128 web, 41 worker, 17 shared);
+- Production asset boundary completely preserved with generic vector fallback icons. Phase 6 complete.
 
 ### Phase 7 — Client OCR & Divergent Universe Assistant
 - In-browser Web Worker OCR pipeline using PaddleOCR.js / PP-OCRv5;

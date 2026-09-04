@@ -6,7 +6,8 @@ import { useCharacters, useKnowledgeInit } from "../lib/knowledge/use-knowledge"
 import { useTeamRecommendations } from "../features/recommendations/use-team-recommendations";
 import { CharacterAvatar, ElementIcon, PathIcon } from "../components/ui/game-asset";
 import { Button } from "../components/ui/button";
-import { Shield, Sparkles, AlertCircle, RefreshCw, LogIn, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Shield, Sparkles, AlertCircle, RefreshCw, LogIn, ArrowRight, CheckCircle2, BookmarkPlus, Check } from "lucide-react";
+import { useSavedTeams } from "../features/teams";
 import type { CombatElement } from "@astralyn/shared";
 
 const COMBAT_ELEMENTS: CombatElement[] = [
@@ -97,6 +98,40 @@ export function RecommendationsView() {
     rosterLoading,
     knowledgeVersion: syncResult?.activeKnowledgeVersion ?? "1.0.0",
   });
+
+  const { createTeam } = useSavedTeams();
+  const [savingSignatures, setSavingSignatures] = React.useState<Record<string, "saving" | "saved" | "error">>({});
+
+  const handleSaveTeam = async (team: (typeof teams)[number]) => {
+    if (savingSignatures[team.signature] === "saving" || savingSignatures[team.signature] === "saved") return;
+
+    setSavingSignatures((prev) => ({ ...prev, [team.signature]: "saving" }));
+    try {
+      const defaultName = team.archetype || `Recommended Team #${team.rank}`;
+      const members = team.slots.map((s, idx) => ({
+        slot: s.slot || idx + 1,
+        characterId: s.characterId,
+      }));
+      await createTeam(defaultName, members, "general");
+      setSavingSignatures((prev) => ({ ...prev, [team.signature]: "saved" }));
+      setTimeout(() => {
+        setSavingSignatures((prev) => {
+          const next = { ...prev };
+          delete next[team.signature];
+          return next;
+        });
+      }, 4000);
+    } catch {
+      setSavingSignatures((prev) => ({ ...prev, [team.signature]: "error" }));
+      setTimeout(() => {
+        setSavingSignatures((prev) => {
+          const next = { ...prev };
+          delete next[team.signature];
+          return next;
+        });
+      }, 4000);
+    }
+  };
 
   const loading = recLoading || rosterLoading;
 
@@ -329,6 +364,30 @@ export function RecommendationsView() {
                           {selectedWeaknesses.size > 0 ? ` • Elem: ${team.elementScore}` : ""}
                         </div>
                       </div>
+                      {authStatus === "authenticated" && (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => handleSaveTeam(team)}
+                          disabled={savingSignatures[team.signature] === "saving"}
+                          className="gap-1.5 shrink-0"
+                          data-testid={`save-team-button-${team.rank}`}
+                        >
+                          {savingSignatures[team.signature] === "saved" ? (
+                            <>
+                              <Check className="h-3.5 w-3.5 text-[#34d399]" />
+                              Saved
+                            </>
+                          ) : savingSignatures[team.signature] === "saving" ? (
+                            "Saving..."
+                          ) : (
+                            <>
+                              <BookmarkPlus className="h-3.5 w-3.5 text-[#dfb86c]" />
+                              Save Team
+                            </>
+                          )}
+                        </Button>
+                      )}
                     </div>
                   </div>
 

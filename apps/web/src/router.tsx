@@ -106,36 +106,34 @@ const onboardingRoute = createRoute({
   ),
 });
 
+import { CharactersView } from "./routes/characters-view";
+import { CharacterDetailView } from "./routes/character-detail-view";
+import { BestCharactersView } from "./routes/best-characters-view";
+import { SavedTeamsView } from "./routes/saved-teams-view";
+import { RecommendationsView } from "./routes/recommendations-view";
+
 const charactersRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/characters",
-  component: () => (
-    <PlaceholderView
-      path="/characters"
-      title="Characters Database"
-      description="Comprehensive database of all HSR characters with multi-source consensus."
-    />
-  ),
+  component: CharactersView,
+});
+
+const characterDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/characters/$characterId",
+  component: CharacterDetailView,
 });
 
 const bestCharactersRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/best-characters",
-  component: () => (
-    <PlaceholderView
-      path="/best-characters"
-      title="Best Characters"
-      description="Consensus meta tier rankings and character priority guides."
-    />
-  ),
+  component: BestCharactersView,
 });
-
-import { RecommendationsView } from "./routes/recommendations-view";
 
 const teamsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/teams",
-  component: RecommendationsView,
+  component: SavedTeamsView,
 });
 
 const recommendationsRoute = createRoute({
@@ -186,6 +184,7 @@ const routeTree = rootRoute.addChildren([
   onboardingRoute,
   rosterRoute,
   charactersRoute,
+  characterDetailRoute,
   bestCharactersRoute,
   teamsRoute,
   recommendationsRoute,

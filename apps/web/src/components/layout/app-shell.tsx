@@ -94,7 +94,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   badge={item.badge}
                   active={
                     location.pathname === item.to ||
-                    (item.to === "/teams" && location.pathname === "/recommendations")
+                    (item.to === "/teams" && location.pathname === "/recommendations") ||
+                    (item.to === "/characters" && location.pathname.startsWith("/characters/"))
                   }
                 />
               ))}
@@ -227,7 +228,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                       badge={item.badge}
                       active={
                         location.pathname === item.to ||
-                        (item.to === "/teams" && location.pathname === "/recommendations")
+                        (item.to === "/teams" && location.pathname === "/recommendations") ||
+                        (item.to === "/characters" && location.pathname.startsWith("/characters/"))
                       }
                       onClick={() => setMobileMenuOpen(false)}
                       className="py-3 text-sm"

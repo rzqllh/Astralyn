@@ -262,7 +262,7 @@ describe("Worker Authenticated APIs (User Profile & Roster)", () => {
     const addReq = new Request("http://localhost:5173/api/roster", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ characterId: "the_herta", level: 80, eidolon: 0 }),
+      body: JSON.stringify({ characterId: "the-herta", level: 80, eidolon: 0 }),
     });
     const addRes = await worker.fetch(addReq, env, {} as ExecutionContext);
     expect(addRes.status).toBe(200);
@@ -270,28 +270,28 @@ describe("Worker Authenticated APIs (User Profile & Roster)", () => {
     // Verify it appears in roster
     const listRes = await worker.fetch(new Request("http://localhost:5173/api/roster"), env, {} as ExecutionContext);
     const listData = (await listRes.json()) as { roster: Array<{ characterId: string; eidolon: number }> };
-    expect(listData.roster.some((r) => r.characterId === "the_herta")).toBe(true);
+    expect(listData.roster.some((r) => r.characterId === "the-herta")).toBe(true);
 
     // 2. Update eidolon to 2
     const updateReq = new Request("http://localhost:5173/api/roster", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ characterId: "the_herta", level: 80, eidolon: 2 }),
+      body: JSON.stringify({ characterId: "the-herta", level: 80, eidolon: 2 }),
     });
     await worker.fetch(updateReq, env, {} as ExecutionContext);
 
     const listRes2 = await worker.fetch(new Request("http://localhost:5173/api/roster"), env, {} as ExecutionContext);
     const listData2 = (await listRes2.json()) as { roster: Array<{ characterId: string; eidolon: number }> };
-    const herta = listData2.roster.find((r) => r.characterId === "the_herta");
+    const herta = listData2.roster.find((r) => r.characterId === "the-herta");
     expect(herta?.eidolon).toBe(2);
 
     // 3. Delete character
-    const delReq = new Request("http://localhost:5173/api/roster/the_herta", { method: "DELETE" });
+    const delReq = new Request("http://localhost:5173/api/roster/the-herta", { method: "DELETE" });
     const delRes = await worker.fetch(delReq, env, {} as ExecutionContext);
     expect(delRes.status).toBe(200);
 
     const listRes3 = await worker.fetch(new Request("http://localhost:5173/api/roster"), env, {} as ExecutionContext);
     const listData3 = (await listRes3.json()) as { roster: Array<{ characterId: string }> };
-    expect(listData3.roster.some((r) => r.characterId === "the_herta")).toBe(false);
+    expect(listData3.roster.some((r) => r.characterId === "the-herta")).toBe(false);
   });
 });

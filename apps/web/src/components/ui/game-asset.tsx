@@ -2,12 +2,19 @@
 import * as React from "react";
 import type { CombatElement, CombatPath } from "@astralyn/shared";
 
-// Normalization mapping for canonical character IDs to dev asset filenames
-function normalizeCharacterAssetId(id: string): string {
-  const clean = id.toLowerCase().trim().replace(/-/g, "_");
-  if (clean === "archer_acheron") return "acheron";
-  return clean;
-}
+// Explicit mapping of canonical character IDs to dev candidate asset icon paths
+// Hard invariant: Exact canonical IDs only; no string normalization or conversion of hyphens.
+const DEV_CHARACTER_ICON_MAP: Record<string, string> = {
+  "acheron": "/src/dev/game-assets/v1.0.0/characters/acheron_icon.png",
+  "aventurine": "/src/dev/game-assets/v1.0.0/characters/aventurine_icon.png",
+  "aventurine-waveflair": "/src/dev/game-assets/v1.0.0/characters/aventurine_wf_icon.png",
+  "castorice": "/src/dev/game-assets/v1.0.0/characters/castorice_icon.png",
+  "firefly": "/src/dev/game-assets/v1.0.0/characters/firefly_icon.png",
+  "gallagher": "/src/dev/game-assets/v1.0.0/characters/gallagher_icon.png",
+  "robin": "/src/dev/game-assets/v1.0.0/characters/robin_icon.png",
+  "the-herta": "/src/dev/game-assets/v1.0.0/characters/the_herta_icon.png",
+  "tingyun": "/src/dev/game-assets/v1.0.0/characters/tingyun_icon.png",
+};
 
 export interface CharacterAvatarProps {
   characterId: string;
@@ -27,11 +34,10 @@ export function CharacterAvatar({
   const [loadFailed, setLoadFailed] = React.useState(false);
 
   const is5Star = rarity === 5;
-  const normalizedId = normalizeCharacterAssetId(characterId);
 
-  // In DEV mode, attempt to load the candidate game asset icon
+  // In DEV mode, attempt to load candidate game asset icon via explicit canonical ID lookup
   const devSrc = import.meta.env.DEV && !loadFailed
-    ? `/src/dev/game-assets/v1.0.0/characters/${normalizedId}_icon.png`
+    ? DEV_CHARACTER_ICON_MAP[characterId]
     : undefined;
 
   const sizeClasses = {
