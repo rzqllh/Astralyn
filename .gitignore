@@ -48,3 +48,9 @@ pnpm-debug.log*
 .claude
 .superpowers
 .antigravity
+
+# Internal/dev-only docs — not public
+docs/internal/
+docs/templates/
+docs/d1/
+skills-lock.json
