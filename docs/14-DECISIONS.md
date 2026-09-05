@@ -178,3 +178,15 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 5. **Saved Teams Persistence & Cardinality:** Explicit user-curated team bookmarks (`saved_teams`, `saved_team_members`) are persisted in Cloudflare D1 with an authenticated CRUD API, foreign-key cascade, 1–50 char trimmed name validation, and EXACTLY 4 unique canonical character members (slots 1–4). Schema enforces `PRIMARY KEY(team_id, slot)` and `UNIQUE(team_id, character_id)`. Mutations use D1 atomic batch operations (`db.batch`). In-memory recommendation generation remains strictly zero-persistence per D-028.
 6. **Generic Vector Visual Fallback:** Production visual views strictly use generic geometric/silhouette fallback icons (`<GameAssetImage>`), maintaining quarantine of dev-only candidate assets (`usageStatus: "manual_review"`).
 **Status:** Accepted.
+
+## D-030 — Phase 7 Client OCR Pipeline & Divergent Universe Live Decision Assistant
+**Decision:** Implement Divergent Universe companion capabilities under strict client-side containment, deterministic recommendation scoring, and zero server image uploads.
+**Key Tenets:**
+1. **In-Browser Web Worker OCR Pipeline:** Execute image preprocessing (Canvas/OffscreenCanvas) and optical character recognition strictly in the client browser using a dedicated Web Worker. Screenshot image data (data URLs, ArrayBuffers, File objects) MUST NEVER be transmitted to Cloudflare Workers or any backend service.
+2. **Untrusted OCR Input Sanitization & Fuzzy Canonical Matching:** OCR-extracted text is treated as untrusted user input: stripped of HTML tags and control characters, capped at 100 characters, and fuzzy-matched via Fuse.js against canonical fixtures (`CANONICAL_DU_BLESSINGS`, `CANONICAL_DU_EQUATIONS`, `CANONICAL_DU_CURIOS`).
+3. **First-Class Manual Selection Fallback:** Manual searchable pickers operate alongside screenshot OCR, guaranteeing full companion functionality without requiring screenshots, web worker support, or specific screen ratios.
+4. **Deterministic DU Recommendation Engine:** Pure fixed-point integer scoring in `@astralyn/shared` evaluating target equation progress (+30 pts / +45 pts completed), party path synergy (+25 pts carry / +15 pts support), rarity baseline (+20/+12/+5 pts), duplicate blessing penalty (-100 pts), and curio risk/reward (+40/+25/-20 pts), clamped to `[0, 100]` with code-unit tie-breaking. Zero LLM hallucinations.
+5. **Local-First Active Run State Persistence:** Active DU run state (party, target equations, collected blessings, active curios) is stored client-side via Zustand `persist` middleware in browser localStorage with silent discard of malformed data and reset capabilities. Zero new Cloudflare D1 tables, zero D1 migrations, and zero database quota overhead.
+6. **Quarantine Invariant & Generic Vector Fallbacks:** All entity visuals use generic vector silhouettes (`<GameAssetImage>`), maintaining complete quarantine over unapproved development candidate assets.
+**Status:** Accepted.
+

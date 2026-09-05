@@ -25,7 +25,7 @@ Phase 5: Deterministic Recommendation Engine & Multi-Source Consensus Core (Comp
   ↓
 Phase 6: Character, Build & Source Comparison Surfaces, Team Recommender (Complete)
   ↓
-Phase 7: Client OCR Pipeline, Divergent Universe Live Decision Assistant (Current / Planned)
+Phase 7: Client OCR Pipeline, Divergent Universe Live Decision Assistant (Complete)
   ↓
 Phase 8: Automated Scheduled Ingestion & Knowledge Publishing Pipeline
   ↓
@@ -135,10 +135,15 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - 100% automated validation pass rate across typecheck, ESLint, data boundary (`pnpm data:check`, 59 production files intact), auth schema, db drift check, and 186 unit/integration tests (128 web, 41 worker, 17 shared);
 - Production asset boundary completely preserved with generic vector fallback icons. Phase 6 complete.
 
-### Phase 7 — Client OCR & Divergent Universe Assistant
-- In-browser Web Worker OCR pipeline using PaddleOCR.js / PP-OCRv5;
-- Local screenshot processing with zero server-side image upload;
-- Real-time Divergent Universe blessing, curio, and equation pick recommender with immediate trade-off analysis.
+### Phase 7 — Client OCR & Divergent Universe Assistant (Complete)
+- In-browser Web Worker OCR pipeline using client-side Tesseract.js engine (`apps/web/src/features/assistant/ocr/`);
+- Local screenshot processing with zero server-side image upload (Decision D-030); OffscreenCanvas pre-processing with binarization and contrast adjustment;
+- Fuzzy canonical entity matcher (`DUEntityMatcher`) leveraging Fuse.js with input sanitization (stripping HTML tags and control characters, 100-char cap) and confidence rating badges (High/Medium/Low);
+- Deterministic DU recommendation engine in `@astralyn/shared` (`evaluateDUBlessingChoices`, `evaluateDUEquationChoices`, `evaluateDUCurioChoices`) with pure fixed-point scoring [0, 100], equation progress tracking, party synergy bonuses, rarity baselines, and code-unit tie-breaking;
+- Local-first active run state persistence via Zustand `persist` middleware in localStorage (`du-run-store.ts`) with silent discard of malformed data and reset capabilities; zero D1 tables or migrations;
+- Real-time Divergent Universe Live Decision Assistant at `/assistant` with Run Status bar, interactive Party / Target Equation setup, Drag-and-Drop / Clipboard Ingestion Zone, Manual Selection fallback, and Ranked Decision Cards (#1 Recommended, #2 Alternative, #3 Low Priority);
+- Production asset boundary completely preserved with generic vector silhouettes (`<GameAssetImage>`);
+- 100% automated validation pass rate across typecheck, ESLint, data boundary (`pnpm data:check`, 65 production files intact), and 260 unit/integration tests (172 web, 41 worker, 47 shared). Local Phase 7 foundation complete.
 
 ### Phase 8 — Ingestion & Publishing Pipeline
 - Automated scheduled adapters for official HoYoLAB / HSR game updates and approved editorial sources;

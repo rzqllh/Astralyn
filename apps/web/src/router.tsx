@@ -111,6 +111,7 @@ import { CharacterDetailView } from "./routes/character-detail-view";
 import { BestCharactersView } from "./routes/best-characters-view";
 import { SavedTeamsView } from "./routes/saved-teams-view";
 import { RecommendationsView } from "./routes/recommendations-view";
+import { AssistantView } from "./routes/assistant-view";
 
 const charactersRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -157,13 +158,7 @@ const contentRoute = createRoute({
 const assistantRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/assistant",
-  component: () => (
-    <PlaceholderView
-      path="/assistant"
-      title="Divergent Universe Assistant"
-      description="Instant blessing and curio recommendations from gameplay screenshots."
-    />
-  ),
+  component: AssistantView,
 });
 
 const settingsRoute = createRoute({
