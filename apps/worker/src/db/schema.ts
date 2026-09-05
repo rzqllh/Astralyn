@@ -4,3 +4,4 @@
 
 export * from "./auth-schema.generated";
 export * from "./user-schema";
+export * from "./knowledge-schema";

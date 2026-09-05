@@ -51,7 +51,7 @@ Divergent Universe is the first deep interactive game-mode implementation, not t
 - `12-TESTING_STRATEGY.md` — regression, OCR, source and E2E testing
 - `13-ROADMAP.md` — staged delivery
 - `14-DECISIONS.md` — ADR-lite decision log
-- `d1/migrations/0001_initial.sql` — initial database schema / D1 migration baseline
+- `apps/worker/src/db/knowledge-schema.ts` — definitive source of truth for the game knowledge schema
 - `templates/` — reusable ADR, source adapter, recommendation rule, fixture and design spec templates
 
 ## Non-goals for v0.1

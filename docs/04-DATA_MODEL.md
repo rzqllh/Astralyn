@@ -12,7 +12,13 @@ E. Visual Game Assets — versioned static asset manifest and candidate imagery 
 
 A user write must never cross into B/C/D/E canonical tables or static assets.
 
-## 2. Identity tables
+## 2. Migration Policy
+
+- **Authoritative Baseline**: The Drizzle migration chain in `apps/worker/drizzle/migrations/` is the single source of truth for all schemas. Fresh databases MUST be initialized using this chain.
+- **Obsolete Baseline**: The old `docs/d1/migrations/0001_initial.sql` file is completely obsolete.
+- **Legacy Database Reset**: Databases initialized from the obsolete `docs/d1` baseline contain incompatible legacy auth tables (pre-Phase 3B Better Auth schema). These legacy development databases **must be recreated/reset** before applying the current migration chain. Dropping auth tables is intended for local dev reset only and is never a safe production upgrade strategy.
+
+## 3. Identity tables
 
 Better Auth manages core authentication (`user`, `session`, `account`, `verification`). Astralyn binds application domain tables to the authenticated user ID (`user.id`).
 
