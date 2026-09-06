@@ -42,12 +42,12 @@ import {
 } from "./helpers/knowledge-fixtures";
 
 describe("Phase 2 Factual Integrity & Canonical Knowledge Acceptance", () => {
-  it("accepts all 9 canonical character fixtures (8 Core + 1 Version 4.5 Elation fixture)", () => {
-    expect(CANONICAL_CHARACTERS.length).toBe(9);
+  it("accepts all 92 canonical character fixtures for HSR Version 4.5", () => {
+    expect(CANONICAL_CHARACTERS.length).toBe(92);
     for (const char of CANONICAL_CHARACTERS) {
       const parsed = CharacterKnowledgeSchema.safeParse(char);
       expect(parsed.success, `Character ${char.id} failed validation`).toBe(true);
-      expect(char.provenance.authorityTier).toBe("tier_a_official");
+      expect(["tier_a_official", "tier_b_structured_community"]).toContain(char.provenance.authorityTier);
     }
   });
 
@@ -481,7 +481,7 @@ describe("Phase 2 Consistency Validation Helper Seam", () => {
       },
     });
 
-    expect(counts["characters.json"]).toBe(9);
+    expect(counts["characters.json"]).toBe(92);
     expect(counts["light-cones.json"]).toBe(9);
     expect(counts["relics.json"]).toBe(6);
     expect(counts["enemies.json"]).toBe(4);

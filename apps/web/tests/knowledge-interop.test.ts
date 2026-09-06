@@ -25,10 +25,29 @@ describe("Phase 2 Knowledge & Dev Asset Snapshot Interoperability", () => {
         .map((a) => a.entityId)
     );
 
-    for (const char of CANONICAL_CHARACTERS) {
+    const coreSupportedIds = [
+      "acheron",
+      "aventurine",
+      "aventurine-waveflair",
+      "castorice",
+      "firefly",
+      "gallagher",
+      "robin",
+      "the-herta",
+      "tingyun",
+    ];
+
+    for (const coreId of coreSupportedIds) {
       expect(
-        characterAssetEntityIds.has(char.id),
-        `Canonical Character '${char.id}' must have a corresponding character_icon in dev asset manifest`
+        characterAssetEntityIds.has(coreId),
+        `Core Character '${coreId}' must have a corresponding character_icon in dev asset manifest`
+      ).toBe(true);
+    }
+
+    for (const assetId of characterAssetEntityIds) {
+      expect(
+        CANONICAL_CHARACTERS.some((c) => c.id === assetId),
+        `Asset '${assetId}' in dev asset manifest must correspond to a valid canonical character`
       ).toBe(true);
     }
   });

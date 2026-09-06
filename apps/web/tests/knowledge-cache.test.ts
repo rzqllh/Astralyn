@@ -87,7 +87,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     expect(result.isOffline).toBe(false);
 
     // Verify Dexie tables populated
-    expect(await db.characters.count()).toBe(9);
+    expect(await db.characters.count()).toBe(92);
     expect(await db.lightCones.count()).toBe(9);
     expect(await db.relicSets.count()).toBe(6);
     expect(await db.enemies.count()).toBe(4);
@@ -103,7 +103,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     const countMeta = await db.metadata.get("entityCounts");
     expect(countMeta).toBeDefined();
     const counts = JSON.parse(countMeta!.value);
-    expect(counts.characters).toBe(9);
+    expect(counts.characters).toBe(92);
     expect(counts.relicSets).toBe(6);
   });
 
@@ -139,7 +139,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
 
     const metaVer = await db.metadata.get("activeKnowledgeVersion");
     expect(metaVer?.value).toBe("v1.1.0");
-    expect(await db.characters.count()).toBe(9);
+    expect(await db.characters.count()).toBe(92);
   });
 
   it("preserves previous valid cache when new release fails validation (fail-safe rollback)", async () => {
@@ -148,7 +148,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     const syncerValid = new KnowledgeCacheSyncer(db, loaderValid);
     await syncerValid.sync();
 
-    expect(await db.characters.count()).toBe(9);
+    expect(await db.characters.count()).toBe(92);
 
     // 2. Mock loader with broken v1.1.0 release that throws error during load
     const brokenLoader = new KnowledgeSnapshotLoader("/data", "0.0.1");
@@ -167,7 +167,7 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
     expect(result.error).toContain("Retained previous valid cache 'v1.0.0'");
 
     // Verify existing cache remains completely intact!
-    expect(await db.characters.count()).toBe(9);
+    expect(await db.characters.count()).toBe(92);
     const acheron = await db.characters.get("acheron");
     expect(acheron?.name).toBe("Acheron");
   });
@@ -391,7 +391,7 @@ describe("Phase 2 KnowledgeSnapshotLoader Verification & Integrity Rejections", 
 
     const loaded = await loader.loadFullRelease("v1.0.0", rootManifest);
 
-    expect(loaded.characters.length).toBe(9);
+    expect(loaded.characters.length).toBe(92);
     expect(loaded.lightCones.length).toBe(9);
     expect(loaded.relicSets.length).toBe(6);
     expect(loaded.enemies.length).toBe(4);
@@ -525,20 +525,26 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
 
   it("filters characters by path, element, and rarity", async () => {
     const nihilityChars = await repo.listCharacters({ path: "Nihility" });
-    expect(nihilityChars.length).toBe(1);
-    expect(nihilityChars[0].id).toBe("acheron");
+    expect(nihilityChars.length).toBeGreaterThanOrEqual(1);
+    expect(nihilityChars.every((c) => c.path === "Nihility")).toBe(true);
+    expect(nihilityChars.some((c) => c.id === "acheron")).toBe(true);
 
     const elationChars = await repo.listCharacters({ path: "Elation" });
-    expect(elationChars.length).toBe(1);
-    expect(elationChars[0].id).toBe("aventurine-waveflair");
+    expect(elationChars.length).toBeGreaterThanOrEqual(1);
+    expect(elationChars.every((c) => c.path === "Elation")).toBe(true);
+    expect(elationChars.some((c) => c.id === "aventurine-waveflair")).toBe(true);
 
     const fireChars = await repo.listCharacters({ element: "Fire" });
-    expect(fireChars.length).toBe(2);
-    expect(fireChars.map((c) => c.id).sort()).toEqual(["firefly", "gallagher"]);
+    expect(fireChars.length).toBeGreaterThanOrEqual(2);
+    expect(fireChars.every((c) => c.element === "Fire")).toBe(true);
+    expect(fireChars.some((c) => c.id === "firefly")).toBe(true);
+    expect(fireChars.some((c) => c.id === "gallagher")).toBe(true);
 
     const fourStarChars = await repo.listCharacters({ rarity: 4 });
-    expect(fourStarChars.length).toBe(2);
-    expect(fourStarChars.map((c) => c.id).sort()).toEqual(["gallagher", "tingyun"]);
+    expect(fourStarChars.length).toBe(23);
+    expect(fourStarChars.every((c) => c.rarity === 4)).toBe(true);
+    expect(fourStarChars.some((c) => c.id === "gallagher")).toBe(true);
+    expect(fourStarChars.some((c) => c.id === "tingyun")).toBe(true);
   });
 
   it("reads light cones and filters by path and rarity", async () => {

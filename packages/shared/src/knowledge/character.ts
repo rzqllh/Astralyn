@@ -44,6 +44,7 @@ export const CharacterRoleSchema = z.enum([
   "dot_dps",
   "summon_dps",
   "elation_dps",
+  "unknown",
 ]);
 
 export type CharacterRole = z.infer<typeof CharacterRoleSchema>;
@@ -85,6 +86,7 @@ export const CharacterMechanicTagSchema = z.enum([
   "fervor",
   "interpretation",
   "inspiration",
+  "unknown",
 ]);
 
 export type CharacterMechanicTag = z.infer<typeof CharacterMechanicTagSchema>;

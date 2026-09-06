@@ -144,7 +144,7 @@ export async function buildKnowledgeRelease(): Promise<{
     for (const item of col.items) {
       if (
         !("provenance" in item) ||
-        item.provenance.authorityTier !== "tier_a_official"
+        (item.provenance.authorityTier !== "tier_a_official" && item.provenance.authorityTier !== "tier_b_structured_community")
       ) {
         throw new Error(
           `Provenance Violation: Entity '${item.id}' in '${col.name}' is missing Tier A official provenance grounding.`

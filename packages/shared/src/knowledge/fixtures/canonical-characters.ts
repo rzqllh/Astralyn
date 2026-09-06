@@ -1,0 +1,23144 @@
+import type { CharacterKnowledge } from "../character";
+
+/**
+ * COMPLETE HONKAI: STAR RAIL VERSION 4.5 PLAYABLE ROSTER
+ * Total Playable Standalone Units: 92
+ *
+ * Source: StarRailRes Client Extracted Data & HoYoverse Verified Notices
+ * Tier: Mixed (A for curated, B for extracted)
+ */
+export const CANONICAL_CHARACTERS_DATA: CharacterKnowledge[] = [
+  {
+    id: "acheron",
+    gameId: "1308",
+    name: "Acheron",
+    localizedNames: {
+      en: "Acheron",
+      id: "Acheron",
+      ja: "黄泉",
+      zh: "黄泉",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Lightning",
+    releaseVersion: "2.1",
+    roles: ["hypercarry_dps", "debuffer"],
+    mechanicTags: ["special_resource_cost", "debuff", "res_penetration", "aoe"],
+    baseStats: {
+      hp: 1125,
+      atk: 698,
+      def: 436,
+      spd: 101,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: null,
+    },
+    specialResourceType: "Slashed Dream / Crimson Knot",
+    abilities: [
+      {
+        id: "acheron_basic",
+        name: "Trilateral Wiltcross",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "Deals Lightning DMG equal to 100% of Acheron's ATK to a single target enemy.",
+        mechanics: ["single_target"],
+      },
+      {
+        id: "acheron_skill",
+        name: "Octobolt Flash",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        spCost: 1,
+        description:
+          "Gains 1 point of Slashed Dream. Inflicts 1 stack of Crimson Knot on a single target enemy, deals Lightning DMG equal to 160% of Acheron's ATK to this enemy, as well as Lightning DMG equal to 60% of Acheron's ATK to adjacent targets.",
+        mechanics: ["blast", "debuff"],
+      },
+      {
+        id: "acheron_ultimate",
+        name: "Slashed Dream Cries in Red",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        specialResourceCost: 9,
+        description:
+          "Sequentially unleashes Rainblade 3 times and Crimson Knot 1 time, dealing Lightning DMG up to 372% of Acheron's ATK to a single target enemy, and Lightning DMG up to 300% of Acheron's ATK to other targets. Depletes all 9 points of Slashed Dream.",
+        mechanics: ["aoe", "res_penetration", "special_resource_cost"],
+      },
+      {
+        id: "acheron_talent",
+        name: "Rainleaf Falls, Void Cleaved",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "self",
+        description:
+          "When Slashed Dream reaches 9 points, the Ultimate can be activated. When any unit inflicts debuffs on an enemy, Acheron gains 1 point of Slashed Dream and inflicts 1 stack of Crimson Knot on that enemy.",
+        mechanics: ["debuff", "res_penetration"],
+      },
+      {
+        id: "acheron_technique",
+        name: "Quadruple Sever",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "all_enemies",
+        description:
+          "Immediately attacks the enemy. At the start of each wave, deals Lightning DMG to all enemies and immediately defeats regular enemies in the overworld.",
+        mechanics: ["aoe"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "acheron_trace_a2",
+        name: "Red Oni",
+        ascensionRequirement: "A2",
+        description:
+          "At the start of battle, immediately gains 5 points of Slashed Dream and applies 5 stacks of Crimson Knot to a random enemy.",
+        mechanics: ["debuff"],
+      },
+      {
+        id: "acheron_trace_a4",
+        name: "The Abyss",
+        ascensionRequirement: "A4",
+        description:
+          "When there are 1 or 2 other Nihility characters in the team, increases the DMG dealt by Acheron's Basic, Skill, and Ultimate by 115% or 160% respectively.",
+        mechanics: ["stat_conversion"],
+      },
+      {
+        id: "acheron_trace_a6",
+        name: "Thunder Core",
+        ascensionRequirement: "A6",
+        description:
+          "When the Rainblade from Acheron's Ultimate hits enemy targets with Crimson Knot, increases DMG by 30%, stacking up to 3 times.",
+        mechanics: ["debuff"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "critDmg",
+        totalValue: 0.24,
+        unit: "percentage",
+      },
+      {
+        stat: "atk",
+        totalValue: 0.28,
+        unit: "percentage",
+      },
+      {
+        stat: "lightningDmg",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Silenced Sky, Clear Sights",
+        description:
+          "CRIT Rate increases by 18% when dealing DMG to debuffed enemies.",
+        keyMechanic: "CRIT Rate boost vs debuffed targets",
+        mechanics: ["debuff"],
+      },
+      {
+        rank: 2,
+        name: "Mute Thunder in Empty Graves",
+        description:
+          "Reduces the required number of other Nihility characters for the Trace 'The Abyss' by 1. At the start of Acheron's turn, gains 1 point of Slashed Dream and inflicts 1 stack of Crimson Knot on the enemy with the most stacks.",
+        keyMechanic:
+          "Nihility team slot requirement reduction + self stack generation",
+        mechanics: ["debuff"],
+      },
+      {
+        rank: 3,
+        name: "Frosty Wings, Cold Dreams",
+        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Shrined Fire in Solitude",
+        description:
+          "When enemy targets enter battle, inflicts Ultimate Vulnerability, increasing Ultimate DMG taken by 8%.",
+        keyMechanic: "Universal Ultimate Vulnerability",
+        mechanics: ["vulnerability", "debuff"],
+      },
+      {
+        rank: 5,
+        name: "Strewn Souls in Deserted Fields",
+        description: "Skill Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Apocalypse, the Resonant String",
+        description:
+          "Increases All-Type RES PEN of Acheron's Ultimate DMG by 20%. The DMG dealt by Basic ATK and Skill is also considered as Ultimate DMG and can reduce enemy Toughness regardless of Weakness Type.",
+        keyMechanic: "Universal RES PEN & Rainbow Toughness reduction",
+        mechanics: ["res_penetration", "toughness_reduction"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyolab_acheron_official",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://wiki.hoyolab.com/pc/hsr/entry/1308",
+      gameVersion: "2.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Official HoYoWiki Acheron factual kit details",
+    },
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "aglaea",
+    gameId: "1402",
+    name: "Aglaea",
+    localizedNames: {
+      en: "Aglaea",
+      id: "Aglaea",
+    },
+    rarity: 5,
+    path: "Remembrance",
+    element: "Lightning",
+    releaseVersion: "3.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1241,
+      atk: 698,
+      def: 485,
+      spd: 102,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 350,
+    },
+    abilities: [
+      {
+        id: "aglaea_140201",
+        name: "Thorned Nectar",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Aglaea's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_140202",
+        name: "Rise, Exalted Renown",
+        type: "skill",
+        tag: "Summon",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Restores HP to Garmentmaker by X of its Max HP. If Garmentmaker is absent, then summons the memosprite Garmentmaker and makes this unit immediately take action.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_140203",
+        name: "Dance, Destined Weaveress",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 350,
+        description:
+          'Summons the memosprite Garmentmaker. If Garmentmaker is already on the field, then restores its HP to max. Aglaea enters the "Supreme Stance" state and immediately takes action. While in "Supreme Stance," Aglaea gains the SPD Boost stacks from Garmentmaker\'s Memosprite Talent, with each stack increasing this unit\'s SPD by #1[f1]%. Enhances Basic ATK to "Slash by a Thousandfold Kiss," and cannot use Skill. Garmentmaker is immune to Crowd Control debuffs. A countdown appears in the Action Order, with its own SPD set at X. While the countdown exists, using Ultimate again will reset the countdown. When the countdown\'s turn starts, Garmentmaker self-destructs. When Garmentmaker disappears, Aglaea dispels the "Supreme Stance" state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_140204",
+        name: "Rosy-Fingered",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'The memosprite Garmentmaker has an initial SPD equal to X of Aglaea\'s SPD and a Max HP equal to X of Aglaea\'s Max HP plus X. While Garmentmaker is on the field, Aglaea\'s attacks inflict the target with the "Seam Stitch" state. After attacking enemies in the "Seam Stitch" state, further deals Lightning Additional DMG equal to X of Aglaea\'s ATK. "Seam Stitch" only takes effect on the most recently inflicted target.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_140206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_140207",
+        name: "Meteoric Sunder",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'Summons the memosprite Garmentmaker and launches a forward joint attack. After entering battle, regenerates X Energy and deals Lightning DMG equal to X of Aglaea\'s ATK to all enemy targets. Then, randomly inflicts the "Seam Stitch" state on a random enemy target.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_140208",
+        name: "Slash by a Thousandfold Kiss",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Aglaea and Garmentmaker launch a Joint ATK on the target, respectively dealing Lightning DMG equal to #1[f1]% of Aglaea's ATK and #3[f1]% of Garmentmaker's ATK to the target. Also, respectively deals Lightning DMG equal to X of Aglaea's ATK and X of Garmentmaker's ATK to adjacent targets. \"Slash by a Thousandfold Kiss\" cannot recover Skill Points.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_140209",
+        name: "Rise, Exalted Renown",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Restores HP for Garmentmaker. If Garmentmaker is absent, summons the memosprite Garmentmaker and makes this unit immediately take action.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_1140201",
+        name: "Thorned Snare",
+        type: "memosprite_skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        description:
+          "Deals Lightning DMG equal to X of ATK to one enemy and Lightning DMG equal to X of ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_1140203",
+        name: "A Body Brewed by Tears",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'After attacking an enemy afflicted with "Seam Stitch," increases this unit\'s SPD by X, stacking up to X time(s). When Garmentmaker takes action, automatically uses "Thorned Snare," prioritizing enemies under the "Seam Stitch" state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_1140205",
+        name: "The Speeding Summer",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When Garmentmaker is summoned, this unit's action advances by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_1140206",
+        name: "Bloom of Drying Grass",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When Garmentmaker disappears, regenerates X Energy for Aglaea.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "aglaea_trace_a2",
+        name: "The Myopic's Doom",
+        ascensionRequirement: "A2",
+        description:
+          "While in \"Supreme Stance,\" increases Aglaea's and Garmentmaker's ATK by an amount equal to X of Aglaea's SPD plus X of Garmentmaker's SPD.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_trace_a4",
+        name: "Last Thread of Fate",
+        ascensionRequirement: "A4",
+        description:
+          "When Garmentmaker disappears, up to X stack(s) of the SPD Boost from the Memosprite Talent can be retained. When Garmentmaker is summoned again, gains the corresponding number of SPD Boost stacks.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "aglaea_trace_a6",
+        name: "The Speeding Sol",
+        ascensionRequirement: "A6",
+        description:
+          "At the start of battle, if this unit's Energy is lower than X, regenerates this unit's Energy to X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "thunder",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Drift at the Whim of Venus",
+        description:
+          'The enemy afflicted with "Seam Stitch" takes 15% increased DMG. After Aglaea or Garmentmaker attacks this target, additionally regenerates 20 Energy.',
+        keyMechanic: "Drift at the Whim of Venus",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Sail on the Raft of Eyelids",
+        description:
+          "When Aglaea or Garmentmaker takes action, enables the DMG dealt by Aglaea and Garmentmaker to ignore 14% of the target's DEF. This effect stacks up to 3 time(s) and lasts until any unit, other than Aglaea or Garmentmaker, actively uses an ability.",
+        keyMechanic: "Sail on the Raft of Eyelids",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Bequeath in the Coalescence of Dew",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Memosprite Talent Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Bequeath in the Coalescence of Dew",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Flicker Below the Surface of Marble",
+        description:
+          "The SPD Boost effect from the Memosprite Talent has its max stack limit increased by 1. After Aglaea uses an attack, can also make Garmentmaker gain the SPD Boost effect from the Memosprite Talent.",
+        keyMechanic: "Flicker Below the Surface of Marble",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Weave Under the Shroud of Woe",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Memosprite Skill Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Weave Under the Shroud of Woe",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Fluctuate in the Tapestry of Fates",
+        description:
+          "While Aglaea is in \"Supreme Stance,\" increases her and Garmentmaker's Lightning RES PEN by 20%. When Aglaea's or Garmentmaker's SPD is greater than 160/240/320, the Joint ATK DMG dealt by them increases by 10%/30%/60%.",
+        keyMechanic: "Fluctuate in the Tapestry of Fates",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1402",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Aglaea via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "anaxa",
+    gameId: "1405",
+    name: "Anaxa",
+    localizedNames: {
+      en: "Anaxa",
+      id: "Anaxa",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Wind",
+    releaseVersion: "3.2",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 970,
+      atk: 756,
+      def: 557,
+      spd: 97,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "anaxa_140501",
+        name: "Pain, Brews Truth",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Anaxa's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "anaxa_140502",
+        name: "Fractal, Exiles Fallacy",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        description:
+          "Deals Wind DMG equal to X of Anaxa's ATK to one designated enemy and additionally deals X instance(s) of DMG. Each instance of DMG deals Wind DMG equal to X of Anaxa's ATK to one random enemy, prioritizing Bouncing to enemy targets that have not been hit by this instance of Skill. When used, for each attackable enemy on the field, this Skill has its DMG dealt increased by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "anaxa_140503",
+        name: "Sprouting Life Sculpts Earth",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          'Inflicts the "Sublimation" state on all enemies, then deals Wind DMG equal to X of Anaxa\'s ATK to all enemies. In the "Sublimation" state, the targets will be simultaneously inflicted with Physical, Fire, Ice, Lightning, Wind, Quantum, and Imaginary Weaknesses, lasting until the start of the targets\' turn. If the targets do not have Control RES, they are unable to take action in the "Sublimation" state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "anaxa_140504",
+        name: "Tetrad Wisdom Reigns Thrice",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'Each time Anaxa lands 1 hit on enemy targets, inflicts 1 Weakness of a random Type to the targets, lasting for X turn(s), with priority to the Weakness Type that the target doesn\'t already possess. While Anaxa is on the field, inflicts the "Qualitative Disclosure" state on enemy targets that have at least X different Types of Weaknesses. Anaxa deals X increased DMG to targets afflicted with the "Qualitative Disclosure" state. In addition, after using Basic ATK or Skill on them, unleashes 1 additional instance of Skill on the targets. This additional Skill does not consume any Skill Points and cannot trigger this effect again. If the target has been defeated before the additional Skill is used, it will be cast on one random enemy instead.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "anaxa_140506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "anaxa_140507",
+        name: "Prism of the Pupil",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, inflicts the Terrified state on enemies in a set area. Terrified enemies will flee in a direction away from Anaxa for X second(s). When allies enter combat via actively attacking a Terrified enemy, it will always be considered as entering battle via attacking a Weakness. After entering battle, Anaxa applies 1 Weakness of the attacker's Type to every enemy target, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "anaxa_trace_a2",
+        name: "Roaming Signifier",
+        ascensionRequirement: "A2",
+        description:
+          'When using Basic ATK, additionally regenerates X Energy. At the start of the turn, if there are no enemy targets in the "Qualitative Disclosure" state, immediately regenerates X Energy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "anaxa_trace_a4",
+        name: "Imperative Hiatus",
+        ascensionRequirement: "A4",
+        description:
+          'Based on the number of "Erudition" characters in the team, one of the following effects will be triggered in the current battle: 1 character: Increases Anaxa\'s CRIT DMG by X. At least 2 characters: Increases DMG dealt by all allies by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "anaxa_trace_a6",
+        name: "Qualitative Shift",
+        ascensionRequirement: "A6",
+        description:
+          "For every 1 different Weakness Type an enemy target has, the DMG that Anaxa deals to that target ignores X of their DEF. Up to a max of 7 Weakness Types can be taken into account for this effect.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Magician, Isolated by Stars",
+        description:
+          "After using Skill for the first time, recovers 1 Skill Point(s). When using Skill to hit enemy targets, decreases the targets' DEF by 16%, lasting for 2 turn(s).",
+        keyMechanic: "Magician, Isolated by Stars",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Soul, True to History",
+        description:
+          "When enemy targets enter the battlefield, triggers 1 instance of the Talent's Weakness Implant effect, and reduces their All-Type RES by 20%.",
+        keyMechanic: "Soul, True to History",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Pupil, Etched into Cosmos",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Pupil, Etched into Cosmos",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Blaze, Plunged to Canyon",
+        description:
+          "When using Skill, increases ATK by 30%, lasting for 2 turn(s). This effect can stack up to 2 time(s).",
+        keyMechanic: "Blaze, Plunged to Canyon",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Embryo, Set Beyond Vortex",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Embryo, Set Beyond Vortex",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Everything Is in Everything",
+        description:
+          'The DMG dealt by Anaxa is 130% of the original DMG. The 2 effects in the Trace "Imperative Hiatus" will be triggered directly and will no longer depend on the number of "Erudition" characters in the team.',
+        keyMechanic: "Everything Is in Everything",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1405",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Anaxa via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "archer",
+    gameId: "1015",
+    name: "Archer",
+    localizedNames: {
+      en: "Archer",
+      id: "Archer",
+    },
+    rarity: 5,
+    path: "Hunt",
+    element: "Quantum",
+    releaseVersion: "3.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1164,
+      atk: 620,
+      def: 485,
+      spd: 105,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 220,
+    },
+    abilities: [
+      {
+        id: "archer_101501",
+        name: "Kanshou and Bakuya",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Archer's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "archer_101502",
+        name: "Caladbolg II: Fake Spiral Sword",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Enters the "Circuit Connection" state. Deals Quantum DMG equal to X of Archer\'s ATK to one designated enemy. After using Skill in the "Circuit Connection" state, the current turn does not end, and the DMG dealt by Archer\'s Skill increases by X. This effect can stack up to X time(s), lasting until he exits the "Circuit Connection" state. After actively using Skill X time(s) or when Skill Points are insufficient to use Skill again, exits the "Circuit Connection" state. After all enemy targets have been defeated in each wave, exits the "Circuit Connection" state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "archer_101503",
+        name: "Unlimited Blade Works",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 220,
+        description:
+          "Deals Quantum DMG equal to X of Archer's ATK to one designated enemy and gains X point(s) of Charge, up to a maximum of X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "archer_101504",
+        name: "Mind's Eye (True)",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "After Archer's teammates attack enemy targets, Archer consumes 1 Charge and immediately launches Follow-Up ATK on the primary target, dealing Quantum DMG equal to X of Archer's ATK and recovering 1 Skill Point. If the target is defeated before this Follow-Up ATK is launched, the Follow-Up ATK will be directed at one random enemy instead.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "archer_101506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "archer_101507",
+        name: "Clairvoyance",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks enemies. After entering combat, deals Quantum DMG equal to X of Archer's ATK to all enemies and gains X point(s) of Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "archer_101509",
+        name: "End",
+        type: "skill",
+        tag: "End",
+        targetType: "single_ally",
+        energyGain: 30,
+        description: 'Exits "Circuit Connection" state and ends the turn.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "archer_trace_a2",
+        name: "Projection Magecraft",
+        ascensionRequirement: "A2",
+        description:
+          "When Archer is on the field, increases the maximum Skill Point limit by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "archer_trace_a4",
+        name: "Hero of Justice",
+        ascensionRequirement: "A4",
+        description: "When Archer enters combat, gains X point(s) of Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "archer_trace_a6",
+        name: "Guardian",
+        ascensionRequirement: "A6",
+        description:
+          "After allies gain a Skill Point, if there are X Skill Points or more, increases Archer's CRIT DMG by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "The Unreached Dream",
+        description:
+          "After using Skill 3 time(s) within one turn, recovers 2 Skill Point(s) for allies.",
+        keyMechanic: "The Unreached Dream",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "The Unfulfilled Happiness",
+        description:
+          "When using Ultimate, reduces the enemy target's Quantum RES by 20%, and applies Quantum Weakness to it, lasting for 2 turn(s).",
+        keyMechanic: "The Unfulfilled Happiness",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "The Untamed Will",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "The Untamed Will",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "The Unsung Life",
+        description: "Increases the Ultimate DMG dealt by 150%.",
+        keyMechanic: "The Unsung Life",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "The Nameless Watch",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "The Nameless Watch",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "The Endless Pilgrimage",
+        description:
+          "When the turn starts, recovers 1 Skill Point for allies. The maximum number of stacks allowed for the DMG boost effect provided by this unit's Skill increases by 1. The Skill DMG dealt ignores 20% of DEF.",
+        keyMechanic: "The Endless Pilgrimage",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1015",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Archer via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "argenti",
+    gameId: "1302",
+    name: "Argenti",
+    localizedNames: {
+      en: "Argenti",
+      id: "Argenti",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Physical",
+    releaseVersion: "1.5",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 737,
+      def: 363,
+      spd: 103,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 180,
+    },
+    abilities: [
+      {
+        id: "argenti_130201",
+        name: "Fleeting Fragrance",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Argenti's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "argenti_130202",
+        name: "Justice, Hereby Blooms",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Deals Physical DMG equal to X of Argenti's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "argenti_130203",
+        name: "For In This Garden, Supreme Beauty Bestows",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 180,
+        description:
+          "Consumes X Energy and deals Physical DMG equal to X of Argenti's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "argenti_130204",
+        name: "Sublime Object",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "For every enemy hit when Argenti uses his Basic Attack, Skill, or Ultimate, regenerates Argenti's Energy by X, and grants him a stack of Apotheosis, increasing his CRIT Rate by #2[f1]%. This effect can stack up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "argenti_130206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "argenti_130207",
+        name: "Manifesto of Purest Virtue",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using the Technique, enemies in a set area are inflicted with Daze for X second(s). Dazed enemies will not actively attack the team. When attacking a Dazed enemy to enter combat, deals Physical DMG to all enemies equal to X of Argenti's ATK and regenerates his Energy by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "argenti_130214",
+        name: 'Merit Bestowed in "My" Garden',
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 180,
+        description:
+          "Consumes X Energy and deals Physical DMG equal to X of Argenti's ATK to all enemies. And further deals DMG for X extra time(s), with each time dealing Physical DMG equal to X of Argenti's ATK to a random enemy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "argenti_trace_a2",
+        name: "Piety",
+        ascensionRequirement: "A2",
+        description:
+          "At the start of a turn, immediately gains X stack(s) of Apotheosis.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "argenti_trace_a4",
+        name: "Generosity",
+        ascensionRequirement: "A4",
+        description:
+          "When enemy targets enter combat, immediately regenerates X Energy for self.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "argenti_trace_a6",
+        name: "Courage",
+        ascensionRequirement: "A6",
+        description:
+          "Deals X more DMG to enemies whose HP percentage is X or less.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "physical",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "physical",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "physical",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "A Lacuna in Kingdom of Aesthetics",
+        description:
+          "Each stack of Apotheosis additionally increases CRIT DMG by 4%.",
+        keyMechanic: "A Lacuna in Kingdom of Aesthetics",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Agate's Humility",
+        description:
+          "If the number of enemies on the field equals to 3 or more when the Ultimate is used, ATK increases by 40% for 1 turn(s).",
+        keyMechanic: "Agate's Humility",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Thorny Road's Glory",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Thorny Road's Glory",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Trumpet's Dedication",
+        description:
+          "At the start of battle, gains 2 stack(s) of Apotheosis and increases the maximum stack limit of the Talent's effect by 2.",
+        keyMechanic: "Trumpet's Dedication",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Snow, From Somewhere in Cosmos",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Snow, From Somewhere in Cosmos",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: '"Your" Resplendence',
+        description: "When using Ultimate, ignores 30% of enemy targets' DEF.",
+        keyMechanic: '"Your" Resplendence',
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1302",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Argenti via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "arlan",
+    gameId: "1008",
+    name: "Arlan",
+    localizedNames: {
+      en: "Arlan",
+      id: "Arlan",
+    },
+    rarity: 4,
+    path: "Destruction",
+    element: "Lightning",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1199,
+      atk: 599,
+      def: 330,
+      spd: 102,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "arlan_100801",
+        name: "Lightning Rush",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Arlan's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "arlan_100802",
+        name: "Shackle Breaker",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Consumes Arlan's HP equal to X of his Max HP to deal Lightning DMG equal to X of Arlan's ATK to one designated enemy. If Arlan does not have sufficient HP, his HP will be reduced to 1 after using his Skill.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "arlan_100803",
+        name: "Frenzied Punishment",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          "Deals Lightning DMG equal to X of Arlan's ATK to one designated enemy and Lightning DMG equal to X of Arlan's ATK to enemies adjacent to it.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "arlan_100804",
+        name: "Pain and Anger",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Based on Arlan's current missing HP percentage, gains DMG bonus, up to a maximum increase of X DMG dealt by Arlan.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "arlan_100806",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "arlan_100807",
+        name: "Swift Harvest",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering battle, deals Lightning DMG equal to X of Arlan's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "arlan_trace_a2",
+        name: "Revival",
+        ascensionRequirement: "A2",
+        description:
+          "If the current HP percentage is X or lower when defeating an enemy, immediately restores HP equal to X of Max HP.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "arlan_trace_a4",
+        name: "Endurance",
+        ascensionRequirement: "A4",
+        description: "The chance to resist DoT Debuffs increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "arlan_trace_a6",
+        name: "Repel",
+        ascensionRequirement: "A6",
+        description:
+          "Upon entering battle, if Arlan's HP percentage is less than or equal to X, he can nullify all DMG received except for DoTs until he is attacked.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "To the Bitter End",
+        description:
+          "When HP percentage is lower than or equal to 50% of Max HP, increases DMG dealt by Skill by 10%.",
+        keyMechanic: "To the Bitter End",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Breaking Free",
+        description: "Using Skill or Ultimate removes 1 debuff from this unit.",
+        keyMechanic: "Breaking Free",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Power Through",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Power Through",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Turn the Tables",
+        description:
+          "When struck by a killing blow after entering battle, instead of becoming knocked down, Arlan immediately restores his HP to 25% of his Max HP. This effect is automatically removed after it is triggered once or after 2 turn(s) have elapsed.",
+        keyMechanic: "Turn the Tables",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Hammer and Tongs",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Hammer and Tongs",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Self-Sacrifice",
+        description:
+          "When the current HP percentage drops to 50% or below, Ultimate deals 20% more DMG, and the DMG multiplier for adjacent targets is raised to the same level as that for the primary target.",
+        keyMechanic: "Self-Sacrifice",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1008",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Arlan via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "ashveil",
+    gameId: "1504",
+    name: "Ashveil",
+    localizedNames: {
+      en: "Ashveil",
+      id: "Ashveil",
+    },
+    rarity: 5,
+    path: "Hunt",
+    element: "Lightning",
+    releaseVersion: "4.1",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 853,
+      atk: 776,
+      def: 388,
+      spd: 106,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 150,
+    },
+    abilities: [
+      {
+        id: "ashveil_150401",
+        name: "Talons: Inculcate Decorum",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Ashveil's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ashveil_150402",
+        name: "Flog: Smite Evil",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Makes one designated enemy become the "Bait," dealing it Lightning DMG equal to X of Ashveil\'s ATK. If the target is already the "Bait," additionally deals it Lightning DMG equal to X of Ashveil\'s ATK, and recovers X Skill Point(s). When the "Bait" exists on the field, all enemies\' DEF gets reduced by X. When there is no "Bait" on the field, Ashveil immediately makes the enemy target with the lowest HP on the field become the "Bait." The "Bait" state only takes effect on the most recently applied target.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ashveil_150403",
+        name: "Banquet: Insatiable Appetite",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 150,
+        description:
+          'Makes one designated enemy become the "Bait," dealing it Lightning DMG equal to X of Ashveil\'s ATK. Then, immediately launches 1 instance of enhanced Talent\'s Follow-Up ATK against the "Bait." And Ashveil gains X Charge. This enhanced Talent\'s Follow-Up ATK does not consume Charge. Whenever "Gluttony" reaches X stack(s) or more, consumes X stack(s) of "Gluttony" to additionally deal 1 instance of Lightning DMG equal to X of Ashveil\'s ATK. And when this instance of Follow-Up ATK deals a killing blow to the target, it will continue to deal DMG to a new "Bait." This triggers until "Gluttony" becomes lower than X stack(s). If all enemy targets currently on the field have been dealt killing blows, the enhanced Talent\'s Follow-Up ATK will immediately end.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ashveil_150404",
+        name: "Rancor: Enmity Reprisal",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          'Ashveil has an initial Charge of X and can hold up to a max of X. After the "Bait" gets attacked by other ally targets, Ashveil regenerates a fixed amount of X Energy, then consumes X Charge to launch Follow-Up ATK against the "Bait," dealing Lightning DMG equal to X of Ashveil\'s ATK. Afterwards, gains X stack(s) of "Gluttony," which can stack up to X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ashveil_150406",
+        name: "Talons: Inculcate Decorum",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ashveil_150407",
+        name: "Devour: O Loathsome Hand",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, inflicts Daze on enemies within a set area for X second(s). Dazed enemies will not actively attack ally targets. When entering combat via actively attacking a Dazed enemy, deals Lightning DMG to all enemies equal to X of Ashveil's ATK, and grants Ashveil X Charge.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "ashveil_trace_a2",
+        name: "Damnation Trail",
+        ascensionRequirement: "A2",
+        description:
+          'When Ashveil uses Skill/Ultimate, gains X/X stacks of "Gluttony." During Ashveil\'s Follow-Up ATK, for every X enemy(ies) that suffer a killing blow, Ashveil gains X stack(s) of "Gluttony."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ashveil_trace_a4",
+        name: "Phantom Limb",
+        ascensionRequirement: "A4",
+        description:
+          'DMG dealt by Ashveil\'s Follow-Up ATK increases by X. And for every X stack(s) of "Gluttony" in possession, DMG dealt by Follow-Up ATK additionally increases by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ashveil_trace_a6",
+        name: "First Fang",
+        ascensionRequirement: "A6",
+        description:
+          "While Ashveil is on the field, CRIT DMG dealt by ally targets increases by X, and CRIT DMG dealt by ally target's Follow-Up ATK additionally increases by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Beware: Venture Not at Full Moon",
+        description:
+          "While Ashveil is on the field, increases DMG taken by all enemies by 24%. When an enemy target's current HP percentage is 50% or lower, the DMG they take increases to 36%.",
+        keyMechanic: "Beware: Venture Not at Full Moon",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Knock: Where Snickers Echo",
+        description:
+          'The max stack limit of "Gluttony" increases to 18. After each time Ashveil launches the enhanced Talent\'s Follow-Up ATK, refunds 35% of the removed "Gluttony" stacks.',
+        keyMechanic: "Knock: Where Snickers Echo",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Hush: Unsaid Between Friends",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Hush: Unsaid Between Friends",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Heed: Swallow Truth Whole",
+        description:
+          "When Ashveil uses Ultimate, increases ATK by 40% for 3 turn(s).",
+        keyMechanic: "Heed: Swallow Truth Whole",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Caution: Sleuth Turns Slayer",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Caution: Sleuth Turns Slayer",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Finale: And Then There Were None",
+        description:
+          'When the "Bait" exists on the field, reduces all enemies\' All-Type RES by 20%. For every 1 stack of "Gluttony" Ashveil has gained, the DMG dealt increases by 4%. This effect can stack up to 30 time(s).',
+        keyMechanic: "Finale: And Then There Were None",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1504",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Ashveil via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "asta",
+    gameId: "1009",
+    name: "Asta",
+    localizedNames: {
+      en: "Asta",
+      id: "Asta",
+    },
+    rarity: 4,
+    path: "Harmony",
+    element: "Fire",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1023,
+      atk: 511,
+      def: 463,
+      spd: 106,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "asta_100901",
+        name: "Spectrum Beam",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Asta's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "asta_100902",
+        name: "Meteor Storm",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        description:
+          "Deals Fire DMG equal to X of Asta's ATK to one designated enemy and further deals DMG for 4 extra times, with each time dealing Fire DMG equal to X of Asta's ATK to a random enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "asta_100903",
+        name: "Astral Blessing",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 120,
+        description: "Increases SPD of all allies by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "asta_100904",
+        name: "Astrometry",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Gains 1 stack of Charging for every different enemy hit by Asta plus an extra stack if the enemy hit has Fire Weakness. For every stack of Charging Asta has, all allies' ATK increases by #1[f1]%, up to X time(s). Starting from her second turn, Asta's Charging stack count is reduced by X at the beginning of every turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "asta_100906",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "asta_100907",
+        name: "Miracle Flash",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering battle, deals Fire DMG equal to X of Asta's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "asta_trace_a2",
+        name: "Sparks",
+        ascensionRequirement: "A2",
+        description:
+          "Asta's Basic ATK has a X base chance to Burn the enemy target for X turn(s). Burned enemies take Fire DoT equal to X of DMG dealt by Asta's Basic ATK at the start of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "asta_trace_a4",
+        name: "Ignite",
+        ascensionRequirement: "A4",
+        description:
+          "When Asta is on the field, all allies' Fire DMG increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "asta_trace_a6",
+        name: "Constellation",
+        ascensionRequirement: "A6",
+        description:
+          "Asta's DEF increases by X for every current Charging stack she possesses.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Star Sings Sans Verses or Vocals",
+        description:
+          "When using Skill, deals DMG for 1 extra time to a random enemy.",
+        keyMechanic: "Star Sings Sans Verses or Vocals",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Moon Speaks in Wax and Wane",
+        description:
+          "After using her Ultimate, Asta's Charging stacks will not be reduced in the next turn.",
+        keyMechanic: "Moon Speaks in Wax and Wane",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Meteor Showers for Wish and Want",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Meteor Showers for Wish and Want",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Aurora Basks in Beauty and Bliss",
+        description:
+          "Asta's Energy Regeneration Rate increases by 15% when she has 2 or more Charging stacks.",
+        keyMechanic: "Aurora Basks in Beauty and Bliss",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Nebula Secludes in Runes and Riddles",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Nebula Secludes in Runes and Riddles",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Cosmos Dreams in Calm and Comfort",
+        description: "Charging stack(s) lost in each turn is reduced by 1.",
+        keyMechanic: "Cosmos Dreams in Calm and Comfort",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1009",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Asta via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "aventurine",
+    gameId: "1304",
+    name: "Aventurine",
+    localizedNames: {
+      en: "Aventurine",
+      id: "Aventurine",
+      ja: "アベンチュリン",
+      zh: "砂金",
+    },
+    rarity: 5,
+    path: "Preservation",
+    element: "Imaginary",
+    releaseVersion: "2.1",
+    roles: ["shielder", "sub_dps", "debuffer"],
+    mechanicTags: [
+      "shield",
+      "follow_up",
+      "stat_conversion",
+      "debuff",
+      "vulnerability",
+      "bounce",
+    ],
+    baseStats: {
+      hp: 1203,
+      atk: 446,
+      def: 655,
+      spd: 106,
+      taunt: 150,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "aventurine_basic",
+        name: "Straight Bet",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to 100% of Aventurine's DEF to a single enemy.",
+        mechanics: ["single_target", "stat_conversion"],
+      },
+      {
+        id: "aventurine_skill",
+        name: "Cornerstone Deluxe",
+        type: "skill",
+        tag: "Defense",
+        targetType: "all_allies",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Provides all allies with a Fortified Womb shield capable of blocking DMG equal to 24% of Aventurine's DEF + 320 for 3 turns. Shield values can stack up to 200% of the single shield value.",
+        mechanics: ["shield"],
+      },
+      {
+        id: "aventurine_ultimate",
+        name: "Roulette Shark",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyCost: 110,
+        description:
+          "Randomly gains 1 to 7 points of Blind Bet. Inflicts Unnerved on a single target enemy for 3 turns, increasing CRIT DMG taken by 15%. Deals Imaginary DMG equal to 270% of Aventurine's DEF.",
+        mechanics: ["single_target", "debuff", "vulnerability"],
+      },
+      {
+        id: "aventurine_talent",
+        name: "Shot Loaded Right",
+        type: "talent",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        description:
+          "Effect RES of allies with Fortified Womb increases by 50%. When allies with shield get attacked, Aventurine gains 1 point of Blind Bet. At 7 Blind Bet points, unleashes a 7-hit Follow-Up attack dealing DEF-scaling Imaginary DMG.",
+        mechanics: ["shield", "follow_up", "bounce"],
+      },
+      {
+        id: "aventurine_technique",
+        name: "The Red and the Black",
+        type: "technique",
+        tag: "Defense",
+        targetType: "all_allies",
+        description:
+          "Using Technique grants 1 of 3 tiers of DEF boost (24%, 36%, 60%) to all allies at the start of battle for 3 turns.",
+        mechanics: ["shield", "buff"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "aventurine_trace_a2",
+        name: "Leverage",
+        ascensionRequirement: "A2",
+        description:
+          "For every 100 points of Aventurine's DEF exceeding 1600, increases his CRIT Rate by 2%, up to a maximum increase of 48%.",
+        mechanics: ["stat_conversion"],
+      },
+      {
+        id: "aventurine_trace_a4",
+        name: "Hot Hand",
+        ascensionRequirement: "A4",
+        description:
+          "When battle begins, grants all allies a Fortified Womb shield equal to 100% of the shield provided by Skill for 3 turns.",
+        mechanics: ["shield"],
+      },
+      {
+        id: "aventurine_trace_a6",
+        name: "Bingo!",
+        ascensionRequirement: "A6",
+        description:
+          "After an ally with Fortified Womb unleashes a Follow-Up attack, Aventurine gains 1 Blind Bet point. When Aventurine unleashes his Talent Follow-Up attack, refreshes all allies' Fortified Womb shields.",
+        mechanics: ["shield", "follow_up"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "def",
+        totalValue: 0.35,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginaryDmg",
+        totalValue: 0.144,
+        unit: "percentage",
+      },
+      {
+        stat: "effectRes",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Prisoner's Dilemma",
+        description:
+          "Increases CRIT DMG of allies with Fortified Womb by 20%. Using Ultimate now also grants all allies a Fortified Womb shield.",
+        keyMechanic: "Ultimate applies team shield + team CRIT DMG boost",
+        mechanics: ["shield", "buff"],
+      },
+      {
+        rank: 2,
+        name: "Bounded Rationality",
+        description:
+          "When using Basic ATK, reduces the target's All-Type RES by 12% for 3 turns.",
+        keyMechanic: "Basic ATK applies All-Type RES shred",
+        mechanics: ["res_penetration", "debuff"],
+      },
+      {
+        rank: 3,
+        name: "Droprate Maxing",
+        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Unexpected Hanging Paradox",
+        description:
+          "When triggering Talent Follow-Up attack, increases Aventurine's DEF by 40% for 2 turns and adds 3 additional hits to the Follow-Up attack.",
+        keyMechanic: "Follow-Up hits increase to 10 + 40% DEF boost",
+        mechanics: ["follow_up", "buff"],
+      },
+      {
+        rank: 5,
+        name: "Ambiguity Aversion",
+        description: "Skill Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Stag Hunt Game",
+        description:
+          "For every ally with a shield, Aventurine's DMG increases by 50%, up to a maximum of 150%.",
+        keyMechanic: "Up to 150% personal DMG boost from shielded allies",
+        mechanics: ["shield", "buff"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyolab_aventurine_official",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://wiki.hoyolab.com/pc/hsr/entry/1304",
+      gameVersion: "2.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Official HoYoWiki Aventurine Preservation factual kit",
+    },
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "aventurine-waveflair",
+    gameId: "1513",
+    name: "Aventurine • Waveflair",
+    localizedNames: {
+      en: "Aventurine • Waveflair",
+      id: "Aventurine • Waveflair",
+      ja: "アベンチュリン・ウェーブフレア",
+      zh: "砂金·逐浪华章",
+    },
+    rarity: 5,
+    path: "Elation",
+    element: "Quantum",
+    releaseVersion: "4.5",
+    roles: ["elation_dps", "sub_dps"],
+    mechanicTags: [
+      "elation",
+      "punchline",
+      "fervor",
+      "follow_up",
+      "aoe",
+      "single_target",
+      "bounce",
+    ],
+    baseStats: {
+      hp: 1241,
+      atk: 698,
+      def: 518,
+      spd: 105,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    specialResourceType: "Punchline / Fervor",
+    abilities: [
+      {
+        id: "aventurine_wf_basic",
+        name: "Gilded Splash",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to 100% of Aventurine • Waveflair's ATK to a single target enemy and generates 1 Punchline.",
+        mechanics: ["single_target", "elation", "punchline"],
+      },
+      {
+        id: "aventurine_wf_skill",
+        name: "Astropolis Jackpot",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Unleashes 5 dice rolls across random enemies, dealing Quantum Elation DMG equal to 60% of ATK per hit and generating 2 Punchlines. Increases party Fervor by 10.",
+        mechanics: ["bounce", "elation", "punchline", "fervor"],
+      },
+      {
+        id: "aventurine_wf_elation_skill",
+        name: "All In: Carnival Grand Slam",
+        type: "elation_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          "Triggered when Fervor reaches 100. Consumes all Fervor to unleash a party-wide Elation barrage dealing 280% of ATK as Quantum Elation DMG and granting all allies 'Certified Banger' for 2 turns.",
+        mechanics: ["aoe", "elation", "fervor", "buff"],
+      },
+      {
+        id: "aventurine_wf_ultimate",
+        name: "The Grandest Show in the Cosmos",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyCost: 130,
+        description:
+          "Deals Quantum DMG equal to 300% of ATK to all enemies, grants 50 Fervor immediately, and doubles the Elation DMG multiplier of the next Elation Skill.",
+        mechanics: ["aoe", "elation", "fervor"],
+      },
+      {
+        id: "aventurine_wf_talent",
+        name: "Laughter in the Face of Odds",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "self",
+        description:
+          "When any ally launches an attack or follow-up attack, gains 5 Fervor. When Fervor reaches 100, Aventurine • Waveflair immediately advances his action and unleashes 'All In: Carnival Grand Slam'.",
+        mechanics: ["elation", "fervor", "action_advance"],
+      },
+      {
+        id: "aventurine_wf_technique",
+        name: "High Roller's Curtain Call",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        description:
+          "Entering battle immediately grants 30 Fervor and 3 Punchlines.",
+        mechanics: ["elation", "punchline", "fervor"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "aventurine_wf_trace_a2",
+        name: "Astropolis Neon",
+        ascensionRequirement: "A2",
+        description:
+          "Increases Elation DMG by 1.5% for every Punchline generated during the current wave (up to 45%).",
+        mechanics: ["elation", "punchline"],
+      },
+      {
+        id: "aventurine_wf_trace_a4",
+        name: "Certified Banger",
+        ascensionRequirement: "A4",
+        description:
+          "Allies with 'Certified Banger' gain 20% Quantum RES PEN on their Elation attacks.",
+        mechanics: ["res_penetration", "elation"],
+      },
+      {
+        id: "aventurine_wf_trace_a6",
+        name: "Encore Extravaganza",
+        ascensionRequirement: "A6",
+        description:
+          "After unleashing an Elation Skill, regenerates 15 Energy.",
+        mechanics: ["energy_regen", "elation"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "quantumDmg",
+        totalValue: 0.224,
+        unit: "percentage",
+      },
+      {
+        stat: "critDmg",
+        totalValue: 0.24,
+        unit: "percentage",
+      },
+      {
+        stat: "spd",
+        totalValue: 6,
+        unit: "flat",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Neon Dice of Fate",
+        description:
+          "Fervor required to trigger Elation Skill reduced from 100 to 80.",
+        keyMechanic: "Faster Elation skill activation (80 Fervor)",
+        mechanics: ["elation", "fervor"],
+      },
+      {
+        rank: 2,
+        name: "Joker's Double Down",
+        description:
+          "Skill 'Astropolis Jackpot' hits increase from 5 to 8 dice rolls.",
+        keyMechanic: "Skill hits increase to 8",
+        mechanics: ["bounce", "elation"],
+      },
+      {
+        rank: 3,
+        name: "Standing Ovation",
+        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Crown of the Showman",
+        description:
+          "Punchline generation doubled from all skill and ally actions.",
+        keyMechanic: "Doubled Punchline generation",
+        mechanics: ["punchline", "elation"],
+      },
+      {
+        rank: 5,
+        name: "Symphony of Chaos",
+        description: "Skill Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Astropolis Ascendant",
+        description:
+          "Elation Skill deals additional Quantum DMG equal to 120% of ATK and ignores 25% of all enemies' DEF.",
+        keyMechanic: "Elation Skill gains 25% DEF Ignore & bonus damage",
+        mechanics: ["defense_shred", "elation"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyoverse_4_5_update_notice",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://hsr.hoyoverse.com/en-us/news/128845",
+      gameVersion: "4.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Official HoYoverse Version 4.5 'To Roll the Stars in Astropolis' character release notice",
+    },
+    source: "HoYoLAB",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "bailu",
+    gameId: "1211",
+    name: "Bailu",
+    localizedNames: {
+      en: "Bailu",
+      id: "Bailu",
+    },
+    rarity: 5,
+    path: "Abundance",
+    element: "Lightning",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1319,
+      atk: 562,
+      def: 485,
+      spd: 98,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 100,
+    },
+    abilities: [
+      {
+        id: "bailu_121101",
+        name: "Diagnostic Kick",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Bailu's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bailu_121102",
+        name: "Singing Among Clouds",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Heals a single ally for #1[f1]% of Bailu's Max HP plus X. Bailu then heals random allies X time(s). After each healing, HP restored from the next healing is reduced by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bailu_121103",
+        name: "Felicitous Thunderleap",
+        type: "ultimate",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 100,
+        description:
+          "Heals all allies for #1[f1]% of Bailu's Max HP plus X. Bailu applies Invigoration to allies that are not already Invigorated. For those already Invigorated, Bailu extends the duration of their Invigoration by 1 turn. The effect of Invigoration can last for X turn(s). This effect cannot stack.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bailu_121104",
+        name: "Gourdful of Elixir",
+        type: "talent",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After an ally target with Invigoration is hit, restores the ally's HP for #1[f1]% of Bailu's Max HP plus X. This effect can trigger X time(s). When Bailu's teammate receives a killing blow, they will not be knocked down. Bailu immediately heals the ally for #3[f1]% of Bailu's Max HP plus X HP. This effect can be triggered 1 time per battle.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bailu_121106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bailu_121107",
+        name: "Saunter in the Rain",
+        type: "technique",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After Technique is used, at the start of the next battle, all allies are granted Invigoration for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "bailu_trace_a2",
+        name: "Qihuang Analects",
+        ascensionRequirement: "A2",
+        description:
+          "When Bailu heals a target ally above their normal Max HP, the target's Max HP increases by X for X turns.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bailu_trace_a4",
+        name: "Vidyadhara Ichor Lines",
+        ascensionRequirement: "A4",
+        description: "Invigoration can trigger X more time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bailu_trace_a6",
+        name: "Aquatic Benediction",
+        ascensionRequirement: "A6",
+        description: "Characters with Invigoration receive X less DMG.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Ambrosial Aqua",
+        description:
+          "If the target ally's current HP is equal to their Max HP when Invigoration ends, regenerates 8 extra Energy for this target.",
+        keyMechanic: "Ambrosial Aqua",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Sylphic Slumber",
+        description:
+          "After using her Ultimate, Bailu's Outgoing Healing increases by an additional 15% for 2 turn(s).",
+        keyMechanic: "Sylphic Slumber",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Omniscient Opulence",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Omniscient Opulence",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Evil Excision",
+        description:
+          "Every healing provided by the Skill makes the recipient deal 10% more DMG for 2 turn(s). This effect can stack up to 3 time(s).",
+        keyMechanic: "Evil Excision",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Waning Worries",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Waning Worries",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Drooling Drop of Draconic Divinity",
+        description:
+          "Bailu can heal allies who received a killing blow 1 more time(s) in a single battle.",
+        keyMechanic: "Drooling Drop of Draconic Divinity",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1211",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Bailu via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "black-swan",
+    gameId: "1307",
+    name: "Black Swan",
+    localizedNames: {
+      en: "Black Swan",
+      id: "Black Swan",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Wind",
+    releaseVersion: "2.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 659,
+      def: 485,
+      spd: 102,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "black-swan_130701",
+        name: "Percipience, Silent Dawn",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          'Deals Wind DMG equal to X of Black Swan\'s ATK to one designated enemy target, with a X base chance of inflicting 1 stack of "Arcana" on the target. Additionally, when attacking a target that suffers Wind Shear, Bleed, Burn, or Shock, there is respectively a X base chance of inflicting 1 extra stack of "Arcana" on the target.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_130702",
+        name: "Decadence, False Twilight",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          'Deals Wind DMG equal to X of Black Swan\'s ATK to one designated enemy target and any adjacent targets. At the same time, there is a X base chance of inflicting 1 stack of "Arcana" on the target enemy and the adjacent targets. Additionally, there is a X base chance of reducing the DEF of the target enemy and the adjacent targets by #4[f1]%, lasting for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_130703",
+        name: "Bliss of Otherworld's Embrace",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Inflicts Epiphany on all enemies for X turn(s). While afflicted with Epiphany, enemies take X increased DMG in their turn. Additionally, if enemies are also inflicted with Arcana, they are also considered to be simultaneously afflicted with Wind Shear, Bleed, Burn, and Shock. After Arcana causes DMG at the start of each turn, its stacks are not reset. This non-reset effect of Arcana stacks can be triggered up to X time(s) for the duration of Epiphany. And the trigger count resets when Epiphany is applied again. Deals Wind DMG equal to X of Black Swan's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_130704",
+        name: "Loom of Fate's Caprice",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Every time an enemy target receives DoT at the start of each turn, there is a X base chance for it to be inflicted with 1 stack of Arcana. While afflicted with Arcana, enemy targets receive Wind DoT equal to X of Black Swan's ATK at the start of each turn. Each stack of Arcana increases this DMG multiplier by #3[f1]%. Then Arcana resets to 1 stack. Arcana can stack up to X times. Only when Arcana causes DMG at the start of an enemy target's turn, Black Swan triggers additional effects based on the number of Arcana stacks inflicted on the target: When there are X or more Arcana stacks, deals Wind DoT equal to X of Black Swan's ATK to adjacent targets, with a X base chance of inflicting 1 stack of Arcana on adjacent targets. When there are X or more Arcana stacks, enables the current DoT dealt this time to ignore X of the target's and adjacent targets' DEF.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_130706",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_130707",
+        name: "From Façade to Vérité",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After this Technique is used, there is a X base chance for each enemy to be inflicted with 1 stack of Arcana at the start of the next battle. For each successful application of Arcana on a target, inflicts another stack of Arcana on the same target. This process repeats until Arcana fails to be inflicted on this target. For each successive application of Arcana on a target, its base chance of success is equal to X of the base chance of the previous successful infliction of Arcana on that target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_1130701",
+        name: "Percipience, Silent Dawn",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Black Swan's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_1130702",
+        name: "Decadence, False Twilight",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Wind DMG equal to X of Black Swan's ATK to one designated enemy and adjacent targets. At the same time, there is a X base chance of reducing the DEF of the enemy target and the adjacent targets by #4[f1]%, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_1130703",
+        name: "Bliss of Otherworld's Embrace",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          'Inflicts "Epiphany" state on all enemies for X turn(s). Then deals Wind DMG to all enemies equal to X of Black Swan\'s ATK. While in the "Epiphany" state, enemy targets take X increased DMG. For every 1 stack of "Arcana inflicted," there is a X fixed chance to additionally increase the number of "Arcana" stacked this time by 1. And "Arcana" stacks won\'t be halved after dealing DMG at the start of the turn.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_1130704",
+        name: "Loom of Fate's Caprice",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'Every time an enemy target receives 1 instance of DoT, there is a X base chance for it to be inflicted with 1 stack of "Arcana". While an enemy target is in the "Arcana" state, they are also considered to be simultaneously afflicted with Wind Shear, Bleed, Burn, and Shock. The target receives Wind DoT equal to X of Black Swan\'s ATK at the start of each turn, after which the number of stacks is halved. Each stack of "Arcana" increases this DMG multiplier by #3[f1]%. "Arcana" can stack X times, and can continue to stack beyond this limit, with the excess stacks removed after dealing DMG. DMG from "Arcana" ignores X of the target\'s DEF. Only when "Arcana" deals DMG at the start of the enemy target\'s turn, adjacent targets take 1 additional instance of Wind DoT equal to X of Black Swan\'s ATK.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_1130706",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_1130707",
+        name: "From Façade to Vérité",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After Technique is used, there is a X base chance for each enemy to be inflicted with 1 stack of "Arcana" at the start of the next battle. For each successful application of "Arcana" on a target, inflicts another stack of "Arcana" on the same target. This process repeats until "Arcana" fails to be inflicted on this target. For each successive application of "Arcana" on a target, its base chance of success is equal to X of the base chance of the previous successful infliction of "Arcana" on that target.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "black-swan_trace_a2",
+        name: "Viscera's Disquiet",
+        ascensionRequirement: "A2",
+        description:
+          "After using Skill to attack one designated enemy that has Wind Shear, Bleed, Burn, or Shock, each of these debuffs respectively has a X base chance of inflicting 1 extra stack of Arcana.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_trace_a4",
+        name: "Goblet's Dredges",
+        ascensionRequirement: "A4",
+        description:
+          "When an enemy target enters combat, there is a X base chance for it to be inflicted with 1 stack of Arcana. Every time an enemy target receives 1 instance of DoT during a single attack by an ally, there is a X base chance for the target to be inflicted with 1 stack of Arcana. The maximum number of stacks that can be inflicted during 1 single attack is X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_trace_a6",
+        name: "Candleflame's Portent",
+        ascensionRequirement: "A6",
+        description:
+          "Increases this unit's DMG by an amount equal to X of Effect Hit Rate, up to a maximum DMG increase of X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_trace_a2",
+        name: "Viscera's Disquiet",
+        ascensionRequirement: "A2",
+        description:
+          'When an enemy target gets attacked by Black Swan, there is a X base chance of inflicting X stack(s) of "Arcana" on them.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_trace_a4",
+        name: "Goblet's Dredges",
+        ascensionRequirement: "A4",
+        description:
+          'When an enemy targets enters combat, there is a X base chance for it to be inflicted with 1 stack of "Arcana," and a X base chance to be inflicted with the DEF reduction effect from the Skill, which lasts for X turn(s). After using Basic ATK or Ultimate, there is also a X base chance to inflict the DEF reduction effect from the Skill on the hit enemy targets, which lasts for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "black-swan_trace_a6",
+        name: "Candleflame's Portent",
+        ascensionRequirement: "A6",
+        description:
+          "Increases the DMG dealt by all allies by an amount equal to X of Black Swan's Effect Hit Rate, up to a maximum DMG increase of X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Seven Pillars of Wisdom",
+        description:
+          "While Black Swan is active in combat, enemies afflicted with Wind Shear, Bleed, Burn, or Shock will have their corresponding Wind, Physical, Fire, or Lightning RES respectively reduced by 25%.",
+        keyMechanic: "Seven Pillars of Wisdom",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Weep Not For Me, My Lamb",
+        description:
+          'When an enemy target afflicted with "Arcana" is defeated, there is a 100% base chance of inflicting 6 stack(s) of "Arcana" on adjacent targets.',
+        keyMechanic: "Weep Not For Me, My Lamb",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "As Above, So Below",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "As Above, So Below",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "In Tears We Gift",
+        description:
+          "While in the Epiphany state, enemy targets have their Effect RES reduced by 10% and Black Swan regenerates 8 Energy at the start of these targets' turns or when they are defeated. This Energy Regeneration effect can only trigger up to 1 time while Epiphany lasts. The trigger count is reset when Epiphany is applied again.",
+        keyMechanic: "In Tears We Gift",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Linnutee Flyway",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Linnutee Flyway",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Pantheon Merciful, Masses Pitiful",
+        description:
+          'When an enemy target is attacked by Black Swan\'s teammates, Black Swan has a 65% base chance of inflicting 1 stack of "Arcana" on the target. Every time Black Swan inflicts "Arcana" on an enemy target, there is a 50% fixed chance to additionally increase the number of "Arcana" stacked this time by 1.',
+        keyMechanic: "Pantheon Merciful, Masses Pitiful",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1307",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Black Swan via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "blade",
+    gameId: "1205",
+    name: "Blade",
+    localizedNames: {
+      en: "Blade",
+      id: "Blade",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Wind",
+    releaseVersion: "1.2",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1358,
+      atk: 543,
+      def: 485,
+      spd: 97,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "blade_120501",
+        name: "Shard Sword",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description: "Deals X of Blade's ATK as Wind DMG to a target enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_120502",
+        name: "Hellscape",
+        type: "skill",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Consumes HP equal to X of Blade's Max HP to enter the Hellscape state. When Hellscape is active, his Skill cannot be used, his DMG dealt increases by X, and his Basic ATK Shard Sword is enhanced to Forest of Swords for X turn(s). If Blade's current HP is insufficient, his HP will be reduced to 1 when he uses his Skill. This Skill does not regenerate Energy. Using this Skill does not end the current turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_120503",
+        name: "Death Sentence",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "Sets Blade's current HP to 50% of his Max HP and deals Wind DMG to one enemy equal to the sum of X of his ATK, X of his Max HP, and X of the tally of Blade's HP loss in the current battle. At the same time, deals Wind DMG to adjacent targets equal to the sum of #3[f1]% of his ATK, X of his Max HP, and X of the tally of his HP loss in the current battle. The tally of Blade's HP loss in the current battle is capped at X of his Max HP. This value will be reset and re-accumulated after his Ultimate has been used.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_120504",
+        name: "Shuhu's Gift",
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "When Blade sustains DMG or consumes his HP, he gains 1 stack of Charge, stacking up to 5 times. A max of 1 Charge stack can be gained every time he is attacked. When Charge stack reaches maximum, immediately launches a Follow-Up ATK on all enemies, dealing Wind DMG equal to X of Blade's ATK plus X of his Max HP. At the same time, restores Blade's HP by X of his Max HP. After the Follow-Up ATK, all Charges are consumed.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_120506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_120507",
+        name: "Karma Wind",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering combat, consumes X of Blade's Max HP while dealing Wind DMG equal to X of his Max HP to all enemies. If Blade's current HP is insufficient, his HP will be reduced to 1 when this Technique is used.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_120508",
+        name: "Forest of Swords",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          'Consumes HP equal to X of Blade\'s Max HP and deals Wind DMG equal to the sum of X of his ATK and X of his Max HP to one designated enemy. In addition, deals Wind DMG equal to the sum of X of Blade\'s ATK and X of his Max HP to adjacent targets. If Blade\'s current HP is insufficient, his HP will be reduced to 1 when using "Forest of Swords." "Forest of Swords" cannot regenerate Skill Points.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_1120501",
+        name: "Shard Sword",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Blade's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_1120502",
+        name: "Hellscape",
+        type: "skill",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Consumes HP equal to X of Blade\'s Max HP to enter the "Hellscape" state. While "Hellscape" is active, his Skill cannot be used, his DMG dealt increases by X, his chance of getting attacked by enemy targets greatly increases, and his Basic ATK "Shard Sword" is enhanced to "Forest of Swords" for X turn(s). If Blade\'s current HP is insufficient, his HP will be reduced to 1 when he uses his Skill. This Skill does not regenerate Energy. Using this Skill does not end the current turn.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_1120503",
+        name: "Death Sentence",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "Sets Blade's current HP to 50% of his Max HP and deals Wind DMG to one enemy equal to X of his Max HP plus X of the tally of Blade's HP loss in the current battle. At the same time, deals Wind DMG to adjacent targets equal to #3[f1]% of his Max HP plus X of the tally of his HP loss in the current battle. The tally of Blade's HP loss in the current battle is capped at X of his Max HP. This value will be reset and re-accumulated after his Ultimate has been used.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_1120504",
+        name: "Shuhu's Gift",
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "When Blade sustains DMG or consumes his HP, he gains 1 stack of Charge, stacking up to 5 times. A max of 1 Charge stack can be gained every time he is attacked. When Charge stack reaches maximum, immediately launches 1 instance of Follow-Up ATK on all enemies, dealing Wind DMG equal to X of Blade's Max HP. At the same time, restores Blade's HP by X of his Max HP. After the Follow-Up ATK, all Charges are consumed.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_1120506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_1120507",
+        name: "Karma Wind",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering combat, consumes X of Blade's Max HP while dealing Wind DMG equal to X of his Max HP to all enemies. If Blade's current HP is insufficient, his HP will be reduced to 1 when this Technique is used.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_1120508",
+        name: "Forest of Swords",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          'Consumes HP equal to X of Blade\'s Max HP and deals Wind DMG equal to X of his Max HP to one designated enemy. In addition, deals Wind DMG equal to X of Blade\'s Max HP to adjacent targets. If Blade\'s current HP is insufficient, his HP will be reduced to 1 when using "Forest of Swords." "Forest of Swords" cannot regenerate Skill Points.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "blade_trace_a2",
+        name: "Vita Infinita",
+        ascensionRequirement: "A2",
+        description:
+          "When Blade's current HP percentage is at 50% of Max HP or lower, the HP restored when receiving healing increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_trace_a4",
+        name: "Neverending Deaths",
+        ascensionRequirement: "A4",
+        description:
+          'If Blade hits a Weakness Broken enemy after using "Forest of Swords," he will restore HP equal to X of his Max HP plus X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_trace_a6",
+        name: "Cyclone of Destruction",
+        ascensionRequirement: "A6",
+        description: "Increases DMG dealt by the Talent's Follow-Up ATK by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_trace_a2",
+        name: "Vita Infinita",
+        ascensionRequirement: "A2",
+        description:
+          "When Blade uses Ultimate, the amount cleared from the tally of HP loss is changed to X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_trace_a4",
+        name: "Neverending Deaths",
+        ascensionRequirement: "A4",
+        description:
+          "HP restored from healing increases by X. After receiving healing, converts X of the healed amount to Ultimate's tally of HP loss.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "blade_trace_a6",
+        name: "Cyclone of Destruction",
+        ascensionRequirement: "A6",
+        description:
+          "Increases Follow-Up ATK DMG from Talent by X and additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Blade Cuts the Deepest in Hell",
+        description:
+          "Blade's Ultimate deals additionally increased DMG to one designated enemy target, with the increased amount equal to 150% of the tally of Blade's HP loss in the current battle. The tally of Blade's HP loss in the current battle is capped at 90% of his Max HP. The tally value will be reset and re-accumulated after his Ultimate has been used.",
+        keyMechanic: "Blade Cuts the Deepest in Hell",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Ten Thousand Sorrows From One Broken Dream",
+        description:
+          "When Blade is in the Hellscape state, his CRIT Rate increases by 15%.",
+        keyMechanic: "Ten Thousand Sorrows From One Broken Dream",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Hardened Blade Bleeds Coldest Shade",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Hardened Blade Bleeds Coldest Shade",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Rejected by Death, Infected With Life",
+        description:
+          "When Blade's current HP percentage drops to 50% or lower of his Max HP, increases his Max HP by 20%. Stacks up to 2 time(s).",
+        keyMechanic: "Rejected by Death, Infected With Life",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Death By Ten Lords' Gaze",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Death By Ten Lords' Gaze",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Reborn Into an Empty Husk",
+        description:
+          "The maximum number of Charge stacks is reduced to 4. The Follow-Up ATK triggered by Talent deals additionally increased DMG, with the increased amount equal to 50% of Blade's Max HP.",
+        keyMechanic: "Reborn Into an Empty Husk",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1205",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Blade via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "boothill",
+    gameId: "1315",
+    name: "Boothill",
+    localizedNames: {
+      en: "Boothill",
+      id: "Boothill",
+    },
+    rarity: 5,
+    path: "Hunt",
+    element: "Physical",
+    releaseVersion: "2.2",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1203,
+      atk: 620,
+      def: 436,
+      spd: 107,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 115,
+    },
+    abilities: [
+      {
+        id: "boothill_131501",
+        name: "Skullcrush Spurs",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Boothill's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "boothill_131502",
+        name: "Sizzlin' Tango",
+        type: "skill",
+        tag: "Impair",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Forces Boothill and one designated enemy target into the "Standoff" state. Boothill\'s Basic ATK gets Enhanced, and he cannot use his Skill, lasting for X turn(s). This duration decreases by 1 at the start of Boothill\'s every turn. The enemy target in the "Standoff" becomes Taunted. When this enemy target/Boothill gets attacked by the other party in the Standoff, the DMG they receive increases by X/X. After this target is defeated or becomes Weakness Broken, Boothill gains 1 stack of "Pocket Trickshot," then dispels the "Standoff." This Skill cannot regenerate Energy. After using this Skill, the current turn does not end.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "boothill_131503",
+        name: "Dust Devil's Sunset Rodeo",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 115,
+        description:
+          "Applies Physical Weakness to one designated enemy target, lasting for X turn(s). Deals Physical DMG equal to X of Boothill's ATK to the target and delays their action by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "boothill_131504",
+        name: "Five Peas in a Pod",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Each stack of Pocket Trickshot increases the Enhanced Basic Attack's Toughness Reduction by X, stacking up to X time(s). If the target is Weakness Broken while the Enhanced Basic ATK is being used, based on the number of Pocket Trickshot stacks, deals Break DMG to this target equal to X/X/X of Boothill's Physical Break DMG. The max Toughness taken into account for this DMG cannot exceed X times the base Toughness Reduction of the Basic Attack \"Skullcrush Spurs.\" After winning the battle, Boothill can retain Pocket Trickshot for the next battle.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "boothill_131506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "boothill_131507",
+        name: "3-9× Smile",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After the Technique is used, when casting the Skill for the first time in the next battle, applies the same Physical Weakness to the target as the one induced by the Ultimate, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "boothill_131508",
+        name: "Fanning the Hammer",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          'Deals Physical DMG equal to X of Boothill\'s ATK to one designated enemy target. The Enhanced Basic Attack cannot recover Skill Points and can only target the enemy that is in the "Standoff" state.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "boothill_trace_a2",
+        name: "Ghost Load",
+        ascensionRequirement: "A2",
+        description:
+          "Increase this character's CRIT Rate/CRIT DMG, by an amount equal to X/X of Break Effect, up to a max increase of X/X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "boothill_trace_a4",
+        name: "Above Snakes",
+        ascensionRequirement: "A4",
+        description:
+          "While Boothill is in the Standoff, reduces the DMG he receives from targets that are not in the Standoff by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "boothill_trace_a6",
+        name: "Point Blank",
+        ascensionRequirement: "A6",
+        description:
+          "When in Standoff and gaining Pocket Trickshot, regenerates X Energy. Can also trigger this effect when gaining Pocket Trickshot stacks that exceed the max limit.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Dusty Trail's Lone Star",
+        description:
+          "When the battle starts, obtains 1 stack of Pocket Trickshot. When Boothill deals DMG, ignores 16% of the enemy target's DEF.",
+        keyMechanic: "Dusty Trail's Lone Star",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Milestonemonger",
+        description:
+          "When in Standoff and gaining Pocket Trickshot, recovers 1 Skill Point(s) and increases Break Effect by 30%, lasting for 2 turn(s). Can also trigger this effect when gaining Pocket Trickshot stacks that exceed the max limit. But cannot trigger repeatedly within one turn.",
+        keyMechanic: "Milestonemonger",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Marble Orchard's Guard",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Marble Orchard's Guard",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Cold Cuts Chef",
+        description:
+          "When the enemy target in the Standoff is attacked by Boothill, the DMG they receive additionally increases by 12%. When Boothill is attacked by the enemy target in the Standoff, the effect of him receiving increased DMG is offset by 12%.",
+        keyMechanic: "Cold Cuts Chef",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Stump Speech",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Stump Speech",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Crowbar Hotel's Raccoon",
+        description:
+          "When triggering the Talent's Break DMG, additionally deals Break DMG to the target equal to 40% of the original DMG multiplier and additionally deals Break DMG to adjacent targets equal to 70% of the original DMG multiplier.",
+        keyMechanic: "Crowbar Hotel's Raccoon",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1315",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Boothill via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "bronya",
+    gameId: "1101",
+    name: "Bronya",
+    localizedNames: {
+      en: "Bronya",
+      id: "Bronya",
+    },
+    rarity: 5,
+    path: "Harmony",
+    element: "Wind",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1241,
+      atk: 582,
+      def: 533,
+      spd: 99,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "bronya_110101",
+        name: "Windrider Bullet",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Bronya's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bronya_110102",
+        name: "Combat Redeployment",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Dispels a debuff from a single ally, allows them to immediately take action, and increases their DMG by X for X turn(s). When this Skill is used on Bronya herself, she cannot immediately take action again.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bronya_110103",
+        name: "The Belobog March",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Increases the ATK of all allies by X, and increases their CRIT DMG equal to #2[f1]% of Bronya's CRIT DMG plus #3[f1]% for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bronya_110104",
+        name: "Leading the Way",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After using her Basic ATK, Bronya's next action will be Advanced Forward by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bronya_110106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bronya_110107",
+        name: "Banner of Command",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Bronya's Technique, at the start of the next battle, all allies' ATK increases by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "bronya_trace_a2",
+        name: "Command",
+        ascensionRequirement: "A2",
+        description: "The CRIT Rate for Basic ATK increases to 100%.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bronya_trace_a4",
+        name: "Battlefield",
+        ascensionRequirement: "A4",
+        description:
+          "At the start of the battle, all allies' DEF increases by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "bronya_trace_a6",
+        name: "Military Might",
+        ascensionRequirement: "A6",
+        description: "When Bronya is on the field, all allies deal X more DMG.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Hone Your Strength",
+        description:
+          "When using Skill, there is a 50% fixed chance of recovering 1 Skill Point. This effect has a 1-turn cooldown.",
+        keyMechanic: "Hone Your Strength",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Quick March",
+        description:
+          "When using Skill, the target ally's SPD increases by 30% after taking action, lasting for 1 turn.",
+        keyMechanic: "Quick March",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Bombardment",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Bombardment",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Take by Surprise",
+        description:
+          "After any other ally character uses Basic ATK on an enemy target that has Wind Weakness, Bronya immediately launches 1 instance of Follow-Up ATK, dealing Wind DMG to this target equal to 80% of her Basic ATK DMG. This effect can only trigger once per turn.",
+        keyMechanic: "Take by Surprise",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Unstoppable",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Unstoppable",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Piercing Rainbow",
+        description:
+          "The duration of the DMG Boost effect placed by the Skill on the target ally increases by 1 turn(s).",
+        keyMechanic: "Piercing Rainbow",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1101",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Bronya via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "castorice",
+    gameId: "1407",
+    name: "Castorice",
+    localizedNames: {
+      en: "Castorice",
+      id: "Castorice",
+      ja: "カストリス",
+      zh: "卡斯托丽丝",
+    },
+    rarity: 5,
+    path: "Remembrance",
+    element: "Quantum",
+    releaseVersion: "3.0",
+    roles: ["summon_dps", "hypercarry_dps"],
+    mechanicTags: [
+      "memosprite",
+      "summon",
+      "hp_consumption",
+      "action_advance",
+      "single_target",
+      "blast",
+    ],
+    baseStats: {
+      hp: 1358,
+      atk: 620,
+      def: 485,
+      spd: 102,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "castorice_basic",
+        name: "Aidonia's Requiem",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to 100% of Castorice's ATK to a single enemy.",
+        mechanics: ["single_target"],
+      },
+      {
+        id: "castorice_skill",
+        name: "Netherwing Awakening",
+        type: "skill",
+        tag: "Summon",
+        targetType: "self",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Consumes 15% of Castorice's Max HP to summon her Memosprite 'Netherwing' onto the action bar with 100% of Castorice's Max HP and 130 Base SPD.",
+        mechanics: ["summon", "memosprite", "hp_consumption"],
+      },
+      {
+        id: "castorice_ultimate",
+        name: "Underworld Ascendance",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "self",
+        energyCost: 140,
+        description:
+          "Advances Netherwing's action forward by 100% and grants Castorice and Netherwing 'Death Sovereign', increasing Quantum DMG by 40% for 2 turns.",
+        mechanics: ["action_advance", "memosprite"],
+      },
+      {
+        id: "castorice_talent",
+        name: "Soul-Weaving Bond",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "self",
+        description:
+          "When Netherwing takes action, Castorice regenerates 5 energy. When Netherwing disappears, restores 20% of Castorice's Max HP.",
+        mechanics: ["memosprite", "energy_regen", "heal"],
+      },
+      {
+        id: "castorice_technique",
+        name: "Death's Descent",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        description:
+          "Upon entering battle, automatically summons Netherwing without consuming SP.",
+        mechanics: ["summon", "memosprite"],
+      },
+    ],
+    memosprite: {
+      name: "Netherwing",
+      baseSpdRatio: 1,
+      baseSpdFlat: 130,
+      baseHpRatio: 1,
+      description:
+        "Netherwing is Castorice's Memosprite summoned via Skill. Acts independently on the action order, unleashing spectral quantum attacks scaling on Castorice's HP.",
+      abilities: [
+        {
+          id: "netherwing_skill_1",
+          name: "Spectral Talon",
+          type: "memosprite_skill",
+          tag: "Blast",
+          targetType: "blast_enemy",
+          description:
+            "Deals Quantum DMG equal to 180% of Castorice's Max HP to target enemy and 90% of Max HP to adjacent targets.",
+          mechanics: ["blast", "memosprite"],
+        },
+      ],
+    },
+    majorTraces: [
+      {
+        id: "castorice_trace_a2",
+        name: "Stygian Flow",
+        ascensionRequirement: "A2",
+        description:
+          "Increases Netherwing's CRIT DMG by 30% of Castorice's CRIT DMG.",
+        mechanics: ["stat_conversion", "memosprite"],
+      },
+      {
+        id: "castorice_trace_a4",
+        name: "Abyssal Resilience",
+        ascensionRequirement: "A4",
+        description:
+          "When Castorice's HP is below 50%, reduces DMG taken by Netherwing and Castorice by 20%.",
+        mechanics: ["memosprite"],
+      },
+      {
+        id: "castorice_trace_a6",
+        name: "Thanatos Decree",
+        ascensionRequirement: "A6",
+        description:
+          "When Netherwing defeats an enemy, advances Netherwing's next action by 50%.",
+        mechanics: ["action_advance", "memosprite"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "critRate",
+        totalValue: 0.12,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.28,
+        unit: "percentage",
+      },
+      {
+        stat: "quantumDmg",
+        totalValue: 0.144,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Threshold of Elysium",
+        description:
+          "Increases Netherwing's initial action SPD by 30 upon summoning.",
+        keyMechanic: "Memosprite initial speed boost",
+        mechanics: ["memosprite", "action_advance"],
+      },
+      {
+        rank: 2,
+        name: "Veil of Aidonia",
+        description:
+          "When Castorice activates Ultimate, Netherwing's next 2 attacks ignore 20% of enemy DEF.",
+        keyMechanic: "Memosprite DEF ignore on Ultimate",
+        mechanics: ["defense_shred", "memosprite"],
+      },
+      {
+        rank: 3,
+        name: "Lament of the Departed",
+        description: "Skill Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Grasp of Thanatos",
+        description:
+          "Whenever Castorice loses HP, Netherwing's DMG increases by 25%, stacking up to 3 times.",
+        keyMechanic: "HP loss scaling buff",
+        mechanics: ["hp_consumption", "memosprite"],
+      },
+      {
+        rank: 5,
+        name: "Echoes of the Underworld",
+        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Sovereign of Rebirth",
+        description:
+          "Netherwing's attacks inflict Quantum Vulnerability on all enemies for 2 turns and gain 15% Quantum RES PEN.",
+        keyMechanic: "Universal Quantum Vulnerability & RES PEN",
+        mechanics: ["vulnerability", "res_penetration", "memosprite"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyolab_castorice_official",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://wiki.hoyolab.com/pc/hsr/entry/1404",
+      gameVersion: "3.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Official HoYoWiki Castorice factual kit & Memosprite Netherwing details",
+    },
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "cerydra",
+    gameId: "1412",
+    name: "Cerydra",
+    localizedNames: {
+      en: "Cerydra",
+      id: "Cerydra",
+    },
+    rarity: 5,
+    path: "Harmony",
+    element: "Wind",
+    releaseVersion: "3.5",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1358,
+      atk: 620,
+      def: 485,
+      spd: 99,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "cerydra_141201",
+        name: "King's Castling",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Cerydra's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cerydra_141202",
+        name: "Pawn's Promotion",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Grants "Military Merit" to one designated ally character and gives Cerydra X points of Charge. Charge is capped at X points. When Charge reaches X points, automatically upgrades the character\'s "Military Merit" to "Peerage" and dispels their Crowd Control debuffs. The character with "Peerage" is considered to have "Military Merit" simultaneously. The character with "Peerage" increases the CRIT DMG for their dealt Skill DMG by X, increases their All-Type RES PEN by #5[f1]%, and triggers Coup de Main when using their Skill on enemy targets. After Coup de Main ends, consumes X points of Charge to revert "Peerage" to "Military Merit."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cerydra_141203",
+        name: "Scholar's Mate",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          'Gains X Charge. Deals Wind DMG equal to X of Cerydra\'s ATK to all enemies. If no character on the field has "Military Merit," prioritizes granting "Military Merit" to the first character in the current team.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cerydra_141204",
+        name: "Ave Imperator",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'The character with "Military Merit" increases ATK by an amount equal to #2[f1]% of Cerydra\'s ATK. When the character uses Basic ATK or Skill, Cerydra gains X Charge. During Coup de Main, Cerydra cannot gain Charge. After the character with "Military Merit" uses an attack, Cerydra additionally deals 1 instance of Wind Additional DMG equal to X of her ATK. This effect can trigger up to X time(s). The trigger count resets every time Cerydra uses her Ultimate. "Military Merit" only takes effect on the most recent target. When the target changes, Cerydra\'s Charge is reset to 0.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cerydra_141206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cerydra_141207",
+        name: "First-Move Advantage",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, gains "Military Merit." When switching the active character, "Military Merit" transfers to the current active character. At the start of the next battle, automatically uses Skill 1 time on the character with "Military Merit" without consuming any Skill Points.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "cerydra_trace_a2",
+        name: "Veni",
+        ascensionRequirement: "A2",
+        description:
+          "For every X of Cerydra's ATK that exceeds X, increases her CRIT DMG by X, up to a max increase of X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cerydra_trace_a4",
+        name: "Vidi",
+        ascensionRequirement: "A4",
+        description:
+          "Increases Cerydra's CRIT Rate by X. While Cerydra's Charge is below its maximum, the character with \"Military Merit\" using their Ultimate grants Cerydra X Charge. This effect can trigger once per battle.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cerydra_trace_a6",
+        name: "Vici",
+        ascensionRequirement: "A6",
+        description:
+          'When using Skill, increases SPD by X for this unit and the teammate with "Military Merit," lasting for X turn(s). When the character with "Military Merit" uses Basic ATK or Skill, regenerates X Energy for Cerydra.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Seize the Crowns of All",
+        description:
+          'The character with "Military Merit" ignores 16% of the targets\' DEF when dealing DMG. If "Military Merit" has been upgraded to "Peerage," then the character additionally ignores 20% of the targets\' DEF when dealing Skill DMG. When Cerydra uses her Skill, regenerates 2 Energy for the designated ally target.',
+        keyMechanic: "Seize the Crowns of All",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Forge the Dreams of Many",
+        description:
+          'The character with "Military Merit" deals 40% increased DMG. While a teammate on the field has "Military Merit," Cerydra\'s DMG dealt increases by 160%.',
+        keyMechanic: "Forge the Dreams of Many",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Torch the Laws of Old",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Torch the Laws of Old",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Remake the Realms of Men",
+        description: "Increases Ultimate's DMG multiplier by 240%.",
+        keyMechanic: "Remake the Realms of Men",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Help and Hurt Repaid in Full",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Help and Hurt Repaid in Full",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "A Journey Set Starward",
+        description:
+          'The character with "Military Merit" increases their All-Type RES PEN by 20%, and the multiplier for the Additional DMG triggered via "Military Merit" increases by 300%. While a teammate on the field has "Military Merit," Cerydra\'s All-Type RES PEN increases by 20%.',
+        keyMechanic: "A Journey Set Starward",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1412",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Cerydra via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "cipher",
+    gameId: "1406",
+    name: "Cipher",
+    localizedNames: {
+      en: "Cipher",
+      id: "Cipher",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Quantum",
+    releaseVersion: "3.3",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 931,
+      atk: 640,
+      def: 509,
+      spd: 106,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "cipher_140601",
+        name: "Oops, a Missed Catch",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Cipher's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cipher_140602",
+        name: "Hey, Jackpot for the Taking",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Has a X base chance to Weaken one designated enemy and its adjacent targets (decreasing their DMG dealt by X) and increases Cipher's ATK by X, lasting for X turn(s). Moreover, deals Quantum DMG equal to X of Cipher's ATK to one designated enemy, and Quantum DMG equal to X of Cipher's ATK to the adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cipher_140603",
+        name: "Yours Truly, Kitty Phantom Thief!",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "Deals Quantum DMG equal to X of Cipher's ATK to one designated enemy. Then, deals True DMG equal to X of the current tally kept by Talent to the one designated enemy. Moreover, deals Quantum DMG equal to X of Cipher's ATK alongside True DMG equal to X of the current tally kept by Talent to the one designated enemy and its adjacent targets. And this True DMG is distributed evenly among all targets of this ability.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cipher_140604",
+        name: "The Hospitable Dolosian",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          'When there are no enemy targets in the "Patron" state on the battlefield, Cipher immediately causes one enemy target with the highest Max HP on the battlefield to become the "Patron." When using Skill and Ultimate, the primary target becomes the "Patron." The "Patron" state only takes effect on the most recent target. After the "Patron" gets attacked by other ally targets, Cipher immediately launches Follow-Up ATK against the "Patron," dealing Quantum DMG equal to X of Cipher\'s ATK. This effect can trigger up to X time(s) per turn, and this trigger count resets at the start of Cipher\'s turn. Cipher will tally X of the non-True DMG dealt by ally targets to the "Patron." Overflow DMG will not be tallied. After using Ultimate, clears this tally.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cipher_140606",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cipher_140607",
+        name: "Puss in Boots",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'Gains "Zagreus\'s Blessing" that lasts for X second(s). During this time, Cipher will be undetectable by enemies and her movement speed increases by 50%. When approaching an enemy in the overworld/Simulated Universe/Divergent Universe, can immediately gain a random Consumable. Consumables can be gained this way for up to X time(s) in each Earth day. When entering battle with "Zagreus\'s Blessing" active, deals Quantum DMG equal to X of Cipher\'s ATK to all enemies. And the tallied amount Cipher gains from this instance of DMG increases by X.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "cipher_trace_a2",
+        name: "Empyrean Strides",
+        ascensionRequirement: "A2",
+        description:
+          "When Cipher's SPD is higher than or equal to 140/170, CRIT Rate increases by X/X, and the gained tally increases by X/X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cipher_trace_a4",
+        name: "300 Rogues",
+        ascensionRequirement: "A4",
+        description:
+          'Cipher can tally X of the non-True DMG dealt by ally targets to the enemy targets other than the "Patron." Overflow DMG is not tallied.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cipher_trace_a6",
+        name: "Sleight of Sky",
+        ascensionRequirement: "A6",
+        description:
+          "Increases the CRIT DMG dealt by the Talent's Follow-Up ATK by X. When Cipher is on the battlefield, DMG received by all enemy targets increases by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Read the Room, Seek the Glee",
+        description:
+          "Cipher's tally of DMG is 150% of its original value. When using the Talent's Follow-Up ATK, increases Cipher's ATK by 80%, lasting for 2 turn(s).",
+        keyMechanic: "Read the Room, Seek the Glee",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "In the Fray, Nab On a Spree",
+        description:
+          "When Cipher hits an enemy target, there is a 120% base chance to increase the DMG it receives by 30%, lasting for 2 turn(s).",
+        keyMechanic: "In the Fray, Nab On a Spree",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "From Thin Air, Hard to Foresee",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "From Thin Air, Hard to Foresee",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "The Jig Is Up, Quick to Flee",
+        description:
+          'After the "Patron" gets attacked by an ally target, Cipher deals Quantum Additional DMG to it equal to 50% of Cipher\'s ATK.',
+        keyMechanic: "The Jig Is Up, Quick to Flee",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Safe in Numbers, Light as a Bee",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Safe in Numbers, Light as a Bee",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "The Thief's Game, Unsung and Free",
+        description:
+          "The DMG dealt by Follow-Up ATK from Cipher's Talent increases by 350%. During the tally, an additional 16% of non-Overflow DMG dealt by this attack is tallied. After the tally is cleared by using Ultimate, 20% of the cleared tally is returned.",
+        keyMechanic: "The Thief's Game, Unsung and Free",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1406",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Cipher via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "clara",
+    gameId: "1107",
+    name: "Clara",
+    localizedNames: {
+      en: "Clara",
+      id: "Clara",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Physical",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1241,
+      atk: 737,
+      def: 485,
+      spd: 90,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "clara_110701",
+        name: "I Want to Help",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Clara's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "clara_110702",
+        name: "Svarog Watches Over You",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Deals Physical DMG equal to X of Clara's ATK to all enemies, and additionally deals Physical DMG equal to X of Clara's ATK to enemies marked by Svarog with a Mark of Counter. All Marks of Counter will be removed after this Skill is used.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "clara_110703",
+        name: "Promise, Not Command",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          "After Clara uses Ultimate, DMG dealt to her is reduced by an extra X, and she has greatly increased chances of being attacked by enemies for X turn(s). In addition, Svarog's Counter is enhanced. When an ally is attacked, Svarog immediately launches a Counter, and its DMG multiplier against the enemy increases by X. Enemies adjacent to it take 50% of the DMG dealt to the primary target enemy. Enhanced Counter(s) can take effect X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "clara_110704",
+        name: "Because We're Family",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "Under the protection of Svarog, DMG taken by Clara when hit by enemy attacks is reduced by X. Svarog will mark enemies who attack Clara with his Mark of Counter and retaliate with a Counter, dealing Physical DMG equal to X of Clara's ATK.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "clara_110706",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "clara_110707",
+        name: "A Small Price for Victory",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. Upon entering battle, the chance Clara will be attacked by enemies increases for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "clara_trace_a2",
+        name: "Kinship",
+        ascensionRequirement: "A2",
+        description:
+          "When attacked, this unit has a X fixed chance to dispel 1 debuff placed on them.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "clara_trace_a4",
+        name: "Under Protection",
+        ascensionRequirement: "A4",
+        description:
+          "Increases the chance to resist Crowd Control debuffs by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "clara_trace_a6",
+        name: "Revenge",
+        ascensionRequirement: "A6",
+        description: "Increases DMG dealt by Svarog's Counter by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "physical",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "physical",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "physical",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "A Tall Figure",
+        description:
+          "Using Skill will not remove Marks of Counter on the enemy.",
+        keyMechanic: "A Tall Figure",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "A Tight Embrace",
+        description:
+          "After using the Ultimate, ATK increases by 30% for 2 turn(s).",
+        keyMechanic: "A Tight Embrace",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Cold Steel Armor",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Cold Steel Armor",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Family's Warmth",
+        description:
+          "After Clara is hit, the DMG taken by Clara is reduced by 30%. This effect lasts until the start of her next turn.",
+        keyMechanic: "Family's Warmth",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "A Small Promise",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "A Small Promise",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Long Company",
+        description:
+          'After other allies are attacked, Svarog also has a 50% fixed chance to trigger a Counter on the attacker and mark them with a "Mark of Counter." When using Ultimate, the number of Enhanced Counters increases by 1.',
+        keyMechanic: "Long Company",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1107",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Clara via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "cyrene",
+    gameId: "1415",
+    name: "Cyrene",
+    localizedNames: {
+      en: "Cyrene",
+      id: "Cyrene",
+    },
+    rarity: 5,
+    path: "Remembrance",
+    element: "Ice",
+    releaseVersion: "3.7",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1397,
+      atk: 446,
+      def: 582,
+      spd: 101,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 24,
+    },
+    abilities: [
+      {
+        id: "cyrene_141501",
+        name: "Lo, Hope Takes Flight!",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          'Gains X "Recollection" point(s) and deals Ice DMG equal to X of Cyrene\'s Max HP to one designated enemy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_141502",
+        name: "Bloom, Elysium of Beyond",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Gains X \"Recollection\" point(s) and deploys a Zone that lasts for X turns. The Zone's duration decreases by 1 at the start of Cyrene's every turn. While the Zone lasts, for each instance of DMG dealt by all ally targets, deals 1 additional instance of True DMG equal to X of the original DMG. When Cyrene is downed, the Zone will also be dispelled.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_141503",
+        name: "Verse ◦ Vow ∞",
+        type: "ultimate",
+        tag: "Summon",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 24,
+        description:
+          "Summons memosprite Demiurge, causes it to immediately gain 1 extra turn, and activates all teammates' Ultimate. Then, enters the \"Ripples of Past Reverie\" state. Enhances Basic ATK to \"To Love and Tomorrow ♪\" and can only use this Basic ATK. Increases Cyrene's and Demiurge's CRIT Rate by X, and deploys the Zone effect from Skill with no duration limit. Can only be used once per battle. Demiurge's initial Max HP equals to X of Cyrene's Max HP.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_141504",
+        name: "Hearts Gather as One",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When combat begins or after Cyrene takes action, other ally characters under any state and their memosprites gain "Future." When ally targets with "Future" take action, consumes "Future" to grant Cyrene X "Recollection" point(s). When Cyrene has X "Recollection" points, can activate Ultimate and dispel all debuffs on her. When she has X "Recollection" points during the "Ripples of Past Reverie" state, can activate Ultimate. After reaching the maximum, it can overflow by up to X points. While Cyrene is on the field, increases DMG dealt by all ally targets by #2[f1]%.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_141506",
+        name: "Attack",
+        type: "technique",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_141507",
+        name: "Peace at West Wind's End",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, creates a Special Dimension that lasts for X second(s) around the character. Enemies within this Special Dimension enter the "This Moment, Forever" state. While in this state, enemies will cease all actions. Ally characters within this Special Dimension have X increased movement speed. After entering combat within the duration, deploys the Skill\'s Zone. Only 1 Dimension Effect created by allies can exist at the same time.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_141508",
+        name: "To Love and Tomorrow ♪",
+        type: "basic",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          'Gains X "Recollection" points and deals Ice DMG equal to X of Cyrene\'s Max HP to one designated enemy. Then, deals Ice DMG equal to X of Cyrene\'s Max HP to all enemies. "To Love and Tomorrow ♪" cannot recover Skill Points.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_141514",
+        name: "Reunion at First Sight",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 24,
+        description: "Enables Demiurge to immediately gain 1 extra turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_141519",
+        name: "Attack",
+        type: "technique",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141501",
+        name: "Minuet of Blooms and Plumes",
+        type: "memosprite_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "Deals Ice DMG to all enemies equal to X of Demiurge's Max HP.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141502",
+        name: "This Ode, to All Lives",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Applies a buff to one designated ally character. When the character is a Chrysos Heir, the target gains a special effect. When the character is not a Chrysos Heir, increases the target's DMG dealt by X for X turns. This effect also applies on memosprites.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141503",
+        name: "Waiting, In Every Past",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Demiurge's SPD remains at 0, and it will not appear on the Action Order. While on the field, it is considered as Out-of-Bounds. When Cyrene's HP percentage changes, Demiurge's HP percentage will also change accordingly. While Demiurge is on the field, Cyrene's and Demiurge's Max HP increases by X. After Demiurge uses abilities, decreases the duration of all Continuous Effects on this unit by 1.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141505",
+        name: '"Hello, World ♪"',
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When Demiurge is summoned, dispels Crowd Control debuffs from all allies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141513",
+        name: "Ode to Genesis",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Effective for the entire battle. When used on Trailblazer (Remembrance), increases Trailblazer (Remembrance)'s ATK by an amount equal to X of Demiurge's Max HP, and increases Trailblazer (Remembrance)'s CRIT Rate by an amount equal to X of Demiurge's CRIT Rate. This effect also applies to Mem. After Trailblazer (Remembrance) uses Enhanced Basic ATK in this battle, Demiurge immediately gains 1 extra turn and automatically uses \"Minuet of Blooms and Plumes.\" If the target was defeated before this ability is used, it will be used on newly appeared enemy targets instead.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141514",
+        name: "Ode to Romance",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'One-time effect. When used on Aglaea, causes Aglaea to gain "Romance" and immediately stacks Garmentmaker\'s Memosprite Talent\'s SPD Boost effect to its upper limit. After Aglaea or Garmentmaker uses an attack, consumes "Romance" and regenerates X Energy. Increases DMG dealt by Aglaea and Garmentmaker by X, and ignores X of the targets\' DEF, lasting until Aglaea exits the "Supreme Stance" state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141515",
+        name: "Ode to Passage",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Effective for the entire battle. When used on Tribbie, causes DMG dealt by Tribbie to ignore X of enemies' DEF. When Tribbie launches Follow-Up ATK and triggers the Additional DMG from Tribbie's Zone, it further deals X instance(s) of Additional DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141516",
+        name: "Ode to Strife",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'One-time effect. When used on Mydei, removes all Crowd Control debuffs inflicted on him. And if Mydei is in the "Vendetta" state, he automatically uses 1 instance of "Godslayer Be God" without consuming Charge. Mydei\'s CRIT DMG increases by X during this attack. If the target gets defeated before the use, then it will target the newly arriving enemy targets instead. If Mydei is not in the "Vendetta" state, then advances Mydei\'s action by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141517",
+        name: "Ode to Life and Death",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Effective for the entire battle. When used on Castorice, "Newbud" can overflow up to X. When summoning Netherwing, consumes all overflowing "Newbud." For every 1% overflow amount consumed, increases the multiplier by #2[f2]% for the DMG dealt when this summoned Netherwing triggers the ability effect of its Talent "Wings Sweep the Ruins." If there are X enemy target(s) or fewer on the field when summoned, the DMG multiplier additionally increases by #5[f2]%.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141518",
+        name: "Ode to Reason",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'One-time effect. When used on Anaxa, recovers X Skill Point(s) for allies and enables Anaxa to take action immediately. Skill has X more instances of DMG, lasting for 1 turn. The next time Anaxa uses Basic ATK or Skill, he gains "True Knowledge": All Erudition characters have their ATK increased by X and their dealt Skill DMG increased by X, lasting until the start of Anaxa\'s next turn.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141519",
+        name: "Ode to Sky",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When Demiurge uses Memosprite Skill, causes Hyacine to gain 2 stacks of "Ode to Sky." When used on Hyacine, regenerates X Energy for Hyacine. When Hyacine has "Ode to Sky" and is providing healing, additionally increases the amount to be included in the tally of Little Ica\'s Memosprite Skill by an amount equal to X of the current healing amount. After Hyacine uses Skill/Ultimate, consumes 1 stack of "Ode to Sky."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141520",
+        name: "Ode to Trickery",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Effective for the entire battle. When used on Cipher, increases the DMG dealt by Cipher by X, decreases the DEF of the "Patron" by X and decreases the DEF of all other enemy targets by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141521",
+        name: "Ode to Worldbearing",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Effective for the entire battle. After it is used on Phainon, Phainon gains X "Coreflame" as well as "Eternal Ignition" when Transforming. When Transforming, if "Coreflame" exceeds X, for each point in excess, Khaslana\'s CRIT DMG increases by X, up to a max increase of X. While "Eternal Ignition" persists, increases Khaslana\'s CRIT Rate by #1[f1]%. After the extra turns are depleted, the Transformation does not end, and all of Khaslana\'s extra turns get refreshed and X "Scourge" is granted. At the start of extra turns, Khaslana consumes HP equal to X of his current HP. After using an attack, deals X instances of Additional DMG, with each instance dealing Fire Additional DMG equal to #4[f1]% of Khaslana\'s ATK to one random enemy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141522",
+        name: "Ode to Ocean",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'One-time effect. When used on Hysilens, Hysilens gains "Flowing Warmth." After Hysilens uses an attack, consumes "Flowing Warmth" and regenerates X Energy for this unit. In this battle, increases the DMG dealt by Hysilens by X. After Hysilens uses Basic ATK/Skill to attack enemies, causes all the DoT currently applied on the attacked enemy targets to immediately produce DMG equal to X/X of the original DMG.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141523",
+        name: "Ode to Law",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Effective for the entire battle. After using on Cerydra, increases the CRIT DMG of the character with "Military Merit" by X. After Coup de Main ends, Cerydra immediately gains X Charge.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141524",
+        name: "Ode to Time",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Effective for the entire battle. After it is used on Evernight, increases the DMG dealt when Evey uses the Memosprite Skill "Dream, Dissolving, as Dew" by X. After Evernight uses Skill/Ultimate, additionally gains X "Memoria." The CRIT DMG boost effect provided by the Skill is further increased by an amount equal to X of Evernight\'s CRIT DMG.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141525",
+        name: "Ode to Earth",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When Demiurge uses Memosprite Skill, grants "Ode to Earth" to Dan Heng • Permansor Terrae, and enables the next X attack(s) of "Souldragon" to deal Additional DMG of the Bondmate\'s Type, equal to X of the Bondmate\'s Shield Effect. When Dan Heng • Permansor Terrae holds "Ode to Earth," the "Bondmate" deals #1[f1]% increased DMG. When used on Dan Heng • Permansor Terrae, advances Souldragon\'s action by 100%. Souldragon\'s next action gains the enhancement effect of Dan Heng • Permansor Terrae\'s Ultimate and the Shield Effect provided by Souldragon is X of its original Shield Effect. Does not consume the enhancement number of Dan Heng • Permansor Terrae\'s Ultimate.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_1141526",
+        name: "Ode to Ego",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'For every 1 different teammate (i.e., excluding Demiurge) from whom Cyrene has gained "Recollection," additionally deals 1 instance of Ice DMG equal to X of Demiurge\'s Max HP to one random enemy when Demiurge uses "Minuet of Blooms and Plumes." After Cyrene uses Ultimate or when Demiurge is summoned, Demiurge immediately gains 1 "Story." When "Story" reaches X, Demiurge consumes all "Story" points to immediately gain 1 extra turn and automatically use "Minuet of Blooms and Plumes."',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "cyrene_trace_a2",
+        name: "Child of Remembrance",
+        ascensionRequirement: "A2",
+        description:
+          'When a teammate\'s memosprite is summoned, it gains "Future." "Future" held by the memosprite won\'t be consumed.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_trace_a4",
+        name: "Ripples Across Time",
+        ascensionRequirement: "A4",
+        description:
+          'When there are 1/2/3 Chrysos Heir or Remembrance characters (excluding Cyrene) in the team, Cyrene gains X/X/X "Recollection" point(s) respectively at the start of combat.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "cyrene_trace_a6",
+        name: "Causality in Trichotomy",
+        ascensionRequirement: "A6",
+        description:
+          "When Cyrene's SPD is X or higher, increases all allies' DMG dealt by X. Then, for every 1 SPD that exceeds X, increases Cyrene's and Demiurge's Ice RES PEN by X. Up to a maximum of X excess SPD can be taken into account for this effect.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Epics, Born on a Blank Slate",
+        description:
+          'When Demiurge triggers the Memosprite Skill "Ode to Ego" during the use of "Minuet of Blooms and Plumes," gains 6 "Recollection" point(s) and increases the number of bounces for this attack by 12.',
+        keyMechanic: "Epics, Born on a Blank Slate",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "A Tomorrow in Thirteen Shades",
+        description:
+          'When entering combat, additionally gains 12 "Recollection" point(s). For every 1 different ally character that gains the Memosprite Skill buff from Demiurge, the DMG multiplier for the True DMG dealt by ally targets via the Skill\'s Zone increases by 6%, up to a max increase of 24%.',
+        keyMechanic: "A Tomorrow in Thirteen Shades",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "By Thy Being, As I've Written",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Memosprite Skill Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "By Thy Being, As I've Written",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Please Write On, With a Smile",
+        description:
+          'After every 1 use of "Minuet of Blooms and Plumes" by Demiurge, the Bounce DMG multiplier for the triggered Memosprite Skill "Ode to Ego" increases by 6% in the current battle, stacking up to 24 times.',
+        keyMechanic: "Please Write On, With a Smile",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Gaze, Steeped in Yesterbloom",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Memosprite Talent Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Gaze, Steeped in Yesterbloom",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Remembrance, Sung in Ripples ♪",
+        description:
+          'When Cyrene uses Ultimate for the first time, all allies advance action by 100%. Each time Demiurge triggers the Memosprite Skill "Ode to Ego" during the use of "Minuet of Blooms and Plumes," gains the following effects based on the number of times it has been triggered in the current battle: 1 time: When Demiurge is on the field, reduces all enemy targets\' DEF by 20%. 2 times and more: All allies advance action by 24%.',
+        keyMechanic: "Remembrance, Sung in Ripples ♪",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1415",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.7",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Cyrene via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "dan-heng",
+    gameId: "1002",
+    name: "Dan Heng",
+    localizedNames: {
+      en: "Dan Heng",
+      id: "Dan Heng",
+    },
+    rarity: 4,
+    path: "Hunt",
+    element: "Wind",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 882,
+      atk: 546,
+      def: 396,
+      spd: 110,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 100,
+    },
+    abilities: [
+      {
+        id: "dan-heng_100201",
+        name: "Cloudlancer Art: North Wind",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Dan Heng's ATK to one enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng_100202",
+        name: "Cloudlancer Art: Torrent",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Deals Wind DMG equal to X of Dan Heng's ATK to one designated enemy. When DMG dealt by Skill triggers CRIT Hit, there is a X base chance to reduce the target's SPD by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng_100203",
+        name: "Ethereal Dream",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 100,
+        description:
+          "Deals Wind DMG equal to X of Dan Heng's ATK to one designated enemy target. If the attacked enemy is Slowed, the multiplier for the DMG dealt by Ultimate increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng_100204",
+        name: "Superiority of Reach",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When Dan Heng becomes the target of an ally's ability, his next attack's Wind RES PEN increases by X. This effect can be triggered again after X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng_100206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng_100207",
+        name: "Splitting Spearhead",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After Dan Heng uses his Technique, his ATK increases by X at the start of the next battle for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "dan-heng_trace_a2",
+        name: "Hidden Dragon",
+        ascensionRequirement: "A2",
+        description:
+          "When current HP percentage is X or lower, reduces the chance of being attacked by enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng_trace_a4",
+        name: "Faster Than Light",
+        ascensionRequirement: "A4",
+        description:
+          "After launching an attack, there is a X fixed chance to increase this unit's SPD by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng_trace_a6",
+        name: "High Gale",
+        ascensionRequirement: "A6",
+        description: "Basic ATK deals X more DMG to Slowed enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "The Higher You Fly, the Harder You Fall",
+        description:
+          "When the target enemy's current HP percentage is greater than or equal to 50%, CRIT Rate increases by 12%.",
+        keyMechanic: "The Higher You Fly, the Harder You Fall",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Quell the Venom Octet, Quench the Vice O'Flame",
+        description: "Reduces Talent cooldown by 1 turn.",
+        keyMechanic: "Quell the Venom Octet, Quench the Vice O'Flame",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Seen and Unseen",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Seen and Unseen",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Roaring Dragon and Soaring Sun",
+        description:
+          "When Dan Heng uses his Ultimate to defeat an enemy, he will immediately take action again.",
+        keyMechanic: "Roaring Dragon and Soaring Sun",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "A Drop of Rain Feeds a Torrent",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "A Drop of Rain Feeds a Torrent",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "The Troubled Soul Lies in Wait",
+        description:
+          "The Slow state triggered by Skill reduces the enemy's SPD by an extra 8%.",
+        keyMechanic: "The Troubled Soul Lies in Wait",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1002",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Dan Heng via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "dan-heng-il",
+    gameId: "1213",
+    name: "Dan Heng • Imbibitor Lunae",
+    localizedNames: {
+      en: "Dan Heng • Imbibitor Lunae",
+      id: "Dan Heng • Imbibitor Lunae",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Imaginary",
+    releaseVersion: "1.3",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1241,
+      atk: 698,
+      def: 363,
+      spd: 102,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "dan-heng-il_121301",
+        name: "Beneficent Lotus",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Uses a 2-hit attack and deals Imaginary DMG equal to X of Dan Heng • Imbibitor Lunae's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121302",
+        name: "Dracore Libre",
+        type: "skill",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Enhances Basic ATK. Enhancements may be applied up to 3 times consecutively. Using this ability does not consume Skill Points and is not considered as using a Skill. Enhanced once, Beneficent Lotus becomes Transcendence. Enhanced twice, Beneficent Lotus becomes Divine Spear. Enhanced thrice, Beneficent Lotus becomes Fulgurant Leap. When using Divine Spear or Fulgurant Leap, starting from the fourth hit, 1 stack of Outroar is gained before every hit. Each stack of Outroar increases Dan Heng • Imbibitor Lunae's CRIT DMG by #1[f1]%, for a max of X stacks. These stacks last until the end of his turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121303",
+        name: "Azure's Aqua Ablutes All",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          'Uses a 3-hit attack and deals Imaginary DMG equal to X of Dan Heng • Imbibitor Lunae\'s ATK to one designated enemy target. At the same time, deals Imaginary DMG equal to X of Dan Heng • Imbibitor Lunae\'s ATK to adjacent targets. Then, obtains X "Squama Sacrosancta." It\'s possible to hold up to X "Squama Sacrosancta," which can be used to offset Dan Heng • Imbibitor Lunae\'s consumption of skill points. Consuming "Squama Sacrosancta" is considered equivalent to consuming skill points.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121304",
+        name: "Righteous Heart",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After each hit dealt during an attack, Dan Heng • Imbibitor Lunae gains 1 stack of Righteous Heart, increasing his DMG by #1[f1]%. This effect can stack up to X time(s), lasting until the end of his turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121307",
+        name: "Heaven-Quelling Prismadrakon",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using his Technique, Dan Heng • Imbibitor Lunae enters the Leaping Dragon state for X seconds. While in the Leaping Dragon state, using his attack enables him to move forward rapidly for a set distance, attacking all enemies he touches and blocking all incoming attacks. After entering combat via attacking enemies in the Leaping Dragon state, Dan Heng • Imbibitor Lunae deals Imaginary DMG equal to X of his ATK to all enemies, and gains X Squama Sacrosancta.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121308",
+        name: "Transcendence",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Uses a 3-hit attack and deals Imaginary DMG equal to X of Dan Heng • Imbibitor Lunae's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121309",
+        name: "Cancel",
+        type: "skill",
+        tag: "Cancel",
+        targetType: "single_ally",
+        energyGain: 30,
+        description: "Cancel Enhancement",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121310",
+        name: "Divine Spear",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Uses a 5-hit attack and deals Imaginary DMG equal to X of Dan Heng • Imbibitor Lunae's ATK to one designated enemy target. From the fourth hit onward, simultaneously deals Imaginary DMG equal to X of Dan Heng • Imbibitor Lunae's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_121312",
+        name: "Fulgurant Leap",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Uses a 7-hit attack and deals Imaginary DMG equal to X of Dan Heng • Imbibitor Lunae's ATK to one designated enemy target. From the fourth hit onward, simultaneously deal Imaginary DMG equal to X of Dan Heng • Imbibitor Lunae's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "dan-heng-il_trace_a2",
+        name: "Star Veil",
+        ascensionRequirement: "A2",
+        description:
+          "At the start of the battle, immediately regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_trace_a4",
+        name: "Aqua Reign",
+        ascensionRequirement: "A4",
+        description:
+          "Increases the chance to resist Crowd Control debuffs by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-il_trace_a6",
+        name: "Jolt Anew",
+        ascensionRequirement: "A6",
+        description:
+          "When dealing DMG to enemy targets with Imaginary Weakness, CRIT DMG increases by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "imaginary",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Tethered to Sky",
+        description:
+          "Increases the stackable Righteous Heart count by 4, and gains 1 extra stack of Righteous Heart for each hit during an attack.",
+        keyMechanic: "Tethered to Sky",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Imperium On Cloud Nine",
+        description:
+          'After using his Ultimate, Dan Heng • Imbibitor Lunae\'s action advances by 100% and gains 1 extra "Squama Sacrosancta."',
+        keyMechanic: "Imperium On Cloud Nine",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Clothed in Clouds",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Clothed in Clouds",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Zephyr's Bliss",
+        description:
+          'The buff effect granted by "Outroar" lasts until the end of this unit\'s next turn.',
+        keyMechanic: "Zephyr's Bliss",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Fall is the Pride",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Fall is the Pride",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Reign, Returned",
+        description:
+          'After another ally character uses their Ultimate, the Imaginary RES PEN of Dan Heng • Imbibitor Lunae\'s next "Fulgurant Leap" attack increases by 20%. This effect can stack up to 3 time(s).',
+        keyMechanic: "Reign, Returned",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1213",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Client-extracted data for Dan Heng • Imbibitor Lunae via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "dan-heng-permansor-terrae",
+    gameId: "1414",
+    name: "Dan Heng • Permansor Terrae",
+    localizedNames: {
+      en: "Dan Heng • Permansor Terrae",
+      id: "Dan Heng • Permansor Terrae",
+    },
+    rarity: 5,
+    path: "Preservation",
+    element: "Physical",
+    releaseVersion: "3.6",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 582,
+      def: 776,
+      spd: 97,
+      taunt: 150,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 135,
+    },
+    abilities: [
+      {
+        id: "dan-heng-permansor-terrae_141401",
+        name: "Aegis Vitae",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Dan Heng • Permansor Terrae's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-permansor-terrae_141402",
+        name: "Terra Omnibus",
+        type: "skill",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Designates one ally character as the "Bondmate" and provides all allies with a Shield that can offset DMG equal to #1[f1]% of Dan Heng • Permansor Terrae\'s ATK plus X for X turn(s). When repeatedly receiving Dan Heng • Permansor Terrae\'s Shield, can stack the Shield Effect, but it will not exceed X of the current Shield provided by Skill. "Bondmate" only applies to the most recent target of Dan Heng • Permansor Terrae\'s Skill.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-permansor-terrae_141403",
+        name: "A Dragon's Zenith Knows No Rue",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 135,
+        description:
+          "Deals Physical DMG equal to X of Dan Heng • Permansor Terrae's ATK to all enemies, and provides a Shield to all allies that can offset DMG equal to #4[f1]% of Dan Heng • Permansor Terrae's ATK plus X, lasting for X turn(s). When repeatedly receiving Dan Heng • Permansor Terrae's Shield, can stack the Shield Effect, but it will not exceed X of the current Shield provided by Skill. \"Souldragon\" becomes enhanced. When \"Souldragon\" takes action, launches Follow-Up ATK, dealing Physical DMG to all enemies equal to X of Dan Heng • Permansor Terrae's ATK and Additional DMG of the Bondmate's Type to all enemies equal to #8[f1]% of the Bondmate's ATK. The enhancement lasts for X \"Souldragon\" action(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-permansor-terrae_141404",
+        name: "Of Virtue, Forms Unfold",
+        type: "talent",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When an ally character becomes the "Bondmate," Dan Heng • Permansor Terrae summons "Souldragon" for them, which has an initial SPD of X. When "Souldragon" takes action, dispels X debuff(s) from all allies and provides a Shield that can offset DMG equal to #1[f1]% of Dan Heng • Permansor Terrae\'s ATK plus X for X turn(s). The Shield Effect provided by Dan Heng • Permansor Terrae and "Souldragon" can be stacked, but it will not exceed X of the Shield provided by Dan Heng • Permansor Terrae\'s Skill. When Dan Heng • Permansor Terrae or the "Bondmate" is knocked down, "Souldragon" disappears.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-permansor-terrae_141406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-permansor-terrae_141407",
+        name: "Earthrend",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, gains "Bondmate" and inflict Daze on enemies within a certain area for X second(s). Dazed enemies will not actively attack ally targets. When switching the active character, "Bondmate" transfers to the current active character. At the start of the next battle, automatically uses Skill 1 time on the character with "Bondmate" without consuming any Skill Points.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "dan-heng-permansor-terrae_trace_a2",
+        name: "Empyreanity",
+        ascensionRequirement: "A2",
+        description:
+          'When using Skill, increases ATK for the target who has become "Bondmate" by an amount equal to X of Dan Heng • Permansor Terrae\'s ATK.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-permansor-terrae_trace_a4",
+        name: "Sylvanity",
+        ascensionRequirement: "A4",
+        description:
+          'When combat starts, Dan Heng • Permansor Terrae advances action by X. When the "Bondmate" uses an attack, Dan Heng • Permansor Terrae regenerates X Energy and "Souldragon" advances action by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dan-heng-permansor-terrae_trace_a6",
+        name: "Sublimity",
+        ascensionRequirement: "A6",
+        description:
+          "When \"Souldragon\" takes action, additionally provides a Shield that can offset DMG equal to X of Dan Heng • Permansor Terrae's ATK plus X to the ally target whose current Shield Effect is the lowest. When repeatedly receiving Dan Heng • Permansor Terrae's Shield, can stack the Shield Effect, but it will not exceed X of the current Shield provided by Skill. When the enhanced \"Souldragon\" takes action, additionally deals 1 instance of Additional DMG of the Bondmate's Type to the one enemy target whose current HP is the highest, equal to X of the Bondmate's ATK.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Shed Scales of Old",
+        description:
+          'When Dan Heng • Permansor Terrae uses Ultimate, recovers 1 Skill Point(s) and increases the "Bondmate\'s" All-Type RES PEN by 18%, lasting for 3 turn(s).',
+        keyMechanic: "Shed Scales of Old",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Watch Trails to Blaze",
+        description:
+          'Additionally increases the number of actions for the enhanced Souldragon from Ultimate by 2. After Dan Heng • Permansor Terrae uses Ultimate, Souldragon advances action by 100%. When the enhanced "Souldragon" takes action, the Additional DMG dealt by the "Bondmate" becomes 200% of its original DMG, and the Shield Effect provided in this instance becomes 200% of its original Shield Effect.',
+        keyMechanic: "Watch Trails to Blaze",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Bear Weight of Worlds",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Bear Weight of Worlds",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "By Oath, This Vessel Is I",
+        description: 'Reduces the DMG taken by the "Bondmate" by 20%.',
+        keyMechanic: "By Oath, This Vessel Is I",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "The Path of Permanence Sweeps Far",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "The Path of Permanence Sweeps Far",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "One Dream to Enfold All Wilds",
+        description:
+          'When the "Bondmate" is on the field, increases the DMG taken by all enemies by 20%. When the "Bondmate" deals DMG, ignores 12% of the enemy targets\' DEF. When Dan Heng • Permansor Terrae uses Ultimate, the "Bondmate" will deal Additional DMG of the Bondmate\'s Type to all enemies, equal to 330% of the Bondmate\'s ATK.',
+        keyMechanic: "One Dream to Enfold All Wilds",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1414",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.6",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Client-extracted data for Dan Heng • Permansor Terrae via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "dr-ratio",
+    gameId: "1305",
+    name: "Dr. Ratio",
+    localizedNames: {
+      en: "Dr. Ratio",
+      id: "Dr. Ratio",
+    },
+    rarity: 5,
+    path: "Hunt",
+    element: "Imaginary",
+    releaseVersion: "1.6",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 776,
+      def: 460,
+      spd: 103,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "dr-ratio_130501",
+        name: "Mind is Might",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of Dr. Ratio's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dr-ratio_130502",
+        name: "Intellectual Midwifery",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Deals Imaginary DMG equal to X of Dr. Ratio's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dr-ratio_130503",
+        name: "Syllogistic Paradox",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Deals Imaginary DMG equal to X of Dr. Ratio's ATK to one designated enemy target and applies \"Wiseman's Folly.\" When Dr. Ratio's teammates attack a target afflicted with \"Wiseman's Folly,\" Dr. Ratio launches 1 instance of his Talent's Follow-Up ATK against this target. \"Wiseman's Folly\" can be triggered for up to X times and only affects the most recent target of Dr. Ratio's Ultimate. This trigger count resets after Dr. Ratio's Ultimate is used.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dr-ratio_130504",
+        name: "Cogito, Ergo Sum",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "When using his Skill, Dr. Ratio has a X fixed chance of launching a Follow-Up ATK against his target for 1 time, dealing Imaginary DMG equal to X of Dr. Ratio's ATK. For each debuff the target enemy has, the fixed chance of launching Follow-Up ATK increases by X. If the target enemy is defeated before the Follow-Up ATK triggers, the Follow-Up ATK will be directed at a single random enemy instead.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dr-ratio_130506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dr-ratio_130507",
+        name: "Mold of Idolatry",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, creates a Special Dimension that Taunts nearby enemies, lasting for X second(s). After entering battle with enemies in this Special Dimension, there is a X base chance to reduce each single enemy target's SPD by X for X turn(s). Only 1 Dimension Effect created by allies can exist at the same time.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "dr-ratio_trace_a2",
+        name: "Summation",
+        ascensionRequirement: "A2",
+        description:
+          "When Dr. Ratio uses his Skill, for every debuff on the target, his CRIT Rate increases by #1[f1]% and CRIT DMG by X. This effect can stack up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dr-ratio_trace_a4",
+        name: "Inference",
+        ascensionRequirement: "A4",
+        description:
+          "When Skill is used to attack an enemy target, there is a X base chance to reduce the attacked enemy target's Effect RES by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "dr-ratio_trace_a6",
+        name: "Deduction",
+        ascensionRequirement: "A6",
+        description:
+          "When dealing DMG to a target that has X or more debuff(s), for each debuff the target has, the DMG dealt by Dr. Ratio to this target increases by X, up to a maximum increase of X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Pride Comes Before a Fall",
+        description:
+          'The maximum stackable count for the Trace "Summation" increases by 4. When a battle begins, immediately obtains 4 stacks of Summation. Needs to unlock Summation first.',
+        keyMechanic: "Pride Comes Before a Fall",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "The Divine Is in the Details",
+        description:
+          "When his Talent's Follow-Up ATK hits a target, for every debuff the target has, deals Imaginary Additional DMG equal to 20% of Dr. Ratio's ATK. This effect can be triggered for a maximum of 4 time(s) during each Follow-Up ATK.",
+        keyMechanic: "The Divine Is in the Details",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Know Thyself",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Know Thyself",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Ignorance Is Blight",
+        description:
+          "When triggering the Talent, additionally regenerates 15 Energy for Dr. Ratio.",
+        keyMechanic: "Ignorance Is Blight",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Sic Itur Ad Astra",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Sic Itur Ad Astra",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Vincit Omnia Veritas",
+        description:
+          "Additionally increases the trigger count for \"Wiseman's Folly\" by 1. The DMG dealt by the Talent's Follow-Up ATK increases by 50%.",
+        keyMechanic: "Vincit Omnia Veritas",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1305",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.6",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Dr. Ratio via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "evanescia",
+    gameId: "1505",
+    name: "Evanescia",
+    localizedNames: {
+      en: "Evanescia",
+      id: "Evanescia",
+    },
+    rarity: 5,
+    path: "Elation",
+    element: "Physical",
+    releaseVersion: "4.1",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 737,
+      def: 460,
+      spd: 104,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 480,
+    },
+    abilities: [
+      {
+        id: "evanescia_150501",
+        name: "Syllabus: Pop Quiz",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Evanescia's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evanescia_150502",
+        name: "Discipline: Final Verdict",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Physical DMG equal to X of Evanescia's ATK to one designated enemy and Physical DMG equal to X of Evanescia's ATK to adjacent targets. Additionally gains X Punchline.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evanescia_150503",
+        name: "Swordsong: Absolution Denied",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 480,
+        description:
+          "Deals Physical DMG equal to X of Evanescia's ATK to all enemy targets, then deals 5 instances of DMG, with each instance dealing Physical DMG equal to X of Evanescia's ATK to one random enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evanescia_150504",
+        name: "Youth: Halcyon Evermore",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Evanescia gains Elation equal to X of CRIT DMG. When Evanescia gains Energy, she will simultaneously gain an equal amount of "Certified Banger." When Evanescia gains "Certified Banger," she will simultaneously gain an equal amount of Energy. The amount of "Certified Banger" taken into calculation via this method cannot exceed 100 points in a single instance. After accumulating X Energy, she consumes this accumulation of X, and "Master Fox" launches Follow-Up ATK, dealing Physical DMG equal to X of Evanescia\'s ATK to all enemies, and regenerates X Energy for Evanescia. Each instance of Energy regeneration grants up to an accumulation of X. While Evanescia holds "Certified Banger": Using Skill can deal #7[f1]% Physical Elation DMG to the attacked enemy targets. Using Ultimate can deal X Physical Elation DMG to all enemies and also deals X Physical Elation DMG to the enemy targets that have been randomly dealt DMG by Ultimate. When Ultimate deals Elation DMG, the amount of "Certified Banger" taken into account is at least equal to Max Energy. Master Fox\'s Follow-Up ATK deals X Physical Elation DMG to all enemies.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evanescia_150506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evanescia_150507",
+        name: "Petalfall: Floral Reminiscence",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'Immediately attacks all enemies within a certain range. After entering combat, deals Physical DMG equal to X of Evanescia\'s ATK to all enemies and gains X point(s) of "Certified Banger."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evanescia_150520",
+        name: "Scarlet: Elation or Execution",
+        type: "elation_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          'Deals X Physical Elation DMG to all enemies and additionally gains X point(s) of "Certified Banger".',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "evanescia_trace_a2",
+        name: "Watch All Revels",
+        ascensionRequirement: "A2",
+        description:
+          'Increases Evanescia\'s CRIT Rate by X. When there are (≥3)/2/1 enemy target(s) on the field, the Ultimate\'s bounce count increases by X/X/X. When a teammate with an Elation Skill Participant ID lower than Evanescia\'s gains "Certified Banger," Evanescia converts X of it into her own "Certified Banger."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evanescia_trace_a4",
+        name: "Weigh All Truths",
+        ascensionRequirement: "A4",
+        description:
+          'When "Master Fox" uses an attack, it additionally inflicts Vulnerability on the target, increasing the DMG they take by X for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evanescia_trace_a6",
+        name: "Best All Blooms",
+        ascensionRequirement: "A6",
+        description:
+          'When a teammate\'s "Certified Banger" ends, Evanescia converts X of it into her own "Certified Banger."',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Home: A Prayer in Dance",
+        description:
+          'Increases All-Type RES PEN by 20%. After "Master Fox" uses an attack, additionally triggers 1 instance of Elation Skill. Elation Skill additionally grants this unit 10 "Certified Banger" point(s).',
+        keyMechanic: "Home: A Prayer in Dance",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Voyage: A Wish for Everbloom",
+        description:
+          'CRIT DMG increases by 36%. When triggering the Certified Banger gain effect from the Trace "Watch All Revels"/"Best All Blooms", additionally gains "Certified Banger" equal to 50%/100% of the "Certified Banger" gained this time.',
+        keyMechanic: "Voyage: A Wish for Everbloom",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Blade: A Feast on Evils",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "Blade: A Feast on Evils",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Meadow: A Ruin by Vice",
+        description:
+          "Evanescia's DMG dealt ignores 15% of the enemy targets' DEF.",
+        keyMechanic: "Meadow: A Ruin by Vice",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Arcadia: A Glimpse of Fates",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "Arcadia: A Glimpse of Fates",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Maiden: A Step into Dreams",
+        description:
+          'The duration of Evanescia\'s "Certified Banger" increases by 1 turn(s). The Elation DMG dealt by Evanescia merrymakes by 15%. For every 100 points of "Certified Banger" held, it additionally merrymakes by 2.0%. Up to 1000 points of "Certified Banger" can be taken into account. After using Ultimate for the first time upon entering combat, regenerates a fixed amount of 120 Energy for Evanescia. This effect can trigger 1 time for every 4 more instances of Ultimate used.',
+        keyMechanic: "Maiden: A Step into Dreams",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1505",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Evanescia via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "evernight",
+    gameId: "1413",
+    name: "Evernight",
+    localizedNames: {
+      en: "Evernight",
+      id: "Evernight",
+    },
+    rarity: 5,
+    path: "Remembrance",
+    element: "Ice",
+    releaseVersion: "3.6",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1319,
+      atk: 543,
+      def: 582,
+      spd: 99,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 240,
+    },
+    abilities: [
+      {
+        id: "evernight_141301",
+        name: "Time Thence Blurs",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Evernight's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_141302",
+        name: "Day Gently Slips",
+        type: "skill",
+        tag: "Summon",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Consumes X of Evernight\'s current HP to summon memosprite Evey and increases CRIT DMG of all ally memosprites by an amount equal to X of Evernight\'s CRIT DMG for X turn(s). This duration decreases by 1 at the start of Evernight\'s every turn. If Evey is already on the field, restores its HP by X of its Max HP. When using this, gains X point(s) of "Memoria." If in the "Darkest Riddle" state, gains X additional point(s) of "Memoria."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_141303",
+        name: "O Wakeful World, Goodnight",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 240,
+        description:
+          'Summons memosprite Evey. Then Evey deals Ice DMG to all enemies equal to X of Evey\'s Max HP and Evernight enters the "Darkest Riddle" state. During this state, all enemies take X increased DMG while both Evernight and Evey deal X increased DMG and are immune to Crowd Control debuffs. Gains X point(s) of Charge for "Darkest Riddle." And Evey consumes 1 point after it uses "Dream, Dissolving, as Dew." At the start of Evernight\'s turn, if no Charge remains, exits the "Darkest Riddle" state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_141304",
+        name: "With Me, This Night",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When entering combat, summons memosprite Evey. Evey has an initial SPD of X and its Max HP equals to X of that of Evernight\'s. Each time Evernight or Evey loses HP, increases CRIT DMG for Evernight and Evey by X for X turn(s), and gains X "Memoria." This effect can trigger only once per target for each received attack. When Evernight has X or more points of "Memoria," dispels Crowd Control debuffs and becomes immune to them. If Evey is on the field, it immediately takes action. The immediate action effect can only trigger again after Evey uses "Dream, Dissolving, as Dew."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_141306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_141307",
+        name: "Let it Rain Cold On Thee",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, at the start of the next battle, obtains the same effect as the one from Skill that increases CRIT DMG for all ally memosprites, and gains X "Memoria."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_141309",
+        name: "Day Gently Slips",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Consumes this unit\'s HP to summon memosprite Evey and increase CRIT DMG for all ally memosprites. If Evey is already on the field, restores its HP. When using this, gains X "Memoria." If in the "Darkest Riddle" state, additionally gains X "Memoria."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_1141301",
+        name: "Remembrance, Whirling, Like Rain",
+        type: "memosprite_skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          'This ability automatically selects a target, prioritizing the enemy target that Evernight last attacked. Deals Ice DMG equal to X of Evey\'s Max HP to one enemy. For every X point(s) of "Memoria" Evernight currently has, additionally deals Ice DMG equal to #2[f1]% of Evey\'s Max HP. Gains X point(s) of "Memoria" after use.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_1141303",
+        name: "Solitude, Drifting, In Murk",
+        type: "memosprite_talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Evey is immune to Crowd Control debuffs and has an increased chance of getting attacked. While Evey is on the field, Evernight and Evey deal X increased DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_1141305",
+        name: "Night, Trailing, In Step",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description: "When summoned, this unit immediately takes action.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_1141306",
+        name: "You, Parting, Beyond Reach",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Upon disappearing, increases Evernight\'s SPD by X. If the disappearance is due to using "Dream, Dissolving, as Dew," then, for every 1 "Memoria" point consumed by the attack, additionally increases Evernight\'s SPD by X. Up to X "Memoria" points can be taken into account for this. The SPD Boost effect cannot stack and is removed at the start of Evernight\'s next turn.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_1141307",
+        name: "Dream, Dissolving, as Dew",
+        type: "memosprite_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          'This ability is used when Evernight\'s "Memoria" is greater than or equal to X and she is not affected by Crowd Control. For every 1 "Memoria" point currently held, deals Ice DMG equal to #1[f1]% of Evey\'s Max HP to the primary target, and Ice DMG equal to #2[f1]% of Evey\'s Max HP to the other enemy targets. After use, consumes all "Memoria" and HP, and makes Evey disappear.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "evernight_trace_a2",
+        name: "Dark the Night, Still the Moon",
+        ascensionRequirement: "A2",
+        description:
+          "Increases Evernight's and the memosprite Evey's CRIT Rate by X. When using an ability, consumes X of this unit's current HP to increase CRIT DMG for both of them by X, lasting for X turn(s). After Evey uses \"Dream, Dissolving, as Dew,\" recovers 1 Skill Point for allies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_trace_a4",
+        name: "Rouse the Flame, Lull the Light",
+        ascensionRequirement: "A4",
+        description:
+          'When combat starts, Evernight regenerates X Energy and gains X "Memoria." When Evernight or an ally memosprite uses an ability, Evernight regenerates X Energy and gains X "Memoria."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "evernight_trace_a6",
+        name: "Kindle the Morn, Drop the Rain",
+        ascensionRequirement: "A6",
+        description:
+          "When there are 1/2/3/≥4 Remembrance characters in the team, increases CRIT DMG for all ally memosprites by X/X/X/X respectively while Evernight's Skill lasts.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Sleep Tight, the Night Dreams Long",
+        description:
+          "When Evernight is on the field, if there are (≥4)/3/2/1 enemy targets on the field, ally memosprites deal DMG equal to 120%/125%/130%/150% of their original DMG respectively.",
+        keyMechanic: "Sleep Tight, the Night Dreams Long",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Listen Up, the Slumber Speaks Soft",
+        description:
+          'Increases Evernight\'s and the memosprite Evey\'s CRIT DMG by 40%. Each time Evernight gains "Memoria," increases the amount of "Memoria" gain by 2 point(s). When using Ultimate, additionally gains 2 Charge for "Darkest Riddle."',
+        keyMechanic: "Listen Up, the Slumber Speaks Soft",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Fear Not, the Nightmare Lies Past",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Memosprite Talent Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Fear Not, the Nightmare Lies Past",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Wake Up, the Tomorrow is Yours",
+        description:
+          "While Evernight is on the field, ally memosprites' Weakness Break Efficiency increases by 25%, and the memosprite Evey's Weakness Break Efficiency additionally increases by 25%.",
+        keyMechanic: "Wake Up, the Tomorrow is Yours",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: 'Let Go, the "Me" in Memories',
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Memosprite Skill Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: 'Let Go, the "Me" in Memories',
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Like This, Always",
+        description:
+          'While Evernight is on the field, all ally targets\' All-Type RES PEN increases by 20%. After the memosprite Evey uses "Dream, Dissolving, as Dew," Evernight gains 30% of the amount of "Memoria" consumed in this attack.',
+        keyMechanic: "Like This, Always",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1413",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.6",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Evernight via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "feixiao",
+    gameId: "1220",
+    name: "Feixiao",
+    localizedNames: {
+      en: "Feixiao",
+      id: "Feixiao",
+    },
+    rarity: 5,
+    path: "Hunt",
+    element: "Wind",
+    releaseVersion: "2.5",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 601,
+      def: 388,
+      spd: 112,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 12,
+    },
+    abilities: [
+      {
+        id: "feixiao_122001",
+        name: "Boltsunder",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Feixiao's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_122002",
+        name: "Waraxe",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Deals Wind DMG equal to X of Feixiao's ATK to one designated enemy target. Then, immediately launches 1 extra instance of Talent's Follow-Up ATK against the target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_122003",
+        name: "Terrasplit",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 12,
+        description:
+          "Deals Wind DMG to one designated enemy target, up to X of Feixiao's ATK. During this time, can ignore Weakness Type to reduce the target's Toughness. When the target is not Weakness Broken, Feixiao's Weakness Break Efficiency increases by X. During the attack, Feixiao first launches \"Boltsunder Blitz\" or \"Waraxe Skyward\" on the target, for a total of X time(s). At the end, deals Wind DMG equal to X of Feixiao's ATK to the target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_122004",
+        name: "Thunderhunt",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "Can activate Ultimate when \"Flying Aureus\" reaches X points, accumulating up to X points. Feixiao gains 1 point of \"Flying Aureus\" for every X attacks by ally targets. Feixiao's Ultimate attacks do not count towards this number. After Feixiao's teammates attack an Enemy target, Feixiao immediately launches Follow-Up ATK against the primary target, dealing Wind DMG equal to X of Feixiao's ATK. If there is no primary target available to attack, Feixiao attacks a single random enemy instead. This effect can only trigger once per turn and the trigger count resets at the start of Feixiao's turn. When using this attack, increases DMG dealt by this unit by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_122006",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_122007",
+        name: "Stormborn",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, enters the "Onrush" state, lasting for X seconds. While in "Onrush," pulls in enemies within a certain range, and increases this unit\'s movement speed by X. After entering battle, gains X point(s) of "Flying Aureus." While in "Onrush," actively attacking will start battle with all pulled enemies. After entering battle, deals Wind DMG equal to X of Feixiao\'s ATK to all enemies at the start of each wave. This DMG is guaranteed to CRIT. If more than 1 enemy is pulled in, increases the multiplier of this DMG by X for each additional enemy pulled in, up to a maximum of X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_122008",
+        name: "Boltsunder Blitz",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 12,
+        description:
+          "Deals Wind DMG equal to X of Feixiao's ATK to the chosen target. If the target is Weakness Broken, the DMG multiplier increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_122009",
+        name: "Waraxe Skyward",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 12,
+        description:
+          "Deals Wind DMG equal to X of Feixiao's ATK to the chosen target. If the target is not Weakness Broken, the DMG multiplier increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_122014",
+        name: "Terrasplit",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 12,
+        description:
+          'During the Ultimate, can ignore Weakness Type to reduce enemy Toughness. When the target is not Weakness Broken, Feixiao\'s Weakness Break Efficiency increases. Launches "Boltsunder Blitz" or "Waraxe Skyward" on one enemy X time(s). Deals Wind DMG at the end.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "feixiao_trace_a2",
+        name: "Heavenpath",
+        ascensionRequirement: "A2",
+        description:
+          'When the battle starts, gains X point(s) of "Flying Aureus." At the start of a turn, if no Follow-Up ATK was launched via Talent in the previous turn, then this counts as 1 toward the number of attacks required to gain "Flying Aureus."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_trace_a4",
+        name: "Formshift",
+        ascensionRequirement: "A4",
+        description:
+          "When using Ultimate to deal DMG to an enemy target, it is considered as a Follow-Up ATK. Follow-Up ATKs' CRIT DMG increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "feixiao_trace_a6",
+        name: "Boltcatch",
+        ascensionRequirement: "A6",
+        description:
+          "When using Skill, increases ATK by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Skyward I Quell",
+        description:
+          'After launching "Boltsunder Blitz" or "Waraxe Skyward," additionally increases the Ultimate DMG dealt by Feixiao by an amount equal to 10% of the original DMG, stacking up to 5 time(s) and lasting until the end of the Ultimate action.',
+        keyMechanic: "Skyward I Quell",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Moonward I Wish",
+        description:
+          'In the Talent\'s effect, for every 1 instance of Follow-Up ATK launched by ally targets, Feixiao gains 1 point of "Flying Aureus." This effect can trigger up to 6 time(s) per turn.',
+        keyMechanic: "Moonward I Wish",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Starward I Bode",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Starward I Bode",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Stormward I Hear",
+        description:
+          "The Toughness Reduction from the Talent's Follow-Up ATK increases by 100% and, when launched, increases this unit's SPD by 8%, lasting for 2 turn(s).",
+        keyMechanic: "Stormward I Hear",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Heavenward I Leap",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Heavenward I Leap",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Homeward I Near",
+        description:
+          "Increases the All-Type RES PEN of Ultimate DMG dealt by Feixiao by 20%. Talent's Follow-Up ATK DMG is considered as Ultimate DMG at the same time, and its DMG multiplier increases by 140%.",
+        keyMechanic: "Homeward I Near",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1220",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Feixiao via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "firefly",
+    gameId: "1310",
+    name: "Firefly",
+    localizedNames: {
+      en: "Firefly",
+      id: "Firefly",
+      ja: "ホタル",
+      zh: "流萤",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Fire",
+    releaseVersion: "2.3",
+    roles: ["break_dps", "hypercarry_dps"],
+    mechanicTags: [
+      "super_break",
+      "break_effect",
+      "weakness_break_efficiency",
+      "hp_consumption",
+      "action_advance",
+      "blast",
+      "single_target",
+    ],
+    baseStats: {
+      hp: 814,
+      atk: 523,
+      def: 776,
+      spd: 104,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 240,
+    },
+    abilities: [
+      {
+        id: "firefly_basic",
+        name: "Order: Propulsion Flare",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to 100% of Firefly's ATK to a single target enemy.",
+        mechanics: ["single_target"],
+      },
+      {
+        id: "firefly_skill",
+        name: "Order: Aerial Bombardment",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 120,
+        spCost: 1,
+        description:
+          "Consumes 40% of Max HP and regenerates a fixed 50% of Max Energy (120 Energy). Deals Fire DMG equal to 200% of ATK to a single target enemy.",
+        mechanics: ["hp_consumption", "energy_regen", "single_target"],
+      },
+      {
+        id: "firefly_ultimate",
+        name: "Fyrefly Type-IV: Complete Combustion",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "self",
+        energyCost: 240,
+        description:
+          "Enters the Complete Combustion state, advances Firefly's action forward by 100%, and gains Enhanced Basic ATK and Enhanced Skill.",
+        mechanics: [
+          "action_advance",
+          "super_break",
+          "weakness_break_efficiency",
+        ],
+      },
+      {
+        id: "firefly_enhanced_skill",
+        name: "Deathstar Overload",
+        type: "enhanced_skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        spCost: 1,
+        description:
+          "Restores HP equal to 25% of Max HP. Applies Fire Weakness to target enemy for 2 turns. Deals Fire DMG and converts Break Effect to Super Break DMG.",
+        mechanics: [
+          "super_break",
+          "blast",
+          "heal",
+          "weakness_break_efficiency",
+        ],
+      },
+      {
+        id: "firefly_talent",
+        name: "Chrysalid Pyronexus",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "self",
+        description:
+          "The lower Firefly's HP, the less DMG she takes. When in Complete Combustion, increases Weakness Break Efficiency by 50% and Break DMG dealt.",
+        mechanics: ["weakness_break_efficiency", "super_break"],
+      },
+      {
+        id: "firefly_technique",
+        name: "Delta Command: Scorch",
+        type: "technique",
+        tag: "Single Target",
+        targetType: "all_enemies",
+        description:
+          "Leaps into the air and drops down, inflicting Fire Weakness on all enemies at the start of battle.",
+        mechanics: ["aoe", "weakness_break_efficiency"],
+      },
+    ],
+    transformation: {
+      stanceName: "Complete Combustion",
+      durationDescription:
+        "Duration tracked via Complete Combustion countdown timer on the action bar (base SPD 70). Ends when the countdown reaches 0.",
+      enhancedAbilities: [
+        {
+          id: "firefly_enhanced_basic",
+          name: "Fyrefly Type-IV: Pyrogenic Decimation",
+          type: "enhanced_basic",
+          tag: "Single Target",
+          targetType: "single_enemy",
+          energyGain: 0,
+          description:
+            "Restores HP equal to 20% of Max HP. Deals Fire DMG equal to 200% of ATK to target enemy.",
+          mechanics: ["single_target", "heal"],
+        },
+      ],
+      description:
+        "Transforms SAM into Complete Combustion mode with enhanced mobility, weakness break efficiency, and direct Super Break conversion.",
+    },
+    majorTraces: [
+      {
+        id: "firefly_trace_a2",
+        name: "Module α: Antilag Surge",
+        ascensionRequirement: "A2",
+        description:
+          "During Complete Combustion, attacking enemies without Fire Weakness can still reduce their Toughness by 55% of the original Toughness reduction.",
+        mechanics: ["toughness_reduction", "weakness_break_efficiency"],
+      },
+      {
+        id: "firefly_trace_a4",
+        name: "Module β: Autoreactive Armor",
+        ascensionRequirement: "A4",
+        description:
+          "During Complete Combustion, when Break Effect is 200%/360% or higher, converts Toughness reduction into 35%/50% Super Break DMG.",
+        mechanics: ["super_break", "break_effect"],
+      },
+      {
+        id: "firefly_trace_a6",
+        name: "Module γ: Core Overload",
+        ascensionRequirement: "A6",
+        description:
+          "For every 100 points of ATK that exceeds 1800, increases Firefly's Break Effect by 0.8%.",
+        mechanics: ["stat_conversion", "break_effect"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "breakEffect",
+        totalValue: 0.373,
+        unit: "percentage",
+      },
+      {
+        stat: "spd",
+        totalValue: 5,
+        unit: "flat",
+      },
+      {
+        stat: "effectRes",
+        totalValue: 0.18,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "In Reddened Chrysalis, I Once Rested",
+        description:
+          "When using Enhanced Skill, does not consume Skill Points. Enhanced Skill ignores 15% of target's DEF.",
+        keyMechanic: "Zero SP cost on Enhanced Skill + DEF Ignore",
+        mechanics: ["defense_shred"],
+      },
+      {
+        rank: 2,
+        name: "From Unbroken Skies, I Did Descend",
+        description:
+          "During Complete Combustion, using Enhanced Basic ATK or Enhanced Skill to defeat an enemy or break Weakness grants 1 extra turn.",
+        keyMechanic: "Extra turn on kill or weakness break",
+        mechanics: ["action_advance"],
+      },
+      {
+        rank: 3,
+        name: "Amidst Starlit Silence, I Did Dream",
+        description: "Skill Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Upon Burning Wings, I Shalt Soar",
+        description: "During Complete Combustion, increases Effect RES by 50%.",
+        keyMechanic: "Massive Effect RES during transformation",
+        mechanics: [],
+      },
+      {
+        rank: 5,
+        name: "From the Dying Embers, I Shalt Bloom",
+        description: "Ultimate Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Into the Blazing Sun, I Shalt Shine",
+        description:
+          "During Complete Combustion, increases Fire RES PEN by 20%. Weakness Break Efficiency is increased by an additional 50%.",
+        keyMechanic: "Fire RES PEN & Weakness Break Efficiency boost",
+        mechanics: ["res_penetration", "weakness_break_efficiency"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyolab_firefly_official",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://wiki.hoyolab.com/pc/hsr/entry/1310",
+      gameVersion: "2.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Official HoYoWiki Firefly Complete Combustion & Super Break factual kit",
+    },
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "fu-xuan",
+    gameId: "1208",
+    name: "Fu Xuan",
+    localizedNames: {
+      en: "Fu Xuan",
+      id: "Fu Xuan",
+    },
+    rarity: 5,
+    path: "Preservation",
+    element: "Quantum",
+    releaseVersion: "1.3",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1474,
+      atk: 465,
+      def: 606,
+      spd: 100,
+      taunt: 150,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 135,
+    },
+    abilities: [
+      {
+        id: "fu-xuan_120801",
+        name: "Novaburst",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Fu Xuan's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fu-xuan_120802",
+        name: "Known by Stars, Shown by Hearts",
+        type: "skill",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Activates Matrix of Prescience, via which Fu Xuan's teammates will Distribute X of the DMG they receive (before this DMG is mitigated by any Shields) to Fu Xuan for X turn(s). While affected by Matrix of Prescience, all ally targets gain the Knowledge effect, which increases their respective Max HP by #4[f1]% of Fu Xuan's Max HP, and increases CRIT Rate by #5[f1]%. When Fu Xuan is knocked down, the Matrix of Prescience will be dispelled.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fu-xuan_120803",
+        name: "Woes of Many Morphed to One",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 135,
+        description:
+          "Deals Quantum DMG equal to X of Fu Xuan's Max HP to all enemies and obtains 1 trigger count for the HP Restore effect granted by Fu Xuan's Talent.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fu-xuan_120804",
+        name: "Bleak Breeds Bliss",
+        type: "talent",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "While Fu Xuan is still active in combat, Misfortune Avoidance is applied to the entire team. With Misfortune Avoidance, allies take #1[f1]% less DMG. When Fu Xuan's current HP percentage falls to X of her Max HP or less, HP Restore will be triggered for Fu Xuan, restoring her HP by X of the amount of HP she is currently missing. This effect cannot be triggered if she receives a killing blow. This effect has 1 trigger count by default and can hold up to a maximum of 2 trigger counts.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fu-xuan_120806",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fu-xuan_120807",
+        name: "Of Fortune Comes Fate",
+        type: "technique",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After the Technique is used, all team members receive a Barrier, lasting for X seconds. This Barrier can block all enemy attacks, and the team will not enter combat when attacked. Entering battle while the Barrier is active will have Fu Xuan automatically activate Matrix of Prescience at the start of the battle, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "fu-xuan_trace_a2",
+        name: "Taiyi, the Macrocosmic",
+        ascensionRequirement: "A2",
+        description:
+          "When Matrix of Prescience is active, Fu Xuan will regenerate X extra Energy when she uses her Skill.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fu-xuan_trace_a4",
+        name: "Dunjia, the Metamystic",
+        ascensionRequirement: "A4",
+        description:
+          "When Fu Xuan's Ultimate is used, heals all other allies by an amount equal to X of Fu Xuan's Max HP plus X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fu-xuan_trace_a6",
+        name: "Liuren, the Sexagenary",
+        ascensionRequirement: "A6",
+        description:
+          'If a target enemy applies Crowd Control debuffs to allies while the "Matrix of Prescience" is active, all allies will resist all Crowd Control debuffs applied by the enemy target during the current action. This effect can only be triggered once. When "Matrix of Prescience" is activated again, the number of times this effect can be triggered will reset.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Dominus Pacis",
+        description: "The Knowledge effect increases CRIT DMG by 30%.",
+        keyMechanic: "Dominus Pacis",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Optimus Felix",
+        description:
+          'If any ally target is struck by a killing blow while "Matrix of Prescience" is active, then all ally targets who were struck by a killing blow during this action will not be knocked down, and 70% of their Max HP is immediately restored. This effect can trigger 1 time per battle.',
+        keyMechanic: "Optimus Felix",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Apex Nexus",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Apex Nexus",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Fortuna Stellaris",
+        description:
+          "When other allies under Matrix of Prescience are attacked, Fu Xuan regenerates 5 Energy.",
+        keyMechanic: "Fortuna Stellaris",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Arbiter Primus",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Arbiter Primus",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Omnia Vita",
+        description:
+          "Once Matrix of Prescience is activated, it will keep a tally of the total HP lost by all team members in the current battle. The DMG dealt by Fu Xuan's Ultimate will increase by 200% of this tally of HP loss. This tally is also capped at 120% of Fu Xuan's Max HP and the tally value will reset and re-accumulate after Fu Xuan's Ultimate is used.",
+        keyMechanic: "Omnia Vita",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1208",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Fu Xuan via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "fugue",
+    gameId: "1225",
+    name: "Fugue",
+    localizedNames: {
+      en: "Fugue",
+      id: "Fugue",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Fire",
+    releaseVersion: "2.7",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1125,
+      atk: 582,
+      def: 557,
+      spd: 102,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "fugue_122501",
+        name: "Radiant Streak",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Fugue's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fugue_122502",
+        name: "Virtue Beckons Bliss",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Grants one designated ally "Foxian Prayer". Enters the "Torrid Scorch" state, lasting for X turn(s). The duration decreases by 1 at the start of Fugue\'s every turn. "Foxian Prayer" only takes effect on the most recent target of Fugue\'s Skill. The ally target with "Foxian Prayer" increases their Break Effect by X and can also reduce Toughness even when attacking enemies that don\'t have the corresponding Weakness Type, with the effect equivalent to X of the original Toughness Reduction value. This cannot stack with other Toughness Reduction effects that also ignore Weakness Type. While in the "Torrid Scorch" state, Fugue enhances her Basic ATK. Every time an ally target with "Foxian Prayer" attacks, Fugue has a X base chance to reduce the attacked enemy target\'s DEF by X, lasting for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fugue_122503",
+        name: "Solar Splendor Shines Upon All",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "Deals Fire DMG equal to X of Fugue's ATK to all enemies. This attack ignores Weakness Type to reduce all enemies' Toughness. And when breaking Weakness, triggers the Fire Weakness Break effect.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fugue_122504",
+        name: "Fortune Follows Where Virtue Spreads",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'While Fugue is on the field, enemy targets will get additionally afflicted with "Cloudflame Luster," equal to X of their Max Toughness. When the initial Toughness is reduced to 0, "Cloudflame Luster" can continue to be reduced. When "Cloudflame Luster" is reduced to 0, the enemy will receive Weakness Break DMG again. While Fugue is on the field and after allies attack Weakness Broken enemy targets, converts the Toughness Reduction of this attack into 1 instance of X Super Break DMG.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fugue_122506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fugue_122507",
+        name: "Percipient Shine",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, inflicts Daze on enemies within a certain area, lasting for X second(s). While Dazed, enemies will not actively attack ally targets. After entering battle via actively attacking Dazed enemies, Fugue's action advances by X, with a X base chance to inflict each enemy target with the same DEF Reduction state as that applied by Fugue's Skill, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fugue_122508",
+        name: "Fiery Caress",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Fugue's ATK to one designated enemy and Fire DMG equal to X of Fugue's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "fugue_trace_a2",
+        name: "Verdantia Renaissance",
+        ascensionRequirement: "A2",
+        description:
+          "After ally targets break weakness, additionally delays the action of the enemy target by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fugue_trace_a4",
+        name: "Sylvan Enigma",
+        ascensionRequirement: "A4",
+        description:
+          "Increases this unit's Break Effect by X. After using Skill for the first time, immediately recovers X Skill Point(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "fugue_trace_a6",
+        name: "Phecda Primordia",
+        ascensionRequirement: "A6",
+        description:
+          "When an enemy target's Weakness gets broken, increases teammates' (i.e., excluding this unit) Break Effect by X. If Fugue's Break Effect is X or higher, the Break Effect increase is boosted by an additional X, lasting for X turn(s). This effect can stack up to X time(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Earthbound I Was, Cloudward I Be",
+        description:
+          'Ally target with "Foxian Prayer" increases their Weakness Break Efficiency by 50%.',
+        keyMechanic: "Earthbound I Was, Cloudward I Be",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Beatitude Dawns for the Worthy",
+        description:
+          "When an enemy target's Weakness gets broken, Fugue regenerates 3 Energy. After using Ultimate, advances the action of all allies by 24%.",
+        keyMechanic: "Beatitude Dawns for the Worthy",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Verity Weaves Thoughts to Blade",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Verity Weaves Thoughts to Blade",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Bereft of Form, Which Name to Bear",
+        description:
+          'Ally target with "Foxian Prayer" increases their Break DMG dealt by 20%.',
+        keyMechanic: "Bereft of Form, Which Name to Bear",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Colored Cloud Rains Fortune",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Colored Cloud Rains Fortune",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Clairvoyance of Boom and Doom",
+        description:
+          'Increases Fugue\'s Weakness Break Efficiency by 50%. While Fugue is in the "Torrid Scorch" state, "Foxian Prayer" takes effect on all allies.',
+        keyMechanic: "Clairvoyance of Boom and Doom",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1225",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.7",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Fugue via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "gallagher",
+    gameId: "1301",
+    name: "Gallagher",
+    localizedNames: {
+      en: "Gallagher",
+      id: "Gallagher",
+      ja: "ギャラガー",
+      zh: "加拉赫",
+    },
+    rarity: 4,
+    path: "Abundance",
+    element: "Fire",
+    releaseVersion: "2.1",
+    roles: ["healer", "break_dps", "debuffer"],
+    mechanicTags: [
+      "heal",
+      "break_effect",
+      "debuff",
+      "vulnerability",
+      "action_advance",
+      "enhanced_basic",
+      "single_target",
+      "aoe",
+    ],
+    baseStats: {
+      hp: 1305,
+      atk: 529,
+      def: 441,
+      spd: 98,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "gallagher_basic",
+        name: "Cork Charger",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to 100% of Gallagher's ATK to a single target enemy.",
+        mechanics: ["single_target"],
+      },
+      {
+        id: "gallagher_skill",
+        name: "Special Brew",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        spCost: 1,
+        description: "Immediately heals a target ally for 1600 HP.",
+        mechanics: ["heal"],
+      },
+      {
+        id: "gallagher_ultimate",
+        name: "Champagne Etiquette",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyCost: 110,
+        description:
+          "Inflicts Besotted on all enemies for 2 turns, deals Fire DMG, and enhances Gallagher's next Basic ATK into 'Nectar Blitz'. Advances Gallagher's next action by 100%.",
+        mechanics: ["aoe", "debuff", "vulnerability", "action_advance"],
+      },
+      {
+        id: "gallagher_enhanced_basic",
+        name: "Nectar Blitz",
+        type: "enhanced_basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to 250% of ATK to a single enemy and reduces target's ATK by 15% for 2 turns.",
+        mechanics: ["single_target", "debuff"],
+      },
+      {
+        id: "gallagher_talent",
+        name: "Novel Fighting Formula",
+        type: "talent",
+        tag: "Restore",
+        targetType: "all_allies",
+        description:
+          "Besotted targets take 12% increased Break DMG. When an ally attacks a Besotted target, that ally restores 640 HP.",
+        mechanics: ["heal", "break_effect", "vulnerability"],
+      },
+      {
+        id: "gallagher_technique",
+        name: "Elixir Tasting",
+        type: "technique",
+        tag: "AoE",
+        targetType: "all_enemies",
+        description:
+          "Attacks the enemy. Upon entering battle, inflicts Besotted on all enemies for 2 turns and deals Fire DMG.",
+        mechanics: ["aoe", "debuff"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "gallagher_trace_a2",
+        name: "Novel Formula",
+        ascensionRequirement: "A2",
+        description:
+          "Increases Outgoing Healing by an amount equal to 50% of Break Effect, up to a maximum Outgoing Healing increase of 75%.",
+        mechanics: ["stat_conversion", "heal", "break_effect"],
+      },
+      {
+        id: "gallagher_trace_a4",
+        name: "Organic Yeast",
+        ascensionRequirement: "A4",
+        description:
+          "After using Ultimate, immediately advances Gallagher's action forward by 100%.",
+        mechanics: ["action_advance"],
+      },
+      {
+        id: "gallagher_trace_a6",
+        name: "Bottoms Up",
+        ascensionRequirement: "A6",
+        description:
+          "When Gallagher uses Nectar Blitz on Besotted targets, all allies restore HP equal to the Talent healing amount.",
+        mechanics: ["heal"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "breakEffect",
+        totalValue: 0.133,
+        unit: "percentage",
+      },
+      {
+        stat: "effectRes",
+        totalValue: 0.28,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Salty Dog",
+        description:
+          "When Gallagher enters battle, regenerates 20 Energy and increases Effect RES by 50%.",
+        keyMechanic: "Initial Energy + 50% Effect RES",
+        mechanics: ["energy_regen"],
+      },
+      {
+        rank: 2,
+        name: "Lion's Tail",
+        description:
+          "When using Skill, removes 1 debuff from the target ally and increases their Effect RES by 30% for 2 turns.",
+        keyMechanic: "Skill cleanses debuffs",
+        mechanics: ["cleanse"],
+      },
+      {
+        rank: 3,
+        name: "Corpse Reviver",
+        description: "Skill Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Last Word",
+        description:
+          "Increases the duration of the Besotted state inflicted by Ultimate by 1 turn.",
+        keyMechanic: "+1 turn Besotted duration",
+        mechanics: ["debuff"],
+      },
+      {
+        rank: 5,
+        name: "Death in the Afternoon",
+        description: "Ultimate Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Blood and Sand",
+        description:
+          "Increases Gallagher's Break Effect by 20% and Weakness Break Efficiency by 20%.",
+        keyMechanic: "Break Effect & Break Efficiency boost",
+        mechanics: ["break_effect", "weakness_break_efficiency"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyolab_gallagher_official",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://wiki.hoyolab.com/pc/hsr/entry/1301",
+      gameVersion: "2.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Official HoYoWiki Gallagher Abundance factual kit",
+    },
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "gepard",
+    gameId: "1104",
+    name: "Gepard",
+    localizedNames: {
+      en: "Gepard",
+      id: "Gepard",
+    },
+    rarity: 5,
+    path: "Preservation",
+    element: "Ice",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1397,
+      atk: 543,
+      def: 654,
+      spd: 92,
+      taunt: 150,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 100,
+    },
+    abilities: [
+      {
+        id: "gepard_110401",
+        name: "Fist of Conviction",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Gepard's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gepard_110402",
+        name: "Daunting Smite",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Deals Ice DMG equal to X of Gepard's ATK to one designated enemy, with a X base chance to Freeze the enemy for X turn(s). While Frozen, the enemy cannot take action and will take Ice Additional DMG equal to X of Gepard's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gepard_110403",
+        name: "Enduring Bulwark",
+        type: "ultimate",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 100,
+        description:
+          "Applies a Shield to all allies, absorbing DMG equal to X of Gepard's DEF plus X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gepard_110404",
+        name: "Unyielding Will",
+        type: "talent",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When struck with a killing blow, instead of becoming knocked down, Gepard's HP immediately restores to X of his Max HP. This effect can only trigger once per battle.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gepard_110406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gepard_110407",
+        name: "Comradery",
+        type: "technique",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After Gepard uses his Technique, when the next battle begins, a Shield will be applied to all allies, absorbing DMG equal to X of Gepard's DEF plus X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "gepard_trace_a2",
+        name: "Integrity",
+        ascensionRequirement: "A2",
+        description: "Gepard has a higher chance to be attacked by enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gepard_trace_a4",
+        name: "Commander",
+        ascensionRequirement: "A4",
+        description:
+          'When "Unyielding Will" is triggered, Gepard\'s Energy will be restored to 100%.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gepard_trace_a6",
+        name: "Grit",
+        ascensionRequirement: "A6",
+        description:
+          "Gepard's ATK increases by X of his current DEF. This effect will refresh at the start of each turn.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Due Diligence",
+        description:
+          "When using Skill, increases the base chance to Freeze the attacked target enemy by 35%.",
+        keyMechanic: "Due Diligence",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Lingering Cold",
+        description:
+          "After an enemy Frozen by Skill is unfrozen, their SPD is reduced by 20% for 1 turn(s).",
+        keyMechanic: "Lingering Cold",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Never Surrender",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Never Surrender",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Faith Moves Mountains",
+        description:
+          "When Gepard is in battle, all allies' Effect RES increases by 20%.",
+        keyMechanic: "Faith Moves Mountains",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Cold Iron Fist",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Cold Iron Fist",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Unyielding Resolve",
+        description:
+          "When his Talent is triggered, Gepard immediately takes action and restores extra HP equal to 50% of his Max HP.",
+        keyMechanic: "Unyielding Resolve",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1104",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Gepard via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "gilgamesh",
+    gameId: "1509",
+    name: "Gilgamesh",
+    localizedNames: {
+      en: "Gilgamesh",
+      id: "Gilgamesh",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Lightning",
+    releaseVersion: "4.3",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1125,
+      atk: 717,
+      def: 509,
+      spd: 97,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 360,
+    },
+    abilities: [
+      {
+        id: "gilgamesh_150901",
+        name: "Halfhearted Blow",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Gilgamesh's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_150902",
+        name: "Gate of Babylon",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Gains \"King's Acknowledgement,\" allowing this unit to ignore X of the target's DEF when dealing DMG, lasting for X turn(s). Deals Lightning DMG equal to X of Gilgamesh's ATK to one designated enemy, and deals Lightning DMG equal to X of Gilgamesh's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_150903",
+        name: "Enuma Elish",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 360,
+        description:
+          "Deals Lightning DMG equal to X of Gilgamesh's ATK to all enemies, and additionally deals X instance(s) of DMG, with each instance dealing Lightning DMG equal to X of Gilgamesh's ATK to one random enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_150904",
+        name: '"Amuse Me to the Fullest"',
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When a teammate uses their Ultimate, Gilgamesh gains "King\'s Burden," which increases Ultimate DMG dealt by this unit by X, lasting for X turn(s). Initially, automatically uses Basic ATK at the start of this unit\'s turn. When another ally target takes action, Gilgamesh gains 1 point of "Interest." For each point of "Interest" in possession, increases this unit\'s SPD by X. When "Interest" reaches X for the first time, enters the "Interest Piqued!" state. In that state, can only use Skill, lasting for the entire battle. After using Skill, clears this unit\'s "Interest."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_150905",
+        name: '"I Grant You Permission To Strike"',
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "When Gilgamesh or Saber attacks, the attack tally increases by 1. After any unit attacks, if the attack tally reaches X, Gilgamesh and Saber launch Joint Follow-Up ATK, dealing Lightning DMG equal to X of Gilgamesh's ATK and Wind DMG equal to X of Saber's ATK to all enemies, respectively. Then, Gilgamesh gains X \"Interest.\" Saber regenerates a fixed X Energy, and the next time she uses Ultimate, the DMG dealt becomes X of the original DMG. After using Joint Follow-Up ATK, resets the attack tally.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_150906",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_150907",
+        name: "Enkidu",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, creates 1 Special Dimension lasting for X second(s). Enemies in the Special Dimension enter the "King\'s Permission" state. Enemies in the "King\'s Permission" state will cease all actions. When entering combat by actively attacking an enemy in the "King\'s Permission" state, causes all enemies in the "King\'s Permission" state to enter combat, and deals Lightning DMG equal to X of Gilgamesh\'s ATK to all enemies after entering combat. Gilgamesh also immediately gains X "Interest." Only 1 Dimension Effect created by allies can exist at the same time.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_150909",
+        name: "Halfhearted Blow",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description: "Halfhearted Blow ability for Gilgamesh.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "gilgamesh_trace_a2",
+        name: "Epic's Opening",
+        ascensionRequirement: "A2",
+        description:
+          'When Gilgamesh uses Ultimate, gains X "Interest." When other ally characters use Ultimate, Gilgamesh additionally gains X "Interest" and regenerates a fixed amount of Energy equal to X of the Energy consumed this time.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_trace_a4",
+        name: "Hero's Hauteur",
+        ascensionRequirement: "A4",
+        description:
+          'During the current battle, for every 1 point of "Interest" gained by Gilgamesh, increases his CRIT DMG by X. This effect can stack up to X time(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "gilgamesh_trace_a6",
+        name: "Hegemon's Strife",
+        ascensionRequirement: "A6",
+        description:
+          "While Gilgamesh is on the field, increases all ally targets' ATK by X and CRIT DMG by X. If the target's Max Energy exceeds X, for every 1 excess point of Max Energy, additionally increases ATK and CRIT DMG by X, up to a maximum additional increase of X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "thunder",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "He Who Saw the Deep",
+        description:
+          'When Gilgamesh holds "King\'s Acknowledgement," its DEF-ignoring effect also applies to other teammates, and "King\'s Acknowledgement" additionally increases Gilgamesh\'s ATK by 60%. When using Skill, additionally regenerates a fixed 40 Energy.',
+        keyMechanic: "He Who Saw the Deep",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Wisdom That Encompassed All",
+        description:
+          'When entering combat, Gilgamesh gains 5 "Interest." When using Ultimate, additionally gains 5 "Interest." The DMG multiplier of the Skill "Gate of Babylon" against the primary target increases by 100%, and its DMG multiplier against adjacent targets increases by 50%.',
+        keyMechanic: "Wisdom That Encompassed All",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Journey That Spanned Far",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Journey That Spanned Far",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "King Who Bowed to None",
+        description: "Gilgamesh's Energy Regeneration Rate increases by 20%.",
+        keyMechanic: "King Who Bowed to None",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Sword That Parted Gods from Man",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Sword That Parted Gods from Man",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Soul That Bore Friendship",
+        description:
+          'Increases the bounce DMG multiplier of the Ultimate "Enuma Elish" by 80%. While Gilgamesh is on the field, increases ally characters\' All-Type RES PEN by 20%. When a teammate uses Ultimate, Gilgamesh gains 1 point of "Golden Rule," up to a total of 3 points. When this unit uses Ultimate, consumes all "Golden Rule" points, and each point of "Golden Rule" consumed increases the CRIT DMG for the Ultimate DMG dealt by 100%.',
+        keyMechanic: "Soul That Bore Friendship",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1509",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Gilgamesh via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "guinaifen",
+    gameId: "1210",
+    name: "Guinaifen",
+    localizedNames: {
+      en: "Guinaifen",
+      id: "Guinaifen",
+    },
+    rarity: 4,
+    path: "Nihility",
+    element: "Fire",
+    releaseVersion: "1.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 882,
+      atk: 582,
+      def: 441,
+      spd: 106,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "guinaifen_121001",
+        name: "Standing Ovation",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Guinaifen's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "guinaifen_121002",
+        name: "Blazing Welcome",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Fire DMG equal to X of Guinaifen's ATK to one designated enemy and Fire DMG equal to X of Guinaifen's ATK to any adjacent enemies, with a X base chance to Burn the target and adjacent targets. When Burned, enemies will take a Fire DoT equal to X of Guinaifen's ATK at the beginning of each turn, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "guinaifen_121003",
+        name: "Watch This Showstopper",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Fire DMG equal to #1[f1]% of Guinaifen's ATK to all enemies. If the target enemy is currently inflicted with Burn, then their Burn status immediately produces DMG equal to X of their original DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "guinaifen_121004",
+        name: "PatrAeon Benefits",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "When Guinaifen is on the field, there is a X base chance to apply Firekiss to an enemy after their Burn status causes DMG. While inflicted with Firekiss, the enemy receives #4[f1]% increased DMG, which lasts for X turn(s) and can stack up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "guinaifen_121006",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "guinaifen_121007",
+        name: "Skill Showcase",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering battle, deals DMG for X time(s), dealing Fire DMG equal to X of Guinaifen's ATK to a random single enemy target each time, with a X base chance of inflicting Firekiss on them.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "guinaifen_trace_a2",
+        name: "High Poles",
+        ascensionRequirement: "A2",
+        description:
+          "Basic ATK has a X base chance of inflicting an enemy with a Burn equivalent to that of Skill.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "guinaifen_trace_a4",
+        name: "Bladed Hoop",
+        ascensionRequirement: "A4",
+        description:
+          "When the battle begins, Guinaifen's action advances by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "guinaifen_trace_a6",
+        name: "Walking on Knives",
+        ascensionRequirement: "A6",
+        description: "Deals X more DMG to Burned enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Slurping Noodles During Handstand",
+        description:
+          "When Skill is used, there is a 100% base chance to reduce the attacked target enemy's Effect RES by 10% for 2 turn(s).",
+        keyMechanic: "Slurping Noodles During Handstand",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Brushing Teeth While Whistling",
+        description:
+          "When an enemy target is being Burned, the DMG multiplier of the Burn status applied by her Basic ATK or Skill increases by 40%.",
+        keyMechanic: "Brushing Teeth While Whistling",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Smashing Boulder on Chest",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Smashing Boulder on Chest",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Blocking Pike with Neck",
+        description:
+          "Every time the Burn status inflicted by Guinaifen causes DMG, Guinaifen regenerates 2 Energy.",
+        keyMechanic: "Blocking Pike with Neck",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Swallowing Sword to Stomach",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Swallowing Sword to Stomach",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Catching Bullet with Hands",
+        description: "Increases the stackable Firekiss count by 1.",
+        keyMechanic: "Catching Bullet with Hands",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1210",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Guinaifen via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "hanya",
+    gameId: "1215",
+    name: "Hanya",
+    localizedNames: {
+      en: "Hanya",
+      id: "Hanya",
+    },
+    rarity: 4,
+    path: "Harmony",
+    element: "Physical",
+    releaseVersion: "1.5",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 917,
+      atk: 564,
+      def: 352,
+      spd: 110,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "hanya_121501",
+        name: "Oracle Brush",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Hanya's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hanya_121502",
+        name: "Samsara, Locked",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Deals Physical DMG equal to X of Hanya\'s ATK to one designated enemy target, then applies "Burden" to them. For every 2 Basic ATKs, Skills, or Ultimates allies use on an enemy with "Burden," allies will immediately recover 1 Skill Point. "Burden" is only active on the latest target it is applied to, and will be dispelled automatically after the Skill Point recovery effect has been triggered X times.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hanya_121503",
+        name: "Ten-Lords' Decree, All Shall Obey",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Increases the SPD of a target ally by #3[f1]% of Hanya's SPD and increases the same target ally's ATK by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hanya_121504",
+        name: "Sanction",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When an ally uses a Basic ATK, Skill, or Ultimate on an enemy inflicted with Burden, the DMG dealt increases by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hanya_121506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hanya_121507",
+        name: "Netherworld Judgment",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering battle, applies Burden equivalent to that applied by the Skill to a random enemy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "hanya_trace_a2",
+        name: "Scrivener",
+        ascensionRequirement: "A2",
+        description:
+          "Allies triggering Burden's Skill Point recovery effect have their ATK increased by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hanya_trace_a4",
+        name: "Netherworld",
+        ascensionRequirement: "A4",
+        description:
+          "If the trigger count for the Burden's Skill Point recovery effect is X or lower when an enemy with Burden is defeated, then additionally recovers X Skill Point(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hanya_trace_a6",
+        name: "Reanimated",
+        ascensionRequirement: "A6",
+        description:
+          "When Burden's Skill Point recovery effect is triggered, this character regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "One Heart",
+        description:
+          "When an ally target with Hanya's Ultimate effect defeats an enemy, Hanya's action advances by 15%. This effect can only be triggered 1 time(s) per turn.",
+        keyMechanic: "One Heart",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Two Views",
+        description:
+          "After using the Skill, this character's SPD increases by 20% for 1 turn(s).",
+        keyMechanic: "Two Views",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Three Temptations",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Three Temptations",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Four Truths",
+        description:
+          "The Ultimate's duration is additionally extended for 1 turn(s).",
+        keyMechanic: "Four Truths",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Five Skandhas",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Five Skandhas",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Six Reverences",
+        description:
+          "Increase the DMG Boost effect of the Talent by an additional 10%.",
+        keyMechanic: "Six Reverences",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1215",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Hanya via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "herta",
+    gameId: "1013",
+    name: "Herta",
+    localizedNames: {
+      en: "Herta",
+      id: "Herta",
+    },
+    rarity: 4,
+    path: "Erudition",
+    element: "Ice",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 952,
+      atk: 582,
+      def: 396,
+      spd: 100,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "herta_101301",
+        name: "What Are You Looking At?",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Herta's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "herta_101302",
+        name: "One-Time Offer",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Deals Ice DMG equal to X of Herta's ATK to all enemies. If the enemy's HP percentage is X or higher, DMG dealt to this target increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "herta_101303",
+        name: "It's Magic, I Added Some Magic",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 110,
+        description: "Deals Ice DMG equal to X of Herta's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "herta_101304",
+        name: "Fine, I'll Do It Myself",
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "When an ally target's attack causes an enemy target's HP percentage to fall to X or lower, Herta will launch a Follow-Up ATK, dealing Ice DMG equal to X of Herta's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "herta_101306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "herta_101307",
+        name: "It Can Still Be Optimized",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using her Technique, Herta's ATK increases by X for X turn(s) at the beginning of the next battle.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "herta_trace_a2",
+        name: "Efficiency",
+        ascensionRequirement: "A2",
+        description:
+          "When Skill is used, the DMG Boost effect on target enemies increases by an extra X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "herta_trace_a4",
+        name: "Puppet",
+        ascensionRequirement: "A4",
+        description:
+          "Increases the chance to resist Crowd Control debuffs by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "herta_trace_a6",
+        name: "Icing",
+        ascensionRequirement: "A6",
+        description:
+          "When Ultimate is used, deals X more DMG to Frozen enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Kick You When You're Down",
+        description:
+          "When using Basic ATK, if the designated enemy's HP percentage is at 50% or less, additionally deals Ice Additional DMG equal to 40% of Herta's ATK.",
+        keyMechanic: "Kick You When You're Down",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Keep the Ball Rolling",
+        description:
+          "Every time Talent is triggered, this character's CRIT Rate increases by 3%. This effect can stack up to 5 time(s).",
+        keyMechanic: "Keep the Ball Rolling",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "That's the Kind of Girl I Am",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "That's the Kind of Girl I Am",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Hit Where It Hurts",
+        description: "When Talent is triggered, DMG increases by 10%.",
+        keyMechanic: "Hit Where It Hurts",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Cuss Big or Cuss Nothing",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Cuss Big or Cuss Nothing",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "No One Can Betray Me",
+        description:
+          "After using Ultimate, this character's ATK increases by 25% for 1 turn(s).",
+        keyMechanic: "No One Can Betray Me",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1013",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Herta via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "himeko",
+    gameId: "1003",
+    name: "Himeko",
+    localizedNames: {
+      en: "Himeko",
+      id: "Himeko",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Fire",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 756,
+      def: 436,
+      spd: 96,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "himeko_100301",
+        name: "Sawblade Tuning",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description: "Deals Fire DMG equal to X of Himeko's ATK to one enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko_100302",
+        name: "Molten Detonation",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Fire DMG equal to X of Himeko's ATK to one designated enemy and Fire DMG equal to X of Himeko's ATK to enemies adjacent to it.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko_100303",
+        name: "Heavenly Flare",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Fire DMG equal to X of Himeko's ATK to all enemies. Himeko regenerates X extra Energy for each enemy defeated.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko_100304",
+        name: "Victory Rush",
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "When an enemy target is inflicted with Weakness Break, Himeko gains 1 point of Charge (max X points). If Himeko is fully Charged when an ally target performs an attack, Himeko immediately performs 1 Follow-Up ATK and deals Fire DMG equal to X of her ATK to all enemies, consuming all Charge points. At the start of the battle, Himeko gains 1 point of Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko_100306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko_100307",
+        name: "Incomplete Combustion",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, creates a Special Dimension that lasts for X second(s). After entering battle with enemies in the Special Dimension, there is a X base chance to increase Fire DMG taken by enemies by X for X turn(s). Only 1 Dimension Effect created by allies can exist at the same time.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "himeko_trace_a2",
+        name: "Starfire",
+        ascensionRequirement: "A2",
+        description:
+          "After using an attack, there is a X base chance to inflict Burn on enemies, lasting for X turn(s). When afflicted with Burn, enemies take Fire DoT equal to X of Himeko's ATK at the start of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko_trace_a4",
+        name: "Magma",
+        ascensionRequirement: "A4",
+        description:
+          "Skill deals X more DMG to enemies currently afflicted with Burn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko_trace_a6",
+        name: "Benchmark",
+        ascensionRequirement: "A6",
+        description:
+          "When current HP percentage is X or higher, CRIT Rate increases by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Childhood",
+        description:
+          'After "Victory Rush" is triggered, Himeko\'s SPD increases by 20% for 2 turn(s).',
+        keyMechanic: "Childhood",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Convergence",
+        description:
+          "Deals 15% more DMG to enemies whose HP percentage is 50% or less.",
+        keyMechanic: "Convergence",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Poised",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Poised",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Dedication",
+        description:
+          "When Himeko's Skill inflicts Weakness Break on an enemy, she gains 1 extra point(s) of Charge.",
+        keyMechanic: "Dedication",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Aspiration",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Aspiration",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Trailblaze!",
+        description:
+          "Ultimate deals 2 extra instances of Fire DMG equal to 40% of the original DMG to one random enemy.",
+        keyMechanic: "Trailblaze!",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1003",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Himeko via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "himeko-nova",
+    gameId: "1510",
+    name: "Himeko • Nova",
+    localizedNames: {
+      en: "Himeko • Nova",
+      id: "Himeko • Nova",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Fire",
+    releaseVersion: "4.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1125,
+      atk: 756,
+      def: 485,
+      spd: 98,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 150,
+    },
+    abilities: [
+      {
+        id: "himeko-nova_151001",
+        name: "Enkindle the First Lodestar",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Himeko • Nova's ATK to one enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151002",
+        name: "Upraise the Vanward Cresset",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'After using Skill, immediately recovers all Assist Skill uses. Himeko • Nova gains "Navigator\'s Semaphore," lasting for X turn(s). This duration decreases by 1 at the start of Himeko • Nova\'s every turn. When Himeko • Nova has "Navigator\'s Semaphore," DMG dealt by all allies increases by X. At the start of every turn, immediately recovers 1 Assist Skill use.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151003",
+        name: "We, Too, Stride the Stars",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 150,
+        description:
+          'Immediately takes control of "Starblazer." "Starblazer" can launch "Hyperluminal Particle Beam" against enemies 6 times, or consume "Source Energy" to launch "Orbital Annihilation Pulse," dealing Fire DMG up to X of Himeko • Nova\'s ATK to one designated enemy, and Fire DMG up to X of Himeko • Nova\'s ATK to other targets. When the uses of "Hyperluminal Particle Beam" are depleted, automatically launches "Orbital Annihilation Pulse," followed by Final Hit, dealing X instance(s) of DMG, with each instance dealing Fire DMG equal to X of Himeko • Nova\'s ATK to one random enemy. When "Hyperluminal Particle Beam" or "Orbital Annihilation Pulse" deals fatal damage to all enemies on the field, or when enemy HP can no longer be reduced, immediately launches Final Hit.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151004",
+        name: "Of Fire and Far Faring",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'While Himeko • Nova is on the field, immediately deploys the Territory "Starblazer Visioscape," summoning "Starblazer" to the field and granting all ally characters 1 Assist Skill use. Ally characters can use Assist Skill to call upon "Starblazer" to attack enemies. Using Assist Skill is considered as Himeko • Nova using her Skill. Himeko • Nova gains X increased All-Type RES PEN and X increased CRIT DMG. When attacking, can ignore Weakness Types to reduce enemy Toughness. When breaking Weakness, triggers the Fire Weakness Break effect. When ally characters other than Himeko • Nova use their Assist Skill, regenerates X Energy for them.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151006",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151007",
+        name: "Starcharter Cruise",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'When Himeko • Nova is in the team, increases the max Technique Points by 3. After using Technique, enters the "Cruise" state for X seconds. Actively using the Technique consumes 2 Technique Points and immediately attacks all enemies within a certain range. After entering combat, immediately uses Skill 1 time at the start of each wave. If attacking a Normal Enemy, immediately defeats them without entering combat. No Technique Points are consumed if no enemies are hit.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151008",
+        name: "Hyperluminal Particle Beam",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 150,
+        description:
+          'Deals Fire DMG equal to X of Himeko • Nova\'s ATK to all enemies and gains X point(s) of "Source Energy." A maximum of X "Source Energy" can be held.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151009",
+        name: "Orbital Annihilation Pulse",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 150,
+        description:
+          'Consumes 1 point of "Source Energy" to deal Fire DMG equal to X of Himeko • Nova\'s ATK to all enemies. When the current "Source Energy" is more than 1, for every X point(s) of "Source Energy" consumed, additionally deals 1 instance of Fire DMG equal to X of Himeko • Nova\'s ATK to one random enemy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151014",
+        name: "We, Too, Stride the Stars",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 150,
+        description:
+          "Deals X instance(s) of DMG, each dealing Fire DMG to one random enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151022",
+        name: "Trailblaze, By Your Side",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Deals Fire DMG equal to X of Himeko • Nova's ATK to all enemies, and additionally deals X instances of DMG, with each instance dealing Fire DMG equal to X of Himeko • Nova's ATK to one random enemy. When used by Himeko • Nova, deals Fire DMG equal to X of Himeko • Nova's ATK to all enemies, and additionally deals X instances of DMG, with each instance dealing Fire DMG equal to X of Himeko • Nova's ATK to one random enemy. If the user is a Trailblaze Companions character other than Himeko • Nova, then depending on the user, Himeko • Nova additionally gains 1 of the Special Effects. The extra Assist Skill via all Special Effects can be launched up to X time(s) per battle, and this count is reset after Himeko • Nova uses her Ultimate.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151025",
+        name: "Companion Protocol: Verdict",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          'Enters the "Companion Protocol: Verdict" state. Increases DMG dealt by Himeko • Nova by X, and additionally increases her Ultimate DMG dealt by X. After Himeko • Nova\'s teammates actively use their Ultimate X time(s), Himeko • Nova immediately launches 1 Assist Skill against enemies at no cost.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_151026",
+        name: "Companion Protocol: Decimation",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          'Enters the "Companion Protocol: Decimation" state. Increases all allies\' CRIT DMG by X, and additionally increases the CRIT DMG dealt by Skill by X. For every 1 enemy target hit by allies, gains 1 Charge. When Charge reaches X, consumes all Charge, and Himeko • Nova immediately launches 1 Assist Skill against enemies at no cost. This instance of Assist Skill cannot grant Charge.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "himeko-nova_trace_a2",
+        name: "Whither, the Last and First Men?",
+        ascensionRequirement: "A2",
+        description:
+          "When Himeko • Nova launches Assist Skill, it does not consume Assist Skill uses. At the start of the turn, if the Assist Skill uses have reached the current cap, Himeko • Nova additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_trace_a4",
+        name: "Hark! The Express's Pulse Roars",
+        ascensionRequirement: "A4",
+        description:
+          "When a Trailblaze Companions character other than Himeko • Nova uses Assist Skill, that character immediately gains 1 extra turn in which they can insert the use of their Ultimate. The extra turn gained from Assist Skill will not repeatedly trigger this Trace effect.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "himeko-nova_trace_a6",
+        name: "The Silver Rail, Hushed in Antiquity",
+        ascensionRequirement: "A6",
+        description:
+          'When using Ultimate, immediately gains X "Source Energy." If the current "Source Energy" is X or more, when using the "Orbital Annihilation Pulse" attack, the DMG multiplier of "Orbital Annihilation Pulse" against random single enemies increases by X.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "That Which We Stride Is the Trailblaze",
+        description:
+          'The number of extra Assist Skill uses from Talent additionally increases by 1. While in the "Companion Protocol: Verdict" state, reduces the number of Ultimate uses required to launch Assist Skill by 1. While in the "Companion Protocol: Decimation" state, reduces the Charge required to launch Assist Skill by 3. When Himeko • Nova launches Assist Skill, the number of extra DMG instances increases by 1.',
+        keyMechanic: "That Which We Stride Is the Trailblaze",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "The Colors We Never Strike",
+        description:
+          'The cap of Himeko • Nova\'s Assist Skill uses increases to 2, and the DMG dealt by Ultimate and Assist Skill becomes 130% of their original DMG. During the "Navigator\'s Semaphore" state, at the start of each turn, additionally recovers 1 use of Assist Skill immediately. When a non-Trailblaze Companions character uses Assist Skill, the Trace "Hark! The Express\'s Pulse Roars" now also grants them 1 extra turn.',
+        keyMechanic: "The Colors We Never Strike",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "We Who Are Starborn Muse Starward",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "We Who Are Starborn Muse Starward",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Let No Skyward Hand Stay Unheld",
+        description:
+          'When using Assist Skill via the Talent "Of Fire and Far Faring," the All-Type RES PEN boost now applies to all allies. And when Himeko • Nova gains this effect, her All-Type RES PEN additionally increases by 10%.',
+        keyMechanic: "Let No Skyward Hand Stay Unheld",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "To Cross the Cosmos and Beyond",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "To Cross the Cosmos and Beyond",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Ours Is the Oath to Sail Starward",
+        description:
+          'Himeko • Nova\'s Fire RES PEN increases by 20%. The cap of "Source Energy" increases to 6. When an ally uses or launches Assist Skill, DMG dealt by Assist Skill increases by 75%, and Himeko • Nova gains 1 "Source Energy." When launching "Hyperluminal Particle Beam" during Ultimate, additionally gains 1 "Source Energy". When launching "Orbital Annihilation Pulse," if the current "Source Energy" is 6 or more, additionally deals 1 instance of Fire DMG to all enemies, equal to 160% of Himeko • Nova\'s ATK.',
+        keyMechanic: "Ours Is the Oath to Sail Starward",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1510",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Himeko • Nova via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "hook",
+    gameId: "1109",
+    name: "Hook",
+    localizedNames: {
+      en: "Hook",
+      id: "Hook",
+    },
+    rarity: 4,
+    path: "Destruction",
+    element: "Fire",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1340,
+      atk: 617,
+      def: 352,
+      spd: 94,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "hook_110901",
+        name: "Hehe! Don't Get Burned!",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Hook's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hook_110902",
+        name: "Hey! Remember Hook?",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Deals Fire DMG equal to X of Hook's ATK to one designated enemy. In addition, there is a X base chance to inflict Burn for X turn(s). When afflicted with Burn, enemies will take Fire DoT equal to X of Hook's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hook_110903",
+        name: "Boom! Here Comes the Fire!",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Fire DMG equal to X of Hook's ATK to one designated enemy. After using Ultimate, the next Skill to be used is Enhanced, which deals DMG to one designated enemy and enemies adjacent to it.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hook_110904",
+        name: "Ha! Oil to the Flames!",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When attacking a target afflicted with Burn, deals Fire Additional DMG equal to X of Hook's ATK and regenerates X extra Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hook_110906",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hook_110907",
+        name: "Ack! Look at This Mess!",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. Upon entering battle, Hook deals Fire DMG equal to X of her ATK to a random enemy. In addition, there is a X base chance to inflict Burn on every enemy for X turn(s). When afflicted with Burn, enemies will take Fire DoT equal to X of Hook's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hook_110909",
+        name: "Hey! Remember Hook?",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Fire DMG equal to X of Hook's ATK to one designated enemy, with a X base chance to Burn them for X turn(s). Additionally, deals Fire DMG equal to X of Hook's ATK to enemies adjacent to it. When afflicted with Burn, enemies will take Fire DoT equal to X of Hook's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "hook_trace_a2",
+        name: "Innocence",
+        ascensionRequirement: "A2",
+        description:
+          "Hook restores HP equal to X of her Max HP whenever her Talent is triggered.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hook_trace_a4",
+        name: "Naivete",
+        ascensionRequirement: "A4",
+        description:
+          "Increases the chance to resist Crowd Control debuffs by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hook_trace_a6",
+        name: "Playing With Fire",
+        ascensionRequirement: "A6",
+        description:
+          "After using her Ultimate, Hook has her action advanced by X and additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Early to Bed, Early to Rise",
+        description: "Enhanced Skill deals 20% increased DMG.",
+        keyMechanic: "Early to Bed, Early to Rise",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Happy Tummy, Happy Body",
+        description:
+          "Extends the duration of Burn caused by Skill by 1 turn(s).",
+        keyMechanic: "Happy Tummy, Happy Body",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Don't Be Picky, Nothing's Icky",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Don't Be Picky, Nothing's Icky",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "It's Okay to Not Know",
+        description:
+          "When Talent is triggered, there is a 100% base chance to Burn enemies adjacent to the designated enemy target, equivalent to that of Skill.",
+        keyMechanic: "It's Okay to Not Know",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Let the Moles' Deeds Be Known",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Let the Moles' Deeds Be Known",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Always Ready to Punch and Kick",
+        description: "Hook deals 20% more DMG to enemies afflicted with Burn.",
+        keyMechanic: "Always Ready to Punch and Kick",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1109",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Hook via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "huohuo",
+    gameId: "1217",
+    name: "Huohuo",
+    localizedNames: {
+      en: "Huohuo",
+      id: "Huohuo",
+    },
+    rarity: 5,
+    path: "Abundance",
+    element: "Wind",
+    releaseVersion: "1.5",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1358,
+      atk: 601,
+      def: 509,
+      spd: 98,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "huohuo_121701",
+        name: "Banner: Stormcaller",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Huohuo's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_121702",
+        name: "Talisman: Protection",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Dispels X debuff(s) from one designated ally and immediately restores this ally's HP by an amount equal to #1[f1]% of Huohuo's Max HP plus X. At the same time, restores HP for allies that are adjacent to this target ally by an amount equal to #3[f1]% of Huohuo's Max HP plus X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_121703",
+        name: "Tail: Spiritual Domination",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Regenerates Energy for all teammates (i.e., excluding this unit) by an amount equal to #1[f1]% of their respective Max Energy. At the same time, increases their ATK by #2[f1]% for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_121704",
+        name: "Possession: Ethereal Metaflow",
+        type: "talent",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After using her Skill, Huohuo gains Divine Provision, lasting for X turn(s). This duration decreases by 1 turn at the start of Huohuo's every turn. If Huohuo has Divine Provision when an ally's turn starts or when an ally uses their Ultimate, restores HP for that ally by an amount equal to #3[f1]% of Huohuo's Max HP plus X. At the same time, every ally with X HP percentage or lower receives healing once. When Divine Provision is triggered to heal an ally, dispel X debuff(s) from that ally. This effect can be triggered up to X time(s). Using the skill again resets the effect's trigger count.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_121706",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_121707",
+        name: "Fiend: Impeachment of Evil",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Huohuo terrorizes surrounding enemies, afflicting Horror-Struck on them. Enemies in Horror-Struck will flee away from Huohuo for X second(s). When entering battle with enemies in Horror-Struck, there is a X base chance of reducing every single enemy's ATK by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_1121701",
+        name: "Banner: Stormcaller",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Huohuo's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_1121702",
+        name: "Talisman: Protection",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Dispels X debuff(s) from one designated ally and immediately restores this ally's HP by an amount equal to #1[f1]% of Huohuo's Max HP plus X. At the same time, restores HP for allies that are adjacent to this target ally by an amount equal to #3[f1]% of Huohuo's Max HP plus X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_1121703",
+        name: "Tail: Spiritual Domination",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Regenerates Energy for all teammates (i.e., excluding this unit) by an amount equal to #1[f1]% of their respective Max Energy. At the same time, increases their ATK by #2[f1]% for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_1121704",
+        name: "Possession: Ethereal Metaflow",
+        type: "talent",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'After using her Skill or Ultimate, Huohuo gains "Divine Provision," lasting for X turn(s). This duration decreases by 1 turn at the start of Huohuo\'s every turn. When Huohuo has "Divine Provision" at the start of an ally target\'s turn or when they use their Ultimate, restores HP for that ally target and the ally target with the lowest HP percentage by an amount equal to #3[f1]% of Huohuo\'s Max HP plus X. Then, restores HP for every ally with a current HP percentage at or below X by an amount equal to #3[f1]% of Huohuo\'s Max HP plus X. When "Divine Provision" is triggered to heal an ally target, dispels X debuff(s) from that target. This effect can be triggered X time(s). Gaining "Divine Provision" again resets the effect\'s trigger count.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_1121706",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_1121707",
+        name: "Fiend: Impeachment of Evil",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'Huohuo terrorizes surrounding enemies, inflicting "Horror-Struck" on them. Enemies in "Horror-Struck" will flee away from Huohuo for X second(s). When entering combat with enemies in "Horror-Struck," there is a X base chance of reducing every single enemy\'s ATK by X for X turn(s).',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "huohuo_trace_a2",
+        name: "Fearful to Act",
+        ascensionRequirement: "A2",
+        description:
+          "When combat starts, Huohuo gains Divine Provision, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_trace_a4",
+        name: "The Cursed One",
+        ascensionRequirement: "A4",
+        description:
+          "Increases the chance to resist Crowd Control debuffs by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_trace_a6",
+        name: "Stress Reaction to Horror",
+        ascensionRequirement: "A6",
+        description:
+          "When her Talent is triggered to heal allies, Huohuo regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_trace_a2",
+        name: "Fearful to Act",
+        ascensionRequirement: "A2",
+        description:
+          'When battle starts, Huohuo gains X Energy and "Divine Provision," lasting for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_trace_a4",
+        name: "The Cursed One",
+        ascensionRequirement: "A4",
+        description:
+          "Increases the chance to resist Crowd Control debuffs by X. When using Ultimate, if an ally target's Max Energy is X or higher, additionally increases their ATK by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "huohuo_trace_a6",
+        name: "Stress Reaction to Horror",
+        ascensionRequirement: "A6",
+        description:
+          "When her Talent is triggered to heal ally targets, Huohuo regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Anchored to Vessel, Specters Nestled",
+        description:
+          "The duration of Divine Provision produced by the Talent is extended by 1 turn(s). When Huohuo possesses Divine Provision, all allies' SPD increases by 12%.",
+        keyMechanic: "Anchored to Vessel, Specters Nestled",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Sealed in Tail, Wraith Subdued",
+        description:
+          'If Huohuo possesses "Divine Provision" when an ally target is struck by a killing blow, the ally will not be knocked down and their HP will immediately be restored by an amount equal to 50% of their Max HP. This reduces the duration of "Divine Provision" by 1 turn. This effect can only be triggered 2 time(s) per battle.',
+        keyMechanic: "Sealed in Tail, Wraith Subdued",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Cursed by Fate, Moths to Flame",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Cursed by Fate, Moths to Flame",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Tied in Life, Bound to Strife",
+        description:
+          "When healing a target ally via Skill or Talent, the less HP the target ally currently has, the higher the amount of healing they will receive. The maximum increase in healing provided by Huohuo is 80%.",
+        keyMechanic: "Tied in Life, Bound to Strife",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Mandated by Edict, Evils Evicted",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Mandated by Edict, Evils Evicted",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Woven Together, Cohere Forever",
+        description:
+          "When healing a target ally, increases the target ally's DMG dealt by 50% for 2 turn(s).",
+        keyMechanic: "Woven Together, Cohere Forever",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1217",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Huohuo via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "hyacine",
+    gameId: "1409",
+    name: "Hyacine",
+    localizedNames: {
+      en: "Hyacine",
+      id: "Hyacine",
+    },
+    rarity: 5,
+    path: "Remembrance",
+    element: "Wind",
+    releaseVersion: "3.3",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 388,
+      def: 630,
+      spd: 110,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "hyacine_140901",
+        name: "When Breeze Kisses Cirrus",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Hyacine's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_140902",
+        name: "Love Over the Rainbow",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Summons memosprite Little Ica. Restores HP equal to #1[f1]% of Hyacine's Max HP plus X for all allies (except Little Ica), and restores HP equal to #3[f1]% of Hyacine's Max HP plus X for Little Ica.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_140903",
+        name: "We Who Fly Into Twilight",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          'Summons memosprite Little Ica. Restores HP equal to #1[f1]% of Hyacine\'s Max HP plus X for all allies (except Little Ica), and restores HP equal to #6[f1]% of Hyacine\'s Max HP plus X for Little Ica. Hyacine enters the "After Rain" state, lasting for X turn(s). This duration decreases by 1 at the start of Hyacine\'s every turn. While "After Rain" is active, all ally targets increase their Max HP by #3[f1]% plus X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_140904",
+        name: "First Light Heals the World",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "The memosprite Little Ica initially has Max HP equal to X of Hyacine's Max HP. When Hyacine or Little Ica provides healing, increases Little Ica's DMG dealt by X for X turn(s). Stacks up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_140906",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_140907",
+        name: "Day So Right, Life So Fine!",
+        type: "technique",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When the next battle starts, restores HP by an amount equal to X of Hyacine's Max HP plus X for all allies and increases Max HP by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_1140901",
+        name: "Rainclouds, Time to Go!",
+        type: "memosprite_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "Deals Wind DMG to all enemies by an amount equal to X of the tally of healing done by Hyacine and Little Ica in the current battle, and clears X of this tally of healing.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_1140903",
+        name: "Take Sky in Hand",
+        type: "memosprite_talent",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Little Ica maintains 0 SPD, is immune to debuffs, and will not appear in the Action Order. If the HP of an ally target (except Little Ica) is reduced, then at the start of any target's turn or after any target takes action, Little Ica will consume X of their own Max HP and heal the ally target with reduced HP for an amount equal to #2[f1]% of Hyacine's Max HP plus X. While Hyacine is in the \"After Rain\" state, Little Ica gains 1 extra turn and automatically casts \"Rainclouds, Time to Go!\" immediately after Hyacine uses an ability. Moreover, when Little Ica triggers the Talent's healing effect, additionally restores HP for all ally targets by an amount equal to #4[f1]% of Hyacine's Max HP plus X. After Little Ica uses an ability, the duration of all their Continuous Effects decreases by 1 turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_1140905",
+        name: "Soar, Unto the Sunlight",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When summoned, regenerates X Energy for Hyacine. On the first summon, additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_1140906",
+        name: "Fall, Then Take Wing",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description: "Upon disappearing, advances the action of Hyacine by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "hyacine_trace_a2",
+        name: "Gloomy Grin",
+        ascensionRequirement: "A2",
+        description:
+          "Increases Hyacine's and Little Ica's CRIT Rate by X. When providing healing to an ally target whose current HP is equal to or less than X of their Max HP, increases Hyacine's and Little Ica's Outgoing Healing by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_trace_a4",
+        name: "Stormy Caress",
+        ascensionRequirement: "A4",
+        description:
+          "Increases Hyacine's Effect RES by X. When using Skill and Ultimate, dispels X debuff(s) from all ally targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hyacine_trace_a6",
+        name: "Tempestuous Halt",
+        ascensionRequirement: "A6",
+        description:
+          "When Hyacine's SPD exceeds X, increases her and Little Ica's Max HP by X. Then, for every X excess SPD, increases Hyacine's and Little Ica's Outgoing Healing by X. Up to a max of X excess SPD can be taken into account for this effect.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Cradle the Candle of Night",
+        description:
+          'While Hyacine is in the "After Rain" state, all ally targets additionally increase their Max HP by 50%, and after using an attack, immediately restore their HP by an amount equal to 8% of Hyacine\'s Max HP.',
+        keyMechanic: "Cradle the Candle of Night",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Come Sit in My Courtyard",
+        description:
+          "When an ally target's HP decreases, SPD increases by 30%, lasting for 2 turn(s).",
+        keyMechanic: "Come Sit in My Courtyard",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Depart, Unto the Sun!",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Memosprite Skill Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Depart, Unto the Sun!",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Sunlit Amber, Yours to Keep",
+        description:
+          "The \"Tempestuous Halt\" Trace gets enhanced: For every 1 excess SPD, additionally increases Hyacine's and Little Ica's CRIT DMG by 2%.",
+        keyMechanic: "Sunlit Amber, Yours to Keep",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Twilight Drapes the Tide",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Memosprite Talent Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Twilight Drapes the Tide",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "O Sky, Heed My Plea",
+        description:
+          "When Little Ica uses Memosprite Skill, the amount cleared from the tally of healing is changed to 12%. While Little Ica is on the field, all ally targets' All-Type RES PEN increases by 20%.",
+        keyMechanic: "O Sky, Heed My Plea",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1409",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Hyacine via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "hysilens",
+    gameId: "1410",
+    name: "Hysilens",
+    localizedNames: {
+      en: "Hysilens",
+      id: "Hysilens",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Physical",
+    releaseVersion: "3.5",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1203,
+      atk: 601,
+      def: 485,
+      spd: 102,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "hysilens_141001",
+        name: "Aeolian Mode: Echoes in Still Waters",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Hysilens's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hysilens_141002",
+        name: "Overtone Hum: Chorus After Dark Tides",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Has a X base chance to increase the DMG taken by all enemies by X, lasting for X turn(s). At the same time, deals Physical DMG equal to X of Hysilens's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hysilens_141003",
+        name: "Maelstrom Rhapsody",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          "Hysilens deploys a Zone that reduces enemy targets' ATK by #6[f1]% and DEF by #3[f1]%, and deals Physical DMG equal to X of Hysilens's ATK to all enemies. For every 1 instance of DoT taken by an enemy target within the Zone, Hysilens deals Physical DoT equal to #4[f1]% of her ATK to them. This damage triggers at the start of each turn or after one attack by an ally target, up to X time(s). And it cannot repeatedly trigger this effect. The Zone lasts for X turn(s) and this duration decreases by 1 at the start of this unit's every turn. When Hysilens gets knocked down, the Zone will also be dispelled.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hysilens_141004",
+        name: "Sirenic Serenade",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "When an ally target attacks, there is a X base chance for Hysilens to inflict the hit enemy target with one of the following states: Wind Shear, Bleed, Burn, or Shock. Priority is given to inflicting a different state. While in the Wind Shear/Burn/Shock state, at the start of each turn, the enemy target takes Wind/Fire/Lightning DoT equal to #2[f1]% of Hysilens's ATK for X turn(s). While in the Bleed state, at the start of each turn, the enemy target takes Physical DoT equal to #3[f1]% of their Max HP, up to #4[f1]% of Hysilens's ATK, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hysilens_141006",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hysilens_141007",
+        name: "At Ocean's Abode",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, creates a Special Dimension that lasts for X seconds and automatically moves forward. Enemies within the Special Dimension enter the "Soulstruck" state. "Soulstruck" enemies will not attack ally targets and will follow the dimension while it persists. After entering combat with "Soulstruck" enemies, there is a X base chance to inflict each enemy target with X of the following states: Wind Shear/Bleed/Burn/Shock, all of which are equivalent to those provided by Hysilens\'s Talent effect. Only 1 Dimension Effect created by allies can exist at the same time.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "hysilens_trace_a2",
+        name: "The Gladius of Conquest",
+        ascensionRequirement: "A2",
+        description:
+          "At the start of combat, Hysilens deploys a Zone, equivalent to that provided by her Ultimate, lasting for X turn(s). Whenever Hysilens deploys a Zone, she recovers X Skill Point(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hysilens_trace_a4",
+        name: "The Bubble of Banquets",
+        ascensionRequirement: "A4",
+        description:
+          "When Hysilens uses Ultimate, if the enemy target is currently afflicted with DoT(s), all DoTs currently applied on the target will immediately produce DMG equal to X of their original DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "hysilens_trace_a6",
+        name: "The Fiddle of Pearls",
+        ascensionRequirement: "A6",
+        description:
+          "For every X of Hysilens's Effect Hit Rate that exceeds X, increases her DMG dealt by X, up to a max increase of X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "You Ask Why Hearts Cry",
+        description:
+          "While Hysilens is on the field, the DoT dealt by ally targets is equal to 116% of their original value. When Hysilens inflicts Wind Shear/Bleed/Burn/Shock on enemies via her Talent, there is a 100% base chance to additionally inflict the target with 1 instance of Wind Shear/Bleed/Burn/Shock state that is equivalent to those from the original Talent effect and can coexist with such pre-existing states.",
+        keyMechanic: "You Ask Why Hearts Cry",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Tell Me Why Waves Roar High",
+        description:
+          'While the Zone is active, the DMG Boost effect from Trace "The Fiddle of Pearls" applies to all allies.',
+        keyMechanic: "Tell Me Why Waves Roar High",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Why Do Lights Bid Goodbye",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Why Do Lights Bid Goodbye",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Lo, How Time Flows By",
+        description:
+          "While the Zone is active, reduces All-Type RES of all enemies by 20%.",
+        keyMechanic: "Lo, How Time Flows By",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "In Ablution, I Hum and Sigh",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "In Ablution, I Hum and Sigh",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "When to Return From Where You Lie",
+        description:
+          "While the Zone is active, at the start of each turn or after one attack by an ally target, increases the maximum trigger count for Hysilens's Physical DoT effect to 12, and increases the multiplier of the DMG dealt by 20%.",
+        keyMechanic: "When to Return From Where You Lie",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1410",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Hysilens via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "jade",
+    gameId: "1314",
+    name: "Jade",
+    localizedNames: {
+      en: "Jade",
+      id: "Jade",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Quantum",
+    releaseVersion: "2.3",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 659,
+      def: 509,
+      spd: 103,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "jade_131401",
+        name: "Lash of Riches",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Jade's ATK to one designated enemy target, and Quantum DMG equal to X of Jade's ATK to adjacent enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jade_131402",
+        name: "Acquisition Surety",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Makes a single target ally become the Debt Collector and increases their SPD by X, lasting for X turn(s). After the Debt Collector attacks, deals 1 instance of Quantum Additional DMG equal to X of Jade's ATK to each enemy target hit, and consumes the Debt Collector's HP by an amount equal to X of their Max HP. If the current HP is insufficient, reduces HP to 1. If Jade becomes the Debt Collector, she cannot gain the SPD boost effect, and her attacks do not consume HP. When the Debt Collector exists on the field, Jade cannot use her Skill. At the start of Jade's every turn, the Debt Collector's duration decreases by 1 turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jade_131403",
+        name: "Vow of the Deep",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Deals Quantum DMG equal to X of Jade's ATK to all enemies. At the same time, Jade enhances her Talent's Follow-Up ATK, increasing its DMG multiplier by X. This enhancement can take effect X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jade_131404",
+        name: "Fang of Flare Flaying",
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          'After Jade or the "Debt Collector" unit attacks, gains 1 point of Charge for each enemy target hit. Upon reaching X points of Charge, consumes the X points to launch 1 instance of Follow-Up ATK, dealing Quantum DMG equal to X of Jade\'s ATK to all enemies. This Follow-Up ATK does not generate Charge. When launching her Talent\'s Follow-Up ATK, Jade immediately gains X stack(s) of "Pawned Asset," with each stack increasing CRIT DMG by #1[f1]%, stacking up to X times.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jade_131406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jade_131407",
+        name: "Visionary Predation",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using the Technique, inflicts enemies within a set area with Blind Fealty for X second(s). Enemies inflicted with Blind Fealty will not initiate attacks on allies. When entering battle via actively attacking enemies inflicted with Blind Fealty, all enemies with Blind Fealty will enter combat simultaneously. After entering battle, deals Quantum DMG equal to X of Jade's ATK to all enemies, and immediately gains X stack(s) of Pawned Asset.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "jade_trace_a2",
+        name: "Reverse Repo",
+        ascensionRequirement: "A2",
+        description:
+          "When an enemy target enters combat, Jade gains X stack(s) of Pawned Asset. When the Debt Collector character's turn starts, additionally gains X stack(s) of Pawned Asset.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jade_trace_a4",
+        name: "Collateral Ticket",
+        ascensionRequirement: "A4",
+        description: "When the battle starts, action advances Jade by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jade_trace_a6",
+        name: "Asset Forfeiture",
+        ascensionRequirement: "A6",
+        description:
+          "Each Pawned Asset stack from the Talent additionally increases Jade's ATK by #1[f1]%.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Altruism? Nevertheless Tradable",
+        description:
+          'The Follow-Up ATK DMG from Jade\'s Talent increases by 32%. After the "Debt Collector" character attacks and the number of the enemy target(s) hit is either 2 or 1, Jade additionally gains 1 or 2 point(s) of Charge respectively.',
+        keyMechanic: "Altruism? Nevertheless Tradable",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Morality? Herein Authenticated",
+        description:
+          "When there are 15 stacks of Pawned Asset, Jade's CRIT Rate increases by 18%.",
+        keyMechanic: "Morality? Herein Authenticated",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Honesty? Soon Mortgaged",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Honesty? Soon Mortgaged",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Sincerity? Put Option Only",
+        description:
+          "When using Ultimate, enables the DMG dealt by Jade to ignore 12% of enemy targets' DEF, lasting for 3 turn(s).",
+        keyMechanic: "Sincerity? Put Option Only",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Hope? Hitherto Forfeited",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Hope? Hitherto Forfeited",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Equity? Pending Sponsorship",
+        description:
+          'While the "Debt Collector" character exists on the field, Jade\'s Quantum RES PEN increases by 20%, and Jade gains the "Debt Collector" state.',
+        keyMechanic: "Equity? Pending Sponsorship",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1314",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Jade via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "jiaoqiu",
+    gameId: "1218",
+    name: "Jiaoqiu",
+    localizedNames: {
+      en: "Jiaoqiu",
+      id: "Jiaoqiu",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Fire",
+    releaseVersion: "2.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1358,
+      atk: 601,
+      def: 509,
+      spd: 98,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 100,
+    },
+    abilities: [
+      {
+        id: "jiaoqiu_121801",
+        name: "Heart Afire",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Jiaoqiu's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jiaoqiu_121802",
+        name: "Scorch Onslaught",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Fire DMG equal to X of Jiaoqiu's ATK to one designated enemy target and Fire DMG equal to X of Jiaoqiu's ATK to adjacent targets, with a X base chance to inflict 1 stack of \"Ashen Roast\" on the primary target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jiaoqiu_121803",
+        name: "Pyrograph Arcanum",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 100,
+        description:
+          'Sets the number of "Ashen Roast" stacks on enemy targets to the highest number of "Ashen Roast" stacks present on the battlefield. Then, activates a Zone and deals Fire DMG equal to X of Jiaoqiu\'s ATK to all enemies. While inside the Zone, enemy targets receive #3[f1]% increased Ultimate DMG, with a X base chance of being inflicted with 1 stack of Ashen Roast when taking action. While the Zone exists, this effect can trigger up to X time(s). And for each enemy target, it can only trigger once per turn. This trigger count resets every time Jiaoqiu uses Ultimate. The Zone lasts for X turn(s), and its duration decreases by 1 at the start of this unit\'s every turn. If Jiaoqiu gets knocked down, the Zone will also be dispelled.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jiaoqiu_121804",
+        name: "Quartet Finesse, Octave Finery",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "When Jiaoqiu hits an enemy with Basic ATK, Skill or Ultimate, there is a X base chance to inflict 1 stack of Ashen Roast on them. At 1 stack, increases DMG received by the enemy by #2[f1]%. Then, each subsequent stack increases this by #3[f1]%. Ashen Roast is capped at X stack(s) and lasts for X turn(s). When an enemy target is afflicted with Ashen Roast, they are also considered as being Burned at the same time, taking Fire DoT equal to X of Jiaoqiu's ATK at the start of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jiaoqiu_121806",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jiaoqiu_121807",
+        name: "Fiery Queller",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, creates a Special Dimension that lasts for X second(s). After entering combat with enemies in this Special Dimension, deals Fire DMG equal to X of Jiaoqiu\'s ATK to all enemies, with a X base chance of applying 1 "Ashen Roast" stack. Only 1 dimension created by allies can exist at the same time.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "jiaoqiu_trace_a2",
+        name: "Pyre Cleanse",
+        ascensionRequirement: "A2",
+        description: "When battle starts, immediately regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jiaoqiu_trace_a4",
+        name: "Hearth Kindle",
+        ascensionRequirement: "A4",
+        description:
+          "For every X of Jiaoqiu's Effect Hit Rate that exceeds X, additionally increases ATK by X, up to X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jiaoqiu_trace_a6",
+        name: "Seared Scent",
+        ascensionRequirement: "A6",
+        description:
+          'While the Zone exists, enemies entering combat will be inflicted with Ashen Roast. The number of stacks applied will match the highest number of "Ashen Roast" stacks possessed by any unit while the Zone is active, with a minimum of X stack(s).',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Pentapathic Transference",
+        description:
+          'Allies deal 40% increased DMG to enemy targets afflicted with Ashen Roast. Whenever inflicting Ashen Roast on an enemy target via triggering the Talent\'s effect, additionally increases the number of "Ashen Roast" stacks applied this time by 1.',
+        keyMechanic: "Pentapathic Transference",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "From Savor Comes Suffer",
+        description:
+          "When an enemy target is afflicted with Ashen Roast, increases the multiplier for the Fire DoT dealt by Ashen Roast to this target by 300%.",
+        keyMechanic: "From Savor Comes Suffer",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Flavored Euphony Reigns Supreme",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Flavored Euphony Reigns Supreme",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Leisure In, Luster Out",
+        description: "When the Zone exists, reduces enemy target's ATK by 15%.",
+        keyMechanic: "Leisure In, Luster Out",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Duel in Dawn, Dash in Dusk",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Duel in Dawn, Dash in Dusk",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Nonamorphic Pyrobind",
+        description:
+          'When an enemy target gets defeated, their accumulated "Ashen Roast" stacks will transfer to the enemy with the lowest number of "Ashen Roast" stacks on the battlefield. The maximum stack limit of Ashen Roast increases to 9, and each "Ashen Roast" stack reduces the target\'s All-Type RES by 3%.',
+        keyMechanic: "Nonamorphic Pyrobind",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1218",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Jiaoqiu via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "jing-yuan",
+    gameId: "1204",
+    name: "Jing Yuan",
+    localizedNames: {
+      en: "Jing Yuan",
+      id: "Jing Yuan",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Lightning",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1164,
+      atk: 698,
+      def: 485,
+      spd: 99,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "jing-yuan_120401",
+        name: "Glistening Light",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Jing Yuan deals Lightning DMG equal to X of his ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jing-yuan_120402",
+        name: "Rifting Zenith",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Deals Lightning DMG equal to X of Jing Yuan's ATK to all enemies and increases Lightning-Lord's Hits Per Action by X for the next turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jing-yuan_120403",
+        name: "Lightbringer",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "Deals Lightning DMG equal to X of Jing Yuan's ATK to all enemies and increases Lightning-Lord's Hits Per Action by X for the next turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jing-yuan_120404",
+        name: "Prana Extirpated",
+        type: "talent",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 0,
+        description:
+          'Summons "Lightning-Lord" at the start of the battle. "Lightning-Lord" has X base SPD and X base Hits Per Action. When the Lightning-Lord takes action, its hits are considered as Follow-Up ATKs, with each hit dealing Lightning DMG equal to X of Jing Yuan\'s ATK to a random single enemy, and enemies adjacent to it also receive Lightning DMG equal to X of the DMG dealt to the primary target enemy. The Lightning-Lord\'s Hits Per Action can reach a max of X. Every time "Lightning-Lord\'s" Hits Per Action increases by 1, its SPD increases by X. After the "Lightning-Lord\'s" action ends, its SPD and Hits Per Action return to their base values. When Jing Yuan is knocked down, the "Lightning-Lord" will disappear. When Jing Yuan is affected by Crowd Control debuff, the "Lightning-Lord" is unable to take action.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jing-yuan_120406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jing-yuan_120407",
+        name: "Spiritus Invocation",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After the Technique is used, the Lightning-Lord's Hits Per Action in the first turn increases by X at the start of the next battle.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "jing-yuan_trace_a2",
+        name: "Battalia Crush",
+        ascensionRequirement: "A2",
+        description:
+          "If the Lightning-Lord's Hits Per Action is greater or equal to X in the next turn, its CRIT DMG increases by X for the next turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jing-yuan_trace_a4",
+        name: "Savant Providence",
+        ascensionRequirement: "A4",
+        description:
+          "At the start of the battle, immediately regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jing-yuan_trace_a6",
+        name: "War Marshal",
+        ascensionRequirement: "A6",
+        description:
+          "After the Skill is used, the CRIT Rate increases by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Slash, Seas Split",
+        description:
+          "When Lightning-Lord attacks, the DMG multiplier on enemies adjacent to the target enemy increases by an extra amount equal to 25% of the DMG multiplier against the primary target enemy.",
+        keyMechanic: "Slash, Seas Split",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Swing, Skies Squashed",
+        description:
+          "After Lightning-Lord takes action, DMG dealt by Jing Yuan's Basic ATK, Skill, and Ultimate increases by 20%, lasting for 2 turn(s).",
+        keyMechanic: "Swing, Skies Squashed",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Strike, Suns Subdued",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Strike, Suns Subdued",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Spin, Stars Sieged",
+        description:
+          "For each hit performed by the Lightning-Lord when it takes action, Jing Yuan regenerates 2 Energy.",
+        keyMechanic: "Spin, Stars Sieged",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Stride, Spoils Seized",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Stride, Spoils Seized",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Sweep, Souls Slain",
+        description:
+          "Each hit performed by the Lightning-Lord when it takes action will make the target enemy Vulnerable. While Vulnerable, enemies receive 12% more DMG until the end of the Lightning-Lord's current turn, stacking up to 3 time(s).",
+        keyMechanic: "Sweep, Souls Slain",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1204",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Jing Yuan via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "jingliu",
+    gameId: "1212",
+    name: "Jingliu",
+    localizedNames: {
+      en: "Jingliu",
+      id: "Jingliu",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Ice",
+    releaseVersion: "1.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1435,
+      atk: 679,
+      def: 485,
+      spd: 96,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "jingliu_121201",
+        name: "Lucent Moonglow",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Jingliu's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_121202",
+        name: "Transcendent Flash",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Deals Ice DMG equal to X of Jingliu\'s ATK to one designated enemy and obtains X stack(s) of "Syzygy."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_121203",
+        name: "Florephemeral Dreamflux",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Deals Ice DMG equal to X of Jingliu's ATK to one designated enemy, and deals Ice DMG equal to X of Jingliu's ATK to any adjacent enemies. Gains X stack(s) of \"Syzygy\" after attack ends.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_121204",
+        name: "Crescent Transmigration",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When Jingliu has X stack(s) of Syzygy, she enters the Spectral Transmigration state with her action advanced by X and her CRIT Rate increased by X. Then, Jingliu\'s Skill "Transcendent Flash" is enhanced to "Moon On Glacial River," and only this enhanced Skill is available for use in battle. When Jingliu uses an attack in the Spectral Transmigration state, she consumes HP from her teammates equal to X of their respective Max HP (this cannot reduce teammates\' HP to lower than 1). Jingliu\'s ATK increases by X of the total HP consumed from all allies in this attack, capped at X of her base ATK, lasting until the current attack ends. Jingliu cannot enter the Spectral Transmigration state again until the current Spectral Transmigration state ends. Syzygy can stack up to 3 times. When Syzygy stacks become 0, Jingliu will exit the Spectral Transmigration state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_121206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_121207",
+        name: "Shine of Truth",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using this Technique, creates a Special Dimension around Jingliu that lasts for X seconds, and all enemies in this Special Dimension will become Frozen. After entering combat with enemies in the Special Dimension, Jingliu immediately regenerates X Energy and obtains X stack(s) of Syzygy, with a X base chance of Freezing enemy targets for X turn(s). While Frozen, enemy targets cannot take action, and receive Ice Additional DMG equal to X of Jingliu's ATK at the start of every turn. Only 1 Dimension Effect created by allies can exist at the same time.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_121209",
+        name: "Moon On Glacial River",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Ice DMG equal to X of Jingliu's ATK to one designated enemy, and deals Ice DMG equal to X of Jingliu's ATK to adjacent enemies. Consumes X stack(s) of \"Syzygy.\" Using this ability does not consume Skill Points.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_1121201",
+        name: "Lucent Moonglow",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Jingliu's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_1121202",
+        name: "Transcendent Flash",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Deals Ice DMG equal to X of Jingliu\'s Max HP to one designated enemy and gains X stack(s) of "Syzygy."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_1121203",
+        name: "Florephemeral Dreamflux",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Deals Ice DMG equal to X of Jingliu's Max HP to one designated enemy, and deals Ice DMG equal to X of Jingliu's Max HP to adjacent targets. Gains X stack(s) of \"Syzygy\" after the attack ends.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_1121204",
+        name: "Crescent Transmigration",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When Jingliu has X stacks of "Syzygy," she enters the "Spectral Transmigration" state with 1 extra stack of "Syzygy" gained, her action advanced by X, and her CRIT Rate increased by X. Then, Jingliu\'s Skill "Transcendent Flash" is enhanced to "Moon On Glacial River," and only this enhanced Skill is available for use in battle. When Jingliu uses an attack in the Spectral Transmigration state, she consumes HP from her teammates equal to X of their respective Max HP (this cannot reduce teammates\' HP to lower than 1). During the "Spectral Transmigration" state, when ally targets receive DMG or consume HP, Jingliu gains 1 stack of "Moonlight." Each "Moonlight" stack increases Jingliu\'s CRIT DMG by X, stacking up to X time(s). Jingliu cannot enter the "Spectral Transmigration" state again until the current "Spectral Transmigration" state ends. "Syzygy" can stack up to 4 times. When "Syzygy" stacks become 0, Jingliu will exit the "Spectral Transmigration" state and remove all "Moonlight." After ally targets receive DMG or consume HP for a total of X times, Jingliu gains 1 stack of "Syzygy." Each attack received by each target is only counted once.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_1121206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_1121207",
+        name: "Shine of Truth",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, creates a Special Dimension around this unit that lasts for X seconds. All enemies in this Special Dimension will become Frozen. After entering combat with enemies in the Special Dimension, Jingliu immediately regenerates X Energy and obtains X stack(s) of "Syzygy," with a X base chance of Freezing enemy targets for X turn(s). While Frozen, enemy targets cannot take action, and take Ice Additional DMG equal to X of Jingliu\'s Max HP at the start of every turn. Only 1 Dimension Effect created by allies can exist at the same time.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_1121209",
+        name: "Moon On Glacial River",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Ice DMG equal to X of Jingliu's Max HP to one designated enemy, and deals Ice DMG equal to X of Jingliu's Max HP to adjacent targets. Consumes X stack(s) of \"Syzygy.\" Using this ability does not consume Skill Points.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "jingliu_trace_a2",
+        name: "Deathrealm",
+        ascensionRequirement: "A2",
+        description:
+          "While in the Spectral Transmigration state, increases Effect RES by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_trace_a4",
+        name: "Sword Champion",
+        ascensionRequirement: "A4",
+        description:
+          'After using "Transcendent Flash," the next action advances by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_trace_a6",
+        name: "Frost Wraith",
+        ascensionRequirement: "A6",
+        description:
+          "While in the Spectral Transmigration state, increases DMG dealt by Ultimate by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_trace_a2",
+        name: "Deathrealm",
+        ascensionRequirement: "A2",
+        description:
+          'While in the "Spectral Transmigration" state, increases Effect RES by X, and increases the Ultimate DMG dealt by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_trace_a4",
+        name: "Sword Champion",
+        ascensionRequirement: "A4",
+        description:
+          'After using "Transcendent Flash," additionally regenerates X Energy. And after using "Moon On Glacial River," additionally regenerates X Energy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "jingliu_trace_a6",
+        name: "Frost Wraith",
+        ascensionRequirement: "A6",
+        description:
+          "Upon obtaining \"Syzygy,\" if its stack limit has been reached, Jingliu's next attack ignores X of the target's DEF.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Moon Crashes Tianguan Gate",
+        description:
+          "When using her Ultimate or Enhanced Skill, Jingliu's CRIT DMG increases by 24% for 1 turn(s). If only one enemy target is attacked, the target will additionally be dealt Ice DMG equal to 100% of Jingliu's ATK.",
+        keyMechanic: "Moon Crashes Tianguan Gate",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Crescent Shadows Qixing Dipper",
+        description:
+          "After using Ultimate, increases the DMG of the next Enhanced Skill by 80%.",
+        keyMechanic: "Crescent Shadows Qixing Dipper",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Halfmoon Gapes Mercurial Haze",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Halfmoon Gapes Mercurial Haze",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Lunarlance Shines Skyward Dome",
+        description:
+          "During the Spectral Transmigration state, the ATK gained from consuming teammates' HP is additionally increased by 90% of the total HP consumed from the entire team. The cap for ATK gained this way also increases by 30%.",
+        keyMechanic: "Lunarlance Shines Skyward Dome",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Night Shades Astral Radiance",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Night Shades Astral Radiance",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Eclipse Hollows Corporeal Husk",
+        description:
+          "When Jingliu enters the Spectral Transmigration state, the Syzygy stack limit increases by 1, and Jingliu obtains 1 stack(s) of Syzygy. While she is in the Spectral Transmigration state, her CRIT DMG increases by 50%.",
+        keyMechanic: "Eclipse Hollows Corporeal Husk",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1212",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Jingliu via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "kafka",
+    gameId: "1005",
+    name: "Kafka",
+    localizedNames: {
+      en: "Kafka",
+      id: "Kafka",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Lightning",
+    releaseVersion: "1.2",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 679,
+      def: 485,
+      spd: 100,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "kafka_100501",
+        name: "Midnight Tumult",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Kafka's ATK to a one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_100502",
+        name: "Caressing Moonlight",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Lightning DMG equal to X of Kafka's ATK to a target enemy and Lightning DMG equal to X of Kafka's ATK to enemies adjacent to it. If the target enemy is currently receiving DoT, all DoTs currently placed on that enemy immediately produce DMG equal to X of their original DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_100503",
+        name: "Twilight Trill",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Lightning DMG equal to X of Kafka's ATK to all enemies, with a X base chance for enemies hit to become Shocked and immediately take DMG from their current Shock state, equal to X of its original DMG. Shock lasts for X turn(s). While Shocked, enemies receive Lightning DoT equal to X of Kafka's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_100504",
+        name: "Gentle but Cruel",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "After Kafka's teammate uses Basic ATK on an enemy target, Kafka immediately launches Follow-Up ATK and deals Lightning DMG equal to X of her ATK to that target, with a X base chance to inflict Shock equivalent to that applied by her Ultimate to the attacked enemy target, lasting for X turns. This effect can only be triggered 1 time per turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_100506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_100507",
+        name: "Mercy Is Not Forgiveness",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks all enemies within a set range. After entering battle, deals Lightning DMG equal to X of Kafka's ATK to all enemies, with a X base chance to inflict Shock equivalent to that applied by her Ultimate on every enemy target for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_1100501",
+        name: "Midnight Tumult",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Kafka's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_1100502",
+        name: "Caressing Moonlight",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Lightning DMG equal to X of Kafka's ATK to one designated enemy and Lightning DMG equal to X of Kafka's ATK to adjacent targets. If the designated enemy or the adjacent targets are currently afflicted with DoT, all DoTs currently placed on those enemies immediately produces DMG equal to X or X of the original DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_1100503",
+        name: "Twilight Trill",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Lightning DMG equal to X of Kafka's ATK to all enemies, with a X base chance for enemy targets hit to become Shocked and immediately take DMG from their current DoT debuff(s), equal to X of the original DMG. Shock lasts for X turn(s). While Shocked, enemy targets receive Lightning DoT equal to X of Kafka's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_1100504",
+        name: "Gentle but Cruel",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "After Kafka's teammate uses an attack on an enemy target, Kafka immediately launches Follow-Up ATK and deals Lightning DMG equal to X of Kafka's ATK to the primary target, with a X base chance to inflict Shock (equivalent to that applied by her Ultimate) on the attacked enemy target for X turns. This effect can trigger up to X time(s), X of which can be regained at the end of Kafka's turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_1100506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_1100507",
+        name: "Mercy Is Not Forgiveness",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks all enemies within a set range. After entering combat, deals Lightning DMG equal to X of Kafka's ATK to all enemies, with a X base chance to inflict Shock (equivalent to that applied by her Ultimate) on every enemy target for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "kafka_trace_a2",
+        name: "Torture",
+        ascensionRequirement: "A2",
+        description:
+          "When the Ultimate is used, enemy targets will now receive DMG immediately from all currently applied DoT sources instead of just receiving DMG immediately from the currently applied Shock state.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_trace_a4",
+        name: "Plunder",
+        ascensionRequirement: "A4",
+        description:
+          "If an enemy is defeated while Shocked, Kafka additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_trace_a6",
+        name: "Thorns",
+        ascensionRequirement: "A6",
+        description:
+          "The base chance for target enemies to be Shocked by the Ultimate, the Technique, and the Talent-triggered Follow-Up ATK increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_trace_a2",
+        name: "Torture",
+        ascensionRequirement: "A2",
+        description:
+          "When an ally target's Effect Hit Rate is X or higher, Kafka increases that target's ATK by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_trace_a4",
+        name: "Plunder",
+        ascensionRequirement: "A4",
+        description:
+          "If an enemy target is defeated while Shocked, Kafka additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "kafka_trace_a6",
+        name: "Thorns",
+        ascensionRequirement: "A6",
+        description:
+          "After using Ultimate, restores the triggerable count of Talent's Follow-Up ATK by 1. And the Talent's Follow-Up ATK can cause all DoTs debuffs currently on the target to immediately produce DMG equal to X of the original DMG.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Da Capo",
+        description:
+          "When the Talent triggers a Follow-Up ATK, there is a 100% base chance to increase the DoT received by the target by 30% for 2 turn(s).",
+        keyMechanic: "Da Capo",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Fortississimo",
+        description:
+          "While Kafka is on the field, DoT dealt by all allies increases by 25%.",
+        keyMechanic: "Fortississimo",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Capriccio",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Capriccio",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Recitativo",
+        description:
+          "When an enemy target takes DMG from the Shock status inflicted by Kafka, Kafka additionally regenerates 2 Energy.",
+        keyMechanic: "Recitativo",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Doloroso",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Doloroso",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Leggiero",
+        description:
+          "The Shock state inflicted on the enemy target by the Ultimate, Technique, or the Talent-triggered Follow-Up ATK has a DMG multiplier increase of 156% and lasts 1 turn(s) longer.",
+        keyMechanic: "Leggiero",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1005",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Kafka via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "lingsha",
+    gameId: "1222",
+    name: "Lingsha",
+    localizedNames: {
+      en: "Lingsha",
+      id: "Lingsha",
+    },
+    rarity: 5,
+    path: "Abundance",
+    element: "Fire",
+    releaseVersion: "2.5",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1358,
+      atk: 679,
+      def: 436,
+      spd: 98,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "lingsha_122201",
+        name: "Votive Incense",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Lingsha's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lingsha_122202",
+        name: "Smoke and Splendor",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Deals Fire DMG equal to X of Lingsha's ATK to all enemies and at the same time, restores HP equal to #2[f1]% of Lingsha's ATK plus X for all allies. Fuyuan's action advances by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lingsha_122203",
+        name: "Dripping Mistscape",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          'Inflicts "Befog" on all enemies. While in "Befog," targets receive X increased Break DMG, lasting for X turn(s). Deals Fire DMG equal to X of Lingsha\'s ATK to all enemies, and at the same time restores HP equal to #2[f1]% of Lingsha\'s ATK plus X for all allies. Fuyuan\'s action advances by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lingsha_122204",
+        name: "Mistdance Manifest",
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          'When using Skill, summons "Fuyuan," with an initial SPD of X and an initial action count of X. When taking action, "Fuyuan" launches Follow-Up ATK, dealing Fire DMG equal to X of Lingsha\'s ATK to all enemies. Additionally deals Fire DMG equal to X of Lingsha\'s ATK to one random enemy, and this DMG prioritizes targets that have both Toughness greater than 0 and Fire Weakness. Dispels X debuff(s) from all allies and restores HP equal to #3[f1]% of Lingsha\'s ATK plus X. "Fuyuan\'s" action count can accumulate up to X. When the action count reaches 0 or when Lingsha is knocked down, "Fuyuan" disappears. While "Fuyuan" is on the field, using Skill can increase "Fuyuan\'s" action count by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lingsha_122206",
+        name: "Attack",
+        type: "technique",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lingsha_122207",
+        name: "Wisps of Aurora",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, immediately summons Fuyuan at the start of the next battle and inflicts "Befog" on all enemies, lasting for X turn(s).',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "lingsha_trace_a2",
+        name: "Vermilion Waft",
+        ascensionRequirement: "A2",
+        description:
+          "Increases this unit's ATK or Outgoing Healing by an amount equal to X/X of Break Effect, up to a maximum increase of X/X respectively.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lingsha_trace_a4",
+        name: "Sylvan Smoke",
+        ascensionRequirement: "A4",
+        description: "When using Basic ATK, additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lingsha_trace_a6",
+        name: "Ember's Echo",
+        ascensionRequirement: "A6",
+        description:
+          'While "Fuyuan" is on the field and any ally character takes DMG or consumes HP, if a character in the team has their current HP percentage lower than or equal to X, "Fuyuan" will immediately launch the Talent\'s Follow-Up ATK against enemies. This does not consume Fuyuan\'s action count. This effect can trigger again after X turn(s).',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Bloom on Vileward Bouquet",
+        description:
+          "Lingsha's Weakness Break Efficiency increases by 50%. When an enemy unit's Weakness is Broken, reduces their DEF by 20%.",
+        keyMechanic: "Bloom on Vileward Bouquet",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Leisure in Carmine Smokeveil",
+        description:
+          "When using Ultimate, increases all allies' Break Effect by 40%, lasting for 3 turn(s).",
+        keyMechanic: "Leisure in Carmine Smokeveil",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Shine of Floral Wick",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Shine of Floral Wick",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Redolence from Canopied Banquet",
+        description:
+          "When Fuyuan takes action, restores HP equal to 40% of Lingsha's ATK for the ally target whose current HP is the lowest.",
+        keyMechanic: "Redolence from Canopied Banquet",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Poise Atop Twists and Turns",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Poise Atop Twists and Turns",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Arcadia Under Deep Seclusion",
+        description:
+          'While "Fuyuan" is on the field, reduces all enemies\' All-Type RES by 20%. When "Fuyuan" attacks, additionally deals 4 instance(s) of DMG, with each instance dealing Fire DMG equal to 50% of Lingsha\'s ATK and 5 Toughness Reduction to one random enemy. This prioritizes targets with both Toughness greater than 0 and Fire Weakness.',
+        keyMechanic: "Arcadia Under Deep Seclusion",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1222",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Lingsha via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "luka",
+    gameId: "1111",
+    name: "Luka",
+    localizedNames: {
+      en: "Luka",
+      id: "Luka",
+    },
+    rarity: 4,
+    path: "Nihility",
+    element: "Physical",
+    releaseVersion: "1.2",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 917,
+      atk: 582,
+      def: 485,
+      spd: 103,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "luka_111101",
+        name: "Direct Punch",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Luka's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luka_111102",
+        name: "Lacerating Fist",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Deals Physical DMG equal to X of Luka's ATK to one designated enemy target. In addition, there is a X base chance to inflict Bleed on them, lasting for X turn(s). While Bleeding, the enemy will take #3[f1]% of their Max HP as Physical DoT at the start of each turn. This DMG will not exceed more than X of Luka's ATK.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luka_111103",
+        name: "Coup de Grâce",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "Receives X stack(s) of \"Fighting Will,\" with a X base chance to increase one designated enemy target's DMG received by #3[f1]% for X turn(s). Then, deals Physical DMG equal to X of Luka's ATK to the target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luka_111104",
+        name: "Flying Sparks",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'After Luka uses his Basic ATK "Direct Punch" or Skill "Lacerating Fist," he receives X stack of Fighting Will, up to 4 stacks. When he has 2 or more stacks of Fighting Will, his Basic ATK "Direct Punch" is enhanced to "Sky-Shatter Fist." After his Enhanced Basic ATK\'s "Rising Uppercut" hits a Bleeding enemy target, the Bleed status will immediately deal DMG for 1 time equal to X of the original DMG to the target. At the start of battle, Luka will possess 1 stack of Fighting Will.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luka_111106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luka_111107",
+        name: "Anticipator",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. Upon entering battle, Luka deals Physical DMG equal to X of his ATK to a random single enemy with a X base chance to inflict his Skill's Bleed effect on the target. Then, Luka gains 1 additional stack of Fighting Will.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luka_111108",
+        name: "Sky-Shatter Fist",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          'Consumes 2 stacks of "Fighting Will." First, uses "Direct Punch" to deal 3 hits, with each hit dealing Physical DMG equal to X of Luka\'s ATK to one designated enemy target. Then, uses "Rising Uppercut" to deal 1 hit, dealing Physical DMG equal to X of Luka\'s ATK to the designated enemy target.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "luka_trace_a2",
+        name: "Kinetic Overload",
+        ascensionRequirement: "A2",
+        description:
+          "When using Skill, immediately dispels X buff(s) from the enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luka_trace_a4",
+        name: "Cycle Braking",
+        ascensionRequirement: "A4",
+        description:
+          "For every stack of Fighting Will obtained, additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luka_trace_a6",
+        name: "Crush Fighting Will",
+        ascensionRequirement: "A6",
+        description:
+          'When using Enhanced Basic ATK, every hit of "Direct Punch" has a X fixed chance for Luka to use 1 additional hit. This effect does not apply to additional hits generated in this way.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Fighting Endlessly",
+        description:
+          "When Luka takes action, if the target enemy is Bleeding, increases DMG dealt by Luka by 15% for 2 turn(s).",
+        keyMechanic: "Fighting Endlessly",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "The Enemy is Weak, I am Strong",
+        description:
+          "If the Skill hits an enemy target with Physical Weakness, gain 1 stack(s) of Fighting Will.",
+        keyMechanic: "The Enemy is Weak, I am Strong",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Born for the Ring",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Born for the Ring",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Never Turning Back",
+        description:
+          "For every stack of Fighting Will obtained, increases ATK by 5%, stacking up to 4 time(s).",
+        keyMechanic: "Never Turning Back",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "The Spirit of Wildfire",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "The Spirit of Wildfire",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "A Champion's Applause",
+        description:
+          'After the Enhanced Basic ATK\'s "Rising Uppercut" hits a Bleeding enemy target, the Bleed status will immediately deal DMG 1 time equal to 8% of the original DMG for every hit of Direct Punch already unleashed during the current Enhanced Basic ATK.',
+        keyMechanic: "A Champion's Applause",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1111",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Luka via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "luocha",
+    gameId: "1203",
+    name: "Luocha",
+    localizedNames: {
+      en: "Luocha",
+      id: "Luocha",
+    },
+    rarity: 5,
+    path: "Abundance",
+    element: "Imaginary",
+    releaseVersion: "1.1",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1280,
+      atk: 756,
+      def: 363,
+      spd: 101,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 100,
+    },
+    abilities: [
+      {
+        id: "luocha_120301",
+        name: "Thorns of the Abyss",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of Luocha's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luocha_120302",
+        name: "Prayer of Abyss Flower",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "After using his Skill, Luocha immediately restores the target ally's HP equal to X of Luocha's ATK plus X. Meanwhile, Luocha gains 1 stack of Abyss Flower. When any ally's HP percentage drops to X or lower, an effect equivalent to Luocha's Skill will immediately be triggered and applied to this ally for one time (without consuming Skill Points). This effect can be triggered again after X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luocha_120303",
+        name: "Death Wish",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 100,
+        description:
+          "Removes X buff(s) from all enemies and deals all enemies Imaginary DMG equal to X of Luocha's ATK. At the same time, Luocha gains 1 stack of Abyss Flower.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luocha_120304",
+        name: "Cycle of Life",
+        type: "talent",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When Abyss Flower reaches X stacks, Luocha consumes all stacks of Abyss Flower to deploy a Zone against the enemy. When any enemy in the Zone is attacked by an ally, the attacking ally's HP is immediately restored by an amount equal to #2[f1]% of Luocha's ATK plus X. The Zone's effect lasts for X turns. When Luocha is knocked down, the Zone will be dispelled.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luocha_120306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luocha_120307",
+        name: "Mercy of a Fool",
+        type: "technique",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After the Technique is used, the Talent will be immediately triggered at the start of the next battle.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "luocha_trace_a2",
+        name: "Cleansing Revival",
+        ascensionRequirement: "A2",
+        description:
+          "When Skill's effect is triggered, dispel X debuff(s) from one designated ally.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luocha_trace_a4",
+        name: "Sanctified",
+        ascensionRequirement: "A4",
+        description:
+          "When any enemy in the Zone is attacked by an ally, all allies (except the attacker) restore HP equal to #1[f1]% of Luocha's ATK plus X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "luocha_trace_a6",
+        name: "Through the Valley",
+        ascensionRequirement: "A6",
+        description:
+          "Increases the chance to resist Crowd Control debuffs by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Ablution of the Quick",
+        description:
+          "While the Zone is active, ATK of all allies increases by 20%.",
+        keyMechanic: "Ablution of the Quick",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Bestowal From the Pure",
+        description:
+          "When his Skill is triggered, if the target ally's HP percentage is lower than 50%, Luocha's Outgoing Healing increases by 30%. If the target ally's HP percentage is at 50% or higher, the ally receives a Shield that can absorb DMG equal to 18% of Luocha's ATK plus 240, lasting for 2 turns.",
+        keyMechanic: "Bestowal From the Pure",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Surveyal by the Fool",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Surveyal by the Fool",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Heavy Lies the Crown",
+        description:
+          "When Luocha's Zone is active, enemies become Weakened and deal 12% less DMG.",
+        keyMechanic: "Heavy Lies the Crown",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Cicatrix 'Neath the Pain",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Cicatrix 'Neath the Pain",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Reunion With the Dust",
+        description:
+          "When Ultimate is used, there is a 100% fixed chance to reduce all enemies' All-Type RES by 20% for 2 turn(s).",
+        keyMechanic: "Reunion With the Dust",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1203",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Luocha via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "lynx",
+    gameId: "1110",
+    name: "Lynx",
+    localizedNames: {
+      en: "Lynx",
+      id: "Lynx",
+    },
+    rarity: 4,
+    path: "Abundance",
+    element: "Quantum",
+    releaseVersion: "1.3",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1058,
+      atk: 493,
+      def: 551,
+      spd: 100,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 100,
+    },
+    abilities: [
+      {
+        id: "lynx_111001",
+        name: "Ice Crampon Technique",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of this character's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lynx_111002",
+        name: "Salted Camping Cans",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Applies "Survival Response" to a single target ally and increases their Max HP by #1[f1]% of Lynx\'s Max HP plus X. If the target ally is a character on the Path of Destruction or Preservation, the chance of them being attacked by enemies will greatly increase. "Survival Response" lasts for X turn(s). Restores the target\'s HP by #4[f1]% of Lynx\'s Max HP plus X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lynx_111003",
+        name: "Snowfield First Aid",
+        type: "ultimate",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 100,
+        description:
+          "Dispels X debuff(s) from all allies and immediately restores their respective HP by an amount equal to #2[f1]% of Lynx's Max HP plus X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lynx_111004",
+        name: "Outdoor Survival Experience",
+        type: "talent",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When using Lynx's Skill or Ultimate, applies continuous healing to the target ally for X turn(s), restoring the target ally's HP by an amount equal to #2[f1]% of Lynx's Max HP plus X at the start of each turn. If the target has \"Survival Response,\" the continuous healing effect additionally restores HP by an amount equal to #4[f1]% of Lynx's Max HP plus X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lynx_111006",
+        name: "Attack",
+        type: "technique",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lynx_111007",
+        name: "Chocolate Energy Bar",
+        type: "technique",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After Lynx uses her Technique, at the start of the next battle, all allies are granted her Talent's continuous healing effect, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "lynx_trace_a2",
+        name: "Advance Surveying",
+        ascensionRequirement: "A2",
+        description:
+          'After a target with "Survival Response" is hit, Lynx regenerates X Energy immediately.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lynx_trace_a4",
+        name: "Exploration Techniques",
+        ascensionRequirement: "A4",
+        description:
+          "Increases the chance to resist Crowd Control debuffs by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "lynx_trace_a6",
+        name: "Survival in the Extreme",
+        ascensionRequirement: "A6",
+        description:
+          "Extends the duration of the continuous healing effect granted by Talent for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Morning of Snow Hike",
+        description:
+          "When healing allies with HP percentage equal to or lower than 50%, Lynx's Outgoing Healing increases by 20%. This effect also works on continuous healing.",
+        keyMechanic: "Morning of Snow Hike",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Noon of Portable Furnace",
+        description:
+          'A target with "Survival Response" can resist debuff application for 1 time(s).',
+        keyMechanic: "Noon of Portable Furnace",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Afternoon of Avalanche Beacon",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Afternoon of Avalanche Beacon",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Dusk of Warm Campfire",
+        description:
+          "When \"Survival Response\" is gained, increases the target's ATK by an amount equal to 3.0% of Lynx's Max HP for 1 turn(s).",
+        keyMechanic: "Dusk of Warm Campfire",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Night of Aurora Tea",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Night of Aurora Tea",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Dawn of Explorers' Chart",
+        description:
+          'Additionally boosts the Max HP increasing effect of "Survival Response" by an amount equal to 6.0% of Lynx\'s Max HP and increases Effect RES by 30%.',
+        keyMechanic: "Dawn of Explorers' Chart",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1110",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Lynx via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "march-7th",
+    gameId: "1001",
+    name: "March 7th",
+    localizedNames: {
+      en: "March 7th",
+      id: "March 7th",
+    },
+    rarity: 4,
+    path: "Preservation",
+    element: "Ice",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1058,
+      atk: 511,
+      def: 573,
+      spd: 101,
+      taunt: 150,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "march-7th_100101",
+        name: "Frigid Cold Arrow",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of March 7th's ATK to one enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th_100102",
+        name: "The Power of Cuteness",
+        type: "skill",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Provides a single ally with a Shield that can absorb DMG equal to X of March 7th's DEF plus X for X turn(s). If the ally's current HP percentage is X or higher, greatly increases the chance of enemies attacking that ally.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th_100103",
+        name: "Glacial Cascade",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Ice DMG equal to X of March 7th's ATK to all enemies. Hit enemies have a X base chance to be Frozen for X turn(s). While Frozen, enemies cannot take action and will receive Ice Additional DMG equal to X of March 7th's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th_100104",
+        name: "Girl Power",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "After a Shielded ally is attacked by an enemy, March 7th immediately Counters, dealing Ice DMG equal to X of her ATK. This effect can be triggered X time(s) each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th_100106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th_100107",
+        name: "Freezing Beauty",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering battle, there is a X base chance to Freeze a random enemy for X turn(s). While Frozen, the enemy cannot take action and will take Ice Additional DMG equal to X of March 7th's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "march-7th_trace_a2",
+        name: "Purify",
+        ascensionRequirement: "A2",
+        description:
+          "When using Skill, dispels 1 debuff from one designated ally.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th_trace_a4",
+        name: "Reinforce",
+        ascensionRequirement: "A4",
+        description:
+          "The duration of the Shield generated from Skill is extended for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th_trace_a6",
+        name: "Ice Spell",
+        ascensionRequirement: "A6",
+        description:
+          "When using Ultimate, increases the base chance to Freeze enemies by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Memory of You",
+        description:
+          "Every time March 7th's Ultimate Freezes a target, she regenerates 6 Energy.",
+        keyMechanic: "Memory of You",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Memory of It",
+        description:
+          "Upon entering battle, grants a Shield equal to 24% of March 7th's DEF plus 320 to the ally with the lowest HP percentage, lasting for 3 turn(s).",
+        keyMechanic: "Memory of It",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Memory of Everything",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Memory of Everything",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Never Forfeit Again",
+        description:
+          "The Talent's Counter effect can be triggered 1 more time in each turn. The DMG dealt by Counter increases by an amount that is equal to 30% of March 7th's DEF.",
+        keyMechanic: "Never Forfeit Again",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Never Forget Again",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Never Forget Again",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Just Like This, Always...",
+        description:
+          "Allies under the protection of the Shield granted by the Skill restore HP equal to 4% of their Max HP plus 106 at the beginning of each turn.",
+        keyMechanic: "Just Like This, Always...",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1001",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for March 7th via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "march-7th-hunt",
+    gameId: "1224",
+    name: "March 7th",
+    localizedNames: {
+      en: "March 7th",
+      id: "March 7th",
+    },
+    rarity: 4,
+    path: "Hunt",
+    element: "Imaginary",
+    releaseVersion: "2.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1058,
+      atk: 564,
+      def: 441,
+      spd: 102,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "march-7th-hunt_122401",
+        name: "My Sword Zaps Demons",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of March 7th's ATK to one designated enemy target and gains X point(s) of Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th-hunt_122402",
+        name: "Master, It's Tea Time!",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Designates one ally (excluding this unit) as "Shifu" and increases "Shifu"\'s SPD by #1[f1]%. Only the most recent target of March 7th\'s Skill is considered as "Shifu." Whenever using Basic ATK or dealing 1 hit of Enhanced Basic ATK\'s DMG, triggers the corresponding effect if "Shifu" with the specified Path is present on the field: Erudition, Destruction, The Hunt, Remembrance, Elation: Deals Additional DMG (DMG Type based on "Shifu"\'s Combat Type) equal to X of March 7th\'s ATK. Harmony, Nihility, Preservation, Abundance: Increases the Toughness Reduction of this instance of DMG by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th-hunt_122403",
+        name: "March 7th, the Apex Heroine",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          "Deals Imaginary DMG equal to X of March 7th's ATK to one designated enemy target. Increases the initial Hits Per Action of the next Enhanced Basic ATK by X hit(s) and increase the fixed chance of additionally dealing DMG by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th-hunt_122404",
+        name: "Master, I've Ascended!",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After Shifu uses an attack or Ultimate, March 7th gains up to 1 point of Charge each time. Upon reaching X or more points of Charge, March 7th immediately takes action and increases the DMG she deals by X. Her Basic ATK gets Enhanced, and her Skill cannot be used. After using Enhanced Basic ATK, consumes X point(s) of Charge. Charge is capped at X points.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th-hunt_122406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th-hunt_122407",
+        name: "Feast in One Go",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "If March 7th is on the team, she gains 1 point of Charge at the start of the next battle whenever a teammate uses Technique, up to a max of X point(s). After using Technique, March 7th regenerates X Energy when the next battle starts.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th-hunt_122408",
+        name: "Brows Be Smitten, Heart Be Bitten",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Initially, deals X hits, each causing Imaginary DMG equal to X of March 7th's ATK to one designated enemy target. When dealing the final hit, there is a X fixed chance to deal 1 additional hit of DMG, up to a max of X additional hit(s). Energy regenerated from using Enhanced Basic ATK does not increase with the number of hits. Enhanced Basic ATK cannot recover Skill Points.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "march-7th-hunt_trace_a2",
+        name: "Swan Soar",
+        ascensionRequirement: "A2",
+        description:
+          "When the battle starts, March 7th's action advances by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th-hunt_trace_a4",
+        name: "Filigree",
+        ascensionRequirement: "A4",
+        description:
+          "March 7th can reduce the Toughness of enemies whose Weakness Type is the same as Shifu's Combat Type. When Breaking Weakness, triggers the Imaginary Weakness Break effect.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "march-7th-hunt_trace_a6",
+        name: "Tide Tamer",
+        ascensionRequirement: "A6",
+        description:
+          "After using Enhanced Basic ATK, increases Shifu's CRIT DMG by X and Break Effect by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "My Sword Stirs Starlight",
+        description:
+          "When Shifu is on the field, increases March 7th's SPD by 10%.",
+        keyMechanic: "My Sword Stirs Starlight",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Blade Dances on Waves' Fight",
+        description:
+          'After "Shifu" uses Basic ATK or Skill to attack an enemy target, March 7th immediately launches a Follow-Up ATK and deals Imaginary DMG equal to 60% of March 7th\'s ATK to the primary target of this attack. Additionally, triggers the corresponding effect based on "Shifu"\'s Path and then gains 1 point(s) of Charge. If there is no primary target available to attack, then she attacks a single random enemy instead. This effect can only trigger once per turn.',
+        keyMechanic: "Blade Dances on Waves' Fight",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Sharp Wit in Martial Might",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Sharp Wit in Martial Might",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Being Fabulous Never Frights",
+        description: "At the start of the turn, regenerates 5 Energy.",
+        keyMechanic: "Being Fabulous Never Frights",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Sword Delights, Sugar Blights",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Sword Delights, Sugar Blights",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Me, the Best Girl in Sight",
+        description:
+          "After using Ultimate, increases the CRIT DMG dealt by the next Enhanced Basic ATK by 50%.",
+        keyMechanic: "Me, the Best Girl in Sight",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1224",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for March 7th via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "misha",
+    gameId: "1312",
+    name: "Misha",
+    localizedNames: {
+      en: "Misha",
+      id: "Misha",
+    },
+    rarity: 4,
+    path: "Destruction",
+    element: "Ice",
+    releaseVersion: "2.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1270,
+      atk: 599,
+      def: 396,
+      spd: 96,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 100,
+    },
+    abilities: [
+      {
+        id: "misha_131201",
+        name: "E—Excuse Me, Please!",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Misha's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "misha_131202",
+        name: "R—Room Service!",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Increases the Hits Per Action for Misha's next Ultimate by X hit(s). Deals Ice DMG equal to X of Misha's ATK to one designated enemy target, and Ice DMG equal to X of Misha's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "misha_131203",
+        name: "G—Gonna Be Late!",
+        type: "ultimate",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 0,
+        energyCost: 100,
+        description:
+          "Has X Hits Per Action by default. First, uses 1 hit to deal Ice DMG equal to X of Misha's ATK to one designated enemy target. Then, the rest of the hits each deals Ice DMG equal to X of Misha's ATK to one random enemy. Just before each hit lands, there is a #3[f1]% base chance to Freeze the target, lasting for 1 turn. While Frozen, enemy targets cannot take any actions, and at the start of their turn, they receive Ice Additional DMG equal to X of Misha's ATK. This Ultimate can possess up to X Hits Per Action. After the Ultimate is used, its Hits Per Action will be reset to the default level.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "misha_131204",
+        name: "Horological Escapement",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "For every 1 Skill Point allies consume, Misha's next Ultimate delivers X more Hit(s) Per Action, and Misha regenerates #1[f1] Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "misha_131206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "misha_131207",
+        name: "Wait, You Are So Beautiful!",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using the Technique, creates a Special Dimension that lasts for X seconds. Enemies caught in the Special Dimension are inflicted with Dream Prison and stop all their actions. Upon entering battle against enemies afflicted with Dream Prison, increases the Hits Per Action for Misha's next Ultimate by X hit(s). Only 1 Dimension Effect created by allies can exist at the same time.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "misha_trace_a2",
+        name: "Release",
+        ascensionRequirement: "A2",
+        description:
+          "Before the Ultimate's first hit, increases the base chance of Freezing the target by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "misha_trace_a4",
+        name: "Interlock",
+        ascensionRequirement: "A4",
+        description:
+          "When using the Ultimate, increases the Effect Hit Rate by X, lasting until the end of the current Ultimate's action.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "misha_trace_a6",
+        name: "Transmission",
+        ascensionRequirement: "A6",
+        description:
+          "When dealing DMG to Frozen enemies, increases CRIT DMG by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Whimsicality of Fancy",
+        description:
+          "When using the Ultimate, for every enemy on the field, additionally increases the Hits Per Action for the current Ultimate by 1 hit(s), up to a maximum increase of 5 hit(s).",
+        keyMechanic: "Whimsicality of Fancy",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Yearning of Youth",
+        description:
+          "Before each hit of the Ultimate lands, there is a 24% base chance of reducing the target's DEF by 16% for 3 turn(s).",
+        keyMechanic: "Yearning of Youth",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Vestige of Happiness",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Vestige of Happiness",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Visage of Kinship",
+        description:
+          "Increases the DMG multiplier for each hit of the Ultimate by 6%.",
+        keyMechanic: "Visage of Kinship",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Genesis of First Love",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Genesis of First Love",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Estrangement of Dream",
+        description:
+          "When using the Ultimate, increases own DMG by 30%, lasting until the end of the turn. In addition, the next time the Skill is used, recovers 1 Skill Point(s) for the team.",
+        keyMechanic: "Estrangement of Dream",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1312",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Misha via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "mortenax-blade",
+    gameId: "1507",
+    name: "Mortenax Blade",
+    localizedNames: {
+      en: "Mortenax Blade",
+      id: "Mortenax Blade",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Fire",
+    releaseVersion: "4.2",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1358,
+      atk: 543,
+      def: 485,
+      spd: 107,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 160,
+    },
+    abilities: [
+      {
+        id: "mortenax-blade_150701",
+        name: "A Broken Blade Still Slays",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Mortenax Blade's Max HP to one designated enemy, and causes the target to enter the Taunt state for 1 turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_150702",
+        name: "A Rain of Blades Seals Fate",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Consumes HP equal to #4[f1]% of Mortenax Blade's Max HP and deals Fire DMG equal to X of Mortenax Blade's Max HP to all enemies, and additionally deals X instance(s) of DMG, with each instance dealing Fire DMG equal to #3[f1]% of Mortenax Blade's Max HP to one random enemy. If the current HP is insufficient, Mortenax Blade's current HP will be reduced to 1 when he uses Skill. While not in the \"Infinite Fury\" state or when the current HP is 1 or lower, Mortenax Blade cannot use his Skill. Using Skill does not consume Skill Points.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_150703",
+        name: "Fornax Ex Corpore",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 160,
+        description:
+          'Inflicts "Balefire Bind" on all enemies. Enemy targets in the "Balefire Bind" state have their DEF reduced by #7[f1]% and the DMG they receive increases by #4[f1]%, lasting for X turn(s). Then, consumes HP equal to X of Mortenax Blade\'s Max HP to deploy a Zone. While the Zone is active, Mortenax Blade enters the "Infinite Fury" state. During the "Infinite Fury" state, increases CRIT Rate by X, increases CRIT DMG by #3[f1]%, enhances Basic ATK, unlocks Skill, and gains a new Ultimate "Tenax Per Ignem." When receiving a killing blow, this unit will not be knocked down, but will dispel the Zone, exit the "Infinite Fury" state, and restore HP equal to X of this unit\'s Max HP. When gaining the "Infinite Fury" state, a corresponding countdown appears on the Action Order. The countdown has a fixed SPD of X. At the start of the countdown\'s turn, dispels the Zone and exits the "Infinite Fury" state. If the current HP is insufficient, Mortenax Blade\'s current HP will be reduced to 1 when he uses this ability.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_150704",
+        name: "All Karma Comes Due",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'While the Zone is active, after each attack an ally target uses on an enemy, inflicts the "Balefire Bind" state on the corresponding enemy target and grants 1 Charge to Mortenax Blade. When Charge reaches X points and the current HP is more than 1, consumes X Charge, regenerates #2[f1] Energy, and enables Mortenax Blade to use Skill 1 extra time. This extra Skill use is considered as Follow-Up ATK.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_150706",
+        name: "One Cut Ends All",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_150707",
+        name: "Blade's Reach Spares None",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks all enemies within a certain range. After entering combat, inflicts the Taunt state on all enemies for 1 turn and decreases DMG taken by this unit by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_150708",
+        name: "A Tempered Blade Severs Souls",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Mortenax Blade's Max HP to one designated enemy, and causes the target to enter the Taunt state for 1 turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_150709",
+        name: "A Rain of Blades Seals Fate",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description: "A Rain of Blades Seals Fate ability for Mortenax Blade.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_150714",
+        name: "Tenax Per Ignem",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 160,
+        description:
+          "Deals Fire DMG equal to #1[f1]% of Mortenax Blade's Max HP to all enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "mortenax-blade_trace_a2",
+        name: "Bone, Hardened ad Nauseam",
+        ascensionRequirement: "A2",
+        description:
+          "Mortenax Blade can accumulate up to X overflow Energy. After using Ultimate, clears it and regenerates a corresponding amount of Energy. When the battle starts or when the Zone is dispelled, if Energy is below X, it is immediately regenerated to X. When Energy is regenerated to its maximum, dispels all debuffs from this unit.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_trace_a4",
+        name: "Soul, Tempered ad Mortem",
+        ascensionRequirement: "A4",
+        description:
+          'While the Zone is active, increases the chance of being attacked by enemies, decreases DMG taken by this unit by X, and increases Incoming Healing by X. After being attacked, inflicts the "Balefire Bind" state on the corresponding target, and enables Mortenax Blade to gain 1 Charge.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mortenax-blade_trace_a6",
+        name: "Heart, Refined ad Infinitum",
+        ascensionRequirement: "A6",
+        description:
+          "While the Zone is active, ally targets deal X increased DMG. If there are other Nihility characters aside from Mortenax Blade in the team, Ultimate DMG dealt by ally targets increases by X. Otherwise, DMG dealt by Mortenax Blade additionally increases by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Ere My Death, I Stood Unmade",
+        description:
+          'While the Zone is active, decreases all enemies\' All-Type RES by 20%. After using the extra Skill from Talent, the "Infinite Fury" countdown has its action delayed by 15%.',
+        keyMechanic: "Ere My Death, I Stood Unmade",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Ash Was My Heart, Yet the Flame Stayed",
+        description:
+          "When an ally character uses Ultimate to deal DMG, it is considered as having launched Follow-Up ATK. And the Follow-Up ATK DMG dealt by ally targets increases by 75%. The upper limit of Mortenax Blade's Charge decreases to 7.",
+        keyMechanic: "Ash Was My Heart, Yet the Flame Stayed",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Across the Shore, Wrath Laid Bare",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Across the Shore, Wrath Laid Bare",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Odium I've Smitten, Thence Came the Blade",
+        description:
+          '"Heart, Refined ad Infinitum" additionally increases ally targets\' DMG dealt by 50%.',
+        keyMechanic: "Odium I've Smitten, Thence Came the Blade",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "I Severed My Woes, Knowing Death Begets Life",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "I Severed My Woes, Knowing Death Begets Life",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "If Immortality Could Die, I Swore THEM Slain",
+        description:
+          'As the Zone persists, when Mortenax Blade takes DMG or consumes HP, he gains 1 Charge. This effect can trigger again after any target\'s turn ends. The DMG multiplier of "Tenax Per Ignem" increases to 150% of its original value.',
+        keyMechanic: "If Immortality Could Die, I Swore THEM Slain",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1507",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Mortenax Blade via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "moze",
+    gameId: "1223",
+    name: "Moze",
+    localizedNames: {
+      en: "Moze",
+      id: "Moze",
+    },
+    rarity: 4,
+    path: "Hunt",
+    element: "Lightning",
+    releaseVersion: "2.5",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 811,
+      atk: 599,
+      def: 352,
+      spd: 111,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "moze_122301",
+        name: "Hurlthorn",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Moze's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "moze_122302",
+        name: "Fleetwinged Raid",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Marks a designated single enemy target as "Prey" and deals to it Lightning DMG equal to X of Moze\'s ATK, and gains X points of Charge. When there are no other characters on the field that are capable of combat, Moze cannot use his Skill and dispels the enemy\'s "Prey" state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "moze_122303",
+        name: "Dash In, Gash Out",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Lightning DMG equal to X of Moze's ATK to one designated enemy target, and launches the Talent's Follow-Up ATK against this target. If the target is defeated before this Follow-Up ATK is used, then launches the Follow-Up ATK against a random single enemy instead.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "moze_122304",
+        name: "Cascading Featherblade",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          'When "Prey" exists on the field, Moze will enter the Departed state. After ally targets attack "Prey," Moze will additionally deal 1 instance of Lightning Additional DMG equal to X of his ATK and consumes 1 point of Charge. For every X point(s) of Charge consumed, Moze launches 1 Follow-Up ATK to "Prey," dealing Lightning DMG equal to X of his ATK. When Charge reaches 0, dispels the target\'s "Prey" state and resets the tally of Charge points required to launch Follow-Up ATK. Talent\'s Follow-Up ATK does not consume Charge.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "moze_122306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "moze_122307",
+        name: "Bated Wings",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, enters the Stealth state for X second(s). While in Stealth, Moze is undetectable by enemies. If Moze attacks enemies to enter combat while in Stealth, increases DMG by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "moze_trace_a2",
+        name: "Nightfeather",
+        ascensionRequirement: "A2",
+        description:
+          "After using Talent's Follow-Up ATK, recovers X Skill Point(s). This effect can trigger again after X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "moze_trace_a4",
+        name: "Daggerhold",
+        ascensionRequirement: "A4",
+        description:
+          "When Moze dispels his Departed state, his action advances by X. At the start of each wave, Moze's action advances by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "moze_trace_a6",
+        name: "Vengewise",
+        ascensionRequirement: "A6",
+        description:
+          'When dealing DMG by using Ultimate, it is considered as having launched a Follow-Up ATK. The Follow-Up ATK DMG taken by the "Prey" increases by X.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Oathkeeper",
+        description:
+          "After entering battle, Moze regenerates 20 Energy. Each time the Additional DMG from his Talent is triggered, Moze regenerates 2 Energy.",
+        keyMechanic: "Oathkeeper",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Wrathbearer",
+        description:
+          'When all allies deal DMG to the enemy target marked as "Prey," increases CRIT DMG by 40%.',
+        keyMechanic: "Wrathbearer",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Deathchaser",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Deathchaser",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Heathprowler",
+        description:
+          "When using Ultimate, increases the DMG dealt by Moze by 30.0%, lasting for 2 turn(s).",
+        keyMechanic: "Heathprowler",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Truthbender",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Truthbender",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Faithbinder",
+        description:
+          "Increases the DMG multiplier of the Talent's Follow-Up ATK by 25%.",
+        keyMechanic: "Faithbinder",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1223",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.5",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Moze via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "mydei",
+    gameId: "1404",
+    name: "Mydei",
+    localizedNames: {
+      en: "Mydei",
+      id: "Mydei",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Imaginary",
+    releaseVersion: "3.1",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1552,
+      atk: 426,
+      def: 194,
+      spd: 95,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 160,
+    },
+    abilities: [
+      {
+        id: "mydei_140401",
+        name: "Vow of Voyage",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of Mydei's Max HP to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_140402",
+        name: "Deaths are Legion, Regrets are None",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Consumes HP by an amount equal to X of Mydei's current HP. Deals Imaginary DMG equal to X of Mydei's Max HP to one designated enemy and Imaginary DMG equal to X of Mydei's Max HP to adjacent targets. If the current HP is not sufficient, using Skill reduces Mydei's current HP to 1.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_140403",
+        name: "Throne of Bones",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 160,
+        description:
+          "Restores HP by #3[f1]% of Mydei's Max HP and accumulates X Talent's Charge point(s). Deals Imaginary DMG equal to X of Mydei's Max HP to one designated enemy, and deals Imaginary DMG equal to X of Mydei's Max HP to adjacent targets. Additionally, Taunts the target and targets adjacent to it, lasting for X turn(s). The next use of \"Godslayer Be God\" prioritizes attacking one designated enemy, and this effect only works on the latest target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_140404",
+        name: "Blood for Blood",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'For each 1% of HP lost, accumulates 1 point of Charge (up to 200 points). When Charge reaches 100, consumes 100 points of Charge to enter the "Vendetta" state, restores HP equal to X of Mydei\'s Max HP, and advances action by 100%. While the "Vendetta" state is active, Max HP increases by X of the current Max HP and DEF remains at 0. At the start of this unit\'s turn, automatically uses "Kingslayer Be King." When Charge reaches X points during the "Vendetta" state, Mydei immediately gains 1 extra turn and automatically uses "Godslayer Be God." When receiving a killing blow during the "Vendetta" state, Mydei will not be knocked down, but will clear his Charge, exits the "Vendetta" state, and restores HP by X of his Max HP.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_140406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_140407",
+        name: "Cage of Broken Lance",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, pulls in enemies within a certain area and inflicts Daze on them for X second(s). Dazed enemies will not actively attack ally targets. If actively attacking Dazed enemies, when entering battle, deals Imaginary DMG equal to X of Mydei's Max HP to all enemies, and Taunts the targets, lasting for X turn(s). This unit accumulates X point(s) of Talent's Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_140409",
+        name: "Kingslayer Be King",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Consumes HP by an amount equal to X of Mydei's current HP. Deals Imaginary DMG equal to X of Mydei's Max HP to one enemy and Imaginary DMG equal to X of Mydei's Max HP to adjacent targets. If the current HP is not sufficient, using Skill reduces Mydei's current HP to 1. This ability will be automatically used.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_140411",
+        name: "Godslayer Be God",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Consumes X point(s) of Charge. Deals Imaginary DMG equal to X of Mydei's Max HP to one enemy and Imaginary DMG equal to X of Mydei's Max HP to adjacent targets. This ability will be automatically used. While this ability is in use, Charge cannot be accumulated.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "mydei_trace_a2",
+        name: "Earth and Water",
+        ascensionRequirement: "A2",
+        description:
+          'During the "Vendetta" state, Mydei will not exit the "Vendetta" state when receiving a killing blow. This effect can trigger X time(s) per battle.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_trace_a4",
+        name: "Thirty Tyrants",
+        ascensionRequirement: "A4",
+        description:
+          'While in the "Vendetta" state, Mydei is immune to Crowd Control debuffs.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "mydei_trace_a6",
+        name: "Bloodied Chiton",
+        ascensionRequirement: "A6",
+        description:
+          "When battle starts, if Mydei's Max HP exceeds X, for every 100 excess HP, Mydei's CRIT Rate increases by #3[f1]%, his Charge ratio from enemy targets' DMG increases by #4[f1]%, and his HP restored when receiving healing increases by #5[f2]%. Up to X excess HP can be taken into account for this effect.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Frost Hones Spine of Steel",
+        description:
+          'Increases the DMG multiplier dealt by "Godslayer Be God" to the primary target by 30%. This ability now deals to all enemies Imaginary DMG equal to the DMG multiplier dealt to the primary target.',
+        keyMechanic: "Frost Hones Spine of Steel",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Strife Beholds Cry of Dead",
+        description:
+          'During "Vendetta," the DMG dealt by Mydei ignores 15% of enemy targets\' DEF. After he receives healing, converts 40% of the healed amount to Charge. The tally of the converted Charge cannot exceed 40 point(s). Resets this tally of Charge after any unit takes action.',
+        keyMechanic: "Strife Beholds Cry of Dead",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Honor Exalts Feast of Faith",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Honor Exalts Feast of Faith",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Siren Jolts the Laconic Lion",
+        description:
+          'While in "Vendetta," increases CRIT DMG by 30% and restores HP by 10% of this unit\'s Max HP after receiving attacks from enemy targets.',
+        keyMechanic: "Siren Jolts the Laconic Lion",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "War Chisels Flesh of Flame",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "War Chisels Flesh of Flame",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Legacy Scales Mound of Blood",
+        description:
+          'When entering battle, immediately enters the "Vendetta" state, and lowers the Charge required for "Godslayer Be God" to 100 point(s).',
+        keyMechanic: "Legacy Scales Mound of Blood",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1404",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Mydei via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "natasha",
+    gameId: "1105",
+    name: "Natasha",
+    localizedNames: {
+      en: "Natasha",
+      id: "Natasha",
+    },
+    rarity: 4,
+    path: "Abundance",
+    element: "Physical",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1164,
+      atk: 476,
+      def: 507,
+      spd: 98,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 90,
+    },
+    abilities: [
+      {
+        id: "natasha_110501",
+        name: "Behind the Kindness",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Natasha's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "natasha_110502",
+        name: "Love, Heal, and Choose",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Restores a single ally for #1[f1]% of Natasha's Max HP plus X. Restores the ally for another #2[f1]% of Natasha's Max HP plus X at the beginning of each turn for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "natasha_110503",
+        name: "Gift of Rebirth",
+        type: "ultimate",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 90,
+        description: "Heals all allies for #1[f1]% of Natasha's Max HP plus X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "natasha_110504",
+        name: "Innervation",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When healing allies with HP percentage at X or lower, increases Natasha's Outgoing Healing by X. This effect also works on continuous healing.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "natasha_110506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "natasha_110507",
+        name: "Hypnosis Research",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering battle, deals Physical DMG equal to X of Natasha's ATK to a random enemy, with a X base chance to Weaken all enemies. While Weakened, enemies deal X less DMG to allies for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "natasha_trace_a2",
+        name: "Soothe",
+        ascensionRequirement: "A2",
+        description:
+          "When using Skill, dispels X debuff(s) from one designated ally.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "natasha_trace_a4",
+        name: "Healer",
+        ascensionRequirement: "A4",
+        description: "Natasha's Outgoing Healing increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "natasha_trace_a6",
+        name: "Recuperation",
+        ascensionRequirement: "A6",
+        description:
+          "Increases the duration of Skill's continuous healing effect for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Pharmacology Expertise",
+        description:
+          "After being attacked, if the current HP percentage is 30% or lower, heals self for 1 time to restore HP by an amount equal to 15% of Max HP plus 400. This effect can only be triggered 1 time per battle.",
+        keyMechanic: "Pharmacology Expertise",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Clinical Research",
+        description:
+          "When Natasha uses her Ultimate, grant continuous healing for 1 turn(s) to allies whose HP percentage is at 30% or lower. And at the beginning of their turn, their HP is restored by an amount equal to 6% of Natasha's Max HP plus 160.",
+        keyMechanic: "Clinical Research",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "The Right Cure",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "The Right Cure",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Miracle Cure",
+        description: "After being attacked, regenerates 5 extra Energy.",
+        keyMechanic: "Miracle Cure",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Preventive Treatment",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Preventive Treatment",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Doctor's Grace",
+        description:
+          "Natasha's Basic ATK additionally deals Physical DMG equal to 40% of her Max HP.",
+        keyMechanic: "Doctor's Grace",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1105",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Natasha via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "pela",
+    gameId: "1106",
+    name: "Pela",
+    localizedNames: {
+      en: "Pela",
+      id: "Pela",
+    },
+    rarity: 4,
+    path: "Nihility",
+    element: "Ice",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 987,
+      atk: 546,
+      def: 463,
+      spd: 105,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "pela_110601",
+        name: "Frost Shot",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Pela's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "pela_110602",
+        name: "Frostbite",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Removes X buff(s) and deals Ice DMG equal to X of Pela's ATK to one designated target enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "pela_110603",
+        name: "Zone Suppression",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          "Deals Ice DMG equal to X of Pela's ATK to all enemies, with a X base chance to inflict Exposed on all enemies. When Exposed, enemies' DEF is reduced by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "pela_110604",
+        name: "Data Collecting",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "If the enemy is debuffed after Pela's attack, Pela will restore #1[f1] additional Energy. This effect can only be triggered 1 time per attack.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "pela_110606",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "pela_110607",
+        name: "Preemptive Strike",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. Upon entering battle, Pela deals Ice DMG equal to X of her ATK to a random enemy, with a X base chance of lowering the DEF of all enemies by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "pela_trace_a2",
+        name: "Bash",
+        ascensionRequirement: "A2",
+        description: "Deals X more DMG to debuffed enemy targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "pela_trace_a4",
+        name: "The Secret Strategy",
+        ascensionRequirement: "A4",
+        description:
+          "When Pela is on the battlefield, all allies' Effect Hit Rate increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "pela_trace_a6",
+        name: "Wipe Out",
+        ascensionRequirement: "A6",
+        description:
+          "When using Skill to dispel buff(s), increases the DMG dealt by the next attack by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Victory Report",
+        description: "When an enemy is defeated, Pela regenerates 5 Energy.",
+        keyMechanic: "Victory Report",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Adamant Charge",
+        description:
+          "Using Skill to dispel buff(s) increases SPD by 10% for 2 turn(s).",
+        keyMechanic: "Adamant Charge",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Suppressive Force",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Suppressive Force",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Full Analysis",
+        description:
+          "When using Skill, there is a 100% base chance to reduce the target enemy's Ice RES by 12% for 2 turn(s).",
+        keyMechanic: "Full Analysis",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Absolute Jeopardy",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Absolute Jeopardy",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Feeble Pursuit",
+        description:
+          "After Pela attacks, if the enemy target is debuffed, deals Ice Additional DMG equal to 40% of Pela's ATK to the enemy.",
+        keyMechanic: "Feeble Pursuit",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1106",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Pela via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "phainon",
+    gameId: "1408",
+    name: "Phainon",
+    localizedNames: {
+      en: "Phainon",
+      id: "Phainon",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Physical",
+    releaseVersion: "3.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1435,
+      atk: 582,
+      def: 703,
+      spd: 94,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 12,
+    },
+    abilities: [
+      {
+        id: "phainon_140801",
+        name: "Stride to Deliverance",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Phainon's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140802",
+        name: "Let There Be Light",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Gains X point(s) of \"Coreflame,\" dealing Physical DMG equal to X of Phainon's ATK to one designated enemy and Physical DMG equal to X of Phainon's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140803",
+        name: "He Who Bears the World Must Burn",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 12,
+        description:
+          "Transforms into Khaslana. During the transformation, deploys the Territory \"Ruinous Irontomb.\" Within the Territory, other teammates depart and cannot take action, and all enemies have Physical Weaknesses. Khaslana does not enter his own turn, but has X Khaslana's extra turn(s), with a SPD set at X of Khaslana's base SPD. When the last of Khaslana's extra turns starts, immediately launches a final hit and deals Physical Ultimate DMG equal to X of Khaslana's ATK that is distributed evenly across all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140804",
+        name: "Pyric Corpus",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Phainon\'s Talent. When "Coreflame" reaches X point(s), can activate Ultimate. Even after reaching the limit, can still hold up to X overflow point(s). When the transformation ends, gains "Coreflame" based on the number of overflow points. When Phainon is targeted by an ability from any other target, gains 1 "Coreflame" point. And if the ability is cast by one of Phainon\'s teammates, can also increase Phainon\'s CRIT DMG by X for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140805",
+        name: "Fate: Divine Vessel",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Khaslana's Talent. Upon transformation, gains X point(s) of \"Scourge\". If this happens during an ally target's turn, then the duration of all buffs on that target is extended by 1 turn and the current turn ends. Khaslana is immune to Crowd Control debuffs, has 1 Enhanced Basic ATK and 2 Enhanced Skills, but cannot use Ultimate. During the transformation, increases ATK by X and Max HP by X. After using an attack, restores HP equal to X of his Max HP. When Khaslana takes a killing blow, he will not get knocked down. Instead, he will restore HP equal to X of Max HP and immediately launch a final hit. For every 1 remaining Khaslana's extra turn, the final hit's DMG multiplier decreases by #3[f1]% of its original multiplier value. When the transformation ends, increases all allies' SPD by X for 1 turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140806",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140807",
+        name: "Beginning of the End",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'While Phainon is in the team, increases Max Technique Points by 3. When actively using this Technique, consumes 2 Technique Points and immediately attacks all enemies within a certain range. After entering combat, regenerates X Energy for allies and gains X "Scourge" and X Skill Point(s). Deals Physical DMG equal to X of Phainon\'s ATK to all enemies at the start of each wave. If attacking a normal enemy, immediately defeats them without entering combat. No Technique Points are consumed if no enemies are hit.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140808",
+        name: "Creation: Bloodthorn Ferry",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Gains X point(s) of \"Scourge\", dealing Physical DMG equal to X of Khaslana's ATK to one designated enemy and Physical DMG equal to X of Khaslana's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140809",
+        name: "Calamity: Soulscorch Edict",
+        type: "skill",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Gains "Scourge" by an amount equal to the number of enemies and 1 stack of "Soulscorch," then causes all enemies to immediately take action. While in the "Soulscorch" state, Khaslana takes X reduced DMG. After an enemy target attacks or takes action, gains 1 more stack of "Soulscorch." After said enemy targets finish their actions, immediately launches Counter, deals Physical DMG to all enemies equal to X of Khaslana\'s ATK, and additionally deals X instance(s) of DMG, with each instance being Physical DMG equal to X of Khaslana\'s ATK dealt to one random enemy. Afterward, "Soulscorch" is dispelled. Each "Soulscorch" stack increases the DMG multiplier of said Counter by X of its original multiplier value. DMG dealt through this ability is considered as Skill DMG. If "Soulscorch" is still active at the start of Khaslana\'s extra turn, immediately launches Counter.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_140811",
+        name: "Foundation: Stardeath Verdict",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        description:
+          'Dispels all debuffs on this unit, then deals Physical DMG equal to a max of X of Khaslana\'s ATK. For every 1 point of "Scourge" consumed, deals X instance(s) of DMG, with each instance being Physical DMG equal to #2[f1]% of Khaslana\'s ATK dealt to one random enemy. When consuming X point(s) of "Scourge", additionally deals Physical DMG equal to X of Khaslana\'s ATK, which is evenly distributed across all enemies.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "phainon_trace_a2",
+        name: "March to Oblivion",
+        ascensionRequirement: "A2",
+        description:
+          'When the battle starts, gains X point(s) of "Coreflame." When the transformation ends, gains X point(s) of "Coreflame."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_trace_a4",
+        name: "Bide in Flames",
+        ascensionRequirement: "A4",
+        description:
+          'When receiving healing or a Shield from a teammate, deals X increased DMG for X turn(s). This effect cannot trigger repeatedly within one turn. When receiving an Energy Regeneration effect from a teammate\'s ability, gains X point(s) of "Coreflame."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "phainon_trace_a6",
+        name: "Shine with Valor",
+        ascensionRequirement: "A6",
+        description:
+          "When entering combat or ending transformation, increases ATK by X. This effect can stack up to X time(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Fire and Light Bind Virtue and Vice",
+        description:
+          "The base SPD inheritance ratio for Khaslana's extra turn increases to 66%. For every enemy target defeated in one battle, additionally increases this ratio by 1.5%, up to a max of 84%. When using Ultimate, increases CRIT DMG by 50%, lasting for 3 turn(s).",
+        keyMechanic: "Fire and Light Bind Virtue and Vice",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Sky and Earth Churn Mortal Froth",
+        description:
+          'Khaslana\'s Physical RES PEN increases by 20%. When one use of "Foundation: Stardeath Verdict" consumes 4 "Scourge" point(s), gains 1 extra turn.',
+        keyMechanic: "Sky and Earth Churn Mortal Froth",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Depths of Quiet, Entombed in Ruin",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Depths of Quiet, Entombed in Ruin",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Faces of Titans, Blurred by Time",
+        description:
+          'When using "Calamity: Soulscorch Edict," additionally gains 4 stack(s) of "Soulscorch."',
+        keyMechanic: "Faces of Titans, Blurred by Time",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "The Wheel Spins Forevermore",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "The Wheel Spins Forevermore",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Embers of Old Rise Still",
+        description:
+          'The number of overflow points allowed for "Coreflame" no longer has an upper limit. When the battle starts, gains 6 point(s) of "Coreflame." After using the attack from "Foundation: Stardeath Verdict," additionally deals True DMG equal to 36% of the total DMG dealt in this attack to the enemy target with the highest HP.',
+        keyMechanic: "Embers of Old Rise Still",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1408",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Phainon via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "qingque",
+    gameId: "1201",
+    name: "Qingque",
+    localizedNames: {
+      en: "Qingque",
+      id: "Qingque",
+    },
+    rarity: 4,
+    path: "Erudition",
+    element: "Quantum",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1023,
+      atk: 652,
+      def: 441,
+      spd: 98,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "qingque_120101",
+        name: "Flower Pick",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Tosses 1 jade tile from the suit with the fewest tiles in hand to deal Quantum DMG equal to X of Qingque's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "qingque_120102",
+        name: "A Scoop of Moon",
+        type: "skill",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Immediately draws X jade tile(s) and increases DMG by X until the end of the current turn. This effect can stack up to X time(s). The turn will not end after this Skill is used.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "qingque_120103",
+        name: "A Quartet? Woo-hoo!",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Deals Quantum DMG equal to X of Qingque's ATK to all enemies, and obtains 4 jade tiles of the same suit.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "qingque_120104",
+        name: "Celestial Jade",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When an ally\'s turn starts, Qingque randomly draws 1 tile from 3 different suits and can hold up to 4 tiles at one time. If Qingque starts her turn with 4 tiles of the same suit, she consumes all tiles to enter the "Hidden Hand" state. While in this state, Qingque cannot use her Skill again. At the same time, Qingque\'s ATK increases by X, and her Basic ATK "Flower Pick" is enhanced, becoming "Cherry on Top!" The "Hidden Hand" state ends after using "Cherry on Top!".',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "qingque_120106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "qingque_120107",
+        name: "Game Solitaire",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, Qingque draws X jade tile(s) when the battle starts.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "qingque_120108",
+        name: "Cherry on Top!",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Qingque's ATK to one designated enemy, and deals Quantum DMG equal to X of Qingque's ATK to enemies adjacent to it. \"Cherry on Top!\" cannot recover Skill Points.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "qingque_trace_a2",
+        name: "Tile Battle",
+        ascensionRequirement: "A2",
+        description:
+          "Restores 1 Skill Point when using the Skill. This effect can only be triggered 1 time per battle.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "qingque_trace_a4",
+        name: "Bide Time",
+        ascensionRequirement: "A4",
+        description:
+          "Using the Skill increases DMG Boost effect of attacks by an extra X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "qingque_trace_a6",
+        name: "Winning Hand",
+        ascensionRequirement: "A6",
+        description:
+          "Qingque's SPD increases by X for 1 turn after using the Enhanced Basic ATK.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Rise Through the Tiles",
+        description: "Ultimate deals 10% more DMG.",
+        keyMechanic: "Rise Through the Tiles",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Sleep on the Tiles",
+        description:
+          "Every time Draw Tile is triggered, Qingque immediately regenerates 1 Energy.",
+        keyMechanic: "Sleep on the Tiles",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Read Between the Tiles",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Read Between the Tiles",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Right on the Tiles",
+        description:
+          'After using Skill, there is a 24% fixed chance to gain "Self-Sufficer," lasting until the end of the current turn. While "Self-Sufficer" is active, using Basic ATK or Enhanced Basic ATK immediately launches 1 Follow-Up ATK on the same target, dealing Quantum DMG equal to 100% of Basic ATK DMG or Enhanced Basic ATK DMG.',
+        keyMechanic: "Right on the Tiles",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Gambit for the Tiles",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Gambit for the Tiles",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Prevail Beyond the Tiles",
+        description: "Recovers 1 Skill Point after using Enhanced Basic ATK.",
+        keyMechanic: "Prevail Beyond the Tiles",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1201",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Qingque via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "rappa",
+    gameId: "1317",
+    name: "Rappa",
+    localizedNames: {
+      en: "Rappa",
+      id: "Rappa",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Imaginary",
+    releaseVersion: "2.6",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 717,
+      def: 460,
+      spd: 96,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "rappa_131701",
+        name: "Ninjutsu: Rise Above Tumbles",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of Rappa's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131702",
+        name: "Ninja Strike: Rooted Resolute",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Deals Imaginary DMG equal to X of Rappa's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131703",
+        name: "Nindō Supreme: Aishiteru",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          'Enters the "Sealform" state, immediately gains 1 extra turn, obtains X points of "Chroma Ink," and increases Weakness Break Efficiency by X and Break Effect by X. While in the "Sealform" state, Basic ATK is enhanced, and Skill and Ultimate cannot be used. After using Enhanced Basic ATK, consumes 1 point of "Chroma Ink." When "Chroma Ink" is depleted, exits the "Sealform" state.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131704",
+        name: "Ninja Tech: Endurance Gauge",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Each time the enemy target is Weakness Broken, Rappa gains 1 point of Charge, up to a max of X points of Charge. When Rappa next launches the third hit of "Ningu: Demonbane Petalblade," additionally deals Break DMG equal to X of Rappa\'s Imaginary Break DMG to all enemies. This DMG can ignore Weakness Type to reduce X Toughness, consuming all Charge. Each point of Charge increases the Break DMG multiplier by X and increases the Toughness Reduction that can ignore Weakness Type by X. When Breaking Weakness, triggers the Imaginary Weakness Break effect.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131706",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131707",
+        name: "Ninja Dash: By Leaps and Bounds",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, enters the "Graffiti" state for X seconds. While in the "Graffiti" state, moves forward rapidly for a set distance and attacks any enemies touched. During the rapid movement, can block all enemies\' attacks. Using an attack in the "Graffiti" state can end the state\'s duration early. After entering combat via attacking enemies, deals X Toughness Reduction regardless of Weakness Type and Break DMG equal to X of Rappa\'s Imaginary Break DMG to each enemy target, and deals Break DMG equal to X of Rappa\'s Imaginary Break DMG to adjacent targets. At the same time, this unit regenerates X Energy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131708",
+        name: "Ningu: Demonbane Petalblade",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Deals minor Imaginary DMG to one designated enemy and minor Imaginary DMG to adjacent targets. Attacking enemies without Imaginary Weakness can also reduce their Toughness.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131710",
+        name: "Ningu: Demonbane Petalblade",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Deals minor Imaginary DMG to one designated enemy and minor Imaginary DMG to adjacent targets. Attacking enemies without Imaginary Weakness can also reduce their Toughness.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131712",
+        name: "Ningu: Demonbane Petalblade",
+        type: "basic",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          "Deals minor Imaginary DMG to all enemies. Attacking enemies without Imaginary Weakness can also reduce their Toughness.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131714",
+        name: "",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 140,
+        description: " ability for Rappa.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131715",
+        name: "",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 140,
+        description: " ability for Rappa.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131716",
+        name: "",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 140,
+        description: " ability for Rappa.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131717",
+        name: "",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 140,
+        description: " ability for Rappa.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_131718",
+        name: "Ningu: Demonbane Petalblade",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Launches \"Ningu: Demonbane Petalblade.\" The first 2 hits deal Imaginary DMG equal to X of Rappa's ATK to one designated enemy and Imaginary DMG equal to X of Rappa's ATK to adjacent targets, and the 3rd hit deals Imaginary DMG equal to X of Rappa's ATK to all enemies. Enhanced Basic ATK will not recover Skill Points. Attacking enemies that don't have Imaginary Weakness can also reduce Toughness, whose effect is equal to X of the original Toughness Reduction. When Breaking Weakness, triggers the Imaginary Weakness Break effect.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "rappa_trace_a2",
+        name: "Ninjutsu Inscription: Sky High",
+        ascensionRequirement: "A2",
+        description:
+          "When the Weakness of an elite-level or higher enemy is broken, Rappa additionally gains X point(s) of Charge and regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_trace_a4",
+        name: "Ninjutsu Inscription: Sea Echo",
+        ascensionRequirement: "A4",
+        description:
+          'While in the "Sealform" state, after Rappa uses Enhanced Basic ATK to deal DMG to a Weakness Broken enemy target, converts the Toughness Reduction from this instance of DMG to 1 instance of X Super Break DMG.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rappa_trace_a6",
+        name: "Ninjutsu Inscription: Withered Leaf",
+        ascensionRequirement: "A6",
+        description:
+          "When an enemy target becomes Weakness Broken, increases the Break DMG taken by X. If Rappa's current ATK is higher than X, for every 100 excess ATK, additionally increases this value by X, up to a max additional increase of X. This effect lasts for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Returned Is the Revenant With No Ferry Toll",
+        description:
+          'During the "Sealform" state entered by using Ultimate, DMG dealt by Rappa ignores 15% of the targets\' DEF. After exiting the "Sealform" state, regenerates 20 Energy.',
+        keyMechanic: "Returned Is the Revenant With No Ferry Toll",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Free Is the Mind Enlightened by Haikus",
+        description:
+          "The Enhanced Basic ATK's first 2 hits have their Toughness Reduction against the one designated enemy increased by 50%.",
+        keyMechanic: "Free Is the Mind Enlightened by Haikus",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Many Are the Shrines That Repel No Hell",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Many Are the Shrines That Repel No Hell",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Lost Is the Nindō Devoured by Time",
+        description:
+          'While in the "Sealform" state, increases all allies\' SPD by 12%.',
+        keyMechanic: "Lost Is the Nindō Devoured by Time",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Steady Is The Ranger With Unerring Arrows",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Steady Is The Ranger With Unerring Arrows",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Righteous Is the Wrath That Spares No Evil",
+        description:
+          'When battle starts, Rappa gains 5 point(s) of her Talent\'s Charge, and its upper limit increases by 5 point(s). After launching the third hit of "Ningu: Demonbane Petalblade," gains 5 point(s) of Charge.',
+        keyMechanic: "Righteous Is the Wrath That Spares No Evil",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1317",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.6",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Rappa via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "rin-tohsaka",
+    gameId: "1508",
+    name: "Rin Tohsaka",
+    localizedNames: {
+      en: "Rin Tohsaka",
+      id: "Rin Tohsaka",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Quantum",
+    releaseVersion: "4.3",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 698,
+      def: 460,
+      spd: 102,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 160,
+    },
+    abilities: [
+      {
+        id: "rin-tohsaka_150801",
+        name: "Bajiquan",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Rin Tohsaka's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_150802",
+        name: "Jeweled Sword Zelretch",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Deals Quantum DMG equal to X of Rin Tohsaka's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_150803",
+        name: "An Gal Ta Ki Gal Šè",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 160,
+        description:
+          "Deals Quantum DMG equal to X of Rin Tohsaka's ATK to one designated enemy, and Quantum DMG equal to X of Rin Tohsaka's ATK to other enemy targets. When used, recovers X Skill Point(s) for allies, and increases the DMG taken by all enemies by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_150804",
+        name: "Gem Magecraft",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When entering combat, gains X "Gem Energy." When an ally target consumes or recovers Skill Points, increases their CRIT DMG by X for X turn(s). For every 1 Skill Point consumed or recovered, Rin Tohsaka gains 1 "Gem Energy." If Rin Tohsaka holds X or more "Gem Energy," or if the current Skill Points are X or more, her Skill is enhanced to "Second Magic Experiment."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_150805",
+        name: "Freeform Tohsaka Style",
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          'After Archer uses his Skill "Caladbolg II: Fake Spiral Sword" to attack, if Skill Points are X or fewer or if "Caladbolg II: Fake Spiral Sword" has been actively used 5 times during the current "Circuit Connection" state, and the Joint Follow-Up ATK from "Freeform Tohsaka Style" has not been triggered, Rin Tohsaka and Archer will launch Joint Follow-Up ATK on all enemies, dealing Quantum DMG equal to X of Rin Tohsaka\'s ATK and X of Archer\'s ATK respectively, and recovering X Skill Point(s) for allies. This Joint Follow-Up ATK can only trigger once. The trigger count resets when Rin Tohsaka\'s turn ends.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_150806",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_150807",
+        name: "Conversion Charge",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, gains X "Gem Energy" at the start of the next battle.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_150809",
+        name: "Second Magic Experiment",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        description:
+          'Deals Quantum DMG equal to X of Rin Tohsaka\'s ATK to all enemies. Then, consumes X "Gem Energy" to additionally deal Quantum DMG equal to X of Rin Tohsaka\'s ATK to one random enemy target. This repeats until "Gem Energy" is less than X or there are no enemy targets with current HP greater than 0. Can repeat up to X cycle(s). When used, if the current Skill Points are greater than X, consumes Skill Points down to X, and for each Point consumed, immediately gains X "Gem Energy."',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "rin-tohsaka_trace_a2",
+        name: "Elegant Conduct",
+        ascensionRequirement: "A2",
+        description:
+          "While Rin Tohsaka is on the field, additionally increases the upper limit of Skill Points by X. When entering combat, Rin Tohsaka's ATK increases by X, and Quantum RES PEN increases by X. If Archer is in the team, Archer also gains this effect.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_trace_a4",
+        name: "Ladylike Poise",
+        ascensionRequirement: "A4",
+        description:
+          "When entering combat or after using Enhanced Skill, increases Rin Tohsaka's SPD by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "rin-tohsaka_trace_a6",
+        name: "Inbound Prosperity",
+        ascensionRequirement: "A6",
+        description: 'When Rin Tohsaka uses Ultimate, gains X "Gem Energy."',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Zelretch's Apprentice",
+        description:
+          'If one instance of the Enhanced Skill consumes 30 or more "Gem Energy," Rin Tohsaka gains "Shadow Gem" equal to the amount of "Gem Energy" consumed. While holding "Shadow Gem," enhances Skill to "Second Magic Experiment." The Enhanced Skill consumes all "Shadow Gem," does not trigger the effect that converts Skill Points into "Gem Energy," and does not consume "Gem Energy."',
+        keyMechanic: "Zelretch's Apprentice",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Dimensional Traveler",
+        description:
+          "Rin Tohsaka's Skill DMG dealt increases by 30%. While Rin Tohsaka is on the field, Skill DMG dealt by all allies becomes 130% of the original DMG.",
+        keyMechanic: "Dimensional Traveler",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Holy Grail War: Victory Memorial",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Holy Grail War: Victory Memorial",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Red Devil: Triple Speed",
+        description:
+          'When the CRIT DMG boost effect from the Talent "Gem Magecraft" applies to Rin Tohsaka, the effect can stack, up to 2 time(s).',
+        keyMechanic: "Red Devil: Triple Speed",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Goddess of Venus's Favor",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Goddess of Venus's Favor",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Nailed It This Time!",
+        description:
+          'Rin Tohsaka\'s All-Type RES PEN increases by 20%. When using Ultimate, gains 24 "Gem Energy" and 1 extra turn.',
+        keyMechanic: "Nailed It This Time!",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1508",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.3",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Rin Tohsaka via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "robin",
+    gameId: "1309",
+    name: "Robin",
+    localizedNames: {
+      en: "Robin",
+      id: "Robin",
+      ja: "ロビン",
+      zh: "知更鸟",
+    },
+    rarity: 5,
+    path: "Harmony",
+    element: "Physical",
+    releaseVersion: "2.2",
+    roles: ["buffer", "battery"],
+    mechanicTags: [
+      "action_advance",
+      "energy_regen",
+      "stat_conversion",
+      "buff",
+      "follow_up",
+    ],
+    baseStats: {
+      hp: 1280,
+      atk: 640,
+      def: 485,
+      spd: 102,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 160,
+    },
+    abilities: [
+      {
+        id: "robin_basic",
+        name: "Wingbeat White Noise",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to 100% of Robin's ATK to a single enemy.",
+        mechanics: ["single_target"],
+      },
+      {
+        id: "robin_skill",
+        name: "Pinion's Aria",
+        type: "skill",
+        tag: "Support",
+        targetType: "all_allies",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Increases DMG dealt by all allies by 50% for 3 turns. Robin's turn duration decreases at the start of each of Robin's turns.",
+        mechanics: ["buff"],
+      },
+      {
+        id: "robin_ultimate",
+        name: "Vox Harmonique, Opus Cosmique",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "all_allies",
+        energyCost: 160,
+        description:
+          "Enters the Concerto state, advancing all allies' actions by 100%. All allies gain ATK boost equal to 22.8% of Robin's ATK + 200. After every ally attack, Robin deals Additional Physical DMG equal to 120% of her ATK with fixed 100% CRIT Rate and 150% CRIT DMG.",
+        mechanics: ["action_advance", "buff", "stat_conversion"],
+      },
+      {
+        id: "robin_talent",
+        name: "Tonal Resonance",
+        type: "talent",
+        tag: "Support",
+        targetType: "all_allies",
+        description:
+          "Increases CRIT DMG for all allies by 20%. When allies attack enemy targets, Robin regenerates 2 Energy.",
+        mechanics: ["buff", "energy_regen"],
+      },
+      {
+        id: "robin_technique",
+        name: "Overture of Inebriation",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        description:
+          "Creates a special dimension around Robin. Enemies inside will not attack. After entering battle, Robin regenerates 5 Energy at the start of each wave.",
+        mechanics: ["energy_regen"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "robin_trace_a2",
+        name: "Coloratura Cadenza",
+        ascensionRequirement: "A2",
+        description:
+          "When battle begins, Robin's action is advanced forward by 25%.",
+        mechanics: ["action_advance"],
+      },
+      {
+        id: "robin_trace_a4",
+        name: "Impromptu Flourish",
+        ascensionRequirement: "A4",
+        description:
+          "During Concerto, CRIT DMG of all allies' Follow-Up Attacks increases by 25%.",
+        mechanics: ["follow_up", "buff"],
+      },
+      {
+        id: "robin_trace_a6",
+        name: "Sequential Passage",
+        ascensionRequirement: "A6",
+        description: "When using Skill, regenerates an additional 5 Energy.",
+        mechanics: ["energy_regen"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "atk",
+        totalValue: 0.28,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.18,
+        unit: "percentage",
+      },
+      {
+        stat: "spd",
+        totalValue: 5,
+        unit: "flat",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Land of Smiles",
+        description:
+          "While in the Concerto state, increases All-Type RES PEN of all allies by 24%.",
+        keyMechanic: "All-Type RES PEN for entire team during Concerto",
+        mechanics: ["res_penetration", "buff"],
+      },
+      {
+        rank: 2,
+        name: "Afternoon Tea for Two",
+        description:
+          "While in Concerto, increases all allies' SPD by 16%. Energy generated by Talent increases by 1.",
+        keyMechanic: "Team SPD increase + faster Energy battery",
+        mechanics: ["buff", "energy_regen"],
+      },
+      {
+        rank: 3,
+        name: "Inverted Tuning",
+        description: "Skill Lv. +2, Ultimate Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Raindrop Key",
+        description:
+          "When using Ultimate, cleanses Crowd Control debuffs from all allies. During Concerto, increases Effect RES of all allies by 50%.",
+        keyMechanic: "Team CC cleanse on Ultimate + 50% Effect RES",
+        mechanics: ["cleanse", "buff"],
+      },
+      {
+        rank: 5,
+        name: "Lonestar's Lament",
+        description: "Basic ATK Lv. +1, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Moonless Midnight",
+        description:
+          "While in Concerto, the CRIT DMG of Additional Physical DMG dealt by Robin increases by 450%. This effect can trigger up to 8 times per Concerto.",
+        keyMechanic: "Massive 450% Crit DMG boost on Robin's Concerto procs",
+        mechanics: ["buff"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyolab_robin_official",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://wiki.hoyolab.com/pc/hsr/entry/1309",
+      gameVersion: "2.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Official HoYoWiki Robin Concerto & team action advance factual kit",
+    },
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "robin-summeretto",
+    gameId: "1512",
+    name: "Robin • Summeretto",
+    localizedNames: {
+      en: "Robin • Summeretto",
+      id: "Robin • Summeretto",
+    },
+    rarity: 5,
+    path: "Remembrance",
+    element: "Wind",
+    releaseVersion: "4.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1203,
+      atk: 601,
+      def: 485,
+      spd: 95,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "robin-summeretto_151201",
+        name: "The Sea Sings in My Key",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Robin • Summeretto's Max HP to one enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_151202",
+        name: "Summer Strums the Soul",
+        type: "skill",
+        tag: "Summon",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Summons the memosprite "Summer Songbirds" Bessie. If any member of the "Summer Songbirds" is already on the field, restores their HP by an amount equal to X of "Summer Songbirds\'" Max HP, and gains X Vibes.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_151203",
+        name: "Ascend That Rhapsody in Blue",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          'Advances the action of one designated ally character (excluding Robin • Summeretto) by X and regenerates a fixed amount of Energy equal to #3[f1]% of their Max Energy. Then, grants them the "Special Guest" effect. When the "Special Guest" character or their summon attacks, they additionally grant Robin • Summeretto X Vibes but cannot make other friendly targets gain the action advance effect. This lasts for 2 turn(s), and its duration decreases by 1 at the start of this character\'s turn.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_151204",
+        name: "Wings Heed No Borders",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Memosprite "Summer Songbirds" has an initial Max HP equal to X of Robin • Summeretto\'s Max HP and an initial SPD equal to X of Robin • Summeretto\'s SPD. When an ally target uses an attack, or when they provide healing or Shield for the first time in any target\'s turn, Robin • Summeretto gains Vibes by 1 point, capped at X. While "Summer Songbirds" Bessie is on the field, if Robin • Summeretto\'s Vibes is X or higher, immediately summons "Summer Songbirds" Drummie, and if Vibes is X or higher, immediately summons "Summer Songbirds" Paddie. When all "Summer Songbirds" take the stage, dispels all Crowd Control debuffs inflicted upon Robin • Summeretto and the "Summer Songbirds", starts the "Fever" state, and deploys a Zone. When ally targets deal DMG within the Zone, they ignore a percentage of enemy targets\' DEF equal to (#8[f1]% + Vibes × #9[f1]%). While in the "Fever" state, Robin • Summeretto and the "Summer Songbirds" are immune to Crowd Control debuffs. Robin • Summeretto will not enter her turn until the "Fever" state ends.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_151206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_151207",
+        name: "We Are the Melody",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, advances action by X at the start of the next battle, immediately gains X Vibes, and increases all allies' DMG dealt by X, lasting for 2 turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_1151201",
+        name: "Chirrup Quartet",
+        type: "memosprite_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          'Deals Wind DMG equal to #2[f1]% of "Summer Songbirds\'" Max HP to all enemies.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_1151203",
+        name: "A Warble of Wings",
+        type: "memosprite_talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'While in the "Fever" state, the "Summer Songbirds" and a countdown will appear on the Action Order. And the DMG dealt by Robin • Summeretto and "Summer Songbirds" increases by an amount equal to (X + Vibes × #2[f1]%). When "Summer Songbirds\'" turn starts, uses the Memosprite Skill. The countdown has an initial SPD of X. And when its turn starts, deducts X of the current Vibes (minimum X points). When the Vibes reaches 0, the "Summer Songbirds" disappears and Robin • Summeretto exits the "Fever" state. While the "Summer Songbirds" is on the field, based on the number of its members present, increases the DMG taken by all enemies by #3[f1]%/#4[f1]%/#5[f1]% respectively.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_1151205",
+        name: "Near the Sea's Heartbeat",
+        type: "memosprite_talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When the "Summer Songbirds" gets summoned, regenerates X Energy for Robin • Summeretto.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_1151206",
+        name: "Astride Summer's Nightwind",
+        type: "memosprite_talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When the "Summer Songbirds" disappears, Robin • Summeretto\'s action advances by X.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "robin-summeretto_trace_a2",
+        name: "Deviated Chords",
+        ascensionRequirement: "A2",
+        description:
+          "When an ally target causes Robin • Summeretto to gain Vibes, if their ATK is higher than Robin • Summeretto's, increases that target's ATK by an amount equal to (X + Vibes × #2[f1]%) of Robin • Summeretto's Max HP. Otherwise, increases that target's CRIT DMG by an amount equal to (X + Vibes × #4[f1]%). Lasts for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_trace_a4",
+        name: "Improvised Blues",
+        ascensionRequirement: "A4",
+        description:
+          'When Robin • Summeretto or the "Summer Songbirds" receive healing or Shield provided by teammates, causes Robin • Summeretto to gain X stack(s) of "Groove," capped at X. The first time Robin • Summeretto gains Vibes during any target\'s turn, if she has "Groove," consumes 1 stack of "Groove" and regenerates a fixed X Energy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "robin-summeretto_trace_a6",
+        name: "Rebuilt Harmony",
+        ascensionRequirement: "A6",
+        description:
+          'Increases the CRIT Rate of Robin • Summeretto and "Summer Songbirds" by X.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Stray Bird of Summer",
+        description:
+          '"Summer Songbirds" will keep a tally of 100% of the non-True DMG dealt by ally targets. When using the Memosprite Skill, additionally deals True DMG to the enemy target with the highest HP, equal to (11% + current Vibes × 0.1%) of the total tally. Then, clears 50% of the tally.',
+        keyMechanic: "Stray Bird of Summer",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "A Heart of Still Water",
+        description:
+          "Ally targets' All-Type RES PEN increases by 18%. The upper limit of Robin • Summeretto's Vibes increases by 20. The first time an ally target uses an ability during any target's turn to cause Robin • Summeretto to gain Vibes, she gains an additional 2 points.",
+        keyMechanic: "A Heart of Still Water",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Echoes Left Along the Way",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Memosprite Talent Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Echoes Left Along the Way",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Her Variation on the Theme",
+        description:
+          'Upon entering the "Fever" state, immediately gains 12 Vibes, and increases the SPD of "Summer Songbirds" by an amount equal to (20% + current Vibes × 0.5%).',
+        keyMechanic: "Her Variation on the Theme",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "To Chase the Dawn Anew",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Memosprite Skill Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "To Chase the Dawn Anew",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "A Song Yet Unnamed",
+        description:
+          'Increases the Memosprite Skill\'s DMG multiplier by 100% of its original value. While in the "Fever" state, Robin • Summeretto can store her Ultimate up to 2 times. After entering the "Fever" state for the first time in this battle or when the the "Fever" countdown\'s turn starts, regenerates a fixed 140 Energy.',
+        keyMechanic: "A Song Yet Unnamed",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1512",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Robin • Summeretto via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "ruan-mei",
+    gameId: "1303",
+    name: "Ruan Mei",
+    localizedNames: {
+      en: "Ruan Mei",
+      id: "Ruan Mei",
+    },
+    rarity: 5,
+    path: "Harmony",
+    element: "Ice",
+    releaseVersion: "1.6",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 659,
+      def: 485,
+      spd: 104,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "ruan-mei_130301",
+        name: "Threading Fragrance",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Ruan Mei's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ruan-mei_130302",
+        name: "String Sings Slow Swirls",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "After using her Skill, Ruan Mei gains Overtone, lasting for X turn(s). This duration decreases by 1 at the start of Ruan Mei's every turn. When Ruan Mei has Overtone, all allies' DMG increases by #1[f1]% and Weakness Break Efficiency increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ruan-mei_130303",
+        name: "Petals to Stream, Repose in Dream",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "Ruan Mei deploys a Zone that lasts for X turns. The Zone's duration decreases by 1 at the start of her turn. While inside the Zone, all allies' All-Type RES PEN increases by #1[f1]% and their attacks apply Thanatoplum Rebloom to the enemies hit. When these enemies attempt to recover from Weakness Break, Thanatoplum Rebloom is triggered, extending the duration of their Weakness Break, delaying their action by an amount equal to X of Ruan Mei's Break Effect plus X, and dealing Break DMG equal to X of Ruan Mei's Ice Break DMG. Enemy targets cannot have Thanatoplum Rebloom re-applied to them until they recover from Weakness Break.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ruan-mei_130304",
+        name: "Somatotypical Helix",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Increases SPD by #1[f1]% for all teammates (i.e., excluding this unit). When allies Break an enemy target's Weakness, Ruan Mei deals to this enemy target Break DMG equal to #2[f1]% of her Ice Break DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ruan-mei_130306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ruan-mei_130307",
+        name: "Silken Serenade",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using the Technique, gains Silken Serenade. At the start of the next battle, automatically triggers the Skill for X time(s) without consuming Skill Points. In Simulated Universe or Divergent Universe, when Ruan Mei has Silken Serenade, the team actively attacking enemies will always be regarded as attacking their Weakness to enter combat, and this attack can reduce all enemies' Toughness regardless of Weakness types. When breaking Weakness, triggers Weakness Break Effect corresponding to the attacker's Type. For every Blessing in possession (up to a max of X Blessings will be taken into account), additionally increases the Toughness Reduction of this attack by X. After breaking an enemy target's Weakness, additionally deals to the enemy target Break DMG equal to X of Ruan Mei's Ice Break DMG.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "ruan-mei_trace_a2",
+        name: "Inert Respiration",
+        ascensionRequirement: "A2",
+        description: "Increases Break Effect by X for all allies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ruan-mei_trace_a4",
+        name: "Days Wane, Thoughts Wax",
+        ascensionRequirement: "A4",
+        description: "Ruan Mei regenerates X Energy at the start of her turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "ruan-mei_trace_a6",
+        name: "Candle Lights on Still Waters",
+        ascensionRequirement: "A6",
+        description:
+          "In battle, for every X of Ruan Mei's Break Effect that exceeds X, her Skill additionally increases allies' DMG by X, up to a maximum of X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Neuronic Embroidery",
+        description:
+          "While the Ultimate's Zone is deployed, the DMG dealt by all allies ignores 20% of the target's DEF.",
+        keyMechanic: "Neuronic Embroidery",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Reedside Promenade",
+        description:
+          "While Ruan Mei is on the field, all allies increase their ATK by 40% when dealing DMG to enemies that are Weakness Broken.",
+        keyMechanic: "Reedside Promenade",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Viridescent Pirouette",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Viridescent Pirouette",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Chatoyant Éclat",
+        description:
+          "When an enemy target's Weakness is Broken, Ruan Mei's Break Effect increases by 100% for 3 turn(s).",
+        keyMechanic: "Chatoyant Éclat",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Languid Barrette",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Languid Barrette",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Sash Cascade",
+        description:
+          "Extends the duration of the Ultimate's Zone by 1 turn(s). The Talent's Break DMG multiplier additionally increases by 200%.",
+        keyMechanic: "Sash Cascade",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1303",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.6",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Ruan Mei via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "saber",
+    gameId: "1014",
+    name: "Saber",
+    localizedNames: {
+      en: "Saber",
+      id: "Saber",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Wind",
+    releaseVersion: "3.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1241,
+      atk: 601,
+      def: 654,
+      spd: 101,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 360,
+    },
+    abilities: [
+      {
+        id: "saber_101401",
+        name: "Invisible Air: Barrier of the Wind King",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Saber's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "saber_101402",
+        name: "Strike Air: Hammer of the Wind King",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          'Deals Wind DMG equal to X of Saber\'s ATK to one designated enemy, and deals Wind DMG equal to X of Saber\'s ATK to adjacent targets. If Saber currently holds "Core Resonance" and her Energy can be fully regenerated by consuming "Core Resonance" after this instance of Skill attack, then increases the multiplier for this instance of Skill. For every 1 point of "Core Resonance," increases the DMG multiplier for this instance of Skill by #4[f1]%. And after the attack, consumes all "Core Resonance" to regenerate Energy for Saber. Otherwise, immediately gains X point(s) of "Core Resonance."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "saber_101403",
+        name: "Excalibur",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 360,
+        description:
+          'Deals Wind DMG equal to X of Saber\'s ATK to all enemies, and additionally deals X instance(s) of DMG, with each instance being Wind DMG equal to X of Saber\'s ATK dealt to one random enemy. After using Ultimate, the next Basic ATK switches to "Release, the Golden Scepter," and only "Release, the Golden Scepter" can be used.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "saber_101404",
+        name: "Dragon Reactor Core",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'When entering combat, gains X "Core Resonance" point(s). When any ally target uses Ultimate, increases the DMG dealt by Saber by X for X turn(s) and gains X "Core Resonance" point(s). For every 1 "Core Resonance" point consumed, regenerates a fixed amount of #5[f1] Energy for Saber.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "saber_101406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "saber_101407",
+        name: "Behold, the King of Knights",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, at the start of the next battle, increases Saber\'s ATK by X for X turn(s) and gains X "Core Resonance."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "saber_101408",
+        name: "Release, the Golden Scepter",
+        type: "basic",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          "Gains X point(s) of \"Core Resonance\" and deals Wind DMG to all enemies equal to X of Saber's ATK. When this ability is used, if the number of enemy targets is 2 or 1, additionally deals Wind DMG to all enemies equal to X or X of Saber's ATK respectively.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "saber_trace_a2",
+        name: "Knight of the Dragon",
+        ascensionRequirement: "A2",
+        description:
+          'Increases Saber\'s CRIT Rate by X. When entering combat or when using her Enhanced Basic ATK, gains the "Mana Burst" effect. Under this effect, if Saber has "Core Resonance" and her Energy can be fully regenerated by using her Skill and consuming "Core Resonance," then consumes "Mana Burst" to recover 1 Skill Point for allies, and causes Saber to immediately take action.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "saber_trace_a4",
+        name: "Blessing of the Lake",
+        ascensionRequirement: "A4",
+        description:
+          "Saber can accumulate up to X overflow Energy. After using Ultimate, the overflow Energy is cleared and a corresponding amount of Energy is regenerated. When the battle starts, if Energy is below X, it is regenerated to X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "saber_trace_a6",
+        name: "Crown of the Star",
+        ascensionRequirement: "A6",
+        description:
+          "When using Skill, increases Saber's CRIT DMG by X for X turns. During this battle, for every 1 point of \"Core Resonance\" gained, increases Saber's CRIT DMG by X, stacking up to X time(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "wind",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "The Lost White Walls",
+        description:
+          'Increases the Ultimate DMG dealt by Saber by 60%. After Saber uses Basic ATK or Skill, gains 1 "Core Resonance."',
+        keyMechanic: "The Lost White Walls",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "The Lost Oath of the Round Table",
+        description:
+          'For every 1 point of "Core Resonance" gained in this battle, Saber\'s DMG dealt ignores 1.0% of the target\'s DEF. This effect stacks up to 15 time(s). When triggering the "Core Resonance" effect to boost Skill\'s multiplier, each point of "Core Resonance" additionally increases the DMG multiplier for the current instance of Skill by 7%.',
+        keyMechanic: "The Lost Oath of the Round Table",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "A Wish Across Fifteen Centuries",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "A Wish Across Fifteen Centuries",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "The Saga of Sixteen Winter Days",
+        description:
+          "Increases Saber's Wind RES PEN by 8%. After using Ultimate, increases Saber's Wind RES PEN by 4%. This effect stacks up to 3 time(s).",
+        keyMechanic: "The Saga of Sixteen Winter Days",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "The Dreamed Utopian Dawn",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "The Dreamed Utopian Dawn",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "The Long Fated Night",
+        description:
+          'The Wind RES PEN of the Ultimate DMG dealt by Saber increases by 20%. The amount of overflow Energy that can be accumulated with the Trace "Blessing of the Lake" increases to 200. After using Ultimate for the first time upon entering combat, regenerates a fixed amount of 300 Energy for Saber. This effect can trigger 1 time after every 3 Ultimate use(s).',
+        keyMechanic: "The Long Fated Night",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1014",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Saber via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "sampo",
+    gameId: "1108",
+    name: "Sampo",
+    localizedNames: {
+      en: "Sampo",
+      id: "Sampo",
+    },
+    rarity: 4,
+    path: "Nihility",
+    element: "Wind",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1023,
+      atk: 617,
+      def: 396,
+      spd: 102,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "sampo_110801",
+        name: "Dazzling Blades",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Wind DMG equal to X of Sampo's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sampo_110802",
+        name: "Ricochet Love",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        description:
+          "Deals Wind DMG equal to X of Sampo's ATK to one designated enemy, and further deals DMG for X extra time(s), with each time dealing Wind DMG equal to X of Sampo's ATK to a random enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sampo_110803",
+        name: "Surprise Present",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Wind DMG equal to X of Sampo's ATK to all enemies, with a X base chance to increase the targets' DoT taken by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sampo_110804",
+        name: "Windtorn Dagger",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Sampo's attacks have a X base chance to inflict Wind Shear for X turn(s). Enemies inflicted with Wind Shear will take Wind DoT equal to X of Sampo's ATK at the beginning of each turn. Wind Shear can stack up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sampo_110806",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sampo_110807",
+        name: "Shining Bright",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After Sampo uses his Technique, enemies in a set area are afflicted with Blind for X second(s). Blinded enemies cannot detect ally targets. When initiating combat against a Blinded enemy, there is a X fixed chance to delay all enemies' action by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "sampo_trace_a2",
+        name: "Trap",
+        ascensionRequirement: "A2",
+        description:
+          "Extends the duration of Wind Shear caused by Talent by X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sampo_trace_a4",
+        name: "Defensive Position",
+        ascensionRequirement: "A4",
+        description: "Using Ultimate additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sampo_trace_a6",
+        name: "Spice Up",
+        ascensionRequirement: "A6",
+        description: "Enemies with Wind Shear effect deal X less DMG to Sampo.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Rising Love",
+        description:
+          "When using Skill, deals DMG for 1 extra time(s) to a random enemy.",
+        keyMechanic: "Rising Love",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Infectious Enthusiasm",
+        description:
+          "Defeating an enemy afflicted with Wind Shear has a 100% base chance to inflict all enemies with 1 stack(s) of Wind Shear, equivalent to that of Skill.",
+        keyMechanic: "Infectious Enthusiasm",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Big Money!",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Big Money!",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "The Deeper the Love, the Stronger the Hate",
+        description:
+          "When Skill hits an enemy with 5 or more stack(s) of Wind Shear, the enemy immediately takes 8% of current Wind Shear DMG.",
+        keyMechanic: "The Deeper the Love, the Stronger the Hate",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Huuuuge Money!",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Huuuuge Money!",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Increased Spending",
+        description: "Talent's Wind Shear DMG multiplier increases by 15%.",
+        keyMechanic: "Increased Spending",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1108",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Sampo via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "seele",
+    gameId: "1102",
+    name: "Seele",
+    localizedNames: {
+      en: "Seele",
+      id: "Seele",
+    },
+    rarity: 5,
+    path: "Hunt",
+    element: "Quantum",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 931,
+      atk: 640,
+      def: 363,
+      spd: 115,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "seele_110201",
+        name: "Thwack",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Seele's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_110202",
+        name: "Sheathed Blade",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Increases Seele's SPD by X for X turn(s) and deals Quantum DMG equal to X of Seele's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_110203",
+        name: "Butterfly Flurry",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Seele enters the Amplification state and deals Quantum DMG equal to X of her ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_110204",
+        name: "Resurgence",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Enters the Amplification state upon defeating an enemy with Basic ATK, Skill, or Ultimate, and receives an extra turn. While in the Amplification state, increases the DMG of Seele\'s attacks by X for X turn(s). Enemies defeated in the extra turn provided by "Resurgence" will not trigger another "Resurgence."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_110206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_110207",
+        name: "Phantom Illusion",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using her Technique, Seele gains Stealth for X second(s). While Stealth is active, Seele cannot be detected by enemies. And when entering battle by attacking enemies, Seele will immediately enter the Amplification state.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_1110201",
+        name: "Thwack",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Seele's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_1110202",
+        name: "Sheathed Blade",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Increases Seele's SPD by X for X turn(s) and deals Quantum DMG equal to X of Seele's ATK to one designated enemy. After an ally target attacks, if the attack target's current HP percentage is X or below, Seele will automatically use her Skill at that target 1 time. This Skill does not consume Skill Points or regenerate Energy. This effect can only be triggered 1 time per turn and resets at the start of Seele's turn. If there are no valid targets to attack, she attacks the enemy target with the lowest HP percentage instead.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_1110203",
+        name: "Butterfly Flurry",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Seele enters the Amplification state and deals Quantum DMG equal to X of her ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_1110204",
+        name: "Resurgence",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Enters the Amplification state upon defeating an enemy with Basic ATK, Skill, or Ultimate, and receives an extra turn. While in the Amplification state, increases the DMG dealt by Seele increases by X for X turn(s). Enemies defeated in the extra turn provided by "Resurgence" will not trigger another "Resurgence."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_1110206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_1110207",
+        name: "Phantom Illusion",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using her Technique, Seele gains Stealth for X second(s). While Stealth is active, Seele cannot be detected by enemies. And when entering combat by attacking enemies, Seele will immediately enter the Amplification state and deals Quantum DMG equal to Seele's Skill DMG multiplier to random enemy target 1 time. This DMG is a guaranteed CRIT Hit.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "seele_trace_a2",
+        name: "Nightshade",
+        ascensionRequirement: "A2",
+        description:
+          "When current HP percentage is X or lower, reduces the chance of being attacked by enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_trace_a4",
+        name: "Lacerate",
+        ascensionRequirement: "A4",
+        description:
+          "While Seele is in the Amplification state, her Quantum RES PEN increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_trace_a6",
+        name: "Rippling Waves",
+        ascensionRequirement: "A6",
+        description:
+          "After using a Basic ATK, advances Seele's next action by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_trace_a2",
+        name: "Nightshade",
+        ascensionRequirement: "A2",
+        description:
+          "When defeating an enemy target, increases this unit's DMG dealt by X. This effect can stack up to X time(s) and lasts for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_trace_a4",
+        name: "Lacerate",
+        ascensionRequirement: "A4",
+        description:
+          "While Seele is in the Amplification state, her Quantum RES PEN increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "seele_trace_a6",
+        name: "Rippling Waves",
+        ascensionRequirement: "A6",
+        description:
+          "After using a Basic ATK, advances Seele's next action by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Extirpating Slash",
+        description:
+          "When dealing DMG to an enemy whose HP percentage is 80% or lower, increases CRIT Rate by 15%.",
+        keyMechanic: "Extirpating Slash",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Dancing Butterfly",
+        description:
+          "The SPD Boost effect of Seele's Skill can stack up to 2 time(s).",
+        keyMechanic: "Dancing Butterfly",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Dazzling Tumult",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Dazzling Tumult",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Flitting Phantasm",
+        description: "Seele regenerates 15 Energy when she defeats an enemy.",
+        keyMechanic: "Flitting Phantasm",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Piercing Shards",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Piercing Shards",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Shattering Shambles",
+        description:
+          'After attacking with Ultimate, Seele inflicts "Butterfly Flurry" on the attacked enemy target for 1 turn(s). Enemies in "Butterfly Flurry" will additionally take 1 instance of Quantum Additional DMG equal to 15% of Seele\'s Ultimate DMG every time they are attacked. If the target is defeated by the "Butterfly Flurry" state\'s Additional DMG triggered by other allies\' attacks, Seele\'s Talent will not be triggered. When Seele is knocked down, the "Butterfly Flurry" inflicted on the enemies will be removed.',
+        keyMechanic: "Shattering Shambles",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1102",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Seele via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "serval",
+    gameId: "1103",
+    name: "Serval",
+    localizedNames: {
+      en: "Serval",
+      id: "Serval",
+    },
+    rarity: 4,
+    path: "Erudition",
+    element: "Lightning",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 917,
+      atk: 652,
+      def: 374,
+      spd: 104,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 100,
+    },
+    abilities: [
+      {
+        id: "serval_110301",
+        name: "Roaring Thunderclap",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Serval's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "serval_110302",
+        name: "Lightning Flash",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Lightning DMG equal to X of Serval's ATK to one designated enemy and Lightning DMG equal to X of Serval's ATK to enemies adjacent to it, with a X base chance for enemies hit to become Shocked for X turn(s). While Shocked, enemies take Lightning DoT equal to X of Serval's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "serval_110303",
+        name: "Here Comes the Mechanical Fever",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 100,
+        description:
+          "Deals Lightning DMG equal to X of Serval's ATK to all enemies. Enemies already Shocked will extend the duration of their Shock state by X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "serval_110304",
+        name: "Galvanic Chords",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After Serval attacks, deals Lightning Additional DMG equal to X of Serval's ATK to all Shocked enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "serval_110306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "serval_110307",
+        name: "Good Night, Belobog",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering battle, deals Lightning DMG equal to X of Serval's ATK to a random enemy, with a X base chance for all enemies to become Shocked for X turn(s). While Shocked, enemies will take Lightning DoT equal to X of Serval's ATK at the beginning of each turn.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "serval_trace_a2",
+        name: "Rock 'n' Roll",
+        ascensionRequirement: "A2",
+        description:
+          "When using skill, increases the base chance for the attacked enemy target to become Shocked by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "serval_trace_a4",
+        name: "String Vibration",
+        ascensionRequirement: "A4",
+        description:
+          "At the start of the battle, immediately regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "serval_trace_a6",
+        name: "Mania",
+        ascensionRequirement: "A6",
+        description:
+          "Upon defeating an enemy, ATK is increased by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Echo Chamber",
+        description:
+          "Basic ATK deals Lightning DMG equal to 60% of Basic ATK DMG to a random target adjacent to the target enemy.",
+        keyMechanic: "Echo Chamber",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Encore!",
+        description:
+          "Every time Serval's Talent is triggered to deal Additional DMG, she regenerates 4 Energy.",
+        keyMechanic: "Encore!",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Listen, the Heartbeat of the Gears",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Listen, the Heartbeat of the Gears",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Make Some Noise!",
+        description:
+          "Ultimate has a 100% base chance to apply Shock to any enemies not currently Shocked. This Shock has the same effects as the one applied by Skill.",
+        keyMechanic: "Make Some Noise!",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Belobog's Loudest Roar!",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Belobog's Loudest Roar!",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "This Song Rocks to Heaven!",
+        description: "Serval deals 30% more DMG to Shocked enemies.",
+        keyMechanic: "This Song Rocks to Heaven!",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1103",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Serval via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "silver-wolf",
+    gameId: "1006",
+    name: "Silver Wolf",
+    localizedNames: {
+      en: "Silver Wolf",
+      id: "Silver Wolf",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Quantum",
+    releaseVersion: "1.1",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 640,
+      def: 460,
+      spd: 107,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "silver-wolf_100601",
+        name: "System Warning",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Silver Wolf's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_100602",
+        name: "Allow Changes?",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "There is a X base chance to add 1 Weakness of an on-field character's Type to the target enemy. This also reduces the enemy's DMG RES to that Weakness Type by X for X turn(s). If the enemy already has that Type Weakness, the effect of DMG RES reduction to that Weakness Type will not be triggered. Each enemy can only have 1 Weakness implanted by Silver Wolf. When Silver Wolf implants another Weakness to the target, only the most recent implanted Weakness will be kept. In addition, there is a X base chance to further reduce the All-Type RES of the enemy by #6[f1]% for X turn(s). Deals Quantum DMG equal to X of Silver Wolf's ATK to this enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_100603",
+        name: "User Banned",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          "There's a X base chance to decrease the target enemy's DEF by #3[f1]% for X turn(s). And at the same time, deals Quantum DMG equal to X of Silver Wolf's ATK to the target enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_100604",
+        name: "Awaiting System Response...",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Silver Wolf can create three types of Bugs: Reduce ATK by #1[f1]%, reduce DEF by #2[f1]%, and reduce SPD by #3[f1]%. Every time Silver Wolf attacks, she has a X base chance to implant a random Bug that lasts for X turn(s) in an enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_100606",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_100607",
+        name: "Force Quit Program",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering battle, deals Quantum DMG equal to X of Silver Wolf's ATK to all enemies, and ignores Weakness Types and reduces Toughness from all enemies. Enemies with their Weakness Broken in this way will trigger the Quantum Weakness Break effect.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_1100601",
+        name: "System Warning",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Silver Wolf's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_1100602",
+        name: "Allow Changes?",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "There is a X base chance to add 1 Weakness of an on-field ally target's Type to one designated enemy target (prioritizing the implant of a Weakness that matches the first character in the team lineup). This also reduces the enemy target's RES to that Weakness Type by X for X turn(s). If the enemy target already has that Type of Weakness, the RES reduction effect to that Type will not be triggered. Each enemy target can only have 1 Weakness implanted by Silver Wolf. When Silver Wolf implants another Weakness to the target, only the most recent implanted Weakness will be retained. In addition, there is a X base chance to further reduce the target's All-Type RES by #6[f1]% for X turn(s). Deals Quantum DMG equal to X of Silver Wolf's ATK to this target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_1100603",
+        name: "User Banned",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          "Has a X base chance to reduce the DEF of all enemies by #3[f1]% for X turn(s). At the same time, deals Quantum DMG equal to X of Silver Wolf's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_1100604",
+        name: "Awaiting System Response...",
+        type: "talent",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'Silver Wolf can create three types of "Bugs": Reduce ATK by #1[f1]%, reduce DEF by #2[f1]%, and reduce SPD by #3[f1]%. After every attack launched by Silver Wolf, she has a X base chance to implant 1 random "Bug" that lasts for X turn(s) in the attacked enemy target. When the enemy target gets defeated, the Weakness Silver Wolf implanted on it will be transferred to another surviving enemy on the field that hasn\'t been implanted with Weakness by Silver Wolf, prioritizing targets at Elite-level and above.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_1100606",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_1100607",
+        name: "Force Quit Program",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering combat, deals Quantum DMG equal to X of Silver Wolf's ATK to all enemies, and reduces Toughness of all enemies regardless of Weakness Types. Enemies with their Weakness Broken in this way will trigger the Quantum Weakness Break effect.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "silver-wolf_trace_a2",
+        name: "Generate",
+        ascensionRequirement: "A2",
+        description:
+          'The duration of "Bug" is extended by X turn(s). Every time an enemy is inflicted with Weakness Break, Silver Wolf has a X base chance of implanting a random "Bug" on that target.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_trace_a4",
+        name: "Inject",
+        ascensionRequirement: "A4",
+        description:
+          "The duration of the Weakness implanted by Silver Wolf's Skill increases by X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_trace_a6",
+        name: "Side Note",
+        ascensionRequirement: "A6",
+        description:
+          "If there are X or more debuff(s) affecting the enemy when the Skill is used, then the Skill decreases the enemy's All-Type RES by an additional X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_trace_a2",
+        name: "Generate",
+        ascensionRequirement: "A2",
+        description:
+          'The duration of "Bug" is extended by X turn(s). Every time an enemy\'s Weakness gets broken, Silver Wolf has a X base chance of implanting a random "Bug" on that target.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_trace_a4",
+        name: "Inject",
+        ascensionRequirement: "A4",
+        description:
+          "When the battle starts, immediately regenerates X Energy. When Silver Wolf's turn starts, she regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf_trace_a6",
+        name: "Side Note",
+        ascensionRequirement: "A6",
+        description:
+          "For every X Effect Hit Rate that Silver Wolf has, additionally increases her ATK by X, up to a max of X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "statusprobabilitybase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Social Engineering",
+        description:
+          "After using her Ultimate to attack enemies, Silver Wolf regenerates 7 Energy for every debuff that the target enemy currently has. This effect can be triggered up to 5 time(s) in each use of her Ultimate.",
+        keyMechanic: "Social Engineering",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Zombie Network",
+        description:
+          "When an enemy enters combat, reduces their Effect RES by 20%.",
+        keyMechanic: "Zombie Network",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Payload",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Payload",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Bounce Attack",
+        description:
+          "After using her Ultimate to attack enemies, deals Quantum Additional DMG equal to 20% of Silver Wolf's ATK for every debuff currently on the enemy target. This effect can be triggered for a maximum of 5 time(s) during each use of her Ultimate.",
+        keyMechanic: "Bounce Attack",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Brute Force Attack",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Brute Force Attack",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Overlay Network",
+        description:
+          "For every debuff the enemy target has, the DMG dealt by Silver Wolf to it increases by 20%, up to a max increase of 100%.",
+        keyMechanic: "Overlay Network",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1006",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Silver Wolf via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "silver-wolf-lv999",
+    gameId: "1506",
+    name: "Silver Wolf LV.999",
+    localizedNames: {
+      en: "Silver Wolf LV.999",
+      id: "Silver Wolf LV.999",
+    },
+    rarity: 5,
+    path: "Elation",
+    element: "Imaginary",
+    releaseVersion: "4.2",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 388,
+      def: 654,
+      spd: 110,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 60,
+    },
+    abilities: [
+      {
+        id: "silver-wolf-lv999_150601",
+        name: "One Punch!",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of Silver Wolf LV.999's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150602",
+        name: "Trigger Happy",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          "Gains X Punchline point(s) and deals Imaginary DMG equal to X of Silver Wolf LV.999's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150603",
+        name: "God Mode: ON!",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 60,
+        description:
+          'Enters the "Godmode Player" state, and advances action by 100%. Deploys a Zone while in the "Godmode Player" state. While Silver Wolf LV.999 holds "Certified Banger," for every 1 Skill Point consumed by an ally target within the Zone, there is a chance to trigger 1 instance of Silver Wolf LV.999\'s "Top Loot Box": Deals X Imaginary Elation DMG that is distributed evenly among all enemies, and randomly triggers 1 of the following effects: "Big Flipping Sword": Additionally deals True DMG equal to X of the total DMG dealt this time to the enemy target with the highest HP. "Kaboom Eggsplosion": Recovers X Skill Point(s). "Funky Munch Bean": Gains X Punchline point(s). The initial fixed chance to trigger the effect is 100%. After a successfully trigger, the fixed chance for the next trigger is reduced to X of the current chance. If the target is defeated before it triggers, it will instead trigger on a newly entering enemy target.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150604",
+        name: "I Carry, We Win",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'After "Hidden MMR" reaches X, can activate Ultimate. And after reaching its maximum limit, it can overflow by an additional X point(s). When gaining Punchline, Silver Wolf LV.999 gains an equal amount of "Hidden MMR." Each point of "Hidden MMR" increases CRIT Rate by #4[f2]%. Once CRIT Rate reaches 100%, each additional point of "Hidden MMR" instead increases CRIT DMG by #6[f2]%. While in the "Godmode Player" state, Silver Wolf LV.999 becomes immune to Crowd Control debuffs, cannot use Ultimate, and gains Enhanced Basic ATK and Enhanced Elation Skill. After fully using Enhanced Basic ATK X time(s), she exits the "Godmode Player" state. When exiting the "Godmode Player" state, clears "Hidden MMR". While holding "Certified Banger," using Basic ATK or Skill deals X Imaginary Elation DMG to the attacked enemy targets. And the Enhanced Basic ATK\'s ability DMG changes to Elation DMG at the same multiplier.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150606",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150607",
+        name: "This? Absolute Meta!",
+        type: "technique",
+        tag: "Summon",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'Summons "Funky Munch Bean." Use again to dismiss. Using Technique does not consume Technique Points. When Technique Points reach 0, the summon is dismissed and Technique cannot be used. "Funky Munch Bean" causes Normal Enemies within a certain range to enter a Terrified state. It will also automatically search for and attack Normal Enemies, consuming 1 Technique Point to instantly defeat them without entering combat. While "Funky Munch Bean" is present, after entering combat, 1 instance of "Top Loot Box" from "Funky Munch Bean" is triggered at the start of each wave. A fixed amount of X "Certified Banger" is taken into account for the Elation DMG dealt in this instance.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150608",
+        name: "Bonus Stage: αWolf Instant",
+        type: "basic",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to a total of X of Silver Wolf LV.999's ATK, split evenly into X hits that bounce onto random enemies. After every set number of bounces, the bouncing pauses and the Top Loot Box triggers 1 time. Can trigger up to X time(s) in total. When dealing fatal damage to all enemies on the field, this ability ends. After attackable enemy targets appear, gains 1 extra turn and uses this ability again based on the remaining number of bounces and Top Loot Box triggers. The first time this effect triggers in each turn, extends the duration of all buffs on this unit by 1 turn. After all of the above DMG is dealt, launches a Final Hit that deals Imaginary DMG equal to X of Silver Wolf LV.999's ATK, split evenly among all enemies. Enhanced Basic ATK cannot recover Skill Points. For every X points of \"Hidden MMR\" held, increases DMG dealt during Enhanced Basic ATK by X of the original DMG, stacking up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150610",
+        name: "Big Flipping Sword",
+        type: "basic",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          "Deals massive Imaginary Elation DMG to all enemies, split evenly among them. And deals True DMG to the target with the highest HP based on the total DMG dealt.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150612",
+        name: "Kaboom Eggsplosion",
+        type: "basic",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          "Deals massive Imaginary Elation DMG to all enemies, split evenly among them. And recovers Skill Points.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150618",
+        name: "Funky Munch Bean",
+        type: "basic",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          "Deals massive Imaginary Elation DMG to all enemies, split evenly among them. And gains Punchline.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150620",
+        name: "Pro-Gamer Move",
+        type: "elation_skill",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description: 'Gains X "Hidden MMR" point(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_150621",
+        name: "Honkai-DMG Demo",
+        type: "elation_skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 0,
+        description:
+          'Deals X instances of DMG, with each instance dealing X Imaginary Elation DMG to one random enemy. Then, resets the fixed chance to trigger "Top Loot Box" to its initial value.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "silver-wolf-lv999_trace_a2",
+        name: "False Ending Speedrun",
+        ascensionRequirement: "A2",
+        description:
+          "When SPD is X or higher, increases this unit's Elation by X. For every X SPD exceeded, increases this unit's Elation by X. Up to a max of X excess SPD can be taken into account for this effect.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_trace_a4",
+        name: "True Ending Unlocked",
+        ascensionRequirement: "A4",
+        description:
+          'If the number of Punchline points taken into account when using Elation Skill is X or more, additionally gains X "Hidden MMR" points (And if it\'s X or more, then gains X more points on top of that).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "silver-wolf-lv999_trace_a6",
+        name: "Secret Level Maxed",
+        ascensionRequirement: "A6",
+        description:
+          'After entering the "Godmode Player" state, gains X "Hidden MMR" point(s).',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Aether Editing: Eidolon +1",
+        description:
+          'Enemy targets in the Zone take 20% increased DMG. When exiting the "Godmode Player" state, "Hidden MMR" will not be cleared. Instead, 20% of "Hidden MMR" will be retained.',
+        keyMechanic: "Aether Editing: Eidolon +1",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "It's a Feature, Not a Bug",
+        description:
+          'After entering the "Godmode Player" state, extends the duration of all buffs on this unit by 1 turn. In the current "Godmode Player" state, for every 120 point(s) of "Hidden MMR" increased (including the initial "Hidden MMR"), Silver Wolf LV.999 gains 1 extra turn and regains 1 use of Enhanced Basic ATK.',
+        keyMechanic: "It's a Feature, Not a Bug",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Max Lv. 15? Says who?",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "Max Lv. 15? Says who?",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "I Came. I Saw. I One-Shot.",
+        description:
+          'Elation DMG dealt by "Honkai-DMG Demo" additionally takes into account Punchline, equal to the original amount multiplied by 5.',
+        keyMechanic: "I Came. I Saw. I One-Shot.",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Basic ATK Is the New Ultimate",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "Basic ATK Is the New Ultimate",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Solo Maxxing!",
+        description:
+          'Elation DMG dealt during Enhanced Basic ATK merrymakes by 50%. When enemy targets enter combat, they are implanted with "Absolute Weakness": Has All-Type Weakness, and reduces their All-Type Base RES to 0. (If Base RES is already at 0, then the corresponding Type RES decreases by 20% instead).',
+        keyMechanic: "Solo Maxxing!",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1506",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Silver Wolf LV.999 via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "sparkle",
+    gameId: "1306",
+    name: "Sparkle",
+    localizedNames: {
+      en: "Sparkle",
+      id: "Sparkle",
+    },
+    rarity: 5,
+    path: "Harmony",
+    element: "Quantum",
+    releaseVersion: "2.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1397,
+      atk: 523,
+      def: 485,
+      spd: 101,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 110,
+    },
+    abilities: [
+      {
+        id: "sparkle_130601",
+        name: "Monodrama",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Sparkle's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_130602",
+        name: "Dreamdiver",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Increases the CRIT DMG of a single target ally by #1[f1]% of Sparkle's CRIT DMG plus #2[f1]%, lasting for X turn(s). And at the same time, Advances Forward this ally's action by X. When Sparkle uses this ability on herself, the Action Advance effect will not trigger.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_130603",
+        name: "The Hero with a Thousand Faces",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          "Recovers X Skill Points for the team and grants all allies Cipher. For allies with Cipher, each stack of the DMG Boost effect provided by Sparkle's Talent additionally increases by #3[f1]%, lasting for X turns.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_130604",
+        name: "Red Herring",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "While Sparkle is on the battlefield, additionally increases the max number of Skill Points by X. Whenever an ally consumes 1 Skill Point, all allies' DMG dealt increases by #2[f1]%. This effect lasts for X turn(s) and can stack up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_130606",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_130607",
+        name: "Unreliable Narrator",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, grants all allies Misdirect for X seconds. Characters with Misdirect will not be detected by enemies, and entering combat in the Misdirect state recovers X Skill Point(s) for the team.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_1130601",
+        name: "Monodrama",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Sparkle's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_1130602",
+        name: "Dreamdiver",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Increases the CRIT DMG of a designated ally by #1[f1]% of Sparkle's CRIT DMG plus #2[f1]%, lasting for X turn(s). And at the same time, advances this ally's action by X. When Sparkle uses this ability on herself, the Action Advance effect will not trigger.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_1130603",
+        name: "The Hero with a Thousand Faces",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 110,
+        description:
+          'Recovers X Skill Point(s) for allies. If Skill Points overflow during recovery, the excess points will be recorded, up to a max of X points. When an ally character\'s turn ends, if Skill Points are below the maximum, Sparkle consumes the recorded value to recover Skill Points until the upper limit is reached. Then, grants all allies "Cipher." For ally targets with "Cipher," each stack of Boost of DMG taken by enemies provided by Sparkle\'s Talent additionally increases by #3[f2]%, lasting for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_1130604",
+        name: "Red Herring",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'While Sparkle is on the battlefield, additionally increases the max number of Skill Points by X. Whenever an ally target consumes 1 Skill Point, Sparkle gains 1 stack of "Figment," with each stack increasing the DMG taken by all enemies by #2[f1]%. This effect lasts for X turn(s) and can stack up to X time(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_1130606",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_1130607",
+        name: "Unreliable Narrator",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, grants all allies Misdirect for X seconds. Characters with Misdirect will not be detected by enemies, and entering combat in the Misdirect state recovers X Skill Point(s) for the team and regenerates X Energy for Sparkle.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "sparkle_trace_a2",
+        name: "Almanac",
+        ascensionRequirement: "A2",
+        description: "When using Basic ATK, additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_trace_a4",
+        name: "Artificial Flower",
+        ascensionRequirement: "A4",
+        description:
+          "The CRIT DMG Boost effect provided by the Skill will be extended until the start of the target's next turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_trace_a6",
+        name: "Nocturne",
+        ascensionRequirement: "A6",
+        description:
+          "Increases all allies' ATK by X. When there are 1/2/3 Quantum-Type allies in the team, additionally increases Quantum-Type allies' ATK by X/X/X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_trace_a2",
+        name: "Almanac",
+        ascensionRequirement: "A2",
+        description:
+          "Using Basic ATK additionally regenerates X Energy. When an ally character who holds the CRIT DMG Boost effect provided by the Skill consumes Skill Points, Sparkle additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_trace_a4",
+        name: "Artificial Flower",
+        ascensionRequirement: "A4",
+        description:
+          "If an ally character consumes X or more Skill Points in a single turn, Sparkle's next use of Skill will not consume Skill Points.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparkle_trace_a6",
+        name: "Nocturne",
+        ascensionRequirement: "A6",
+        description:
+          "Increases all allies's ATK by X. When an ally character holds the CRIT DMG Boost effect provided by the Skill, All-Type RES PEN increases by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Suspension of Disbelief",
+        description:
+          "The Cipher effect granted by the Ultimate lasts for 1 extra turn. All allies with Cipher have their ATK increased by 40%.",
+        keyMechanic: "Suspension of Disbelief",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Purely Fictitious",
+        description:
+          "Every stack of the Talent's effect allows allies to additionally ignore 8% of the target's DEF when dealing DMG.",
+        keyMechanic: "Purely Fictitious",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Pipedream",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Pipedream",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Life Is a Gamble",
+        description:
+          "The Ultimate recovers 1 more Skill Point. The Talent additionally increases the Max Skill Points by 1.",
+        keyMechanic: "Life Is a Gamble",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Parallax Truth",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Parallax Truth",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Narrative Polysemy",
+        description:
+          "The CRIT DMG Boost effect provided by the Skill additionally increases by an amount equal to 30% of Sparkle's CRIT DMG. When Sparkle uses Skill, her Skill's CRIT DMG Boost effect will apply to all teammates with Cipher. When Sparkle uses her Ultimate, any single ally who benefits from her Skill's CRIT DMG Boost will spread that effect to teammates with Cipher.",
+        keyMechanic: "Narrative Polysemy",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1306",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Sparkle via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "sparxie",
+    gameId: "1501",
+    name: "Sparxie",
+    localizedNames: {
+      en: "Sparxie",
+      id: "Sparxie",
+    },
+    rarity: 5,
+    path: "Elation",
+    element: "Fire",
+    releaseVersion: "4.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 640,
+      def: 460,
+      spd: 107,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 160,
+    },
+    abilities: [
+      {
+        id: "sparxie_150101",
+        name: "Cat Got Your Flametongue?",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Sparxie's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150102",
+        name: "Boom! Sparxicle's Poppin'",
+        type: "skill",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Start a livestream to turn Basic ATK into "Bloom! Winner Takes All" and trigger "Engagement Farming" 1 time. During this ability, "Engagement Farming" can be triggered repeatedly, up to X time(s). Using this ability is not considered as using a Skill.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150103",
+        name: "Party's Wildin' and Camera's Rollin'",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 160,
+        description:
+          "Gains X Punchline point(s). Deals Fire DMG equal to (#3[f1] × Elation + #2[f1]%) of Sparxie's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150104",
+        name: "Sleight of Sparx Hand",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'While Sparxie holds "Certified Banger": Using Enhanced Basic ATK deals X Fire Elation DMG to one designated enemy, and #4[f1]% Fire Elation DMG to their adjacent targets. Additionally, for every 1 instance of "Engagement Farming" triggered, the Enhanced Basic ATK deals 1 extra instance of #1[f1]% Fire Elation DMG to 1 random attacked enemy target. Using Ultimate deals X Fire Elation DMG to all enemies.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150107",
+        name: "Content Monetization",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using the Technique, inflicts enemies within a set area with "Block" for X second(s). "Blocked" enemies cannot detect ally targets. After entering combat via actively attacking a "Blocked" enemy, deals Fire DMG to all enemies equal to X of Sparxie\'s ATK and recovers X Skill Point(s) for allies.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150108",
+        name: "Bloom! Winner Takes All",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Finalizes the livestream. Deals Fire DMG equal to X of Sparxie's ATK to one designated enemy, and Fire DMG equal to #2[f1]% of Sparxie's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150109",
+        name: "Engagement Farming",
+        type: "skill",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Causes "Bloom! Winner Takes All" to increase the DMG multiplier against one designated enemy by #4[f1]% and the DMG multiplier against adjacent targets by #5[f1]%. Randomly gains one of the following gifts: "Straight Fire": X Punchline point(s) and X Skill point(s). "Unreal Banger": X Punchline point(s). Using this ability is not considered as using a Skill.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150110",
+        name: "Bloom! Winner Takes All",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description: "Bloom! Winner Takes All ability for Sparxie.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_150120",
+        name: "Signal Overflow: The Great Encore!",
+        type: "elation_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          'Deals #2[f1]% Fire Elation DMG to all enemies and deals X additional instance(s) of DMG. Each instance deals #1[f1]% Fire Elation DMG to one random enemy. Grants X "Thrill" point(s) to Sparxie, which can be used to offset Sparxie\'s Skill Point consumption. Consuming "Thrill" is considered as consuming Skill Points.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "sparxie_trace_a2",
+        name: "Sweet! Punchline Signing",
+        ascensionRequirement: "A2",
+        description:
+          "For every X of Sparxie's ATK that exceeds X, increases this unit's Elation by #3[f1]%, up to a maximum increase of #4[f1]%.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_trace_a4",
+        name: "Dazzling! Persona Kaleidoscope",
+        ascensionRequirement: "A4",
+        description:
+          'When there are 1/2/≥3 Elation characters in the team, using Sparxie\'s Ultimate will additionally gain X/X/X Punchline and X/X/X "Thrill".',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sparxie_trace_a6",
+        name: "Frenzy! Palette of Truth and Lies",
+        ascensionRequirement: "A6",
+        description:
+          "For every 1 Punchline currently owned, increases all allies' CRIT DMG by X, up to a max increase of X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "#GoingViral #WhoIsShe",
+        description:
+          "When Aha Instant ends, gains 5 Punchline. For every 1 Punchline owned, increases All-Type RES PEN for all allies by 1.5%, up to a max increase of 15%.",
+        keyMechanic: "#GoingViral #WhoIsShe",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "#AudienceKnows",
+        description:
+          'When Aha Instant ends, Sparxie gains 1 extra turn and 2 "Thrill." For every 1 "Thrill" consumed, increases this unit\'s CRIT DMG by 10%, lasting for 2 turn(s) and stacking up to 4 time(s).',
+        keyMechanic: "#AudienceKnows",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "#LinkUp #HeartSkip",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "#LinkUp #HeartSkip",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "#LockedIn #FaceCard",
+        description:
+          "When using Ultimate, additionally gains 5 Punchline and increases this unit's Elation by 36% for 3 turn(s).",
+        keyMechanic: "#LockedIn #FaceCard",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "#HealingTheWorld #GoodVibesOnly",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "#HealingTheWorld #GoodVibesOnly",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "#BuiltDifferent #GoingExtinct",
+        description:
+          "Increases All-Type RES PEN by 20%. For every 1 Punchline taken into account, the number of additional DMG instances dealt by the Elation Skill increases by 1, up to a max of 40.",
+        keyMechanic: "#BuiltDifferent #GoingExtinct",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1501",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Sparxie via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "sunday",
+    gameId: "1313",
+    name: "Sunday",
+    localizedNames: {
+      en: "Sunday",
+      id: "Sunday",
+    },
+    rarity: 5,
+    path: "Harmony",
+    element: "Imaginary",
+    releaseVersion: "2.7",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1241,
+      atk: 640,
+      def: 533,
+      spd: 96,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "sunday_131301",
+        name: "Gleaming Admonition",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of Sunday's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sunday_131302",
+        name: "Benison of Paper and Rites",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Enables one designated ally character and their summon to immediately take action, and increases their DMG dealt by X. If the target has a summon, then the DMG Boost effect is further boosted by an additional X, lasting for X turn(s). After using Skill on The Beatified, recovers 1 Skill Point. When Sunday uses this ability on characters following the Path of Harmony, cannot trigger the "immediate action" effect.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sunday_131303",
+        name: "Ode to Caress and Cicatrix",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          'Regenerates Energy by #1[f1]% of Max Energy for one designated ally character, and turns the target and their summon into "The Beatified." "The Beatified" have their CRIT DMG increased by an amount equal to #2[f1]% of Sunday\'s CRIT DMG plus #4[f1]%. At the start of Sunday\'s every turn, the duration of "The Beatified" decreases by 1 turn, lasting for a total of X turn(s). And it only takes effect on the most recent target of the Ultimate (excluding Sunday himself). When Sunday is knocked down, "The Beatified" will also be dispelled.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sunday_131304",
+        name: "The Sorrowing Body",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When using Skill, increases the target's CRIT Rate by #1[f1]%, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sunday_131306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sunday_131307",
+        name: "The Glorious Mysteries",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After this Technique is used, the first time Sunday uses an ability on an ally target in the next battle, the target's DMG dealt increases by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "sunday_trace_a2",
+        name: "Rest Day's Longing",
+        ascensionRequirement: "A2",
+        description:
+          "When using Ultimate, if the Energy regenerated for the target is less than X, increases the regenerated Energy to X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sunday_trace_a4",
+        name: "Exalted Sweep",
+        ascensionRequirement: "A4",
+        description: "When battle starts, Sunday regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sunday_trace_a6",
+        name: "Haven in Palm",
+        ascensionRequirement: "A6",
+        description: "When using Skill, dispels X debuff(s) from the target.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Millennium's Quietus",
+        description:
+          "When Sunday uses Skill, the target character can ignore 16% of enemy target's DEF to deal DMG and their summon can ignore 40% of enemy target's DEF to deal DMG, lasting for 2 turn(s).",
+        keyMechanic: "Millennium's Quietus",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Faith Outstrips Frailty",
+        description:
+          'After the first use of Ultimate, recovers 2 Skill Point(s). The DMG dealt by "The Beatified" increases by 30%.',
+        keyMechanic: "Faith Outstrips Frailty",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Hermitage of Thorns",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Hermitage of Thorns",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Sculpture's Preamble",
+        description: "When the turn starts, regenerates 8 Energy.",
+        keyMechanic: "Sculpture's Preamble",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Paper Raft in Silver Bay",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Paper Raft in Silver Bay",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Dawn of Sidereal Cacophony",
+        description:
+          "The Talent's CRIT Rate boost effect becomes stackable up to 3 time(s), and the Talent's duration increases by 1 turn(s). When Sunday uses Ultimate, can also apply the Talent's CRIT Rate boost effect to the target. When the Talent's CRIT Rate boost takes effect and the target's CRIT Rate exceeds 100%, every 1% of excess CRIT Rate increases CRIT DMG by 2%.",
+        keyMechanic: "Dawn of Sidereal Cacophony",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1313",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.7",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Sunday via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "sushang",
+    gameId: "1206",
+    name: "Sushang",
+    localizedNames: {
+      en: "Sushang",
+      id: "Sushang",
+    },
+    rarity: 4,
+    path: "Hunt",
+    element: "Physical",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 917,
+      atk: 564,
+      def: 418,
+      spd: 107,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "sushang_120601",
+        name: "Cloudfencer Art: Starshine",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Sushang's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sushang_120602",
+        name: "Cloudfencer Art: Mountainfall",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Deals Physical DMG equal to X of Sushang\'s ATK to one designated enemy. In addition, there is a X chance to trigger "Sword Stance" on the final hit, dealing Physical Additional DMG equal to X of Sushang\'s ATK to the enemy. If the enemy is inflicted with Weakness Break, "Sword Stance" is guaranteed to trigger.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sushang_120603",
+        name: "Shape of Taixu: Dawn Herald",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          'Deals Physical DMG equal to X of Sushang\'s ATK to one designated enemy target, and she immediately takes action. In addition, Sushang\'s ATK increases by X and using her Skill has 2 extra chances to trigger "Sword Stance" for X turn(s). "Sword Stance" triggered from the extra chances deals X of the original DMG.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sushang_120604",
+        name: "Dancing Blade",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When an enemy has their Weakness Broken on the field, Sushang's SPD increases by #1[f2]% for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sushang_120606",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sushang_120607",
+        name: "Cloudfencer Art: Warcry",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. Upon entering battle, Sushang deals Physical DMG equal to X of her ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "sushang_trace_a2",
+        name: "Guileless",
+        ascensionRequirement: "A2",
+        description:
+          "When current HP percentage is X or lower, reduces the chance of being attacked by enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sushang_trace_a4",
+        name: "Riposte",
+        ascensionRequirement: "A4",
+        description:
+          "For every Sword Stance triggered, the DMG dealt by Sword Stance increases by X. Stacks up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "sushang_trace_a6",
+        name: "Vanquisher",
+        ascensionRequirement: "A6",
+        description:
+          "After using Basic ATK or Skill, if there are enemies on the field that are Weakness Broken, Sushang's action advances by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Cut With Ease",
+        description:
+          "After using Skill against a Weakness Broken enemy, regenerates 1 Skill Point.",
+        keyMechanic: "Cut With Ease",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Refine in Toil",
+        description:
+          "After Sword Stance is triggered, the DMG taken by Sushang is reduced by 20% for 1 turn.",
+        keyMechanic: "Refine in Toil",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Rise From Fame",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Rise From Fame",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Cleave With Heart",
+        description: "Sushang's Break Effect increases by 40%.",
+        keyMechanic: "Cleave With Heart",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Prevail via Taixu",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Prevail via Taixu",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Dwell Like Water",
+        description:
+          "Talent's SPD Boost is stackable and can stack up to 2 times. Additionally, after entering battle, Sushang immediately gains 1 stack of her Talent's SPD Boost.",
+        keyMechanic: "Dwell Like Water",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1206",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Sushang via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "the-dahlia",
+    gameId: "1321",
+    name: "The Dahlia",
+    localizedNames: {
+      en: "The Dahlia",
+      id: "The Dahlia",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Fire",
+    releaseVersion: "3.7",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 679,
+      def: 606,
+      spd: 96,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "the-dahlia_132101",
+        name: "Fiddle... Fissured Memory",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of The Dahlia's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "the-dahlia_132102",
+        name: "Lick... Enkindled Betrayal",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deploys a Zone that lasts for X turn(s). This duration decreases by 1 at the start of The Dahlia's turn. Then, deals Fire DMG equal to X of The Dahlia's ATK to one designated enemy and their adjacent targets. While the Zone lasts, increases all allies' Weakness Break Efficiency by X. Toughness Reduction taken by enemy targets while not Weakness Broken can also be converted into Super Break DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "the-dahlia_132103",
+        name: "Wallow... Entombed Ash",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          'Inflicts a "Wilt" state on all enemies, lasting for X turn(s). Then, deals Fire DMG equal to X of The Dahlia\'s ATK, which is distributed evenly across all enemies. Enemy targets in the "Wilt" state have their DEF reduced by #3[f1]% and will be implanted with Weakness of all Dance Partners\' Types.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "the-dahlia_132104",
+        name: "Who's Afraid of Constance?",
+        type: "talent",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 0,
+        description:
+          'When entering combat, The Dahlia regenerates X Energy and becomes "Dance Partners" along with the teammate that triggered combat. Whenever there is no other "Dance Partner" on the field, this unit and the teammate with the highest Break Effect become "Dance Partners" together. After a "Dance Partner" attacks a Weakness Broken enemy target, the Toughness Reduction from this attack will be converted into 1 instance of Super Break DMG at X. After an enemy target gets attacked by the other "Dance Partner," The Dahlia launches Follow-Up ATK and deals X instance(s) of DMG, each dealing Fire DMG equal to X of The Dahlia\'s ATK to one random enemy. After each instance of DMG dealt to a Weakness Broken enemy target, the Toughness Reduction from this DMG will be converted into 1 instance of Super Break DMG at X. This effect can only trigger once per turn. If the target is defeated before the Follow-Up ATK is used, it will be launched at one random enemy instead.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "the-dahlia_132106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "the-dahlia_132107",
+        name: "The Heart Makes the Finest Tomb",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, creates a Special Dimension that lasts for X second(s). Enemies within this dimension will not actively attack ally targets. After entering combat with enemies in the Special Dimension, The Dahlia immediately deploys her Skill's Zone, and converts the combat-triggering Toughness Reduction into 1 instance of Super Break DMG at X against enemy targets that are Weakness Broken. Only 1 Dimension Effect created by allies can exist at the same time.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "the-dahlia_trace_a2",
+        name: "Yet Another Funeral",
+        ascensionRequirement: "A2",
+        description:
+          "When entering combat, increases other characters' Break Effect by an amount equal to X of The Dahlia's Break Effect plus X, lasting for X turn(s). When The Dahlia receives healing or a Shield provided by a teammate, this effect triggers again, lasting for X turn(s). Cannot trigger repeatedly within one turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "the-dahlia_trace_a4",
+        name: "Lament, Lost Soul",
+        ascensionRequirement: "A4",
+        description:
+          "When using Talent's Follow-Up ATK, recovers 1 Skill Point for allies. For every X instance(s) of Talent's Follow-Up ATK used, this effect can trigger once.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "the-dahlia_trace_a6",
+        name: "Outgrow the Old, Espouse the New",
+        ascensionRequirement: "A6",
+        description:
+          "When an ally target adds Weakness to an enemy target, increases SPD by X for X turn(s). If a Fire ally character has implanted a Weakness when using an attack, then after the attack, additionally deals a fixed amount of X Fire Toughness Reduction to every target implanted with Weakness. Also, regenerates Energy equal to X of Max Energy. This effect can regenerate Energy up to X of Max Energy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "When a Bud Readies to Bloom",
+        description:
+          'The Super Break DMG multiplier provided by Talent to "Dance Partners" now applies to all ally characters, with "Dance Partners" additionally receiving a 40% boost. After "Dance Partners" use an attack, additionally deals the attacked enemy targets a fixed amount of Toughness Reduction equal to 25% of their Max Toughness (minimum 10, maximum 300). This effect can only trigger once per enemy target, and this trigger count resets after the enemy target receives a killing blow.',
+        keyMechanic: "When a Bud Readies to Bloom",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Fresh, Ethereal, and Beloved",
+        description:
+          'When The Dahlia is on the field, decreases all enemies\' All-Type RES by 20%. When an enemy target enters the field, immediately inflicts "Wilt" on them, lasting for 3 turn(s).',
+        keyMechanic: "Fresh, Ethereal, and Beloved",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Pity Its Petals Thin as Mist",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Pity Its Petals Thin as Mist",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Pity Its Heart Gnawed by Worms",
+        description:
+          "Increases the number of DMG instances dealt by Talent's Follow-Up ATK by 5. Upon its use, the DMG taken by all enemy targets increases by 12%, lasting for 2 turn(s).",
+        keyMechanic: "Pity Its Heart Gnawed by Worms",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Fallen, Decayed, and Despised",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Fallen, Decayed, and Despised",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "And Yet, Always, Deathly Beautiful",
+        description:
+          "Increases Dance Partners' Break Effect by 150%. When using Talent's Follow-Up ATK, advances the next action of all \"Dance Partners\" by 20%.",
+        keyMechanic: "And Yet, Always, Deathly Beautiful",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1321",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.7",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for The Dahlia via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "the-herta",
+    gameId: "1401",
+    name: "The Herta",
+    localizedNames: {
+      en: "The Herta",
+      id: "The Herta",
+      ja: "マダム・ヘルタ",
+      zh: "大黑塔",
+    },
+    rarity: 5,
+    path: "Erudition",
+    element: "Ice",
+    releaseVersion: "3.0",
+    roles: ["hypercarry_dps", "sub_dps"],
+    mechanicTags: [
+      "aoe",
+      "interpretation",
+      "inspiration",
+      "enhanced_skill",
+      "bounce",
+      "stat_conversion",
+    ],
+    baseStats: {
+      hp: 1164,
+      atk: 679,
+      def: 485,
+      spd: 99,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "the_herta_basic",
+        name: "Cosmic Inquiry",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to 100% of The Herta's ATK to a target enemy.",
+        mechanics: ["single_target"],
+      },
+      {
+        id: "the_herta_skill",
+        name: "Eureka Calculation",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Deals Ice DMG equal to 120% of ATK to all enemies and inflicts 1 stack of 'Interpretation' on all targets.",
+        mechanics: ["aoe", "interpretation"],
+      },
+      {
+        id: "the_herta_enhanced_skill",
+        name: "Hear Me Out",
+        type: "enhanced_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Consumes 1 point of 'Inspiration'. Deals massive Ice DMG equal to 200% of ATK to all enemies, with additional scaling based on the highest Interpretation stack count among all enemies.",
+        mechanics: ["aoe", "interpretation", "inspiration"],
+      },
+      {
+        id: "the_herta_ultimate",
+        name: "The Magic of Genius Society #83",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyCost: 140,
+        description:
+          "Deals Ice DMG equal to 200% of ATK to all enemies. Rearranges Interpretation stacks so the elite enemy receives the total sum of all Interpretation stacks, and grants The Herta 2 points of 'Inspiration'.",
+        mechanics: ["aoe", "interpretation", "inspiration"],
+      },
+      {
+        id: "the_herta_talent",
+        name: "Interpretation of the Cosmos",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "all_enemies",
+        description:
+          "When any ally attacks an enemy, inflicts 1 stack of Interpretation (up to 42 stacks). For each stack of Interpretation on the primary target, increases The Herta's DMG dealt to that target.",
+        mechanics: ["interpretation", "stat_conversion"],
+      },
+      {
+        id: "the_herta_technique",
+        name: "Peerless Insight",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        description:
+          "At the start of battle, immediately inflicts 3 stacks of Interpretation on all enemies and grants The Herta 1 point of Inspiration.",
+        mechanics: ["interpretation", "inspiration"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "the_herta_trace_a2",
+        name: "Puppeteer's Mind",
+        ascensionRequirement: "A2",
+        description:
+          "When an ally following the Path of Erudition uses an attack, inflicts 1 additional stack of Interpretation on all targets.",
+        mechanics: ["interpretation"],
+      },
+      {
+        id: "the_herta_trace_a4",
+        name: "Peerless Proof",
+        ascensionRequirement: "A4",
+        description:
+          "When using Enhanced Skill 'Hear Me Out', increases The Herta's CRIT DMG by 0.5% per stack of Interpretation on the field.",
+        mechanics: ["interpretation", "stat_conversion"],
+      },
+      {
+        id: "the_herta_trace_a6",
+        name: "Genius Monologue",
+        ascensionRequirement: "A6",
+        description:
+          "When an enemy with 15 or more stacks of Interpretation is defeated, transfers remaining stacks to the highest HP target.",
+        mechanics: ["interpretation"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "iceDmg",
+        totalValue: 0.224,
+        unit: "percentage",
+      },
+      {
+        stat: "critRate",
+        totalValue: 0.12,
+        unit: "percentage",
+      },
+      {
+        stat: "atk",
+        totalValue: 0.18,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Thesis on Pure Reason",
+        description:
+          "When battle begins, The Herta gains 1 extra point of Inspiration. Enhanced Skill 'Hear Me Out' gains 20% DEF Ignore.",
+        keyMechanic: "Initial Inspiration + 20% DEF ignore on Enhanced Skill",
+        mechanics: ["defense_shred", "inspiration"],
+      },
+      {
+        rank: 2,
+        name: "Axiom of Endless Thought",
+        description:
+          "When allies inflict Interpretation, The Herta regenerates 2 Energy (up to 5 times per turn).",
+        keyMechanic: "Energy battery from Interpretation generation",
+        mechanics: ["energy_regen", "interpretation"],
+      },
+      {
+        rank: 3,
+        name: "Postulate of Cold Logic",
+        description: "Skill Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Proof of Inductive Leap",
+        description:
+          "Maximum Interpretation stacks increased to 60. When Interpretation reaches 30 stacks, increases Ice RES PEN by 15%.",
+        keyMechanic: "Higher Interpretation ceiling + 15% Ice RES PEN",
+        mechanics: ["interpretation", "res_penetration"],
+      },
+      {
+        rank: 5,
+        name: "Corollary of Infinite Wit",
+        description: "Ultimate Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Omniscient Transcendence",
+        description:
+          "Using Ultimate instantly refreshes 'Hear Me Out' without consuming Inspiration and triggers an immediate follow-up blast.",
+        keyMechanic: "Free Enhanced Skill on Ultimate + follow-up blast",
+        mechanics: ["inspiration", "aoe"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyolab_the_herta_official",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://wiki.hoyolab.com/pc/hsr/entry/1401",
+      gameVersion: "3.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Official HoYoWiki The Herta Interpretation & Inspiration factual kit",
+    },
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "tingyun",
+    gameId: "1202",
+    name: "Tingyun",
+    localizedNames: {
+      en: "Tingyun",
+      id: "Tingyun",
+      ja: "停雲",
+      zh: "停云",
+    },
+    rarity: 4,
+    path: "Harmony",
+    element: "Lightning",
+    releaseVersion: "1.0",
+    roles: ["buffer", "battery"],
+    mechanicTags: ["energy_regen", "buff", "stat_conversion", "single_target"],
+    baseStats: {
+      hp: 846,
+      atk: 529,
+      def: 396,
+      spd: 112,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "tingyun_basic",
+        name: "Dislodged",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to 100% of Tingyun's ATK to a single enemy.",
+        mechanics: ["single_target"],
+      },
+      {
+        id: "tingyun_skill",
+        name: "Soothing Melody",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        spCost: 1,
+        description:
+          "Grants Benediction to a target ally, increasing their ATK by up to 50% of Tingyun's current ATK for 3 turns. When the blessed ally attacks, deals Additional Lightning DMG equal to 40% of that ally's ATK.",
+        mechanics: ["buff", "stat_conversion"],
+      },
+      {
+        id: "tingyun_ultimate",
+        name: "Amidst the Rejoicing Clamor",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyCost: 130,
+        description:
+          "Regenerates 50 Energy for a target ally and increases the target's DMG dealt by 50% for 2 turns.",
+        mechanics: ["energy_regen", "buff"],
+      },
+      {
+        id: "tingyun_talent",
+        name: "Violet Sparknado",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "self",
+        description:
+          "When an enemy is attacked by Tingyun, the ally with Benediction immediately deals Additional Lightning DMG equal to 60% of that ally's ATK to the target.",
+        mechanics: ["buff"],
+      },
+      {
+        id: "tingyun_technique",
+        name: "Gentle Breeze",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        description:
+          "Immediately regenerates 50 Energy for Tingyun upon using Technique.",
+        mechanics: ["energy_regen"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "tingyun_trace_a2",
+        name: "Nourished Joviality",
+        ascensionRequirement: "A2",
+        description:
+          "Tingyun's SPD increases by 20% for 1 turn after using Skill.",
+        mechanics: ["buff"],
+      },
+      {
+        id: "tingyun_trace_a4",
+        name: "Knell Subdual",
+        ascensionRequirement: "A4",
+        description: "Basic ATK DMG increases by 40%.",
+        mechanics: [],
+      },
+      {
+        id: "tingyun_trace_a6",
+        name: "Jubilant Passage",
+        ascensionRequirement: "A6",
+        description:
+          "Tingyun regenerates 5 Energy at the beginning of her turn.",
+        mechanics: ["energy_regen"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "atk",
+        totalValue: 0.28,
+        unit: "percentage",
+      },
+      {
+        stat: "def",
+        totalValue: 0.225,
+        unit: "percentage",
+      },
+      {
+        stat: "lightningDmg",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Windfall of Lucky Springs",
+        description:
+          "After using their Ultimate, the ally with Benediction gains a 20% increase in SPD for 1 turn.",
+        keyMechanic: "SPD buff on Ultimate for buffed ally",
+        mechanics: ["buff"],
+      },
+      {
+        rank: 2,
+        name: "Gainers Reap, Losers Weep",
+        description:
+          "The ally with Benediction regenerates 5 Energy when they defeat an enemy.",
+        keyMechanic: "Energy regen on enemy defeat",
+        mechanics: ["energy_regen"],
+      },
+      {
+        rank: 3,
+        name: "Dzihan Heritage",
+        description: "Ultimate Lv. +2, Basic ATK Lv. +1.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 4,
+        name: "Jovial Versatility",
+        description:
+          "The DMG multiplier provided by Benediction increases by 20%.",
+        keyMechanic: "+20% multiplier to Benediction additional damage",
+        mechanics: ["buff"],
+      },
+      {
+        rank: 5,
+        name: "Sauntering Coquette",
+        description: "Skill Lv. +2, Talent Lv. +2.",
+        keyMechanic: "Ability level scaling",
+        mechanics: [],
+      },
+      {
+        rank: 6,
+        name: "Peacebringer",
+        description:
+          "Ultimate regenerates 10 additional Energy for the target ally (total 60 Energy).",
+        keyMechanic: "Ultimate restores 60 Energy instead of 50",
+        mechanics: ["energy_regen"],
+      },
+    ],
+    provenance: {
+      sourceId: "hoyolab_tingyun_official",
+      authorityTier: "tier_a_official",
+      sourceUrl: "https://wiki.hoyolab.com/pc/hsr/entry/1202",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Official HoYoWiki Tingyun Harmony factual kit",
+    },
+    source: "HoYoWiki",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "topaz",
+    gameId: "1112",
+    name: "Topaz & Numby",
+    localizedNames: {
+      en: "Topaz & Numby",
+      id: "Topaz & Numby",
+    },
+    rarity: 5,
+    path: "Hunt",
+    element: "Fire",
+    releaseVersion: "1.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 931,
+      atk: 620,
+      def: 412,
+      spd: 110,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "topaz_111201",
+        name: "Deficit...",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Fire DMG equal to X of Topaz's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "topaz_111202",
+        name: "Difficulty Paying?",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Inflicts one designated enemy target with a "Proof of Debt" state, increasing the Follow-Up ATK DMG it receives by X. "Proof of Debt" only takes effect on the most recent target it is applied to. If there are no enemies inflicted with "Proof of Debt" on the field when an ally\'s turn starts or when an ally takes action, Topaz will inflict a random enemy with "Proof of Debt." Numby deals Fire DMG equal to X of Topaz\'s ATK to this target. Using this Skill to deal DMG is considered as launching a Follow-Up ATK.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "topaz_111203",
+        name: "Turn a Profit!",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "Numby enters the Windfall Bonanza! state and its DMG multiplier increases by X and CRIT DMG increases by X. Also, when enemies with Proof of Debt are hit by an ally's Basic ATK, Skill, or Ultimate, Numby's action is Advanced Forward by X. Numby exits the Windfall Bonanza! state after using X attacks.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "topaz_111204",
+        name: "Trotter Market!?",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          "Summons Numby at the start of battle. Numby has X SPD by default. When taking action, Numby launches Follow-Up ATKs on one enemy target afflicted with \"Proof of Debt,\" dealing Fire DMG equal to X of Topaz's ATK. When enemies afflicted with \"Proof of Debt\" receive an ally's Follow-Up ATKs, Numby's action is Advanced Forward by X. The action Advance Forward effect cannot be triggered during Numby's own turn. When Topaz is downed, Numby disappears.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "topaz_111206",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "topaz_111207",
+        name: "Explicit Subsidy",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Summons Numby when Topaz enters the overworld. Numby will automatically search for Basic Treasures and Trotters within a set radius. Using her Technique will regenerate X Energy for Topaz after Numby's first attack in the next battle. If Topaz is still in the team after using her Technique and defeating overworld enemies, a small bonus amount of credits will be added to the earned credits. A maximum of X bonus credits can be received per calendar day. After using her Technique and defeating enemies in Simulated Universe or Divergent Universe, additionally receive a small amount of Cosmic Fragments with a small chance to obtain 1 random Curio.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "topaz_trace_a2",
+        name: "Overdraft",
+        ascensionRequirement: "A2",
+        description:
+          "When Topaz uses Basic ATK to deal DMG, it is considered as a Follow-Up ATK.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "topaz_trace_a4",
+        name: "Financial Turmoil",
+        ascensionRequirement: "A4",
+        description:
+          "Increases Topaz & Numby's DMG dealt to enemy targets with Fire Weakness by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "topaz_trace_a6",
+        name: "Stonks Market",
+        ascensionRequirement: "A6",
+        description:
+          "After Numby uses an attack while in the Windfall Bonanza! state, Topaz additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "fire",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Future Market",
+        description:
+          'When enemies afflicted with "Proof of Debt" receive Follow-Up ATKs, they will enter the "Debtor" state. This can take effect only once within a single attack. The "Debtor" state increases the CRIT DMG of Follow-Up ATKs inflicted on the enemy target by 25%, stacking up to 2 time(s). When "Proof of Debt" is removed, the "Debtor" state is also removed.',
+        keyMechanic: "Future Market",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Bona Fide Acquisition",
+        description:
+          "After Numby takes action and launches an attack, Topaz regenerates 5 Energy.",
+        keyMechanic: "Bona Fide Acquisition",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Seize the Big and Free the Small",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Seize the Big and Free the Small",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Agile Operation",
+        description:
+          "After Numby's turn begins, Topaz's action advances by 20%.",
+        keyMechanic: "Agile Operation",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Inflationary Demand",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Inflationary Demand",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Incentive Mechanism",
+        description:
+          'Numby\'s attack count during the "Windfall Bonanza!" state increases by 1, and its Fire RES PEN increases by 10% when it attacks.',
+        keyMechanic: "Incentive Mechanism",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1112",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Topaz & Numby via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "trailblazer-destruction",
+    gameId: "8001",
+    name: "Trailblazer (Destruction)",
+    localizedNames: {
+      en: "Trailblazer (Destruction)",
+      id: "Trailblazer (Destruction)",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Physical",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1203,
+      atk: 620,
+      def: 460,
+      spd: 100,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "trailblazer-destruction_800101",
+        name: "Farewell Hit",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of the Trailblazer's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_800102",
+        name: "RIP Home Run",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Physical DMG equal to X of the Trailblazer's ATK to one designated enemy and enemies adjacent to it.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_800103",
+        name: "Stardust Ace",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          'Choose between two attack modes to deliver a full strike. "Blowout: Farewell Hit" deals Physical DMG equal to X of the Trailblazer\'s ATK to one designated enemy. "Blowout: RIP Home Run" deals Physical DMG equal to X of the Trailblazer\'s ATK to one designated enemy, and Physical DMG equal to X of the Trailblazer\'s ATK to enemies adjacent to it.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_800104",
+        name: "Perfect Pickoff",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Each time after this character inflicts Weakness Break on an enemy, ATK increases by X. This effect stacks up to X time(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_800106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_800107",
+        name: "Immortal Third Strike",
+        type: "technique",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Immediately heals all allies for X of their respective Max HP after using this Technique.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_800108",
+        name: "Blowout: Farewell Hit",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Physical DMG equal to X of the Trailblazer's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_800109",
+        name: "Blowout: RIP Home Run",
+        type: "ultimate",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Physical DMG equal to X of Trailblazer's ATK to one designated enemy and Physical DMG equal to X of Trailblazer's ATK to enemies adjacent to it.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "trailblazer-destruction_trace_a2",
+        name: "Ready for Battle",
+        ascensionRequirement: "A2",
+        description:
+          "At the start of the battle, immediately regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_trace_a4",
+        name: "Tenacity",
+        ascensionRequirement: "A4",
+        description: "Each Talent stack increases the Trailblazer's DEF by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-destruction_trace_a6",
+        name: "Fighting Will",
+        ascensionRequirement: "A6",
+        description:
+          'When using Skill or Ultimate "Blowout: RIP Home Run," DMG dealt to the target enemy is increased by X.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "A Falling Star",
+        description:
+          "When enemies are defeated due to the Trailblazer's Ultimate, the Trailblazer regenerates 10 extra Energy. This effect can only be triggered once per attack.",
+        keyMechanic: "A Falling Star",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "An Unwilling Host",
+        description:
+          "Attacking enemies with Physical Weakness restores the Trailblazer's HP equal to 5% of the Trailblazer's ATK.",
+        keyMechanic: "An Unwilling Host",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "A Leading Whisper",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "A Leading Whisper",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "A Destructing Glance",
+        description:
+          "When attacking an enemy that is Weakness Broken, increases CRIT Rate by 25%.",
+        keyMechanic: "A Destructing Glance",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "A Surviving Hope",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "A Surviving Hope",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "A Trailblazing Will",
+        description:
+          "The Trailblazer's Talent is also triggered when they defeat an enemy.",
+        keyMechanic: "A Trailblazing Will",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_8001",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Client-extracted data for Trailblazer (Destruction) via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "trailblazer-elation",
+    gameId: "8009",
+    name: "Trailblazer (Elation)",
+    localizedNames: {
+      en: "Trailblazer (Elation)",
+      id: "Trailblazer (Elation)",
+    },
+    rarity: 5,
+    path: "Elation",
+    element: "Lightning",
+    releaseVersion: "4.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 465,
+      def: 630,
+      spd: 106,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 160,
+    },
+    abilities: [
+      {
+        id: "trailblazer-elation_800901",
+        name: "Make Some Noise",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Lightning DMG equal to X of Trailblazer's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-elation_800902",
+        name: "Let the Storm Rage On",
+        type: "skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 30,
+        description:
+          'Deals Lightning DMG equal to X of the Trailblazer\'s ATK to all enemies and gains X point(s) of "Certified Banger."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-elation_800903",
+        name: "May the Trailblaze Fly You Starward",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 160,
+        description:
+          'Gains X Punchline point(s). Increases the CRIT DMG of one designated ally by X for X turn(s), and dispels Crowd Control debuffs on them. If the target has Elation Skill, they additionally gain X point(s) of "Certified Banger" and immediately use their Elation Skill 1 time, taking into account a fixed amount of X Punchline point(s). If the enemy target is defeated before the Elation Skill is unleashed, then the Elation Skill is instead launched on a newly entering enemy target. If the target does not have Elation Skill, their action advances by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-elation_800904",
+        name: "That Smile Hits Different",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'After using an attack, regenerates a fixed amount of X Energy and gains X Punchline point(s). When the Trailblazer holds "Certified Banger," their Skill additionally deals X Lightning Elation DMG to all enemies. This DMG is calculated using the highest "Certified Banger" value among all allies.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-elation_800906",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-elation_800907",
+        name: "We Are So Back!",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique, randomly gains 1 of the following effects: A low chance to gain "Hearty Laughter": Increases Elation by X. A high chance to gain "Irrepressible Laughter": Increases Elation by X. When the next battle begins, increases all allies\' Elation stat by the corresponding amount for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-elation_800920",
+        name: 'I Said "Elation," Did I Stutter?',
+        type: "elation_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "Deals X instances of DMG, with each instance dealing X Lightning Elation DMG to one random enemy. At last, deals X Lightning Elation DMG, which is split evenly among all enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "trailblazer-elation_trace_a2",
+        name: "On Cloud Nine",
+        ascensionRequirement: "A2",
+        description:
+          "For every X point(s) of Trailblazer's ATK that exceeds X, increases this unit's Elation stat by #3[f1]%, up to a maximum increase of #4[f1]%.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-elation_trace_a4",
+        name: "Screw It, We Ball",
+        ascensionRequirement: "A4",
+        description:
+          "Increases this unit's CRIT Rate by X. After using Ultimate, recovers X Skill Point(s) for the team.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-elation_trace_a6",
+        name: "Aha, Sic 'Em!",
+        ascensionRequirement: "A6",
+        description:
+          'After an ally target uses Elation Skill, Trailblazer additionally gains X point(s) of "Certified Banger" the next time they use their Skill.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Believe In the Light",
+        description:
+          'After using Skill, the next Ultimate increases the amount of "Certified Banger" gained by ally targets by 2. This effect can stack up to 3 time(s).',
+        keyMechanic: "Believe In the Light",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "History in the Making...",
+        description:
+          "Ultimate additionally increases the Elation of one designated ally by 12%, lasting for 2 turn(s).",
+        keyMechanic: "History in the Making...",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Into the Spotlight",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "Into the Spotlight",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Save the World. Just Because.",
+        description:
+          "When using Elation Skill, increases the DMG taken by enemy targets by 10%, lasting for 2 turn(s).",
+        keyMechanic: "Save the World. Just Because.",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Love & Courage: Always in Style",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "Love & Courage: Always in Style",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "The Cosmic Legend Cometh!",
+        description:
+          "When using Elation Skill, increases this unit's CRIT DMG by 100% for 3 turns.",
+        keyMechanic: "The Cosmic Legend Cometh!",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_8009",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Trailblazer (Elation) via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "trailblazer-harmony",
+    gameId: "8005",
+    name: "Trailblazer (Harmony)",
+    localizedNames: {
+      en: "Trailblazer (Harmony)",
+      id: "Trailblazer (Harmony)",
+    },
+    rarity: 5,
+    path: "Harmony",
+    element: "Imaginary",
+    releaseVersion: "2.2",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1086,
+      atk: 446,
+      def: 679,
+      spd: 105,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "trailblazer-harmony_800501",
+        name: "Swing Dance Etiquette",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of the Trailblazer's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-harmony_800502",
+        name: "Halftime to Make It Rain",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        description:
+          "Deals Imaginary DMG equal to X of the Trailblazer's ATK to one designated enemy target and additionally deals DMG for 4 times, with each time dealing Imaginary DMG equal to X of the Trailblazer's ATK to a random enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-harmony_800503",
+        name: "All-Out Footlight Parade",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Grants all allies the Backup Dancer effect, lasting for X turn(s). This duration decreases by 1 at the start of Trailblazer's every turn. Allies with the Backup Dancer effect have their Break Effect increased by X. And when they attack enemy targets that are in the Weakness Broken state, the Toughness Reduction of the attack will be converted into 1 instance of Super Break DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-harmony_800504",
+        name: "Full-on Aerial Dance",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "The Trailblazer immediately regenerates #1[f1] Energy when an enemy target's Weakness is Broken.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-harmony_800506",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-harmony_800507",
+        name: "Now! I'm the Band!",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After the Technique is used, at the start of the next battle, all allies' Break Effect increases by X, lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "trailblazer-harmony_trace_a2",
+        name: "Dance With the One",
+        ascensionRequirement: "A2",
+        description:
+          "When the number of enemy targets on the field is (≥5)/4/3/2/1, the Super Break DMG triggered by the Backup Dancer effect increases by X/X/X/X/X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-harmony_trace_a4",
+        name: "Shuffle Along",
+        ascensionRequirement: "A4",
+        description:
+          "When using Skill, additionally increases the Toughness Reduction of the first instance of DMG by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-harmony_trace_a6",
+        name: "Hat of the Theater",
+        ascensionRequirement: "A6",
+        description:
+          "After ally targets break weakness, additionally delays the action of the enemy target by X.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Best Seat in the House",
+        description:
+          "After using Skill for the first time, immediately recovers 1 Skill Point(s).",
+        keyMechanic: "Best Seat in the House",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Jailbreaking Rainbowwalk",
+        description:
+          "When the battle starts, the Trailblazer's Energy Regeneration Rate increases by 25%, lasting for 3 turn(s).",
+        keyMechanic: "Jailbreaking Rainbowwalk",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Sanatorium for Rest Notes",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Sanatorium for Rest Notes",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Dove in Tophat",
+        description:
+          "While the Trailblazer is on the field, increases the Break Effect of all teammates (excluding the Trailblazer), by an amount equal to 15% of the Trailblazer's Break Effect.",
+        keyMechanic: "Dove in Tophat",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Poem Favors Rhythms of Old",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Poem Favors Rhythms of Old",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Tomorrow, Rest in Spotlight",
+        description:
+          "The number of additional DMG applications by the Skill increases by 2.",
+        keyMechanic: "Tomorrow, Rest in Spotlight",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_8005",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.2",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Trailblazer (Harmony) via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "trailblazer-preservation",
+    gameId: "8003",
+    name: "Trailblazer (Preservation)",
+    localizedNames: {
+      en: "Trailblazer (Preservation)",
+      id: "Trailblazer (Preservation)",
+    },
+    rarity: 5,
+    path: "Preservation",
+    element: "Fire",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1241,
+      atk: 601,
+      def: 606,
+      spd: 95,
+      taunt: 150,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "trailblazer-preservation_800301",
+        name: "Ice-Breaking Light",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          'Deals Fire DMG equal to X of the Trailblazer\'s ATK to one designated enemy and gains 1 stack of "Magma Will."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-preservation_800302",
+        name: "Ever-Burning Amber",
+        type: "skill",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Increases the Trailblazer's DMG Reduction by X and gains 1 stack of Magma Will, with a X base chance to Taunt all enemies for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-preservation_800303",
+        name: "War-Flaming Lance",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Fire DMG equal to X of the Trailblazer's ATK plus X of the Trailblazer's DEF to all enemies. The next Basic ATK will be automatically enhanced and does not cost Magma Will.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-preservation_800304",
+        name: "Treasure of the Architects",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Each time the Trailblazer is hit, they gain 1 stack of "Magma Will" for a max of X stack(s). When "Magma Will" has no fewer than 4 stacks, the Trailblazer\'s Basic ATK becomes enhanced, dealing DMG to one designated enemy and enemies adjacent to it. When the Trailblazer uses Basic ATK, Skill, or Ultimate, apply a Shield to all allies that absorbs DMG equal to #1[f1]% of the Trailblazer\'s DEF plus X. The Shield lasts for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-preservation_800306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-preservation_800307",
+        name: "Call of the Guardian",
+        type: "technique",
+        tag: "Defense",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "After using Technique, at the start of the next battle, gains a Shield that absorbs DMG equal to X of the Trailblazer's DEF plus X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-preservation_800308",
+        name: "Ice-Breaking Light",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Consumes 4 stacks of \"Magma Will\" to enhance Basic ATK, dealing Fire DMG equal to X of the Trailblazer's ATK to one designated enemy and Fire DMG to equal to X of the Trailblazer's ATK to enemies adjacent to it.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "trailblazer-preservation_trace_a2",
+        name: "The Strong Defend the Weak",
+        ascensionRequirement: "A2",
+        description:
+          "After using the Skill, the DMG taken by all allies decreases by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-preservation_trace_a4",
+        name: "Unwavering Gallantry",
+        ascensionRequirement: "A4",
+        description:
+          "Using Enhanced Basic ATK restores the Trailblazer's HP by X of their Max HP.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-preservation_trace_a6",
+        name: "Action Beats Overthinking",
+        ascensionRequirement: "A6",
+        description:
+          "When the Trailblazer is protected by a Shield at the beginning of the turn, increases their ATK by X and regenerates X Energy until the action is over.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.05,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.075,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "defence",
+        totalValue: 0.1,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Earth-Shaking Resonance",
+        description:
+          "When the Trailblazer uses their Basic ATK, additionally deals Fire DMG equal to 25% of the Trailblazer's DEF. When the Trailblazer uses their enhanced Basic ATK, additionally deals Fire DMG equal to 50% of the Trailblazer's DEF.",
+        keyMechanic: "Earth-Shaking Resonance",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Time-Defying Tenacity",
+        description:
+          "The Shield applied to all allies from the Trailblazer's Talent will block extra DMG equal to 2% of the Trailblazer's DEF plus 27.",
+        keyMechanic: "Time-Defying Tenacity",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Trail-Blazing Blueprint",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Trail-Blazing Blueprint",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Nation-Building Oath",
+        description:
+          "At the start of the battle, immediately gains 4 stack(s) of Magma Will.",
+        keyMechanic: "Nation-Building Oath",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Spirit-Warming Flame",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Spirit-Warming Flame",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "City-Forging Bulwarks",
+        description:
+          "After the Trailblazer uses enhanced Basic ATK or Ultimate, their DEF increases by 10%. Stacks up to 3 time(s).",
+        keyMechanic: "City-Forging Bulwarks",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_8003",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Client-extracted data for Trailblazer (Preservation) via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "trailblazer-remembrance",
+    gameId: "8007",
+    name: "Trailblazer (Remembrance)",
+    localizedNames: {
+      en: "Trailblazer (Remembrance)",
+      id: "Trailblazer (Remembrance)",
+    },
+    rarity: 5,
+    path: "Remembrance",
+    element: "Ice",
+    releaseVersion: "3.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 543,
+      def: 630,
+      spd: 103,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 160,
+    },
+    abilities: [
+      {
+        id: "trailblazer-remembrance_800701",
+        name: "Leave It to Me!",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Trailblazer's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_800702",
+        name: "I Choose You!",
+        type: "skill",
+        tag: "Summon",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          "Summons the memosprite Mem. If Mem is already on the field, restores Mem's HP by an amount equal to X of Mem's Max HP, and grants Mem X Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_800703",
+        name: "Together, Mem!",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 160,
+        description:
+          "Summons memosprite Mem. Grants Mem X Charge, then makes Mem deal Ice DMG equal to X of Mem's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_800704",
+        name: "Almighty Companion",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Memosprite Mem has an initial SPD of X and a Max HP equal to X of Trailblazer's Max HP plus X. For every X Energy regenerated by all allies in total, Mem gains 1% Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_800706",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_800707",
+        name: "Memories Back as Echoes",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, creates a Special Dimension that lasts for X second(s). Enemies within the Special Dimension are placed in a Time Stop state, halting all their actions. After entering battle against enemies afflicted with the Time Stop state, delays the action of all enemies by X, and then deals Ice DMG to all enemies equal to X of Trailblazer's ATK. Only 1 Dimension Effect created by allies can exist at the same time.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_800708",
+        name: "Together, We Script Tomorrow!",
+        type: "basic",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 20,
+        description:
+          "Consumes 1 stack of \"Epic\" to dispel all Crowd Control debuffs on Mem. Trailblazer and Mem launch a Joint ATK, dealing Ice DMG to all enemies equal to X of Trailblazer's ATK and X of Mem's ATK respectively. Then, Mem gains X Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_800709",
+        name: "I Choose You!",
+        type: "skill",
+        tag: "Restore",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Summons the memosprite Mem. If Mem is already on the field, restores Mem's HP, and grants Mem Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_1800701",
+        name: "Baddies! Trouble!",
+        type: "memosprite_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "Deals X instance(s) of DMG, with each instance dealing Ice DMG equal to #1[f1]% of Mem's ATK to one random enemy. At the end, deals Ice DMG equal to X of Mem's ATK to all enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_1800703",
+        name: "Friends! Together!",
+        type: "memosprite_talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Increases all allies\' CRIT DMG by an amount equal to #1[f1]% of Mem\'s CRIT DMG plus #2[f1]%. If the Charge has yet to reach 100%, Mem automatically uses "Baddies! Trouble!" when taking action. When the Charge reaches 100%, Mem immediately takes action. In the next action, can select one ally and use "Lemme! Help You!".',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_1800705",
+        name: "Go, Mem, Go!",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description: "When Mem is summoned, immediately gains X Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_1800706",
+        name: "No... Regrets",
+        type: "memosprite_talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description: "When Mem disappears, Trailblazer's action advances by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_1800707",
+        name: "Lemme! Help You!",
+        type: "memosprite_skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Advances the action of one designated ally by X and grants them "Mem\'s Support," lasting for X turn(s). For every 1 instance of DMG dealt by a target that has "Mem\'s Support," additionally deals 1 instance of True DMG equal to X of the original DMG. When using this ability on this unit, cannot trigger the action advance effect.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "trailblazer-remembrance_trace_a2",
+        name: "Rhapsode's Scepter",
+        ascensionRequirement: "A2",
+        description:
+          "When the battle starts, Trailblazer's action advances by X. When Mem is first summoned, grants Mem X Charge.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_trace_a4",
+        name: "Petite Parable",
+        ascensionRequirement: "A4",
+        description:
+          'When using "Baddies! Trouble!," Mem immediately gains X Charge.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "trailblazer-remembrance_trace_a6",
+        name: "Magnets and Long Chains",
+        ascensionRequirement: "A6",
+        description:
+          'When the Max Energy of an ally target that has "Mem\'s Support" exceeds X, for every X excess Energy, additionally increases the multiplier of the True DMG dealt via "Mem\'s Support" by X, up to a max increase of X.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Narrator of the Present",
+        description:
+          'Increases the CRIT Rate of ally targets with "Mem\'s Support" by 10%. When an ally target has "Mem\'s Support," the effect of "Mem\'s Support" also applies to the target\'s memosprite/memomaster. This effect cannot stack.',
+        keyMechanic: "Narrator of the Present",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Gleaner of the Past",
+        description:
+          "When ally memosprites (aside from Mem) take action, Trailblazer regenerates 8 Energy. This effect can trigger a max of 1 time(s) per turn. The trigger count resets at the start of Trailblazer's turn.",
+        keyMechanic: "Gleaner of the Past",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Chanter of the Future",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Memosprite Talent Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Chanter of the Future",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Dancer of the Muse",
+        description:
+          'When an ally target with 0 Max Energy actively uses an ability, Mem can also gain 3% Charge, and the multiplier of the True DMG dealt by this target via "Mem\'s Support" additionally increases by 6%.',
+        keyMechanic: "Dancer of the Muse",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Seamster of the Ode",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Memosprite Skill Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Seamster of the Ode",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Bearer of the Revelation",
+        description: "Ultimate's CRIT Rate is set at 100%.",
+        keyMechanic: "Bearer of the Revelation",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_8007",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes:
+        "Client-extracted data for Trailblazer (Remembrance) via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "tribbie",
+    gameId: "1403",
+    name: "Tribbie",
+    localizedNames: {
+      en: "Tribbie",
+      id: "Tribbie",
+    },
+    rarity: 5,
+    path: "Harmony",
+    element: "Quantum",
+    releaseVersion: "3.1",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1047,
+      atk: 523,
+      def: 727,
+      spd: 96,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "tribbie_140301",
+        name: "Hundred Rockets",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Deals Quantum DMG equal to X of Tribbie's Max HP to one designated enemy. Deals Quantum DMG equal to X of Tribbie's Max HP to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "tribbie_140302",
+        name: "Where'd the Gifts Go",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Gains "Numinosity," lasting for X turn(s). This duration decreases by 1 at the start of this unit\'s every turn. While Tribbie has "Numinosity," increases all ally targets\' All-Type RES PEN by #1[f1]%.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "tribbie_140303",
+        name: "Guess Who Lives Here",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Activates a Zone and deals Quantum DMG equal to X of Tribbie's Max HP to all enemies. While the Zone lasts, increases enemy targets' DMG taken by #2[f1]%. After an ally target attacks, for every 1 target hit, deals 1 instance of Quantum Additional DMG equal to #3[f1]% of Tribbie's Max HP to the target that has the highest HP among the hit targets. The Zone lasts for X turn(s). This duration decreases by 1 at the start of this unit's every turn.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "tribbie_140304",
+        name: "Busy as Tribbie",
+        type: "talent",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          "After other ally characters use Ultimate, Tribbie launches Follow-Up ATK, dealing Quantum DMG equal to #1[f1]% of Tribbie's Max HP to all enemies. This effect triggers up to 1 time per character. When Tribbie uses Ultimate, resets the trigger count for other ally characters. If the target was defeated before the Follow-Up ATK is launched, then launches the Follow-Up ATK against new enemy targets entering the battlefield.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "tribbie_140306",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "tribbie_140307",
+        name: "If You're Happy and You Know It",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using Technique and upon entering battle, obtains "Numinosity," lasting for X turn(s).',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "tribbie_trace_a2",
+        name: "Lamb Outside the Wall...",
+        ascensionRequirement: "A2",
+        description:
+          "After using Talent's Follow-Up ATK, increases the DMG dealt by Tribbie by X. This effect can stack up to X time(s), lasting for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "tribbie_trace_a4",
+        name: "Glass Ball with Wings!",
+        ascensionRequirement: "A4",
+        description:
+          "While the Zone lasts, Tribbie's Max HP increases by an amount equal to X of the sum of all ally characters' Max HP.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "tribbie_trace_a6",
+        name: "Pebble at Crossroads?",
+        ascensionRequirement: "A6",
+        description:
+          "At the start of battle, Tribbie regenerates X Energy. After other ally targets attack, Tribbie regenerates #2[f1] Energy for each target hit.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "criticaldamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Rite of Sugar Scoop",
+        description:
+          "While the Zone lasts and after ally targets attack enemies, additionally deals True DMG equal to 24% of the total DMG of this attack to targets that have been dealt Additional DMG by the Zone.",
+        keyMechanic: "Rite of Sugar Scoop",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Guide of Dream Tour",
+        description:
+          "The Additional DMG dealt by the Zone increases to 120% of the original DMG. When the Zone deals Additional DMG, further deals 1 instance(s) of Additional DMG.",
+        keyMechanic: "Guide of Dream Tour",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Trove of Morning Glow",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Trove of Morning Glow",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Peace of Empathy Bond",
+        description:
+          'While "Numinosity" lasts, the DMG dealt by all allies ignores 18% of the target\'s DEF.',
+        keyMechanic: "Peace of Empathy Bond",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Clock of Wonder Origin",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Clock of Wonder Origin",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Morrow of Star Shine",
+        description:
+          "After Tribbie uses Ultimate, launches her Talent's Follow-Up ATK against all enemies. The DMG dealt by Talent's Follow-Up ATK increases by 729%.",
+        keyMechanic: "Morrow of Star Shine",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1403",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "3.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Tribbie via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "welt",
+    gameId: "1004",
+    name: "Welt",
+    localizedNames: {
+      en: "Welt",
+      id: "Welt",
+    },
+    rarity: 5,
+    path: "Nihility",
+    element: "Imaginary",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1125,
+      atk: 620,
+      def: 509,
+      spd: 102,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "welt_100401",
+        name: "Gravity Suppression",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of Welt's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_100402",
+        name: "Edge of the Void",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        description:
+          "Deals Imaginary DMG equal to X of Welt's ATK to one designated enemy and additionally deals 2 instances of DMG, with each time dealing Imaginary DMG equal to X of Welt's ATK to a random enemy. On hit, there is a X base chance to reduce the enemy's SPD by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_100403",
+        name: "Synthetic Black Hole",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Imaginary DMG equal to X of Welt's ATK to all enemies, with a X base chance for enemies hit by this ability to be Imprisoned for 1 turn. Imprisoned enemies have their actions delayed by #2[f1]% and SPD reduced by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_100404",
+        name: "Time Distortion",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "When hitting an enemy that is already Slowed, Welt deals Imaginary Additional DMG equal to X of his ATK to the enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_100406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_100407",
+        name: "Gravitational Imprisonment",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Welt's Technique, create a Special Dimension that lasts for X second(s). Enemies in this Special Dimension have their movement speed reduced by X. After entering battle with enemies in the Special Dimension, there is a X base chance to Imprison the enemies for 1 turn. Imprisoned enemies have their actions delayed by X and SPD reduced by X. Only 1 Dimension Effect created by allies can exist at the same time.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_1100401",
+        name: "Gravity Suppression",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Imaginary DMG equal to X of Welt's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_1100402",
+        name: "Edge of the Void",
+        type: "skill",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 30,
+        description:
+          "Deals Imaginary DMG equal to X of Welt's ATK to one designated enemy and additionally deals DMG 4 times, with each time dealing Imaginary DMG equal to X of Welt's ATK to one random enemy. On hit, there is a X base chance to reduce the enemy's SPD by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_1100403",
+        name: "Synthetic Black Hole",
+        type: "ultimate",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          'Deals Imaginary DMG equal to X of Welt\'s ATK to all enemies. Has a X base chance to Imprison hit enemy targets for 1 turn. While Imprisoned, enemy targets have their actions delayed by #2[f1]% and their SPD reduced by X. After using his Ultimate, inflicts the "Weightless" state on all enemies. When targets in "Weightless" state get attacked, their actions are delayed by #5[f1]%. This effect can trigger up to X time(s) per target per turn. "Weightless" lasts for X turn(s).',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_1100404",
+        name: "Time Distortion",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'Enemy targets in the "Weightless" state have their DEF reduced by X and their SPD reduced by X. When Welt attacks an enemy that is already Slowed, he additionally deals Imaginary Additional DMG equal to X of his ATK to the enemy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_1100406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_1100407",
+        name: "Gravitational Imprisonment",
+        type: "technique",
+        tag: "Impair",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Welt's Technique, create a Special Dimension that lasts for X second(s). Enemies in this Special Dimension have their movement speed reduced by X. After entering combat with enemies in the Special Dimension, there is a X base chance to Imprison the enemies for 1 turn. Imprisoned enemies have their actions delayed by X and SPD reduced by X. Only 1 Dimension Effect created by allies can exist at the same time.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "welt_trace_a2",
+        name: "Retribution",
+        ascensionRequirement: "A2",
+        description:
+          "When using Ultimate, there is a X base chance to increase the DMG taken by the targets by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_trace_a4",
+        name: "Judgment",
+        ascensionRequirement: "A4",
+        description: "Using Ultimate additionally regenerates X Energy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_trace_a6",
+        name: "Punishment",
+        ascensionRequirement: "A6",
+        description:
+          "Deals X more DMG to enemies inflicted with Weakness Break.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_trace_a2",
+        name: "Retribution",
+        ascensionRequirement: "A2",
+        description:
+          'When ally targets attack targets under the "Weightless" state, their DMG dealt increases by X. This effect stacks up to X times and lasts for X turn(s). At the start of the battle, Welt regenerates X Energy.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_trace_a4",
+        name: "Judgment",
+        ascensionRequirement: "A4",
+        description:
+          "When Welt uses Basic ATK or Skill, additionally deals 1 extra instance of Additional DMG to the enemy target. The Additional DMG dealt when using Basic ATK is equal to X of Basic ATK DMG multiplier. The Additional DMG dealt when using Skill is equal to X of Skill DMG multiplier.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "welt_trace_a6",
+        name: "Punishment",
+        ascensionRequirement: "A6",
+        description:
+          "When Welt's Effect Hit Rate is greater than X, for every X that exceeds this value, increases ATK by X, up to a maximum increase of X. When using Ultimate, additionally restores X Energy.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "statusresistancebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Legacy of Honor",
+        description:
+          "After using Ultimate, Welt gets enhanced. Then, the next 2 time(s) he uses Basic ATK or Skill, deals 1 extra instance of Additional DMG to the enemy target. The Additional DMG dealt when using Basic ATK is equal to 50% of Basic ATK DMG multiplier. The Additional DMG dealt when using Skill is equal to 80% of Skill DMG multiplier.",
+        keyMechanic: "Legacy of Honor",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Conflux of Stars",
+        description: "When his Talent is triggered, Welt regenerates 3 Energy.",
+        keyMechanic: "Conflux of Stars",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Prayer of Peace",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Prayer of Peace",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Appellation of Justice",
+        description:
+          "When using Skill, increases the base chance of reducing the attacked enemy target's SPD by 35%.",
+        keyMechanic: "Appellation of Justice",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Power of Kindness",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Power of Kindness",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Prospect of Glory",
+        description:
+          "When using Skill, deals DMG for 1 extra time to one random enemy.",
+        keyMechanic: "Prospect of Glory",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1004",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Welt via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "xueyi",
+    gameId: "1214",
+    name: "Xueyi",
+    localizedNames: {
+      en: "Xueyi",
+      id: "Xueyi",
+    },
+    rarity: 4,
+    path: "Destruction",
+    element: "Quantum",
+    releaseVersion: "1.6",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1058,
+      atk: 599,
+      def: 396,
+      spd: 103,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 120,
+    },
+    abilities: [
+      {
+        id: "xueyi_121401",
+        name: "Mara-Sunder Awl",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals X of Xueyi's ATK as Quantum DMG to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "xueyi_121402",
+        name: "Iniquity Obliteration",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Deals Quantum DMG equal to X of Xueyi's ATK to one designated enemy, and Quantum DMG equal to X of Xueyi's ATK to any adjacent enemies.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "xueyi_121403",
+        name: "Divine Castigation",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 120,
+        description:
+          "Deals Quantum DMG equal to X of Xueyi's ATK to one designated enemy target. This attack ignores Weakness Types and reduces the enemy's Toughness. When the enemy's Weakness is Broken, the Quantum Weakness Break effect is triggered. In this attack, the more Toughness is reduced, the higher the DMG will be dealt, up to a max of #3[f1]% increase.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "xueyi_121404",
+        name: "Karmic Perpetuation",
+        type: "talent",
+        tag: "Bounce",
+        targetType: "bounce_enemy",
+        energyGain: 0,
+        description:
+          'When Xueyi reduces enemy Toughness with attacks, "Karma" will be stacked. The more Toughness is reduced, the more stacks of "Karma" are added, up to X stacks. When Xueyi\'s teammates reduce enemy Toughness with attacks, Xueyi gains X stack(s) of "Karma." When "Karma" reaches the max number of stacks, consumes all current "Karma" stacks and immediately launches Follow-Up ATK against an enemy target, dealing DMG for 3 times, with each time dealing Quantum DMG equal to X of Xueyi\'s ATK to a single random enemy. This Follow-Up ATK will not add "Karma" stacks.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "xueyi_121406",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "xueyi_121407",
+        name: "Summary Execution",
+        type: "technique",
+        tag: "Technique",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Immediately attacks the enemy. After entering combat, deals X of Xueyi's ATK as Quantum DMG to all enemies.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "xueyi_trace_a2",
+        name: "Clairvoyant Loom",
+        ascensionRequirement: "A2",
+        description:
+          "Increases DMG dealt by this unit by an amount equal to X of Break Effect, up to a maximum DMG increase of X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "xueyi_trace_a4",
+        name: "Intrepid Rollerbearings",
+        ascensionRequirement: "A4",
+        description:
+          "If the enemy target's Toughness is equal to or higher than X of their Max Toughness, deals X more DMG when using Ultimate.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "xueyi_trace_a6",
+        name: "Perspicacious Mainframe",
+        ascensionRequirement: "A6",
+        description:
+          "Xueyi will keep a tally of the number of Karma stacks that exceed the max stack limit, up to X stacks in the tally. After Xueyi's Talent is triggered, she will gain a corresponding number of tallied Karma stacks.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "quantum",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "breakdamagebase",
+        totalValue: 0.107,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Dvesha, Inhibited",
+        description:
+          "Increases the DMG dealt by the Talent's Follow-Up ATK by 40%.",
+        keyMechanic: "Dvesha, Inhibited",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Klesha, Breached",
+        description:
+          "Talent's Follow-Up ATK Reduces enemy Toughness regardless of Weakness types. At the same time, restores Xueyi's HP by an amount equal to 5% of her Max HP. When breaking Weakness, triggers the Quantum Break Effect.",
+        keyMechanic: "Klesha, Breached",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Duḥkha, Ceased",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Duḥkha, Ceased",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Karma, Severed",
+        description:
+          "When using Ultimate, increases Break Effect by 40% for 2 turn(s).",
+        keyMechanic: "Karma, Severed",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Deva, Enthralled",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Deva, Enthralled",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Saṃsāra, Mastered",
+        description: "The max stack limit for Karma decreases to 6.",
+        keyMechanic: "Saṃsāra, Mastered",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1214",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.6",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Xueyi via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "yanqing",
+    gameId: "1209",
+    name: "Yanqing",
+    localizedNames: {
+      en: "Yanqing",
+      id: "Yanqing",
+    },
+    rarity: 5,
+    path: "Hunt",
+    element: "Ice",
+    releaseVersion: "1.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 892,
+      atk: 679,
+      def: 412,
+      spd: 109,
+      taunt: 75,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 140,
+    },
+    abilities: [
+      {
+        id: "yanqing_120901",
+        name: "Frost Thorn",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Ice DMG equal to X of Yanqing's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yanqing_120902",
+        name: "Darting Ironthorn",
+        type: "skill",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 30,
+        description:
+          'Deals Ice DMG equal to X of Yanqing\'s ATK to one designated enemy and activates "Soulsteel Sync" for 1 turn.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yanqing_120903",
+        name: "Amidst the Raining Bliss",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 140,
+        description:
+          "Increases Yanqing's CRIT Rate by X. When \"Soulsteel Sync\" is active, increases Yanqing's CRIT DMG by an extra X. This buff lasts for one turn. Afterwards, deals Ice DMG equal to X of Yanqing's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yanqing_120904",
+        name: "One With the Sword",
+        type: "talent",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        description:
+          'When "Soulsteel Sync" is active, Yanqing is less likely to be attacked by enemies. Yanqing\'s CRIT Rate increases by #1[f1]% and his CRIT DMG increases by X. After Yanqing attacks an enemy, there is a X fixed chance to launch Follow-Up ATK, dealing Ice DMG equal to X of Yanqing\'s ATK to the enemy, which has a X base chance to Freeze the enemy for 1 turn. The Frozen target cannot take action and receives Ice Additional DMG equal to X of Yanqing\'s ATK at the beginning of each turn. When Yanqing receives DMG, the "Soulsteel Sync" effect will disappear.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yanqing_120906",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yanqing_120907",
+        name: "The One True Sword",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using his Technique, at the start of the next battle, Yanqing deals X more DMG for X turn(s) to enemies whose current HP percentage is X or higher.",
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "yanqing_trace_a2",
+        name: "Icing on the Kick",
+        ascensionRequirement: "A2",
+        description:
+          "After Yanqing attacks, deals Ice Additional DMG equal to X of Yanqing's ATK to enemies with Ice Weakness.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yanqing_trace_a4",
+        name: "Frost Favors the Brave",
+        ascensionRequirement: "A4",
+        description:
+          "When Soulsteel Sync is active, Effect RES increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yanqing_trace_a6",
+        name: "Gentle Blade",
+        ascensionRequirement: "A6",
+        description:
+          "When a CRIT Hit is triggered, increases SPD by X for X turn(s).",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "ice",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Svelte Saber",
+        description:
+          "When Yanqing attacks a Frozen enemy, he deals Ice Additional DMG equal to 60% of his ATK.",
+        keyMechanic: "Svelte Saber",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Supine Serenade",
+        description:
+          "When Soulsteel Sync is active, Energy Regeneration Rate increases by an extra 10%.",
+        keyMechanic: "Supine Serenade",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Sword Savant",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Sword Savant",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Searing Sting",
+        description:
+          "When the current HP percentage is 80% or higher, this unit's Ice RES PEN increases by 12%.",
+        keyMechanic: "Searing Sting",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Surging Strife",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Surging Strife",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Swift Swoop",
+        description:
+          'If the buffs from "Soulsteel Sync" or the Ultimate are in effect when an enemy is defeated, the duration of these buffs is extended by 1 turn.',
+        keyMechanic: "Swift Swoop",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1209",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Yanqing via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "yao-guang",
+    gameId: "1502",
+    name: "Yao Guang",
+    localizedNames: {
+      en: "Yao Guang",
+      id: "Yao Guang",
+    },
+    rarity: 5,
+    path: "Elation",
+    element: "Physical",
+    releaseVersion: "4.0",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1241,
+      atk: 465,
+      def: 654,
+      spd: 101,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 180,
+    },
+    abilities: [
+      {
+        id: "yao-guang_150201",
+        name: "Whistlebolt Sings Joy",
+        type: "basic",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Yao Guang's ATK to one designated enemy and Physical DMG equal to X of Yao Guang's ATK to targets adjacent to it. The Energy regenerated from Basic ATK increases to 30.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yao-guang_150202",
+        name: "Decalight Unveils All",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          "Deploys a Zone for X turn(s). This duration decreases by 1 at the start of this unit's every turn. While the Zone is active, increases all allies' Elation by an amount equal to #2[f1]% of Yao Guang's Elation. After Yao Guang uses Basic ATK or Skill, gains X Punchline.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yao-guang_150203",
+        name: "Hexagram of Feathered Fortune",
+        type: "ultimate",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 180,
+        description:
+          "Gains X Punchline. Aha immediately gains 1 extra turn where a fixed amount of X Punchline is taken into account. This turn does not consume Punchline, and increases all allies' All-Type RES PEN by #2[f1]% for X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yao-guang_150204",
+        name: "Behold Wherever Light Unfolds",
+        type: "talent",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          'While Yao Guang holds "Certified Banger": After an ally target uses an attack, triggers the "Great Boon" effect, dealing 1 additional instance of #1[f1]% Elation DMG of the corresponding Type to 1 random hit target. If this attack consumes Skill Points, then additionally triggers "Great Boon" 1 time. When triggering the "Great Boon" effect, if the attacker\'s Elation is lower than that of Yao Guang, then this instance of Elation DMG will take Yao Guang\'s Elation into calculation. Triggering the "Great Boon" effect is not considered as using 1 instance of attack.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yao-guang_150206",
+        name: "Whistlebolt Sings Joy",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yao-guang_150207",
+        name: "Untethered Glimmer Sails Far",
+        type: "technique",
+        tag: "Support",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "After using Technique, automatically triggers Skill 1 time at the start of the next battle without consuming any Skill Points. When Yao Guang is in the team, breaking destructible objects immediately grants Fortune Pouch, up to X within every Earth Week.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yao-guang_150220",
+        name: "Let Thy Fortune Burst in Flames",
+        type: "elation_skill",
+        tag: "AoE",
+        targetType: "all_enemies",
+        energyGain: 0,
+        description:
+          'Inflicts "Woe\'s Whisper" on all enemies, lasting for X turn(s). Enemy targets under the "Woe\'s Whisper" state take #3[f1]% increased DMG. Deals X Physical Elation DMG to all enemies. Then, deals X instance(s) of X Physical Elation DMG to one random enemy.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "yao-guang_trace_a2",
+        name: "Amaze-In Grace",
+        ascensionRequirement: "A2",
+        description:
+          "When Yao Guang's SPD is X or higher, increases this unit's Elation by X. For every X SPD exceeded, increases this unit's Elation by X. Up to a max of X excess SPD can be taken into account for this effect.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yao-guang_trace_a4",
+        name: "Poised and Sated",
+        ascensionRequirement: "A4",
+        description:
+          "Increases this unit's CRIT DMG by X. After using Elation Skill, recovers X Skill Point(s) for the team.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yao-guang_trace_a6",
+        name: "Felicity Ensemble",
+        ascensionRequirement: "A6",
+        description:
+          'When Yao Guang gains "Certified Banger," its duration increases by X turn(s).',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 2,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 3,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "elationdamagebase",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "speeddelta",
+        totalValue: 4,
+        unit: "flat",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.053,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Chuckle Chimes Where Jade Falls",
+        description:
+          "In Aha's extra turn triggered by Ultimate, the fixed amount of Punchline taken into account increases to 40. When dealing Elation DMG, all ally targets ignore 20% of the target's DEF.",
+        keyMechanic: "Chuckle Chimes Where Jade Falls",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Blind Arrows Guided by Feathers",
+        description:
+          "While the Zone is active, increases all ally targets' SPD by 12%, and additionally increases Elation by 16%.",
+        keyMechanic: "Blind Arrows Guided by Feathers",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Auspices Mirrored In Decalight",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "Auspices Mirrored In Decalight",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Threads of Fate Colored by Plumes",
+        description:
+          "In Aha's extra turn triggered by Yao Guang's Ultimate, the DMG dealt by all ally characters' Elation Skill becomes 150% of the original DMG.",
+        keyMechanic: "Threads of Fate Colored by Plumes",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Bejeweled in Radiant Grace",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Elation Skill Lv. +1, up to a maximum of Lv. 15.",
+        keyMechanic: "Bejeweled in Radiant Grace",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Ferried Along the Astral Arc",
+        description:
+          "All ally targets' Elation DMG merrymakes by 25%. Increases the DMG multiplier of Yao Guang's Elation Skill by 100% of its original multiplier.",
+        keyMechanic: "Ferried Along the Astral Arc",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1502",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "4.0",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Yao Guang via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "yukong",
+    gameId: "1207",
+    name: "Yukong",
+    localizedNames: {
+      en: "Yukong",
+      id: "Yukong",
+    },
+    rarity: 4,
+    path: "Harmony",
+    element: "Imaginary",
+    releaseVersion: "1.1",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 917,
+      atk: 599,
+      def: 374,
+      spd: 107,
+      taunt: 100,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 130,
+    },
+    abilities: [
+      {
+        id: "yukong_120701",
+        name: "Arrowslinger",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals X of Yukong's ATK as Imaginary DMG to a target enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yukong_120702",
+        name: "Emboldening Salvo",
+        type: "skill",
+        tag: "Support",
+        targetType: "single_ally",
+        energyGain: 30,
+        description:
+          'Obtains X stack(s) of "Roaring Bowstrings" (to a maximum of 2 stacks). When "Roaring Bowstrings" is active, the ATK of all allies increases by X, and every time an ally\'s turn (including Yukong\'s) ends, Yukong loses 1 stack of "Roaring Bowstrings." When it\'s the turn where Yukong gains "Roaring Bowstrings" by using Skill, "Roaring Bowstrings" will not be removed.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yukong_120703",
+        name: "Diving Kestrel",
+        type: "ultimate",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 0,
+        energyCost: 130,
+        description:
+          "If \"Roaring Bowstrings\" is active on Yukong when her Ultimate is used, additionally increases all allies' CRIT Rate by #2[f1]% and CRIT DMG by X. At the same time, deals Imaginary DMG equal to X of Yukong's ATK to one designated enemy.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yukong_120704",
+        name: "Seven Layers, One Arrow",
+        type: "talent",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        description:
+          "Basic ATK additionally deals Imaginary DMG equal to X of Yukong's ATK, and increases the Toughness Reduction of this attack by X. This effect can be triggered again after X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yukong_120706",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yukong_120707",
+        name: "Windchaser",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'After using her Technique, Yukong enters Sprint mode for X seconds. In Sprint mode, her movement speed increases by X, and Yukong gains X stack(s) of "Roaring Bowstrings" when she enters combat by attacking enemies.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "yukong_trace_a2",
+        name: "Archerion",
+        ascensionRequirement: "A2",
+        description:
+          "Yukong can resist 1 debuff application for 1 time. This effect can be triggered again after X turn(s).",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yukong_trace_a4",
+        name: "Bowmaster",
+        ascensionRequirement: "A4",
+        description:
+          "When Yukong is on the field, Imaginary DMG dealt by all allies increases by X.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yukong_trace_a6",
+        name: "Majestas",
+        ascensionRequirement: "A6",
+        description:
+          'When "Roaring Bowstrings" is active, Yukong regenerates X additional Energy every time an ally takes action.',
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "imaginary",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.032,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.048,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "imaginary",
+        totalValue: 0.064,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Aerial Marshal",
+        description:
+          "At the start of battle, increases the SPD of all allies by 10% for 2 turn(s).",
+        keyMechanic: "Aerial Marshal",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "Skyward Command",
+        description:
+          "When any ally's current energy is equal to its energy limit, Yukong regenerates an additional 5 energy. This effect can only be triggered once for each ally. The trigger count is reset after Yukong uses her Ultimate.",
+        keyMechanic: "Skyward Command",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Torrential Fusillade",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Torrential Fusillade",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Zephyrean Echoes",
+        description:
+          'When "Roaring Bowstrings" is active, Yukong deals 30% more DMG to enemies.',
+        keyMechanic: "Zephyrean Echoes",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "August Deadshot",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "August Deadshot",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Bowstring Thunderclap",
+        description:
+          'When Yukong uses her Ultimate, she immediately gains 1 stack(s) of "Roaring Bowstrings."',
+        keyMechanic: "Bowstring Thunderclap",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1207",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "1.1",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Yukong via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+  {
+    id: "yunli",
+    gameId: "1221",
+    name: "Yunli",
+    localizedNames: {
+      en: "Yunli",
+      id: "Yunli",
+    },
+    rarity: 5,
+    path: "Destruction",
+    element: "Physical",
+    releaseVersion: "2.4",
+    roles: ["unknown"],
+    mechanicTags: ["unknown"],
+    baseStats: {
+      hp: 1358,
+      atk: 679,
+      def: 460,
+      spd: 94,
+      taunt: 125,
+      critRate: 0.05,
+      critDmg: 0.5,
+      maxEnergy: 240,
+    },
+    abilities: [
+      {
+        id: "yunli_122101",
+        name: "Galespin Summersault",
+        type: "basic",
+        tag: "Single Target",
+        targetType: "single_enemy",
+        energyGain: 20,
+        description:
+          "Deals Physical DMG equal to X of Yunli's ATK to one designated enemy target.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yunli_122102",
+        name: "Bladeborne Quake",
+        type: "skill",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 30,
+        description:
+          "Restores HP equal to #3[f1]% of Yunli's ATK plus X. Deals Physical DMG equal to X of Yunli's ATK to one designated enemy target and Physical DMG equal to X of Yunli's ATK to adjacent targets.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yunli_122103",
+        name: "Earthbind, Etherbreak",
+        type: "ultimate",
+        tag: "Enhance",
+        targetType: "single_ally",
+        energyGain: 0,
+        energyCost: 240,
+        description:
+          "Consumes X Energy. Yunli gains Parry and Taunts all enemies, lasting until the end of the next ally's or enemy's turn. Increases the CRIT DMG dealt by Yunli's next Counter by X. When triggering the Counter effect from Talent, launches the Counter \"Intuit: Cull\" instead and removes the Parry effect. If no Counter is triggered while Parry is active, Yunli will immediately launch the Counter \"Intuit: Slash\" on a random enemy target. \"Intuit: Slash\": Deals Physical DMG equal to X of Yunli's ATK to the target, and deals Physical DMG equal to X of Yunli's ATK to adjacent targets. \"Intuit: Cull\": Deals Physical DMG equal to X of Yunli's ATK to the target, and deals Physical DMG equal to X of Yunli's ATK to adjacent targets. Then, additionally deals X instances of DMG, each dealing Physical DMG equal to X of Yunli's ATK to a random single enemy. When Yunli deals DMG via this ability, it's considered as dealing Ultimate DMG.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yunli_122104",
+        name: "Flashforge",
+        type: "talent",
+        tag: "Blast",
+        targetType: "blast_enemy",
+        energyGain: 0,
+        description:
+          "When Yunli gets attacked by an enemy target, additionally regenerates X Energy and immediately launches a Counter on the attacker, dealing Physical DMG equal to X of Yunli's ATK to the attacker and Physical DMG equal to X of Yunli's ATK to adjacent targets. If there is no immediate target to Counter, then Counters a random enemy target instead.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yunli_122106",
+        name: "Attack",
+        type: "technique",
+        tag: "Ability",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          "Attacks an enemy, and after entering combat, reduces their Toughness of the corresponding Type.",
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yunli_122107",
+        name: "Posterior Precedence",
+        type: "technique",
+        tag: "Enhance",
+        targetType: "self",
+        energyGain: 0,
+        description:
+          'This unit gains the Ward effect, lasting for X seconds. During this time, upon entering combat by either attacking enemies or receiving an attack, immediately casts "Intuit: Cull" on a random enemy, and increases the DMG dealt by this attack by X.',
+        mechanics: ["unknown"],
+      },
+    ],
+    majorTraces: [
+      {
+        id: "yunli_trace_a2",
+        name: "Fiery Wheel",
+        ascensionRequirement: "A2",
+        description:
+          'After each use of "Intuit: Slash," the next "Intuit: Slash" will be replaced by "Intuit: Cull."',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yunli_trace_a4",
+        name: "Demon Quell",
+        ascensionRequirement: "A4",
+        description:
+          'While in the "Parry" state, resists Crowd Control debuffs received and reduces DMG received by X.',
+        mechanics: ["unknown"],
+      },
+      {
+        id: "yunli_trace_a6",
+        name: "True Sunder",
+        ascensionRequirement: "A6",
+        description:
+          "When using a Counter, increases Yunli's ATK by X, lasting for 1 turn.",
+        mechanics: ["unknown"],
+      },
+    ],
+    minorTraces: [
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.027,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.06,
+        unit: "percentage",
+      },
+      {
+        stat: "criticalchancebase",
+        totalValue: 0.04,
+        unit: "percentage",
+      },
+      {
+        stat: "hp",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+      {
+        stat: "attack",
+        totalValue: 0.08,
+        unit: "percentage",
+      },
+    ],
+    eidolons: [
+      {
+        rank: 1,
+        name: "Weathered Blade Does Not Sully",
+        description:
+          'Increases DMG dealt by "Intuit: Slash" and "Intuit: Cull" by 20%. Increases the number of additional DMG instances for "Intuit: Cull" by 3.',
+        keyMechanic: "Weathered Blade Does Not Sully",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 2,
+        name: "First Luster Breaks Dawn",
+        description:
+          "When dealing DMG via Counter, ignores 20% of the target's DEF.",
+        keyMechanic: "First Luster Breaks Dawn",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 3,
+        name: "Mastlength Twirls Mountweight",
+        description:
+          "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10.",
+        keyMechanic: "Mastlength Twirls Mountweight",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 4,
+        name: "Artisan's Ironsong",
+        description:
+          'After launching "Intuit: Slash" or "Intuit: Cull," increases this unit\'s Effect RES by 50%, lasting for 1 turn(s).',
+        keyMechanic: "Artisan's Ironsong",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 5,
+        name: "Blade of Old Outlasts All",
+        description:
+          "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15.",
+        keyMechanic: "Blade of Old Outlasts All",
+        mechanics: ["unknown"],
+      },
+      {
+        rank: 6,
+        name: "Walk in Blade, Talk in Zither",
+        description:
+          'While "Parry" is active, if an enemy actively uses their abilities, regardless of whether it attacks Yunli or not, it will trigger "Intuit: Cull" and remove the "Parry" effect. When dealing DMG via "Intuit: Slash" or "Intuit: Cull," increases CRIT Rate by 15% and Physical RES PEN by 20%.',
+        keyMechanic: "Walk in Blade, Talk in Zither",
+        mechanics: ["unknown"],
+      },
+    ],
+    provenance: {
+      sourceId: "starrailres_v4_5_1221",
+      authorityTier: "tier_b_structured_community",
+      sourceUrl:
+        "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_new/en/characters.json",
+      gameVersion: "2.4",
+      verifiedAt: "2026-08-27T00:00:00.000Z",
+      notes: "Client-extracted data for Yunli via StarRailRes",
+    },
+    source: "StarRailRes",
+    verifiedAt: "2026-08-27T00:00:00.000Z",
+  },
+];

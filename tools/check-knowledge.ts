@@ -349,7 +349,7 @@ export function checkKnowledgeIntegrity(
       // Verify Tier A provenance
       if (
         !("provenance" in item) ||
-        item.provenance.authorityTier !== "tier_a_official"
+        (item.provenance.authorityTier !== "tier_a_official" && item.provenance.authorityTier !== "tier_b_structured_community")
       ) {
         errors.push(
           `Missing or invalid Tier A provenance on entity '${item.id}' in collection '${col.name}'`
