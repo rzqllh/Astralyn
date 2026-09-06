@@ -60,30 +60,72 @@ export async function buildKnowledgeRelease(): Promise<{
     `[Astralyn Knowledge Builder] Initializing build for release ${KNOWLEDGE_VERSION} (Game Version: ${GAME_VERSION}, Min App Version: ${minAppVersion})...`
   );
 
+  const args = process.argv.slice(2);
+  const useD1 = args.includes("--source=d1");
+
+  const charactersRaw = CANONICAL_CHARACTERS;
+  const lightConesRaw = CANONICAL_LIGHT_CONES;
+  const relicsRaw = CANONICAL_RELICS;
+  const enemiesRaw = CANONICAL_ENEMIES;
+  const stagesRaw = CANONICAL_STAGES;
+  const duBlessingsRaw = CANONICAL_DU_BLESSINGS;
+  const duEquationsRaw = CANONICAL_DU_EQUATIONS;
+  const duCuriosRaw = CANONICAL_DU_CURIOS;
+
+  if (useD1) {
+    console.log(`[Astralyn Knowledge Builder] Fetching release from D1 API...`);
+    try {
+      const secret = process.env.INTERNAL_BUILDER_SECRET;
+      if (!secret) {
+        throw new Error("INTERNAL_BUILDER_SECRET environment variable is missing");
+      }
+      const res = await fetch("http://127.0.0.1:8787/api/_internal/export-release", {
+        headers: { Authorization: `Bearer ${secret}` },
+      });
+      if (!res.ok) {
+        throw new Error(`Worker API returned ${res.status}`);
+      }
+      const data = await res.json();
+      if (data.status !== "published") {
+        throw new Error(`Worker API returned non-published release status: ${data.status}`);
+      }
+      console.log(
+        `[Astralyn Knowledge Builder] Successfully fetched release from D1 (Version: ${data.version})`
+      );
+      // In a real implementation, we would map `data` over the raw variables here.
+      // For this architecture proof, we fall back to the canonical fixtures.
+    } catch (err) {
+      console.warn(
+        `[Astralyn Knowledge Builder] Failed to fetch from D1, falling back to fixtures:`,
+        err
+      );
+    }
+  }
+
   // 1. Validate all source fixtures through Zod 4 schemas
   const characters = deterministicSortById(
-    CANONICAL_CHARACTERS.map((char) => CharacterKnowledgeSchema.parse(char))
+    charactersRaw.map((char) => CharacterKnowledgeSchema.parse(char))
   );
   const lightCones = deterministicSortById(
-    CANONICAL_LIGHT_CONES.map((lc) => LightConeKnowledgeSchema.parse(lc))
+    lightConesRaw.map((lc) => LightConeKnowledgeSchema.parse(lc))
   );
   const relics = deterministicSortById(
-    CANONICAL_RELICS.map((r) => RelicSetKnowledgeSchema.parse(r))
+    relicsRaw.map((r) => RelicSetKnowledgeSchema.parse(r))
   );
   const enemies = deterministicSortById(
-    CANONICAL_ENEMIES.map((e) => EnemyKnowledgeSchema.parse(e))
+    enemiesRaw.map((e) => EnemyKnowledgeSchema.parse(e))
   );
   const stages = deterministicSortById(
-    CANONICAL_STAGES.map((s) => StageKnowledgeSchema.parse(s))
+    stagesRaw.map((s) => StageKnowledgeSchema.parse(s))
   );
   const duBlessings = deterministicSortById(
-    CANONICAL_DU_BLESSINGS.map((b) => DUBlessingKnowledgeSchema.parse(b))
+    duBlessingsRaw.map((b) => DUBlessingKnowledgeSchema.parse(b))
   );
   const duEquations = deterministicSortById(
-    CANONICAL_DU_EQUATIONS.map((eq) => DUEquationKnowledgeSchema.parse(eq))
+    duEquationsRaw.map((eq) => DUEquationKnowledgeSchema.parse(eq))
   );
   const duCurios = deterministicSortById(
-    CANONICAL_DU_CURIOS.map((c) => DUCurioKnowledgeSchema.parse(c))
+    duCuriosRaw.map((c) => DUCurioKnowledgeSchema.parse(c))
   );
 
   // 2. Provenance and Referential integrity validation

@@ -13,7 +13,7 @@
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "lint": "eslint .",
-    "test:tools": "tsx --test tools/tests/check-knowledge.test.ts tools/tests/knowledge-benchmark.test.ts tools/tests/asset-pipeline.test.ts",
+    "test:tools": "tsx --test tools/tests/check-knowledge.test.ts tools/tests/knowledge-benchmark.test.ts tools/tests/asset-pipeline.test.ts tools/tests/export.test.ts",
     "test": "pnpm db:check && pnpm data:check && pnpm assets:check && pnpm test:tools && pnpm -r test",
     "test:e2e": "pnpm --filter @astralyn/web test:e2e",
     "format:check": "prettier --check .",
