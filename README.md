@@ -23,7 +23,7 @@ For Divergent Universe, you paste or drop a screenshot of the reward screen. Ast
 
 ## Status
 
-In active development. Phase 7 (Divergent Universe live assistant) is complete. See the [roadmap](docs/13-ROADMAP.md) for what is next.
+In active development. Phase 8 (Automated Scheduled Ingestion & Knowledge Publishing Pipeline) is complete. See the [roadmap](docs/13-ROADMAP.md) for what is next.
 
 ## Setup
 
