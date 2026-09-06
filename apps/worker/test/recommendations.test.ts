@@ -158,17 +158,18 @@ describe("Worker POST /api/recommendations/teams", () => {
     } as unknown as ReturnType<typeof serverModule.createAuth>);
   }
 
-  it("returns 401 Unauthorized when session is missing", async () => {
+  it("returns 200 OK and uses full roster when session is missing", { timeout: 30000 }, async () => {
     mockUnauthenticatedSession();
     const req = new Request("http://localhost:8787/api/recommendations/teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ focusCharacterId: "firefly", limit: 2 }),
     });
     const res = await worker.fetch(req, env, {} as ExecutionContext);
-    expect(res.status).toBe(401);
-    const body = (await res.json()) as { code: string };
-    expect(body.code).toBe("UNAUTHORIZED");
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { status: string; teams: unknown[] };
+    expect(body.status).toBe("ok");
+    expect(body.teams.length).toBeGreaterThan(0);
   });
 
   it("returns 405 Method Not Allowed on GET request", async () => {

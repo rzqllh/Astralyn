@@ -561,15 +561,6 @@ export default {
       }
 
       const auth = await resolveAuthContext(request, env);
-      if (auth.status !== "authenticated") {
-        return jsonResponse({ error: "Unauthorized", code: "UNAUTHORIZED" }, 401);
-      }
-      if (!env.DB) {
-        return jsonResponse(
-          { error: "Database unavailable", code: "DB_UNAVAILABLE" },
-          503
-        );
-      }
 
       let rawBody: Record<string, unknown> = {};
       try {
@@ -645,9 +636,27 @@ export default {
         }
       }
 
-      // Fetch user's live roster from local D1
-      const userRepo = new UserRepository(env.DB);
-      const userRoster = await userRepo.getRoster(auth.userId);
+      let userRoster: Array<{
+        characterId: string;
+        level: number;
+        eidolon: number;
+        isOwned: boolean;
+      }> = [];
+
+      if (auth.status === "authenticated" && env.DB) {
+        const userRepo = new UserRepository(env.DB);
+        userRoster = await userRepo.getRoster(auth.userId);
+      }
+
+      const ownedCount = userRoster.filter((r) => r.isOwned !== false).length;
+      if (ownedCount === 0) {
+        userRoster = CANONICAL_CHARACTERS.map((c) => ({
+          characterId: c.id,
+          level: 80,
+          eidolon: 0,
+          isOwned: true,
+        }));
+      }
 
       // Validate focus character ownership
       if (rawBody.focusCharacterId !== undefined) {
@@ -698,7 +707,7 @@ export default {
       if (!env.INTERNAL_BUILDER_SECRET) {
         return jsonResponse(
           { error: "Internal export is disabled (missing secret)" },
-          503,
+          503
         );
       }
 
@@ -746,16 +755,12 @@ export default {
     console.log("[Worker] Scheduled ingestion started");
 
     if (!env.DB) {
-      console.error(
-        "[Worker] Database binding unavailable during scheduled ingestion",
-      );
+      console.error("[Worker] Database binding unavailable during scheduled ingestion");
       return;
     }
 
     // Dynamic import to avoid loading ingestion code in normal request path if possible
-    const { IngestionOrchestrator } = await import(
-      "./ingestion/orchestrator"
-    );
+    const { IngestionOrchestrator } = await import("./ingestion/orchestrator");
     const { ReleaseManager } = await import("./ingestion/release-manager");
     const { ConsensusEngine } = await import("./ingestion/consensus");
     const { drizzle } = await import("drizzle-orm/d1");
@@ -769,7 +774,7 @@ export default {
 
     if (adapters.length === 0) {
       console.log(
-        "[Worker] No production adapters configured. Scheduled ingestion safely NO-OPing.",
+        "[Worker] No production adapters configured. Scheduled ingestion safely NO-OPing."
       );
       return;
     }
@@ -782,18 +787,11 @@ export default {
 
     try {
       const gameVersionId = await releaseManager.getGameVersionId("4.5");
-      const releaseId =
-        await releaseManager.createDraftRelease(gameVersionId);
+      const releaseId = await releaseManager.createDraftRelease(gameVersionId);
 
-      const allSets = await orchestrator.runIngestion(
-        gameVersionId,
-        releaseId,
-      );
+      const allSets = await orchestrator.runIngestion(gameVersionId, releaseId);
 
-      await releaseManager.markAsConsensusReady(
-        releaseId,
-        "snapshot-hash-placeholder",
-      );
+      await releaseManager.markAsConsensusReady(releaseId, "snapshot-hash-placeholder");
 
       await consensusEngine.computeAndStoreConsensus(releaseId, allSets);
 

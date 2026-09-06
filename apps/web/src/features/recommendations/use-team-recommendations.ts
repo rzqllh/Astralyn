@@ -128,13 +128,6 @@ export function useTeamRecommendations(
 
   const fetchRecommendations = React.useCallback(
     async (bypassCache = false) => {
-      if (authStatus !== "authenticated") {
-        setTeams([]);
-        setLoading(false);
-        setEngineStatus("idle");
-        return;
-      }
-
       if (options.rosterLoading) {
         setLoading(true);
         return;

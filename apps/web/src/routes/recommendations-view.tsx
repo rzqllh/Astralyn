@@ -6,7 +6,7 @@ import { useCharacters, useKnowledgeInit } from "../lib/knowledge/use-knowledge"
 import { useTeamRecommendations } from "../features/recommendations/use-team-recommendations";
 import { CharacterAvatar, ElementIcon, PathIcon } from "../components/ui/game-asset";
 import { Button } from "../components/ui/button";
-import { Shield, Sparkles, AlertCircle, RefreshCw, LogIn, ArrowRight, CheckCircle2, BookmarkPlus, Check } from "lucide-react";
+import { Shield, Sparkles, AlertCircle, RefreshCw, ArrowRight, CheckCircle2, BookmarkPlus, Check } from "lucide-react";
 import { useSavedTeams } from "../features/teams";
 import type { CombatElement } from "@astralyn/shared";
 
@@ -69,7 +69,7 @@ const ELEMENT_STYLES: Record<
 };
 
 export function RecommendationsView() {
-  const { status: authStatus, signIn } = useAuth();
+  const { status: authStatus } = useAuth();
   const { roster, loading: rosterLoading } = useRoster();
   const { characters } = useCharacters();
   const { syncResult } = useKnowledgeInit();
@@ -183,22 +183,8 @@ export function RecommendationsView() {
         </div>
       </div>
 
-      {/* Unauthenticated State */}
-      {authStatus !== "authenticated" ? (
-        <div className="rounded-sm border border-[#1f2940] bg-[#101524] p-12 text-center max-w-lg mx-auto space-y-4 shadow-sm">
-          <div className="w-12 h-12 rounded-full bg-[#dfb86c]/10 text-[#dfb86c] flex items-center justify-center mx-auto">
-            <LogIn className="w-6 h-6" />
-          </div>
-          <h2 className="text-lg font-semibold text-[#f0f3fa]">Sign In to Calculate Recommendations</h2>
-          <p className="text-sm text-[#9ba5be]">
-            Recommendations are dynamically calculated from your authenticated, persisted character roster.
-          </p>
-          <Button onClick={() => void signIn()} className="gap-2">
-            <LogIn className="w-4 h-4" /> Sign In with Google
-          </Button>
-        </div>
-      ) : (
-        <>
+      {/* Main Content */}
+      <div className="space-y-8">
           {/* Missing Knowledge Warning Banner */}
           {missingKnowledgeCharacterIds && missingKnowledgeCharacterIds.length > 0 && (
             <div className="rounded-sm border border-[#fbbf24]/40 bg-[#fbbf24]/10 p-4 flex items-start gap-3">
@@ -419,9 +405,15 @@ export function RecommendationsView() {
                               )}
                             </div>
                             <div className="flex items-center gap-2 mt-1 flex-wrap">
-                              <span className="text-[10px] px-1.5 py-0.5 rounded-xs bg-[#1f2940] text-[#f0f3fa] border border-[#303f5e] capitalize font-mono">
-                                {slot.role.replace("_", " ")}
-                              </span>
+                              {slot.role === "unknown" ? (
+                                <span className="text-[10px] px-1.5 py-0.5 rounded-xs bg-[#f59e0b]/20 text-[#f59e0b] border border-[#f59e0b]/50 font-mono font-bold uppercase tracking-wider">
+                                  Limited Data
+                                </span>
+                              ) : (
+                                <span className="text-[10px] px-1.5 py-0.5 rounded-xs bg-[#1f2940] text-[#f0f3fa] border border-[#303f5e] capitalize font-mono">
+                                  {slot.role.replace(/_/g, " ")}
+                                </span>
+                              )}
                               <span className="text-[11px] text-[#9ba5be] font-mono">
                                 Lv.{slot.level} E{slot.eidolon}
                               </span>
@@ -472,8 +464,7 @@ export function RecommendationsView() {
               ))}
             </div>
           )}
-        </>
-      )}
+      </div>
     </div>
   );
 }

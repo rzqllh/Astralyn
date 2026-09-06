@@ -88,7 +88,7 @@ describe("Phase 5: Recommendations Web UI Tests", () => {
     });
   });
 
-  it("renders sign-in prompt when unauthenticated", () => {
+  it("renders recommendations view when unauthenticated", () => {
     vi.spyOn(authModule, "useAuth").mockReturnValue(mockAuth("unauthenticated"));
     vi.spyOn(rosterModule, "useRoster").mockReturnValue(mockRoster([]));
 
@@ -101,7 +101,8 @@ describe("Phase 5: Recommendations Web UI Tests", () => {
     });
 
     render(<RecommendationsView />);
-    expect(screen.getByText(/Sign In to Calculate Recommendations/i)).toBeInTheDocument();
+    expect(screen.getByText(/Team Recommendations/i)).toBeInTheDocument();
+    expect(screen.getByText(/No valid combinations found/i)).toBeInTheDocument();
   });
 
   it("renders Insufficient Roster state when status is insufficient_roster", () => {

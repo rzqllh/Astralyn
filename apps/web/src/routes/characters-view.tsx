@@ -300,14 +300,23 @@ export function CharactersView() {
 
                     {/* Role Tags */}
                     <div className="flex flex-wrap gap-1">
-                      {char.roles.map((r) => (
-                        <span
-                          key={r}
-                          className="px-1.5 py-0.5 rounded-xs text-[9px] font-mono bg-[#101524] border border-[#1f2940] text-[#9ba5be]"
-                        >
-                          {r.replace(/_/g, " ")}
-                        </span>
-                      ))}
+                      {char.roles.map((r) =>
+                        r === "unknown" ? (
+                          <span
+                            key={r}
+                            className="px-1.5 py-0.5 rounded-xs text-[9px] font-mono bg-[#f59e0b]/20 text-[#f59e0b] border border-[#f59e0b]/50 font-bold uppercase tracking-wider"
+                          >
+                            Limited Data
+                          </span>
+                        ) : (
+                          <span
+                            key={r}
+                            className="px-1.5 py-0.5 rounded-xs text-[9px] font-mono bg-[#101524] border border-[#1f2940] text-[#9ba5be]"
+                          >
+                            {r.replace(/_/g, " ")}
+                          </span>
+                        )
+                      )}
                     </div>
                   </div>
 
