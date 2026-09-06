@@ -5,7 +5,7 @@ export class MockFactualAdapter implements SourceAdapter {
   sourceKind = "official" as const;
   parserVersion = "1.0.0";
 
-  async fetch(previousEtag?: string, _previousLastModified?: string): Promise<FetchResult | null> {
+  async fetch(previousEtag?: string): Promise<FetchResult | null> {
     const mockContent = JSON.stringify({
       version: "4.5",
       status: "factual_snapshot",

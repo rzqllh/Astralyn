@@ -8,7 +8,7 @@ describe("Export Endpoint (/api/_internal/export-release)", () => {
       method: "GET",
     });
 
-    const response = await worker.fetch(request, env as never, {} as never);
+    const response = await worker.fetch(request, env as unknown as import("../src/index").Env, {} as unknown as import("@cloudflare/workers-types").ExecutionContext);
     expect(response.status).toBe(503);
     const body = (await response.json()) as { error: string };
     expect(body.error).toContain("missing secret");
@@ -20,7 +20,7 @@ describe("Export Endpoint (/api/_internal/export-release)", () => {
       method: "GET",
     });
 
-    const response = await worker.fetch(request, env as never, {} as never);
+    const response = await worker.fetch(request, env as unknown as import("../src/index").Env, {} as unknown as import("@cloudflare/workers-types").ExecutionContext);
     expect(response.status).toBe(401);
   });
 
@@ -31,7 +31,7 @@ describe("Export Endpoint (/api/_internal/export-release)", () => {
       headers: { Authorization: "Bearer" },
     });
 
-    const response = await worker.fetch(request, env as never, {} as never);
+    const response = await worker.fetch(request, env as unknown as import("../src/index").Env, {} as unknown as import("@cloudflare/workers-types").ExecutionContext);
     expect(response.status).toBe(401);
   });
 
@@ -42,7 +42,7 @@ describe("Export Endpoint (/api/_internal/export-release)", () => {
       headers: { Authorization: "Bearer wrong-secret" },
     });
 
-    const response = await worker.fetch(request, env as never, {} as never);
+    const response = await worker.fetch(request, env as unknown as import("../src/index").Env, {} as unknown as import("@cloudflare/workers-types").ExecutionContext);
     expect(response.status).toBe(401);
   });
 
@@ -53,7 +53,7 @@ describe("Export Endpoint (/api/_internal/export-release)", () => {
       headers: { Authorization: "Bearer test-secret" },
     });
 
-    const response = await worker.fetch(request, env as never, {} as never);
+    const response = await worker.fetch(request, env as unknown as import("../src/index").Env, {} as unknown as import("@cloudflare/workers-types").ExecutionContext);
     expect(response.status).toBe(200);
     const body = (await response.json()) as { status: string };
 

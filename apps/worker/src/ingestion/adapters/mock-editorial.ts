@@ -9,7 +9,7 @@ export class MockEditorialAdapter implements SourceAdapter {
     this.sourceId = sourceId;
   }
 
-  async fetch(previousEtag?: string, _previousLastModified?: string): Promise<FetchResult | null> {
+  async fetch(previousEtag?: string): Promise<FetchResult | null> {
     const mockContent = JSON.stringify({
       version: "4.5",
       recommendations: this.overrideTeams,

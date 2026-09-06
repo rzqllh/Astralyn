@@ -200,7 +200,8 @@ describe("ConsensusEngine", () => {
 
     expect(mockDb.insert).toHaveBeenCalledTimes(2);
     // Values captures the actual payloadJson inserted
-    const callArgs = (mockDb.values as unknown as ReturnType<typeof vi.fn>).mock.calls[(mockDb.values as unknown as ReturnType<typeof vi.fn>).mock.calls.length - 1][0];
+    const valuesMock = mockDb.values as unknown as import("vitest").Mock;
+    const callArgs = valuesMock.mock.calls[valuesMock.mock.calls.length - 1][0] as { payloadJson: string };
     expect(callArgs.payloadJson).toContain("Team_B");
     expect(callArgs.payloadJson).not.toContain("Team_A");
   });
