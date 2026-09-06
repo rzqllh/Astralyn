@@ -23,7 +23,7 @@ For Divergent Universe, you paste or drop a screenshot of the reward screen. Ast
 
 ## Status
 
-In active development. Phase 8 (Automated Scheduled Ingestion & Knowledge Publishing Pipeline) is complete. See the [roadmap](docs/13-ROADMAP.md) for what is next.
+In active development. Phase 9 (Hardening, Auditing & Deployment Readiness) is complete. Live production deployment, remote migrations, and secret provisioning remain credential-gated. See the [roadmap](docs/13-ROADMAP.md) for details.
 
 ## Setup
 

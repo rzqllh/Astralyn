@@ -130,6 +130,7 @@ export function CharactersView() {
             <input
               type="text"
               placeholder="Search by character name, path, element, or role..."
+              aria-label="Search characters"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-9 pr-3 py-1.5 bg-[#101524] border border-[#1f2940] rounded-xs text-xs text-[#f0f3fa] placeholder-[#5c6882] focus:border-[#dfb86c] focus:outline-none"
@@ -149,6 +150,7 @@ export function CharactersView() {
           <select
             value={selectedRarity}
             onChange={(e) => setSelectedRarity(e.target.value)}
+            aria-label="Filter by rarity"
             className="px-3 py-1.5 bg-[#101524] border border-[#1f2940] rounded-xs text-xs font-mono text-[#f0f3fa] focus:border-[#dfb86c] focus:outline-none cursor-pointer"
           >
             <option value="all">Rarity: All</option>
@@ -160,6 +162,7 @@ export function CharactersView() {
           <select
             value={selectedOwnership}
             onChange={(e) => setSelectedOwnership(e.target.value)}
+            aria-label="Filter by roster ownership"
             className="px-3 py-1.5 bg-[#101524] border border-[#1f2940] rounded-xs text-xs font-mono text-[#f0f3fa] focus:border-[#dfb86c] focus:outline-none cursor-pointer"
           >
             <option value="all">Roster: All</option>
@@ -170,7 +173,7 @@ export function CharactersView() {
 
         {/* Path & Element Filter Pills */}
         <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-[#151c2e]">
-          <span className="text-[10px] font-mono text-[#5c6882] uppercase mr-1">Path:</span>
+          <span className="text-[10px] font-mono text-[#9ba5be] uppercase mr-1">Path:</span>
           <button
             type="button"
             onClick={() => setSelectedPath("all")}
@@ -200,7 +203,7 @@ export function CharactersView() {
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[10px] font-mono text-[#5c6882] uppercase mr-1">Element:</span>
+          <span className="text-[10px] font-mono text-[#9ba5be] uppercase mr-1">Element:</span>
           <button
             type="button"
             onClick={() => setSelectedElement("all")}

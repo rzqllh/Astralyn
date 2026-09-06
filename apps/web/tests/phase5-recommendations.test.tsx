@@ -6,7 +6,7 @@ import * as rosterModule from "../src/features/roster/use-roster";
 import type { RosterCharacter } from "../src/features/roster/types";
 import * as recHooks from "../src/features/recommendations/use-team-recommendations";
 import * as knowledgeHooks from "../src/lib/knowledge/use-knowledge";
-
+import * as teamsModule from "../src/features/teams";
 vi.mock("@tanstack/react-router", () => ({
   Link: ({ children, to, className }: { children: React.ReactNode; to: string; className?: string }) => (
     <a href={to} className={className}>
@@ -63,6 +63,28 @@ describe("Phase 5: Recommendations Web UI Tests", () => {
       ] as unknown as ReturnType<typeof knowledgeHooks.useCharacters>["characters"],
       loading: false,
       error: null,
+    });
+
+    vi.spyOn(knowledgeHooks, "useKnowledgeInit").mockReturnValue({
+      syncResult: {
+        status: "updated",
+        gameVersion: "4.5",
+        activeKnowledgeVersion: "1.0.0",
+        cachedAt: new Date().toISOString(),
+        isOffline: false
+      },
+      loading: false,
+      error: null,
+    });
+
+    vi.spyOn(teamsModule, "useSavedTeams").mockReturnValue({
+      teams: [],
+      loading: false,
+      error: null,
+      createTeam: vi.fn(),
+      updateTeam: vi.fn(),
+      deleteTeam: vi.fn(),
+      refresh: vi.fn(),
     });
   });
 

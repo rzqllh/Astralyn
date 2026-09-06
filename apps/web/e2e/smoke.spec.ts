@@ -45,7 +45,7 @@ test.describe("Astralyn Phase 2.5 E2E Smoke & Production Readiness Suite", () =>
     await expect(page.getByText("Canonical Knowledge Baseline")).toBeVisible();
     await expect(page.getByText("Team Optimization Guidance")).toBeVisible();
     await expect(page.getByText("Divergent Universe Assistant")).toBeVisible();
-    await expect(page.getByText("Character Roster")).toBeVisible();
+    await expect(page.getByText("Character Roster").first()).toBeVisible();
     await expect(page.getByText("Meta Consensus Matrix")).toBeVisible();
 
     // Verify locked production navigation links exist
@@ -63,7 +63,7 @@ test.describe("Astralyn Phase 2.5 E2E Smoke & Production Readiness Suite", () =>
     await expect(page.getByRole("link", { name: "Settings", exact: true })).toBeVisible();
 
     // Verify header renders truthful account unavailable status
-    await expect(page.getByText("Account unavailable", { exact: true })).toBeVisible();
+    await expect(page.getByRole("banner").getByRole("button", { name: "Sign in with Google" })).toBeVisible();
 
     await ensureImagesDecoded(page);
 
@@ -74,20 +74,16 @@ test.describe("Astralyn Phase 2.5 E2E Smoke & Production Readiness Suite", () =>
     });
   });
 
-  test("navigates to planned milestone placeholder routes (/roster) with truthful unavailable status", async ({
-    page,
-  }) => {
+  test("navigates to implemented routes (/roster) with truthful unauthenticated status", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/roster");
     await page.waitForLoadState("networkidle");
 
-    await expect(page.getByTestId("view-roster")).toBeVisible();
-    await expect(page.getByText("Character Roster")).toBeVisible();
-    await expect(page.getByText("Module Status")).toBeVisible();
-    await expect(page.getByText("Unavailable in this build")).toBeVisible();
+    await expect(page.getByText("Authentication Required")).toBeVisible();
+    await expect(page.getByText("Sign in with your Google account to manage your Honkai: Star Rail character roster")).toBeVisible();
 
-    // Return to Home via button
-    await page.getByRole("button", { name: "Return Home" }).click();
+    // Return to Home via Navigation Rail
+    await page.getByRole("link", { name: "Home", exact: true }).click();
     await expect(page.getByTestId("home-view")).toBeVisible();
   });
 

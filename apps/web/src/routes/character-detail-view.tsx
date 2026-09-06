@@ -175,7 +175,7 @@ export function CharacterDetailView() {
                     key={r}
                     className="px-1.5 py-0.5 rounded-xs text-[9px] font-mono bg-[#101524] border border-[#1f2940] text-[#dfb86c]"
                   >
-                    {r.replace(/_/g, " ")}
+                    {r?.replace(/_/g, " ")}
                   </span>
                 ))}
               </div>
@@ -585,7 +585,7 @@ export function CharacterDetailView() {
                         {memberChar?.name || slot.characterId}
                       </span>
                       <span className="text-[10px] font-mono text-[#9ba5be] block">
-                        {slot.role.replace(/_/g, " ")}
+                        {slot.role?.replace(/_/g, " ")}
                       </span>
                     </div>
                   </div>

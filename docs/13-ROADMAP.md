@@ -29,7 +29,7 @@ Phase 7: Client OCR Pipeline, Divergent Universe Live Decision Assistant (Comple
   ↓
 Phase 8: Automated Scheduled Ingestion & Knowledge Publishing Pipeline (Complete)
   ↓
-Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Validation, Production Deployment
+Phase 9: Hardening, Auditing & Deployment Readiness (Complete — Production Deploy Credential-Gated)
 ```
 
 ---
@@ -152,12 +152,13 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - Privileged D1 ingestion and secured `/_internal/export-release` endpoint using `INTERNAL_BUILDER_SECRET`;
 - Production cron NO-OP safety fallbacks to prevent mock data leak into production.
 
-### Phase 9 — Hardening, Auditing & Production Release
-- Full-path E2E smoke tests and visual regression suite;
-- Security audits (Worker authorization, secret protection, SQL injection prevention, OCR input sanitization);
-- WCAG 2.2 AA accessibility verification;
-- Cloudflare free-tier quota containment stress tests;
-- Production Cloudflare deployment.
+### Phase 9 — Hardening, Auditing & Deployment Readiness (Complete)
+- Elimination of React act(...) test hygiene warnings and defensive rendering guards;
+- Full-path Playwright E2E suite covering onboarding, roster manipulation, character dossiers, team recommendations, DU assistant manual flow, and offline/persistence boundaries (`authenticated.spec.ts`, `smoke.spec.ts`);
+- Security audit of Worker authorization context, parameterized D1 queries, and log sanitization;
+- WCAG 2.2 AA automated accessibility audits across all primary routes (`a11y.spec.ts`);
+- Dry-run production bundle and Cloudflare Worker asset compilation verification (`pnpm build`);
+- *Note:* Live remote Cloudflare deployment, remote D1 migrations, and production OAuth secret provisioning remain intentionally credential-gated for operator release.
 
 ---
 

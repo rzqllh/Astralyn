@@ -113,6 +113,28 @@ describe("Phase 6: Web UI Surfaces Tests", () => {
       };
     });
 
+    vi.spyOn(knowledgeHooks, "useKnowledgeInit").mockReturnValue({
+      syncResult: {
+        status: "updated",
+        gameVersion: "4.5",
+        activeKnowledgeVersion: "1.0.0",
+        cachedAt: new Date().toISOString(),
+        isOffline: false
+      },
+      loading: false,
+      error: null,
+    });
+
+    vi.spyOn(teamsModule, "useSavedTeams").mockReturnValue({
+      teams: [],
+      loading: false,
+      error: null,
+      createTeam: vi.fn(),
+      updateTeam: vi.fn(),
+      deleteTeam: vi.fn(),
+      refresh: vi.fn(),
+    });
+
     vi.spyOn(recHooks, "useTeamRecommendations").mockReturnValue({
       teams: [
         {
