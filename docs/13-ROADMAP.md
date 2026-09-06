@@ -27,7 +27,7 @@ Phase 6: Character, Build & Source Comparison Surfaces, Team Recommender (Comple
   ↓
 Phase 7: Client OCR Pipeline, Divergent Universe Live Decision Assistant (Complete)
   ↓
-Phase 8: Automated Scheduled Ingestion & Knowledge Publishing Pipeline
+Phase 8: Automated Scheduled Ingestion & Knowledge Publishing Pipeline (Complete)
   ↓
 Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Validation, Production Deployment
 ```
@@ -145,10 +145,12 @@ Phase 9: End-to-End Testing, Security, Accessibility Audit, Free-Tier Quota Vali
 - Production asset boundary completely preserved with generic vector silhouettes (`<GameAssetImage>`);
 - 100% automated validation pass rate across typecheck, ESLint, data boundary (`pnpm data:check`, 65 production files intact), and 260 unit/integration tests (172 web, 41 worker, 47 shared). Local Phase 7 foundation complete.
 
-### Phase 8 — Ingestion & Publishing Pipeline
+### Phase 8 — Ingestion & Publishing Pipeline (Complete)
 - Automated scheduled adapters for official HoYoLAB / HSR game updates and approved editorial sources;
-- Multi-stage validation, normalization, and consensus precomputation;
-- Privileged D1 ingestion and versioned static snapshot builder (`/public/data/<version>/...`).
+- Multi-stage validation, normalization, and consensus precomputation with 3-source minimum verification;
+- Deterministic rank weighting and ambiguous tie-breaking deferrals;
+- Privileged D1 ingestion and secured `/_internal/export-release` endpoint using `INTERNAL_BUILDER_SECRET`;
+- Production cron NO-OP safety fallbacks to prevent mock data leak into production.
 
 ### Phase 9 — Hardening, Auditing & Production Release
 - Full-path E2E smoke tests and visual regression suite;
