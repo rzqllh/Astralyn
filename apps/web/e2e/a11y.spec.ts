@@ -2,6 +2,16 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 test.describe("Astralyn WCAG 2.2 AA Automated Accessibility Audit", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route("**/api/auth/get-session", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: "null",
+      });
+    });
+  });
+
   test("audits HomeView (/) for zero critical accessibility violations", async ({
     page,
   }) => {

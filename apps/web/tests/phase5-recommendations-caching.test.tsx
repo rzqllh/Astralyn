@@ -25,11 +25,18 @@ function mockAuth() {
 
 const dummyEngineResult: RecommendationEngineResult = {
   success: true,
+  scope: "owned_only",
   gameVersion: "4.5",
   knowledgeVersion: "1.0.0",
   spStatus: "unavailable",
   consensusStatus: "mechanical_only",
   status: "ok",
+  evaluation: {
+    candidateCount: 4,
+    evaluatedTeamCount: 1,
+    maxCandidateCount: 16,
+    maxTeamEvaluations: 1820,
+  },
   teams: [
     {
       rank: 1,
@@ -39,11 +46,12 @@ const dummyEngineResult: RecommendationEngineResult = {
       elementScore: 0,
       signature: "acheron:aventurine:castorice:tingyun",
       archetype: "Nihility Hypercarry",
+      taxonomyStatus: "complete",
       slots: [
-        { slot: 1, characterId: "acheron", role: "hypercarry_dps", level: 80, eidolon: 0 },
-        { slot: 2, characterId: "aventurine", role: "shielder", level: 80, eidolon: 0 },
-        { slot: 3, characterId: "castorice", role: "summon_dps", level: 80, eidolon: 0 },
-        { slot: 4, characterId: "tingyun", role: "buffer", level: 75, eidolon: 2 },
+        { slot: 1, characterId: "acheron", role: "hypercarry_dps", isOwned: true, level: 80, eidolon: 0 },
+        { slot: 2, characterId: "aventurine", role: "shielder", isOwned: true, level: 80, eidolon: 0 },
+        { slot: 3, characterId: "castorice", role: "summon_dps", isOwned: true, level: 80, eidolon: 0 },
+        { slot: 4, characterId: "tingyun", role: "buffer", isOwned: true, level: 75, eidolon: 2 },
       ],
       reasons: [],
     },
@@ -127,6 +135,9 @@ describe("Phase 5: Recommendation Caching & Roster Invalidation Regression Tests
 
       await waitFor(() => expect(result.current.loading).toBe(false));
       expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(JSON.parse(fetchSpy.mock.calls[0][1].body as string)).toMatchObject({
+        scope: "owned_only",
+      });
       expect(getRecommendationCacheSize()).toBe(1);
 
       // Rerender with identical roster and context
@@ -135,6 +146,29 @@ describe("Phase 5: Recommendation Caching & Roster Invalidation Regression Tests
       await waitFor(() => expect(result.current.loading).toBe(false));
       // Fetch should NOT be called again (cache hit!)
       expect(fetchSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("uses scope as part of the request and cache identity", async () => {
+      const { result, rerender } = renderHook(
+        ({ scope }) =>
+          useTeamRecommendations(
+            { scope, mode: "general", limit: 3 },
+            { roster: baseRoster, knowledgeVersion: "1.0.0" }
+          ),
+        { initialProps: { scope: "all_characters" as "all_characters" | "owned_only" } }
+      );
+
+      await waitFor(() => expect(result.current.loading).toBe(false));
+      expect(JSON.parse(fetchSpy.mock.calls[0][1].body as string)).toMatchObject({
+        scope: "all_characters",
+      });
+
+      rerender({ scope: "owned_only" });
+      await waitFor(() => expect(fetchSpy).toHaveBeenCalledTimes(2));
+      expect(JSON.parse(fetchSpy.mock.calls[1][1].body as string)).toMatchObject({
+        scope: "owned_only",
+      });
+      expect(getRecommendationCacheSize()).toBe(2);
     });
 
     it("invalidates and recomputes immediately when adding a character to roster", async () => {

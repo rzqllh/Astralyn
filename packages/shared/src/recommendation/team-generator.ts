@@ -1,13 +1,21 @@
 import type { CharacterKnowledge } from "../knowledge/character";
-import { scoreTeam, type TeamMember } from "./scoring";
+import {
+  hasCompleteRecommendationTaxonomy,
+  scoreTeam,
+  type TeamMember,
+} from "./scoring";
 import {
   buildTeamSignature,
   compareCodeUnits,
   type RecommendationContext,
   type RecommendationEngineResult,
+  type RecommendationEvaluation,
   type RosterInputCharacter,
   type TeamEvaluation,
 } from "./types";
+
+export const MAX_RECOMMENDATION_CANDIDATES = 16;
+export const MAX_TEAM_EVALUATIONS = 1820;
 
 export interface GenerateRecommendationsOptions {
   roster: RosterInputCharacter[];
@@ -27,6 +35,43 @@ function getCombinations<T>(arr: T[], k: number): T[][] {
   const withHead = getCombinations(tail, k - 1).map((combo) => [head, ...combo]);
   const withoutHead = getCombinations(tail, k);
   return [...withHead, ...withoutHead];
+}
+
+function boundCandidatePool(
+  members: TeamMember[],
+  focusCharacterId?: string
+): TeamMember[] {
+  const focusMember = focusCharacterId
+    ? members.find((member) => member.knowledge.id === focusCharacterId)
+    : undefined;
+  const remaining = focusMember
+    ? members.filter((member) => member.knowledge.id !== focusCharacterId)
+    : members;
+  const complete = remaining.filter(hasCompleteRecommendationTaxonomy);
+  const limited = remaining.filter(
+    (member) => !hasCompleteRecommendationTaxonomy(member)
+  );
+  const completeTeamSize = focusMember ? 3 : 4;
+  const eligible =
+    complete.length >= completeTeamSize ? complete : [...complete, ...limited];
+  const selected = [
+    ...(focusMember ? [focusMember] : []),
+    ...eligible,
+  ].slice(0, MAX_RECOMMENDATION_CANDIDATES);
+
+  return selected.sort((a, b) => compareCodeUnits(a.knowledge.id, b.knowledge.id));
+}
+
+function createEvaluation(
+  candidateCount: number,
+  evaluatedTeamCount: number
+): RecommendationEvaluation {
+  return {
+    candidateCount,
+    evaluatedTeamCount,
+    maxCandidateCount: MAX_RECOMMENDATION_CANDIDATES,
+    maxTeamEvaluations: MAX_TEAM_EVALUATIONS,
+  };
 }
 
 /**
@@ -49,6 +94,7 @@ export function generateTeamRecommendations(
     gameVersion = "4.5",
     knowledgeVersion = "v1.0.0",
   } = options;
+  const scope = context.scope ?? "owned_only";
 
   const missingKnowledgeCharacterIds: string[] = [];
   const knowledgeMap = new Map<string, CharacterKnowledge>();
@@ -56,28 +102,34 @@ export function generateTeamRecommendations(
     knowledgeMap.set(kc.id, kc);
   }
 
-  // 1. Filter owned characters
+  // 1. Resolve actual owned metadata without mutating canonical knowledge.
   const ownedRoster = roster.filter((r) => r.isOwned !== false && r.isOwned !== 0);
 
-  // 2. Validate against canonical knowledge
-  const validMembers: TeamMember[] = [];
+  // 2. Validate roster entries and preserve the first owned record per character.
+  const ownedMembers = new Map<string, TeamMember>();
   for (const item of ownedRoster) {
     const knowledge = knowledgeMap.get(item.characterId);
     if (!knowledge) {
       missingKnowledgeCharacterIds.push(item.characterId);
-    } else {
-      validMembers.push({ knowledge, roster: item });
+    } else if (!ownedMembers.has(knowledge.id)) {
+      ownedMembers.set(knowledge.id, { knowledge, roster: item });
     }
   }
 
-  // Deduplicate by character ID (preserve first instance if duplicates exist)
   const uniqueMembersMap = new Map<string, TeamMember>();
-  for (const m of validMembers) {
-    if (!uniqueMembersMap.has(m.knowledge.id)) {
-      uniqueMembersMap.set(m.knowledge.id, m);
+  if (scope === "all_characters") {
+    for (const knowledge of knowledgeCharacters) {
+      if (!uniqueMembersMap.has(knowledge.id)) {
+        uniqueMembersMap.set(
+          knowledge.id,
+          ownedMembers.get(knowledge.id) ?? { knowledge }
+        );
+      }
     }
+  } else {
+    for (const [id, member] of ownedMembers) uniqueMembersMap.set(id, member);
   }
-  const uniqueMembers = Array.from(uniqueMembersMap.values());
+  let uniqueMembers = Array.from(uniqueMembersMap.values());
 
   // Sort candidate pool by code units for deterministic combination iteration
   uniqueMembers.sort((a, b) => compareCodeUnits(a.knowledge.id, b.knowledge.id));
@@ -91,13 +143,15 @@ export function generateTeamRecommendations(
       throw err;
     }
 
-    const isOwned = ownedRoster.some((r) => r.characterId === context.focusCharacterId);
-    if (!isOwned) {
+    const isAvailable = uniqueMembersMap.has(context.focusCharacterId);
+    if (!isAvailable) {
       const err = new Error(`Focus character '${context.focusCharacterId}' is not present in owned roster`);
       (err as unknown as { code: string }).code = "FOCUS_CHARACTER_NOT_OWNED";
       throw err;
     }
   }
+
+  uniqueMembers = boundCandidatePool(uniqueMembers, context.focusCharacterId);
 
   // 4. Validate limit
   if (context.limit !== undefined) {
@@ -112,6 +166,7 @@ export function generateTeamRecommendations(
   if (uniqueMembers.length < 4) {
     return {
       success: true,
+      scope,
       status: "insufficient_roster",
       gameVersion,
       knowledgeVersion,
@@ -119,7 +174,11 @@ export function generateTeamRecommendations(
       consensusStatus: "mechanical_only",
       missingKnowledgeCharacterIds:
         missingKnowledgeCharacterIds.length > 0 ? missingKnowledgeCharacterIds.sort(compareCodeUnits) : undefined,
-      message: `Roster has fewer than 4 valid canonical owned characters (${uniqueMembers.length} available). At least 4 characters required.`,
+      message:
+        scope === "owned_only"
+          ? `Roster has fewer than 4 valid canonical owned characters (${uniqueMembers.length} available). At least 4 characters required.`
+          : `Canonical scope has fewer than 4 eligible characters (${uniqueMembers.length} available). At least 4 characters required.`,
+      evaluation: createEvaluation(uniqueMembers.length, 0),
       teams: [],
     };
   }
@@ -133,6 +192,7 @@ export function generateTeamRecommendations(
       // Focus character was in owned roster but not in valid canonical members
       return {
         success: true,
+        scope,
         status: "insufficient_roster",
         gameVersion,
         knowledgeVersion,
@@ -141,6 +201,7 @@ export function generateTeamRecommendations(
         missingKnowledgeCharacterIds:
           missingKnowledgeCharacterIds.length > 0 ? missingKnowledgeCharacterIds.sort(compareCodeUnits) : undefined,
         message: `Focus character '${context.focusCharacterId}' lacks valid canonical knowledge.`,
+        evaluation: createEvaluation(uniqueMembers.length, 0),
         teams: [],
       };
     }
@@ -148,12 +209,14 @@ export function generateTeamRecommendations(
     if (otherMembers.length < 3) {
       return {
         success: true,
+        scope,
         status: "insufficient_roster",
         gameVersion,
         knowledgeVersion,
         spStatus: "unavailable",
         consensusStatus: "mechanical_only",
         message: "Insufficient characters to form a 4-character team around focus character.",
+        evaluation: createEvaluation(uniqueMembers.length, 0),
         teams: [],
       };
     }
@@ -170,6 +233,10 @@ export function generateTeamRecommendations(
     const charIds = combo.map((m) => m.knowledge.id);
     const signature = buildTeamSignature(charIds);
     const scored = scoreTeam(combo, context.targetWeaknesses);
+    const limitedDataCharacterIds = combo
+      .filter((member) => !hasCompleteRecommendationTaxonomy(member))
+      .map((member) => member.knowledge.id)
+      .sort(compareCodeUnits);
 
     evaluatedTeams.push({
       rank: 0,
@@ -179,6 +246,10 @@ export function generateTeamRecommendations(
       elementScore: scored.elementScore,
       signature,
       archetype: scored.archetype,
+      taxonomyStatus:
+        limitedDataCharacterIds.length > 0 ? "limited_data" : "complete",
+      limitedDataCharacterIds:
+        limitedDataCharacterIds.length > 0 ? limitedDataCharacterIds : undefined,
       slots: scored.slots,
       reasons: scored.reasons,
     });
@@ -201,6 +272,7 @@ export function generateTeamRecommendations(
 
   return {
     success: true,
+    scope,
     status: "ok",
     gameVersion,
     knowledgeVersion,
@@ -208,6 +280,7 @@ export function generateTeamRecommendations(
     consensusStatus: "mechanical_only",
     missingKnowledgeCharacterIds:
       missingKnowledgeCharacterIds.length > 0 ? missingKnowledgeCharacterIds.sort(compareCodeUnits) : undefined,
+    evaluation: createEvaluation(uniqueMembers.length, rawCombinations.length),
     teams: topTeams,
   };
 }

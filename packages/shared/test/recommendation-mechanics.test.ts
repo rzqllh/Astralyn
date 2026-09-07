@@ -169,4 +169,18 @@ describe("Recommendation Mechanics & Scoring Unit Tests", () => {
     // 3 out of 4 members match Fire or Lightning -> 75 pts
     assert.equal(withFireAndLightning.elementScore, 75);
   });
+
+  it("omits progression and ownership claims for canonical-only team members", () => {
+    const members = ["firefly", "gallagher", "robin", "tingyun"].map((id) => {
+      const knowledge = charMap.get(id);
+      if (!knowledge) throw new Error(`Character '${id}' not found in canonical fixtures`);
+      return { knowledge };
+    });
+
+    const scored = scoreTeam(members);
+
+    assert.ok(scored.slots.every((slot) => slot.isOwned === false));
+    assert.ok(scored.slots.every((slot) => slot.level === undefined));
+    assert.ok(scored.slots.every((slot) => slot.eidolon === undefined));
+  });
 });

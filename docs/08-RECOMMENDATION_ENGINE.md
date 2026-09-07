@@ -17,6 +17,36 @@ Depending on request:
 - source recommendations;
 - DU run state.
 
+## Team recommendation scope
+
+`POST /api/recommendations/teams` requires one explicit scope:
+
+- `all_characters`: defines availability from the full canonical release (92 characters in Version 4.5). Authentication is optional. It does not make all 92 characters simultaneous scoring candidates: the bounded prefilter below selects the eligible scoring subset. Actual owned progression is attached to matching characters for authenticated users and remains available to existing progression-aware scoring rules. Canonical-only characters remain `isOwned: false` and do not receive fabricated level or Eidolon values.
+- `owned_only`: builds candidates only from the authenticated user's persisted roster. An unauthenticated request is rejected. An authenticated empty roster returns `status: "insufficient_roster"` with no teams.
+
+The endpoint only reads roster state. Recommendation generation never inserts or updates ownership data.
+
+## Bounded candidate evaluation
+
+Team scoring is preceded by a deterministic candidate bound:
+
+1. Deduplicate candidates and sort IDs with the D-028 code-unit comparator.
+2. Pin an explicit focus character so every evaluated team can include that character.
+3. Prefer characters with complete Astralyn role/mechanic taxonomy. A character marked `unknown` enters when explicitly focused. Other limited-taxonomy characters enter only when complete candidates cannot fill the remaining team slots (four without focus, three with focus).
+4. Keep at most 16 candidates, then run D-028 scoring over their 4-character combinations. D-028 weights and composite formula stay unchanged; incomplete-taxonomy members cannot supply unsupported high-energy-consumer evidence for the existing battery synergy.
+
+There is no random sampling and no inferred role or mechanic tag. In the current release, canonical scope contains all 92 characters while the unanchored scoring candidate pool contains the 9 characters with complete recommendation taxonomy. The other 83 remain canonical and explicitly focusable, but do not enter unanchored ranking because their role/mechanic taxonomy is incomplete. This evaluates `C(9, 4) = 126` teams and preserves the existing curated golden ranking.
+
+The public contract exposes `evaluation.candidateCount`, `evaluation.evaluatedTeamCount`, `evaluation.maxCandidateCount`, and `evaluation.maxTeamEvaluations`.
+
+- Maximum candidates: 16.
+- Maximum unanchored evaluations: `C(16, 4) = 1,820`.
+- Maximum focused evaluations: `C(15, 3) = 455`.
+
+## Incomplete taxonomy
+
+Characters whose `roles` or `mechanicTags` include `unknown` keep that value. No role/tag is inferred during prefiltering or scoring. A team containing one of these characters returns `taxonomyStatus: "limited_data"` plus `limitedDataCharacterIds`; the UI renders the established **Limited Data** state. Recommendation score and confidence remain separate concepts, and Astralyn does not claim high confidence from missing taxonomy.
+
 ## Core principle
 
 LLM output is not a ranking primitive.

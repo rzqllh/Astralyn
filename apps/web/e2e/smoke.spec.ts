@@ -32,6 +32,16 @@ async function ensureImagesDecoded(page: import("@playwright/test").Page) {
 }
 
 test.describe("Astralyn Phase 2.5 E2E Smoke & Production Readiness Suite", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route("**/api/auth/get-session", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: "null",
+      });
+    });
+  });
+
   test("loads desktop application shell with navigation rail, brand mark, and truthful Home status (1440px)", async ({
     page,
   }) => {

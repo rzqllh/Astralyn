@@ -7,7 +7,10 @@ export type RecommendationMode =
   | "apocalyptic_shadow"
   | "divergent_universe";
 
+export type RecommendationScope = "all_characters" | "owned_only";
+
 export interface RecommendationContext {
+  scope?: RecommendationScope;
   mode?: RecommendationMode;
   focusCharacterId?: string;
   targetWeaknesses?: CombatElement[];
@@ -48,8 +51,9 @@ export interface TeamSlotAssignment {
   slot: 1 | 2 | 3 | 4;
   characterId: string;
   role: CharacterRole;
-  level: number;
-  eidolon: number;
+  isOwned: boolean;
+  level?: number;
+  eidolon?: number;
 }
 
 export interface TeamEvaluation {
@@ -60,12 +64,22 @@ export interface TeamEvaluation {
   elementScore: number;
   signature: string;
   archetype: string;
+  taxonomyStatus: "complete" | "limited_data";
+  limitedDataCharacterIds?: string[];
   slots: TeamSlotAssignment[];
   reasons: RecommendationReason[];
 }
 
+export interface RecommendationEvaluation {
+  candidateCount: number;
+  evaluatedTeamCount: number;
+  maxCandidateCount: number;
+  maxTeamEvaluations: number;
+}
+
 export interface RecommendationEngineResult {
   success: boolean;
+  scope: RecommendationScope;
   gameVersion: string;
   knowledgeVersion: string;
   spStatus: "unavailable";
@@ -73,6 +87,7 @@ export interface RecommendationEngineResult {
   missingKnowledgeCharacterIds?: string[];
   status?: "ok" | "insufficient_roster";
   message?: string;
+  evaluation: RecommendationEvaluation;
   teams: TeamEvaluation[];
 }
 

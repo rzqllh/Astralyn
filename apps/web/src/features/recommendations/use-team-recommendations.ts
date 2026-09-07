@@ -65,6 +65,9 @@ export function useTeamRecommendations(
   options: UseTeamRecommendationsOptions = {}
 ): UseTeamRecommendationsResult {
   const { status: authStatus } = useAuth();
+  const scope =
+    context.scope ??
+    (authStatus === "authenticated" ? "owned_only" : "all_characters");
   const [teams, setTeams] = React.useState<TeamEvaluation[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
@@ -91,6 +94,7 @@ export function useTeamRecommendations(
       kv: knowledgeVer,
       rs: rosterSig,
       ctx: {
+        scope,
         mode: context.mode,
         focusCharacterId: context.focusCharacterId,
         targetWeaknesses: normalizedWeaknesses,
@@ -100,6 +104,7 @@ export function useTeamRecommendations(
   }, [
     knowledgeVer,
     rosterSig,
+    scope,
     context.mode,
     context.focusCharacterId,
     normalizedWeaknesses,
@@ -128,7 +133,7 @@ export function useTeamRecommendations(
 
   const fetchRecommendations = React.useCallback(
     async (bypassCache = false) => {
-      if (options.rosterLoading) {
+      if (scope === "owned_only" && options.rosterLoading) {
         setLoading(true);
         return;
       }
@@ -160,6 +165,7 @@ export function useTeamRecommendations(
             Accept: "application/json",
           },
           body: JSON.stringify({
+            scope,
             mode,
             focusCharacterId,
             targetWeaknesses: normalizedWeaknesses,
@@ -194,6 +200,7 @@ export function useTeamRecommendations(
     },
     [
       authStatus,
+      scope,
       options.rosterLoading,
       cacheKey,
       mode,

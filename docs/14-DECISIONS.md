@@ -190,3 +190,13 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 6. **Quarantine Invariant & Generic Vector Fallbacks:** All entity visuals use generic vector silhouettes (`<GameAssetImage>`), maintaining complete quarantine over unapproved development candidate assets.
 **Status:** Accepted.
 
+## D-031 — Phase 10B.1 Explicit Recommendation Scope, Bounded Evaluation & Limited Taxonomy
+**Decision:** Harden team recommendations with explicit `all_characters` and `owned_only` request scopes, a deterministic 16-candidate prefilter, and a team-level `limited_data` taxonomy state.
+**Key Tenets:**
+1. `all_characters` makes all 92 Version 4.5 canonical characters available for focus selection, then ranks a bounded eligible subset. It never represents canonical-only characters as owned or assigns fabricated level/Eidolon metadata.
+2. `owned_only` reads only an authenticated user's persisted roster; an empty owned roster is explicitly insufficient and is never replaced with canonical characters.
+3. Candidate selection pins an explicit focus, excludes other incomplete-taxonomy characters when complete candidates can fill the remaining team slots, uses D-028 code-unit ordering, and never samples randomly or invents roles/tags. In the current release, unanchored ranking uses 9 complete-taxonomy candidates and evaluates 126 teams; the other 83 canonical characters remain explicitly focusable.
+4. D-028 weights and composite formula remain unchanged. The scoring guard only prevents incomplete-taxonomy members from supplying unsupported high-energy-consumer evidence for the existing battery synergy. With 16 candidates, an unanchored request evaluates at most `C(16, 4) = 1,820` teams and a focused request at most `C(15, 3) = 455` teams.
+5. Teams containing `unknown` role/mechanic taxonomy are labeled `limited_data`; missing taxonomy is not presented as recommendation confidence evidence.
+6. The public recommendation endpoint is computation-only and performs zero ownership or recommendation persistence mutations.
+**Status:** Accepted.

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { RecommendationsView } from "../src/routes/recommendations-view";
 import * as authModule from "../src/features/auth";
 import * as rosterModule from "../src/features/roster/use-roster";
@@ -102,7 +102,102 @@ describe("Phase 5: Recommendations Web UI Tests", () => {
 
     render(<RecommendationsView />);
     expect(screen.getByText(/Team Recommendations/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Unfocused ranking uses a bounded complete-taxonomy subset/i)
+    ).toBeInTheDocument();
     expect(screen.getByText(/No valid combinations found/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /All Characters/i })).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
+    expect(screen.getByRole("button", { name: /My Roster/i })).toBeDisabled();
+    expect(screen.getByRole("option", { name: "Firefly" })).toBeInTheDocument();
+  });
+
+  it("lets authenticated users switch explicitly between owned and canonical scope", () => {
+    vi.spyOn(authModule, "useAuth").mockReturnValue(mockAuth("authenticated"));
+    vi.spyOn(rosterModule, "useRoster").mockReturnValue(
+      mockRoster([
+        { characterId: "firefly", level: 80, eidolon: 0, isOwned: true, createdAt: "", updatedAt: "" },
+      ])
+    );
+    vi.spyOn(recHooks, "useTeamRecommendations").mockReturnValue({
+      teams: [],
+      loading: false,
+      error: null,
+      status: "idle",
+      refresh: vi.fn(),
+    });
+
+    render(<RecommendationsView />);
+    const ownedButton = screen.getByRole("button", { name: /My Roster/i });
+    const allButton = screen.getByRole("button", { name: /All Characters/i });
+
+    expect(ownedButton).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(allButton);
+    expect(allButton).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("option", { name: "Gallagher" })).toBeInTheDocument();
+  });
+
+  it("falls back to canonical scope when authentication ends", () => {
+    let authStatus: "authenticated" | "unauthenticated" = "authenticated";
+    vi.spyOn(authModule, "useAuth").mockImplementation(() => mockAuth(authStatus));
+    vi.spyOn(rosterModule, "useRoster").mockReturnValue(
+      mockRoster([
+        { characterId: "firefly", level: 80, eidolon: 0, isOwned: true, createdAt: "", updatedAt: "" },
+      ])
+    );
+    const recommendationSpy = vi.spyOn(recHooks, "useTeamRecommendations").mockReturnValue({
+      teams: [],
+      loading: false,
+      error: null,
+      status: "idle",
+      refresh: vi.fn(),
+    });
+
+    const { rerender } = render(<RecommendationsView />);
+    fireEvent.click(screen.getByRole("button", { name: /All Characters/i }));
+    fireEvent.click(screen.getByRole("button", { name: /My Roster/i }));
+
+    authStatus = "unauthenticated";
+    rerender(<RecommendationsView />);
+
+    expect(screen.getByRole("button", { name: /All Characters/i })).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
+    expect(recommendationSpy.mock.lastCall?.[0]?.scope).toBe("all_characters");
+  });
+
+  it("drops an unowned canonical focus when authentication starts", () => {
+    let authStatus: "authenticated" | "unauthenticated" = "unauthenticated";
+    vi.spyOn(authModule, "useAuth").mockImplementation(() => mockAuth(authStatus));
+    vi.spyOn(rosterModule, "useRoster").mockReturnValue(
+      mockRoster([
+        { characterId: "firefly", level: 80, eidolon: 0, isOwned: true, createdAt: "", updatedAt: "" },
+      ])
+    );
+    const recommendationSpy = vi.spyOn(recHooks, "useTeamRecommendations").mockReturnValue({
+      teams: [],
+      loading: false,
+      error: null,
+      status: "idle",
+      refresh: vi.fn(),
+    });
+
+    const { rerender } = render(<RecommendationsView />);
+    fireEvent.change(screen.getByLabelText(/Anchor \/ Focus Character/i), {
+      target: { value: "gallagher" },
+    });
+
+    authStatus = "authenticated";
+    rerender(<RecommendationsView />);
+
+    expect(screen.getByRole("button", { name: /My Roster/i })).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
+    expect(recommendationSpy.mock.lastCall?.[0]?.focusCharacterId).toBeUndefined();
   });
 
   it("renders Insufficient Roster state when status is insufficient_roster", () => {
@@ -167,11 +262,12 @@ describe("Phase 5: Recommendations Web UI Tests", () => {
           elementScore: 0,
           signature: "firefly:gallagher:robin:tingyun",
           archetype: "Super Break Destruction Hypercarry",
+          taxonomyStatus: "complete",
           slots: [
-            { slot: 1, characterId: "firefly", role: "break_dps", level: 80, eidolon: 0 },
-            { slot: 2, characterId: "gallagher", role: "healer", level: 80, eidolon: 0 },
-            { slot: 3, characterId: "robin", role: "buffer", level: 80, eidolon: 0 },
-            { slot: 4, characterId: "tingyun", role: "battery", level: 80, eidolon: 0 },
+            { slot: 1, characterId: "firefly", role: "break_dps", isOwned: true, level: 80, eidolon: 0 },
+            { slot: 2, characterId: "gallagher", role: "healer", isOwned: true, level: 80, eidolon: 0 },
+            { slot: 3, characterId: "robin", role: "buffer", isOwned: true, level: 80, eidolon: 0 },
+            { slot: 4, characterId: "tingyun", role: "battery", isOwned: true, level: 80, eidolon: 0 },
           ],
           reasons: [
             {

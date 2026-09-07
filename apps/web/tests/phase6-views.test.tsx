@@ -145,11 +145,12 @@ describe("Phase 6: Web UI Surfaces Tests", () => {
           roleScore: 35,
           synergyScore: 35,
           elementScore: 18,
+          taxonomyStatus: "complete",
           slots: [
-            { slot: 1, characterId: "acheron", role: "hypercarry_dps", level: 80, eidolon: 2 },
-            { slot: 2, characterId: "aventurine", role: "shielder", level: 80, eidolon: 0 },
-            { slot: 3, characterId: "gallagher", role: "healer", level: 80, eidolon: 6 },
-            { slot: 4, characterId: "firefly", role: "break_dps", level: 80, eidolon: 0 },
+            { slot: 1, characterId: "acheron", role: "hypercarry_dps", isOwned: true, level: 80, eidolon: 2 },
+            { slot: 2, characterId: "aventurine", role: "shielder", isOwned: true, level: 80, eidolon: 0 },
+            { slot: 3, characterId: "gallagher", role: "healer", isOwned: true, level: 80, eidolon: 6 },
+            { slot: 4, characterId: "firefly", role: "break_dps", isOwned: true, level: 80, eidolon: 0 },
           ],
           reasons: [
             {

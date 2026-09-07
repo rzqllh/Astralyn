@@ -8,7 +8,7 @@ import { CharacterAvatar, ElementIcon, PathIcon } from "../components/ui/game-as
 import { Button } from "../components/ui/button";
 import { Shield, Sparkles, AlertCircle, RefreshCw, ArrowRight, CheckCircle2, BookmarkPlus, Check } from "lucide-react";
 import { useSavedTeams } from "../features/teams";
-import type { CombatElement } from "@astralyn/shared";
+import type { CombatElement, RecommendationScope } from "@astralyn/shared";
 
 const COMBAT_ELEMENTS: CombatElement[] = [
   "Physical",
@@ -74,16 +74,41 @@ export function RecommendationsView() {
   const { characters } = useCharacters();
   const { syncResult } = useKnowledgeInit();
 
+  const [scopeOverride, setScopeOverride] = React.useState<RecommendationScope | null>(null);
   const [focusCharId, setFocusCharId] = React.useState<string>("");
   const [selectedWeaknesses, setSelectedWeaknesses] = React.useState<Set<CombatElement>>(new Set());
+  const scope =
+    authStatus === "authenticated"
+      ? (scopeOverride ?? "owned_only")
+      : "all_characters";
+
+  const characterMap = React.useMemo(() => {
+    return new Map(characters.map((c) => [c.id, c]));
+  }, [characters]);
+
+  const ownedCharacterIds = React.useMemo(() => {
+    return roster.filter((r) => r.isOwned).map((r) => r.characterId);
+  }, [roster]);
+
+  const focusCharacterIds = React.useMemo(
+    () =>
+      scope === "all_characters"
+        ? characters.map((character) => character.id)
+        : ownedCharacterIds,
+    [characters, ownedCharacterIds, scope]
+  );
+  const effectiveFocusCharId = focusCharacterIds.includes(focusCharId)
+    ? focusCharId
+    : "";
 
   const context = React.useMemo(() => {
     return {
-      focusCharacterId: focusCharId || undefined,
+      scope,
+      focusCharacterId: effectiveFocusCharId || undefined,
       targetWeaknesses: selectedWeaknesses.size > 0 ? Array.from(selectedWeaknesses).sort() : undefined,
       limit: 3,
     };
-  }, [focusCharId, selectedWeaknesses]);
+  }, [scope, effectiveFocusCharId, selectedWeaknesses]);
 
   const {
     teams,
@@ -133,15 +158,18 @@ export function RecommendationsView() {
     }
   };
 
-  const loading = recLoading || rosterLoading;
+  const loading = recLoading || (scope === "owned_only" && rosterLoading);
 
-  const characterMap = React.useMemo(() => {
-    return new Map(characters.map((c) => [c.id, c]));
-  }, [characters]);
-
-  const ownedCharacterIds = React.useMemo(() => {
-    return roster.filter((r) => r.isOwned).map((r) => r.characterId);
-  }, [roster]);
+  const selectScope = (nextScope: RecommendationScope) => {
+    setScopeOverride(nextScope);
+    if (
+      nextScope === "owned_only" &&
+      focusCharId &&
+      !ownedCharacterIds.includes(focusCharId)
+    ) {
+      setFocusCharId("");
+    }
+  };
 
   const toggleWeakness = (el: CombatElement) => {
     setSelectedWeaknesses((prev) => {
@@ -166,7 +194,9 @@ export function RecommendationsView() {
               Team Recommendations
             </h1>
             <p className="text-sm text-[#9ba5be] mt-1">
-              Source-grounded, 100% deterministic team calculations evaluated directly from your owned roster.
+              {scope === "owned_only"
+                ? "Deterministic team calculations using your persisted owned roster."
+                : "All canonical characters are focusable. Unfocused ranking uses a bounded complete-taxonomy subset."}
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -204,6 +234,44 @@ export function RecommendationsView() {
 
           {/* Context Filter Bar */}
           <div className="rounded-sm border border-[#1f2940] bg-[#101524] p-5 space-y-4 shadow-sm">
+            <div className="space-y-1.5">
+              <span className="text-xs font-medium text-[#9ba5be] block">Recommendation Scope</span>
+              <div className="inline-flex rounded-sm border border-[#1f2940] bg-[#090c13] p-1 gap-1">
+                <button
+                  type="button"
+                  aria-pressed={scope === "all_characters"}
+                  onClick={() => selectScope("all_characters")}
+                  className={`min-h-11 px-3 text-xs rounded-xs transition-colors ${
+                    scope === "all_characters"
+                      ? "bg-[#dfb86c] text-[#090c13] font-semibold"
+                      : "text-[#9ba5be] hover:text-[#f0f3fa]"
+                  }`}
+                >
+                  All Characters
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={scope === "owned_only"}
+                  onClick={() => selectScope("owned_only")}
+                  disabled={authStatus !== "authenticated"}
+                  title={
+                    authStatus === "authenticated"
+                      ? "Use your persisted roster"
+                      : "Sign in to use your roster"
+                  }
+                  className={`min-h-11 px-3 text-xs rounded-xs transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                    scope === "owned_only"
+                      ? "bg-[#dfb86c] text-[#090c13] font-semibold"
+                      : "text-[#9ba5be] hover:text-[#f0f3fa]"
+                  }`}
+                >
+                  My Roster
+                </button>
+              </div>
+              {authStatus !== "authenticated" && (
+                <p className="text-xs text-[#9ba5be]">Sign in to calculate from your owned roster.</p>
+              )}
+            </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-4">
                 {/* Focus Character Anchor */}
@@ -213,14 +281,14 @@ export function RecommendationsView() {
                   </label>
                   <select
                     id="focus-character-select"
-                    value={focusCharId}
+                    value={effectiveFocusCharId}
                     onChange={(e) => setFocusCharId(e.target.value)}
                     className="block min-w-[240px] text-sm rounded-sm border border-[#1f2940] bg-[#0a0e1a] px-3.5 py-2 text-[#f0f3fa] hover:border-[#303f5e] focus:border-[#dfb86c] focus:outline-hidden focus:ring-1 focus:ring-[#dfb86c] [color-scheme:dark] cursor-pointer"
                   >
                     <option value="" className="bg-[#0a0e1a] text-[#f0f3fa]">
                       Auto-Discover (Best Team)
                     </option>
-                    {ownedCharacterIds.map((id) => {
+                    {focusCharacterIds.map((id) => {
                       const c = characterMap.get(id);
                       return (
                         <option key={id} value={id} className="bg-[#0a0e1a] text-[#f0f3fa]">
@@ -273,7 +341,7 @@ export function RecommendationsView() {
           </div>
 
           {/* Note when roster has exactly 4 characters */}
-          {ownedCharacterIds.length === 4 && (
+          {scope === "owned_only" && ownedCharacterIds.length === 4 && (
             <div className="rounded-sm border border-[#303f5e]/60 bg-[#101524] px-4 py-3 flex items-start sm:items-center gap-3 text-xs text-[#9ba5be]">
               <Sparkles className="w-4 h-4 text-[#dfb86c] shrink-0 mt-0.5 sm:mt-0" />
               <span>
@@ -335,7 +403,14 @@ export function RecommendationsView() {
                         #{team.rank}
                       </span>
                       <div>
-                        <h3 className="font-semibold text-[#f0f3fa]">{team.archetype}</h3>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="font-semibold text-[#f0f3fa]">{team.archetype}</h3>
+                          {team.taxonomyStatus === "limited_data" && (
+                            <span className="text-[10px] px-1.5 py-0.5 rounded-xs bg-[#f59e0b]/20 text-[#f59e0b] border border-[#f59e0b]/50 font-mono font-bold uppercase tracking-wider">
+                              Limited Data
+                            </span>
+                          )}
+                        </div>
                         <p className="text-xs text-[#9ba5be] font-mono mt-0.5">
                           Signature: {team.signature}
                         </p>
@@ -381,7 +456,9 @@ export function RecommendationsView() {
                   <div className="p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     {team.slots.map((slot) => {
                       const charKnowledge = characterMap.get(slot.characterId);
-                      const isFocusAnchor = Boolean(focusCharId && slot.characterId === focusCharId);
+                      const isFocusAnchor = Boolean(
+                        effectiveFocusCharId && slot.characterId === effectiveFocusCharId
+                      );
                       return (
                         <div
                           key={slot.characterId}
@@ -414,9 +491,15 @@ export function RecommendationsView() {
                                   {slot.role.replace(/_/g, " ")}
                                 </span>
                               )}
-                              <span className="text-[11px] text-[#9ba5be] font-mono">
-                                Lv.{slot.level} E{slot.eidolon}
-                              </span>
+                              {slot.isOwned && slot.level !== undefined && slot.eidolon !== undefined ? (
+                                <span className="text-[11px] text-[#9ba5be] font-mono">
+                                  Owned Lv.{slot.level} E{slot.eidolon}
+                                </span>
+                              ) : (
+                                <span className="text-[11px] text-[#9ba5be] font-mono">
+                                  Canonical pool
+                                </span>
+                              )}
                               {isFocusAnchor && (
                                 <span className="text-[9px] px-1.5 py-0.5 rounded-xs bg-[#dfb86c]/20 text-[#dfb86c] border border-[#dfb86c]/50 font-mono font-bold uppercase tracking-wider">
                                   Focus

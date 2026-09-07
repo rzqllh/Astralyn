@@ -7,7 +7,7 @@ import type {
 
 export interface TeamMember {
   knowledge: CharacterKnowledge;
-  roster: RosterInputCharacter;
+  roster?: RosterInputCharacter;
 }
 
 export interface TeamScoringResult {
@@ -18,6 +18,13 @@ export interface TeamScoringResult {
   archetype: string;
   slots: TeamSlotAssignment[];
   reasons: RecommendationReason[];
+}
+
+export function hasCompleteRecommendationTaxonomy(member: TeamMember): boolean {
+  return (
+    !member.knowledge.roles.includes("unknown") &&
+    !member.knowledge.mechanicTags.includes("unknown")
+  );
 }
 
 /**
@@ -231,6 +238,7 @@ export function scoreTeam(
   const hasBattery = members.some((m) => m.knowledge.roles.includes("battery") || m.knowledge.id === "tingyun");
   const hasHighEnergyConsumer = members.some(
     (m) =>
+      hasCompleteRecommendationTaxonomy(m) &&
       m.knowledge.id !== "tingyun" &&
       m.knowledge.baseStats.maxEnergy !== null &&
       (m.knowledge.baseStats.maxEnergy ?? 0) >= 130
@@ -247,7 +255,9 @@ export function scoreTeam(
         .filter(
           (m) =>
             m.knowledge.roles.includes("battery") ||
-            (m.knowledge.baseStats.maxEnergy !== null && (m.knowledge.baseStats.maxEnergy ?? 0) >= 130)
+            (hasCompleteRecommendationTaxonomy(m) &&
+              m.knowledge.baseStats.maxEnergy !== null &&
+              (m.knowledge.baseStats.maxEnergy ?? 0) >= 130)
         )
         .map((m) => m.knowledge.id),
     });
@@ -277,7 +287,7 @@ export function scoreTeam(
       (m) => m.knowledge.id !== "acheron" && m.knowledge.path === "Nihility"
     ).length;
 
-    if (acheronMember.roster.eidolon >= 2) {
+    if (acheronMember.roster && acheronMember.roster.eidolon >= 2) {
       if (otherNihilityCount >= 1) {
         reasons.push({
           code: "EIDOLON_CONSTRAINT_RELAXED",
@@ -307,7 +317,9 @@ export function scoreTeam(
           category: "trace_constraint",
           type: "penalty",
           scoreDelta: -25,
-          message: "Acheron Trace 'The Abyss' requires 2 other Nihility allies for full multiplier (at E0/E1).",
+          message: acheronMember.roster
+            ? "Acheron Trace 'The Abyss' requires 2 other Nihility allies for full multiplier (at E0/E1)."
+            : "Acheron's baseline Trace 'The Abyss' requires 2 other Nihility allies when Eidolon progression is unavailable.",
           characterIds: ["acheron"],
         });
       }
@@ -362,8 +374,10 @@ export function scoreTeam(
     slot: (idx + 1) as 1 | 2 | 3 | 4,
     characterId: m.knowledge.id,
     role: m.knowledge.roles[0] || "sub_dps",
-    level: m.roster.level,
-    eidolon: m.roster.eidolon,
+    isOwned: m.roster !== undefined,
+    ...(m.roster
+      ? { level: m.roster.level, eidolon: m.roster.eidolon }
+      : {}),
   }));
 
   return {

@@ -158,18 +158,92 @@ describe("Worker POST /api/recommendations/teams", () => {
     } as unknown as ReturnType<typeof serverModule.createAuth>);
   }
 
-  it("returns 200 OK and uses full roster when session is missing", { timeout: 30000 }, async () => {
+  it("returns bounded all-character recommendations without a session", async () => {
     mockUnauthenticatedSession();
     const req = new Request("http://localhost:8787/api/recommendations/teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ focusCharacterId: "firefly", limit: 2 }),
+      body: JSON.stringify({ scope: "all_characters", limit: 2 }),
     });
     const res = await worker.fetch(req, env, {} as ExecutionContext);
     expect(res.status).toBe(200);
-    const body = (await res.json()) as { status: string; teams: unknown[] };
+    const body = (await res.json()) as {
+      scope: string;
+      status: string;
+      teams: Array<{ slots: Array<{ isOwned: boolean; level?: number; eidolon?: number }> }>;
+      evaluation: {
+        candidateCount: number;
+        evaluatedTeamCount: number;
+        maxCandidateCount: number;
+        maxTeamEvaluations: number;
+      };
+    };
+    expect(body.scope).toBe("all_characters");
     expect(body.status).toBe("ok");
-    expect(body.teams.length).toBeGreaterThan(0);
+    expect(body.teams).toHaveLength(2);
+    expect(body.evaluation).toEqual({
+      candidateCount: 9,
+      evaluatedTeamCount: 126,
+      maxCandidateCount: 16,
+      maxTeamEvaluations: 1820,
+    });
+    expect(body.teams.every((team) => team.slots.every((slot) => slot.isOwned === false))).toBe(true);
+    expect(body.teams.every((team) => team.slots.every((slot) => slot.level === undefined))).toBe(true);
+  });
+
+  it("returns bounded all-character recommendations for an authenticated empty roster without persisting fake ownership", async () => {
+    mockAuthenticatedSession();
+    const req = new Request("http://localhost:8787/api/recommendations/teams", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scope: "all_characters", focusCharacterId: "firefly", limit: 2 }),
+    });
+
+    const first = await worker.fetch(req, env, {} as ExecutionContext);
+    const firstBody = (await first.json()) as {
+      status: string;
+      evaluation: { candidateCount: number; evaluatedTeamCount: number };
+      teams: unknown[];
+    };
+    const persisted = await db
+      .prepare("SELECT COUNT(*) AS count FROM user_roster WHERE user_id = ?")
+      .bind(mockUser.id)
+      .first<{ count: number }>();
+
+    expect(first.status).toBe(200);
+    expect(firstBody.status).toBe("ok");
+    expect(firstBody.teams).toHaveLength(2);
+    expect(firstBody.evaluation).toMatchObject({ candidateCount: 9, evaluatedTeamCount: 56 });
+    expect(persisted?.count).toBe(0);
+  });
+
+  it("rejects owned-only scope without authentication", async () => {
+    mockUnauthenticatedSession();
+    const req = new Request("http://localhost:8787/api/recommendations/teams", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scope: "owned_only" }),
+    });
+
+    const res = await worker.fetch(req, env, {} as ExecutionContext);
+    expect(res.status).toBe(401);
+    await expect(res.json()).resolves.toMatchObject({ code: "UNAUTHORIZED" });
+  });
+
+  it("rejects a missing or invalid recommendation scope", async () => {
+    mockUnauthenticatedSession();
+
+    for (const body of [{}, { scope: "everything" }]) {
+      const req = new Request("http://localhost:8787/api/recommendations/teams", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const res = await worker.fetch(req, env, {} as ExecutionContext);
+
+      expect(res.status).toBe(400);
+      await expect(res.json()).resolves.toMatchObject({ code: "INVALID_SCOPE" });
+    }
   });
 
   it("returns 405 Method Not Allowed on GET request", async () => {
@@ -188,7 +262,7 @@ describe("Worker POST /api/recommendations/teams", () => {
     const req = new Request("http://localhost:8787/api/recommendations/teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ focusCharacterId: "completely-unknown-character" }),
+      body: JSON.stringify({ scope: "all_characters", focusCharacterId: "completely-unknown-character" }),
     });
     const res = await worker.fetch(req, env, {} as ExecutionContext);
     expect(res.status).toBe(400);
@@ -201,7 +275,7 @@ describe("Worker POST /api/recommendations/teams", () => {
     const req = new Request("http://localhost:8787/api/recommendations/teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ targetWeaknesses: ["Fire", "InvalidElement"] }),
+      body: JSON.stringify({ scope: "all_characters", targetWeaknesses: ["Fire", "InvalidElement"] }),
     });
     const res = await worker.fetch(req, env, {} as ExecutionContext);
     expect(res.status).toBe(400);
@@ -214,7 +288,7 @@ describe("Worker POST /api/recommendations/teams", () => {
     const req = new Request("http://localhost:8787/api/recommendations/teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ limit: 0 }),
+      body: JSON.stringify({ scope: "all_characters", limit: 0 }),
     });
     const res = await worker.fetch(req, env, {} as ExecutionContext);
     expect(res.status).toBe(400);
@@ -235,7 +309,7 @@ describe("Worker POST /api/recommendations/teams", () => {
     const req = new Request("http://localhost:8787/api/recommendations/teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ focusCharacterId: "firefly" }),
+      body: JSON.stringify({ scope: "owned_only", focusCharacterId: "firefly" }),
     });
     const res = await worker.fetch(req, env, {} as ExecutionContext);
     expect(res.status).toBe(400);
@@ -262,7 +336,7 @@ describe("Worker POST /api/recommendations/teams", () => {
     const req = new Request("http://localhost:8787/api/recommendations/teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ scope: "owned_only" }),
     });
     const res = await worker.fetch(req, env, {} as ExecutionContext);
     expect(res.status).toBe(200);
@@ -287,7 +361,7 @@ describe("Worker POST /api/recommendations/teams", () => {
     const req = new Request("http://localhost:8787/api/recommendations/teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ focusCharacterId: "firefly", limit: 2 }),
+      body: JSON.stringify({ scope: "owned_only", focusCharacterId: "firefly", limit: 2 }),
     });
     const res = await worker.fetch(req, env, {} as ExecutionContext);
     expect(res.status).toBe(200);
@@ -303,5 +377,27 @@ describe("Worker POST /api/recommendations/teams", () => {
     expect(body.teams[0].rank).toBe(1);
     expect(body.teams[0].signature).toBe("firefly:gallagher:robin:tingyun");
     expect(body.teams[0].reasons.some((r) => r.code === "SYNERGY_SUPER_BREAK_CORE")).toBe(true);
+  });
+
+  it("returns deterministic responses for repeated all-character requests", async () => {
+    mockUnauthenticatedSession();
+    const body = JSON.stringify({
+      scope: "all_characters",
+      targetWeaknesses: ["Fire", "Lightning"],
+      limit: 3,
+    });
+    const createRequest = () =>
+      new Request("http://localhost:8787/api/recommendations/teams", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+      });
+
+    const first = await worker.fetch(createRequest(), env, {} as ExecutionContext);
+    const second = await worker.fetch(createRequest(), env, {} as ExecutionContext);
+
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
+    expect(await first.text()).toBe(await second.text());
   });
 });

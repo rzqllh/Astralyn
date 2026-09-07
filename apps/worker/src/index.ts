@@ -4,6 +4,7 @@ import {
   CANONICAL_CHARACTERS,
   generateTeamRecommendations,
   type RecommendationMode,
+  type RecommendationScope,
   type CombatElement,
 } from "@astralyn/shared";
 import { checkDatabaseHealth } from "./db/health";
@@ -18,6 +19,11 @@ const VALID_COMBAT_ELEMENTS = new Set<CombatElement>([
   "Wind",
   "Quantum",
   "Imaginary",
+]);
+
+const VALID_RECOMMENDATION_SCOPES = new Set<RecommendationScope>([
+  "all_characters",
+  "owned_only",
 ]);
 
 export interface Env extends AuthEnv {
@@ -562,11 +568,42 @@ export default {
 
       const auth = await resolveAuthContext(request, env);
 
-      let rawBody: Record<string, unknown> = {};
+      let rawBody: Record<string, unknown>;
       try {
-        rawBody = (await request.json()) as Record<string, unknown>;
+        const parsedBody: unknown = await request.json();
+        if (!parsedBody || typeof parsedBody !== "object" || Array.isArray(parsedBody)) {
+          return jsonResponse({ error: "Invalid JSON payload", code: "INVALID_BODY" }, 400);
+        }
+        rawBody = parsedBody as Record<string, unknown>;
       } catch {
         return jsonResponse({ error: "Invalid JSON payload", code: "INVALID_BODY" }, 400);
+      }
+
+      if (
+        typeof rawBody.scope !== "string" ||
+        !VALID_RECOMMENDATION_SCOPES.has(rawBody.scope as RecommendationScope)
+      ) {
+        return jsonResponse(
+          {
+            error: "scope must be either 'all_characters' or 'owned_only'",
+            code: "INVALID_SCOPE",
+          },
+          400
+        );
+      }
+      const scope = rawBody.scope as RecommendationScope;
+
+      if (scope === "owned_only" && auth.status !== "authenticated") {
+        return jsonResponse(
+          { error: "Sign in to use your owned roster", code: "UNAUTHORIZED" },
+          401
+        );
+      }
+      if (scope === "owned_only" && !env.DB) {
+        return jsonResponse(
+          { error: "Database unavailable", code: "DB_UNAVAILABLE" },
+          503
+        );
       }
 
       // Validate focusCharacterId canonical existence if provided
@@ -648,18 +685,8 @@ export default {
         userRoster = await userRepo.getRoster(auth.userId);
       }
 
-      const ownedCount = userRoster.filter((r) => r.isOwned !== false).length;
-      if (ownedCount === 0) {
-        userRoster = CANONICAL_CHARACTERS.map((c) => ({
-          characterId: c.id,
-          level: 80,
-          eidolon: 0,
-          isOwned: true,
-        }));
-      }
-
       // Validate focus character ownership
-      if (rawBody.focusCharacterId !== undefined) {
+      if (scope === "owned_only" && rawBody.focusCharacterId !== undefined) {
         const isOwned = userRoster.some(
           (r) => r.characterId === rawBody.focusCharacterId && r.isOwned
         );
@@ -684,6 +711,7 @@ export default {
         })),
         knowledgeCharacters: CANONICAL_CHARACTERS,
         context: {
+          scope,
           mode:
             typeof rawBody.mode === "string"
               ? (rawBody.mode as RecommendationMode)
