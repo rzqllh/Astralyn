@@ -511,6 +511,28 @@ describe("Phase 2 Knowledge Repository API & Normalized Search", () => {
     await repo.initialize();
   });
 
+  it("initializes an empty cache before the first direct route read", async () => {
+    const directDb = new AstralynKnowledgeDB(
+      `AstralynDirectReadDB_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`
+    );
+    const directRepo = new KnowledgeRepository(
+      directDb,
+      createMockLoader(MOCK_ROOT_MANIFEST_V1)
+    );
+
+    try {
+      expect(directRepo.isInitialized()).toBe(false);
+
+      const characters = await directRepo.listCharacters();
+
+      expect(characters).toHaveLength(92);
+      expect(directRepo.isInitialized()).toBe(true);
+    } finally {
+      directDb.close();
+      await directDb.delete();
+    }
+  });
+
   it("reads individual character and handles non-existent IDs", async () => {
     const acheron = await repo.getCharacter("acheron");
     expect(acheron).toBeDefined();

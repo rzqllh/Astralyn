@@ -82,6 +82,7 @@ export class KnowledgeRepository {
   private db: AstralynKnowledgeDB;
   private syncer: KnowledgeCacheSyncer;
   private initialized = false;
+  private initializationPromise: Promise<KnowledgeSyncResult> | null = null;
 
   constructor(
     db: AstralynKnowledgeDB = knowledgeDB,
@@ -91,7 +92,24 @@ export class KnowledgeRepository {
     this.syncer = new KnowledgeCacheSyncer(db, loader);
   }
 
-  async initialize(): Promise<KnowledgeSyncResult> {
+  initialize(): Promise<KnowledgeSyncResult> {
+    if (this.initialized) {
+      return Promise.resolve(this.syncer.getLastResult());
+    }
+    if (this.initializationPromise) {
+      return this.initializationPromise;
+    }
+
+    const initialization = this.runInitialization();
+    this.initializationPromise = initialization;
+    const clearInitialization = () => {
+      if (this.initializationPromise === initialization) this.initializationPromise = null;
+    };
+    void initialization.then(clearInitialization, clearInitialization);
+    return initialization;
+  }
+
+  private async runInitialization(): Promise<KnowledgeSyncResult> {
     try {
       const result = await this.syncer.sync();
       const validStatuses: KnowledgeSyncStatus[] = [
@@ -115,6 +133,12 @@ export class KnowledgeRepository {
     }
   }
 
+  private async ensureInitialized(): Promise<void> {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+  }
+
   isInitialized(): boolean {
     return this.initialized;
   }
@@ -135,11 +159,13 @@ export class KnowledgeRepository {
 
   // --- Character Reads ---
   async getCharacter(id: string): Promise<CharacterKnowledge | null> {
+    await this.ensureInitialized();
     const char = await this.db.characters.get(id);
     return char ?? null;
   }
 
   async listCharacters(filter?: CharacterFilter): Promise<CharacterKnowledge[]> {
+    await this.ensureInitialized();
     let collection = this.db.characters.toCollection();
 
     if (filter?.path) {
@@ -170,11 +196,13 @@ export class KnowledgeRepository {
 
   // --- Light Cone Reads ---
   async getLightCone(id: string): Promise<LightConeKnowledge | null> {
+    await this.ensureInitialized();
     const lc = await this.db.lightCones.get(id);
     return lc ?? null;
   }
 
   async listLightCones(filter?: LightConeFilter): Promise<LightConeKnowledge[]> {
+    await this.ensureInitialized();
     let collection = this.db.lightCones.toCollection();
 
     if (filter?.path) {
@@ -193,11 +221,13 @@ export class KnowledgeRepository {
 
   // --- Relic Set Reads ---
   async getRelicSet(id: string): Promise<RelicSetKnowledge | null> {
+    await this.ensureInitialized();
     const relic = await this.db.relicSets.get(id);
     return relic ?? null;
   }
 
   async listRelicSets(filter?: RelicFilter): Promise<RelicSetKnowledge[]> {
+    await this.ensureInitialized();
     let collection = this.db.relicSets.toCollection();
     if (filter?.type) {
       collection = this.db.relicSets.where("type").equals(filter.type);
@@ -208,11 +238,13 @@ export class KnowledgeRepository {
 
   // --- Enemy Reads ---
   async getEnemy(id: string): Promise<EnemyKnowledge | null> {
+    await this.ensureInitialized();
     const enemy = await this.db.enemies.get(id);
     return enemy ?? null;
   }
 
   async listEnemies(filter?: EnemyFilter): Promise<EnemyKnowledge[]> {
+    await this.ensureInitialized();
     let collection = this.db.enemies.toCollection();
     if (filter?.category) {
       collection = this.db.enemies.where("category").equals(filter.category);
@@ -226,11 +258,13 @@ export class KnowledgeRepository {
 
   // --- Stage Reads ---
   async getStage(id: string): Promise<StageKnowledge | null> {
+    await this.ensureInitialized();
     const stage = await this.db.stages.get(id);
     return stage ?? null;
   }
 
   async listStages(filter?: StageFilter): Promise<StageKnowledge[]> {
+    await this.ensureInitialized();
     let collection = this.db.stages.toCollection();
     if (filter?.rotationId) {
       collection = this.db.stages.where("rotationId").equals(filter.rotationId);
@@ -246,6 +280,7 @@ export class KnowledgeRepository {
 
   // --- Divergent Universe Reads ---
   async getDUEntity(id: string): Promise<DUEntityKnowledge | null> {
+    await this.ensureInitialized();
     const blessing = await this.db.duBlessings.get(id);
     if (blessing) return blessing;
     const equation = await this.db.duEquations.get(id);
@@ -256,6 +291,7 @@ export class KnowledgeRepository {
   }
 
   async listDUEntities(filter?: DUEntityFilter): Promise<DUEntityKnowledge[]> {
+    await this.ensureInitialized();
     const results: DUEntityKnowledge[] = [];
 
     if (!filter?.entityType || filter.entityType === "blessing") {
@@ -296,6 +332,7 @@ export class KnowledgeRepository {
 
   // --- Search Normalization & Unified Search Across All 8 Stores ---
   async searchEntities(rawQuery: string): Promise<SearchResultItem[]> {
+    await this.ensureInitialized();
     const query = normalizeSearchString(rawQuery);
     if (!query) return [];
 
