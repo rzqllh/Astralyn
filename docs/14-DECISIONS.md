@@ -1,6 +1,6 @@
-# Astralyn — Decision Log
+# Astralyn: decision log
 
-Use this as ADR-lite. Major changes get a new numbered decision instead of silently rewriting the project's intent.
+Use this as an append-only ADR-lite record. Read newer decisions as superseding context where they conflict with earlier ones. Historical phase or deployment statements describe the repository when the decision was accepted; current operational status lives in the [README](../README.md), [roadmap](13-ROADMAP.md), and [deployment guide](16-DEPLOYMENT.md).
 
 ## D-001 — Product name
 **Decision:** Astralyn.  

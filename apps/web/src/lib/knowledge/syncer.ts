@@ -256,9 +256,15 @@ export class KnowledgeCacheSyncer {
     }
 
     const targetVersion = rootManifest.currentKnowledgeVersion;
+    const targetSnapshotHash =
+      rootManifest.releases[targetVersion]?.sourceSnapshotHash ?? null;
 
-    // 3. Compare published version with cached version (only valid cache returns "fresh")
-    if (hasValidLocalCache && cachedVersion === targetVersion) {
+    // 3. A version can only be fresh when it still identifies the published bytes.
+    if (
+      hasValidLocalCache &&
+      cachedVersion === targetVersion &&
+      cacheInspection.sourceSnapshotHash === targetSnapshotHash
+    ) {
       this.currentStatus = "fresh";
       this.lastResult = {
         status: "fresh",

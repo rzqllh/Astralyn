@@ -1,176 +1,100 @@
-# Astralyn — Product Requirements Document
+# Astralyn: product requirements
 
-## 1. Product overview
+## Document role
 
-Astralyn is a personalized Honkai: Star Rail assistant that combines official game mechanics and patch knowledge, the user's actual character roster, multi-source editorial recommendations, deterministic team/build/content scoring, screenshot OCR for fast in-game decisions, and optional free-tier AI for explanation or fallback only.
+This file records the product contract. It distinguishes the current local MVP from later product direction. For a runnable feature matrix, use the root [README](../README.md).
 
-The product is designed for players who want a trustworthy answer quickly without repeatedly searching several guide sites or re-explaining account context to a chatbot.
+## Product statement
 
-## 2. Product goals
+Astralyn helps Honkai: Star Rail players inspect canonical character data, manage an owned roster, build deterministic teams, and make Divergent Universe choices without requiring a paid AI service.
 
-### Primary goals
+The product favors traceable inputs and concise results. It must not present missing editorial coverage, incomplete knowledge, or synthetic ownership as verified game guidance.
 
-1. Make recommendations that respect the user's roster.
-2. Keep factual game knowledge current with the latest official patch.
-3. Show transparent provenance for builds, teams and character rankings.
-4. Produce concise Top 1–3 recommendations rather than long unranked lists.
-5. Work on a free-first architecture.
-6. Let screenshot-based workflows function without requiring a paid vision API.
-7. Keep the assistant useful even when optional AI providers are unavailable.
+## Users
 
-### Secondary goals
+- Players who want a team recommendation from their actual roster.
+- Players who want to explore team options across the complete canonical character scope.
+- Players making quick Divergent Universe choices from a screenshot or manual selection.
+- Evaluators checking whether data provenance, recommendation bounds, and account isolation are explicit.
 
-- Reduce repeated setup by remembering roster and preferences.
-- Make game-mode decisions faster, starting with Divergent Universe.
-- Make source disagreement visible instead of silently hiding it.
-- Allow Astralyn to combine strong parts of several source recommendations into one verdict.
+## Current user journeys
 
-## 3. Target users
+### Guest
 
-### Primary persona
+1. Open the 92-character catalog.
+2. Search and filter by Path, element, and rarity.
+3. Open a character dossier and inspect kit provenance.
+4. Request deterministic teams with `All Characters` scope.
+5. Optionally focus the recommendation on one canonical character.
+6. Configure a Divergent Universe party and target equation.
+7. submit one to three manual or OCR-derived choices and commit the ranked result to local run state.
 
-A regular HSR player who owns a mixed roster, wants direct recommendations, checks build/team guides, plays endgame or roguelike content, and values “best available for my account” more than theoretical whale teams.
+Guest mode does not create ownership records. `Owned Only` and `My Roster` require an authenticated user.
 
-### Secondary persona
+### Authenticated player
 
-A newer player who wants clear build priority, best teammates from available characters, and understandable explanations without advanced theorycraft jargon.
+1. Sign in through Google OAuth.
+2. Complete onboarding by selecting at least one owned character.
+3. Add, edit, or remove roster entries from `/roster`.
+4. Request `All Characters` or `My Roster` teams.
+5. Save and manage four-character teams.
+6. Sign out without losing public knowledge or local DU state.
 
-## 4. Core modules
+An authenticated user may later remove every roster entry. `My Roster` then returns an explicit insufficient-roster result instead of substituting canonical characters.
 
-### Home
-- current patch / knowledge freshness;
-- roster readiness;
-- recent recommendations;
-- resume active DU run;
-- quick character/team/content search.
+## Functional requirements
 
-### Roster
-- view owned characters;
-- filter by Path, element, rarity, level;
-- edit level and Eidolon;
-- optional Light Cone/build metadata later;
-- persistent edits live under Settings after onboarding.
+### Knowledge
 
-### Characters
-Each character page may contain overview, kit/abilities, trace priority, Eidolons, Best Light Cones Top 1–3, Best Relic + Planar combinations Top 1–3, Best Builds, Best Teams Top 1–3, Best Teammates, gameplay notes, source comparison, and Astralyn Verdict.
+- Publish immutable, versioned static knowledge files.
+- Verify downloaded bytes against release SHA-256 values before caching.
+- Preserve a previously valid IndexedDB cache when an update is invalid.
+- Keep source facts separate from Astralyn role and mechanic-tag mappings.
+- Show limited or unavailable states instead of filling gaps with invented data.
 
-### Best Characters
-Contextual rankings by patch, role, archetype and game mode. A ranking always exposes patch and source freshness.
+### Recommendations
 
-### Teams
-- Best Team From My Roster;
-- Best Team Around Character X;
-- Best Team for a stage;
-- alternatives when key units are missing;
-- Top 1–3 with role breakdown and reasons.
+- Return reproducible Top 1 to 3 team results.
+- Require an explicit `all_characters` or `owned_only` scope.
+- Keep canonical availability separate from user ownership.
+- Preserve a focused character in the candidate stage when a valid focus is provided.
+- Bound candidate and combination evaluation before scoring.
+- Keep score weights versioned and testable in `@astralyn/shared`.
+- Emit reason codes and taxonomy state with each result.
 
-### Content Advisor
-Initial categories: General, Divergent Universe, Memory of Chaos, Pure Fiction, Apocalyptic Shadow. Limited-event support comes later.
+### Account data
 
-### Assistant
-Screenshot-first entry point for roster screenshots, stage/enemy screenshots, and Divergent Universe choice screenshots. Results include recognized context, ranked options, brief reasoning, and correction when OCR/entity matching is wrong.
+- Derive user identity from the Better Auth session, never request payload identity.
+- Scope every roster and saved-team query to the authenticated user.
+- Store roster progression only for characters the user explicitly owns.
+- Reject unauthenticated writes.
 
-### Settings
-- My Roster;
-- language;
-- display preferences;
-- OCR preferences;
-- source visibility;
-- optional AI fallback toggle;
-- account management.
+### Divergent Universe
 
-## 5. Onboarding
+- Keep screenshot processing in the browser.
+- Match OCR text only against canonical DU entities.
+- Allow manual correction and fully manual selection.
+- Rank one to three choices deterministically.
+- Persist active run state locally and validate it during hydration.
 
-1. Sign up / log in.
-2. Confirm language.
-3. Select owned characters.
-4. Optional: set levels/Eidolons.
-5. Confirm roster.
-6. Enter Astralyn Home.
+## Product limits in this build
 
-Rules:
-- onboarding is incomplete until roster selection is confirmed;
-- optional build details may be skipped;
-- roster is editable later from Settings;
-- recommendations must handle incomplete roster metadata gracefully.
+- The Content and Settings routes are placeholders.
+- Production OAuth, remote D1, and a live public origin are not configured.
+- Editorial multi-source comparison is unavailable in the public UI.
+- Light cone, relic, enemy, stage, and DU datasets are representative subsets, not complete catalogs.
+- Production-approved game artwork is not shipped.
+- AI explanation providers are an architectural seam, not a required or active ranking dependency.
 
-## 6. Recommendation presentation
+## Quality bar
 
-Every editorial recommendation page separates:
+- No paid API is required for core ranking.
+- Public requests cannot trigger unbounded team enumeration.
+- Repeated equivalent requests produce the same ordered results.
+- Auth errors, empty roster, short roster, unavailable editorial data, offline cache, and failed OCR have explicit states.
+- Primary routes remain usable with keyboard navigation and responsive layouts.
+- Repository validation gates pass under Node 24.19.x before release.
 
-### Source recommendations
-- Source A: Top 1–3
-- Source B: Top 1–3
-- Source C: Top 1–3
+## Non-goals
 
-### Astralyn Verdict
-One final recommendation generated from source consensus, official mechanics, current context, roster availability, and deterministic scoring. The verdict may combine compatible components from multiple sources.
-
-The UI shows result, confidence, short reasons, patch, source freshness and alternatives.
-
-## 7. Divergent Universe assistant
-
-Tracked run state:
-- difficulty/protocol;
-- party;
-- owned/trial status;
-- Mask;
-- Equations;
-- Blessings by Path;
-- Curios / Miracles;
-- current plane;
-- prior selections.
-
-Supported choice screens:
-- Mask;
-- Equation;
-- Blessing;
-- Curio;
-- event choice;
-- domain/zone choice;
-- rewards.
-
-Expected response normally fits one mobile viewport:
-
-**Pick: X**
-
-Why:
-- one or two decisive reasons.
-
-Not Y/Z:
-- one short reason each.
-
-## 8. Knowledge freshness
-
-Astralyn displays current official game version, knowledge version, and last verified timestamp.
-
-Game facts are never updated by user prompts.
-
-If current-patch ingestion is incomplete, show a stale-data warning, avoid unsupported “latest” claims, and retain the last known published snapshot.
-
-## 9. AI behavior
-
-AI is optional.
-
-AI may rewrite reason codes into natural language, summarize source disagreement, and help when OCR confidence is low if a free-tier provider is enabled.
-
-AI may not be the only source of factual mechanics, directly change canonical knowledge, overwrite provenance, or silently invent an unsupported build/team/effect.
-
-If AI is unavailable, deterministic recommendation output remains available.
-
-## 10. MVP success criteria
-
-Product:
-- user finishes onboarding and saves roster;
-- character pages expose 3-source comparison when data exists;
-- Astralyn Verdict returns a grounded recommendation with reason codes;
-- Team Recommender returns Top 1–3 from owned roster;
-- DU assistant remembers run state;
-- screenshot OCR recognizes curated HSR UI fixtures with acceptable accuracy;
-- core app requires no paid API calls.
-
-Quality:
-- no client-side path mutates canonical Game Knowledge;
-- every published recommendation has patch metadata;
-- regression fixtures cover key team/build cases;
-- UI works on common desktop and mobile widths.
+Astralyn is not currently a damage simulator, relic substat optimizer, HoYoLAB credential scraper, automatic account-sync service, warp tracker, achievement tracker, social network, or general chatbot.

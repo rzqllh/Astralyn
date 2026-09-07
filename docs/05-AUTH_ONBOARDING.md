@@ -1,78 +1,83 @@
-# Astralyn — Auth & Onboarding
+# Astralyn: auth and onboarding
 
-## Goal
+## Current policy
 
-Capture the user's roster with as little friction as possible because roster context is the foundation of personalization.
+Google OAuth through Better Auth is the only account provider in the current build. Cloudflare D1 stores identity, profile, roster, and saved-team records.
 
-## MVP auth policy
+Public knowledge, `All Characters` recommendations, and local DU tools do not require an account. `My Roster`, onboarding, roster persistence, and saved teams do.
 
-Primary launch provider:
-- Google OAuth via **Better Auth** running on Cloudflare Workers.
+## Local configuration
 
-Session management:
-- Signed, secure HTTP-only cookies managed by Better Auth.
-- Worker API verifies sessions via `auth(env).api.getSession({ headers })`.
+Run migrations before testing account flows:
 
-Do not add email/password, magic links, or extra social providers in MVP.
+```sh
+pnpm db:migrate:local
+```
 
-## First-run state machine & profile provisioning
+Copy `.env.example` to `apps/worker/.dev.vars` and provide:
 
 ```text
-SIGNED_OUT
-  ↓
-[Google OAuth Callback via Better Auth]
-  ↓
-AUTHENTICATED_UNONBOARDED
-  ↓ (Worker ensures Astralyn `profiles` record exists via idempotent upsert)
-ROSTER_SELECTION
-  ↓
-ROSTER_CONFIRMATION
-  ↓ (PUT /api/onboarding/complete -> sets onboarding_completed_at)
-READY (Astralyn Home)
+BETTER_AUTH_SECRET=<development-only random secret>
+BETTER_AUTH_URL=http://localhost:5173
+GOOGLE_CLIENT_ID=<Google OAuth client ID>
+GOOGLE_CLIENT_SECRET=<Google OAuth client secret>
 ```
 
-### Profile Provisioning
-Upon successful Better Auth callback, the application/Worker ensures a corresponding row in `profiles` exists for `user.id` (idempotent `INSERT OR IGNORE INTO profiles (user_id, preferred_language) VALUES (?, ?)`).
+The registered callback URI must be:
 
-### Roster selection
-- search;
-- filter by Path/element;
-- tap/select portraits;
-- optional screenshot OCR accelerator;
-- at least one selected character required.
-
-### Roster confirmation
-Show selected count and optional level/Eidolon edits, then `Finish setup`.
-
-On confirmation:
-- Worker receives authenticated roster payload;
-- writes records to `user_roster` within a D1 batch/transaction;
-- sets `profiles.onboarding_completed_at` timestamp.
-
-## After onboarding
-
-Roster editing path:
-`Settings → My Roster`
-
-Actions:
-- add newly pulled character;
-- remove mistaken entry;
-- change level;
-- change Eidolon.
-
-Recommendation results should refresh after roster changes.
-
-## Trial characters
-
-Trial availability is contextual and must never be stored as permanent ownership.
-
-```ts
-type Availability =
-  | { type: "owned" }
-  | { type: "trial"; source: "divergent_universe" }
-  | { type: "unavailable" };
+```text
+http://localhost:5173/api/auth/callback/google
 ```
 
-## Account deletion
+Wrangler reads `apps/worker/.dev.vars`. The file is ignored by Git and must never be committed.
 
-Deleting the account removes user profile, roster, saved teams/preferences and optional synced runtime data. It never touches public Game Knowledge.
+## State transitions
+
+```text
+signed out
+  | Google OAuth
+  v
+authenticated, onboarding incomplete
+  | select at least one character and finish setup
+  v
+authenticated, ready
+  | add, update, or remove entries at /roster
+  v
+authenticated roster, including a possible empty roster
+```
+
+Onboarding requires at least one initial selection. After onboarding, roster deletion may produce an empty roster. That is a valid account state; `owned_only` recommendations respond with `insufficient_roster` and do not borrow characters from the canonical pool.
+
+## API ownership boundary
+
+| Endpoint | Method | Session required |
+| --- | --- | --- |
+| `/api/auth/*` | Better Auth methods | Depends on method |
+| `/api/me` | `GET` | Yes |
+| `/api/onboarding/complete` | `PUT` | Yes |
+| `/api/roster` | `GET`, `PUT` | Yes |
+| `/api/roster/:characterId` | `DELETE` | Yes |
+| `/api/saved-teams` | `GET`, `POST` | Yes |
+| `/api/saved-teams/:id` | `GET`, `PUT`, `DELETE` | Yes |
+| `/api/recommendations/teams` with `owned_only` | `POST` | Yes |
+
+Handlers ignore client attempts to claim a different `user_id`. Identity comes from the verified session.
+
+## Roster semantics
+
+- Canonical character data describes what exists in the game snapshot.
+- A roster record describes what the signed-in user explicitly saved.
+- Level and Eidolon values belong only to saved roster records.
+- Trial availability is contextual and must not be persisted as ownership.
+- `all_characters` does not create, update, or imply roster ownership.
+
+## Expected errors
+
+- Missing Worker auth variables: account control reports auth configuration failure; guest surfaces remain usable.
+- Missing or invalid session on protected endpoints: HTTP 401.
+- Empty authenticated roster on `owned_only`: successful structured response with `status: "insufficient_roster"`.
+- Fewer than four owned characters: the same insufficient-roster state.
+
+Production sign-in remains unverified until a live HTTPS origin, remote secrets, remote D1 migrations, and the production OAuth callback are configured.
+
+Account deletion is not implemented in the current UI or Worker API.

@@ -1,234 +1,75 @@
-# Astralyn — Design System & UX Direction
+# Astralyn: design and UX contract
 
-## 1. Design Objective
+## Direction
 
-Astralyn is an **HSR-native companion tool**, built to feel immediately natural and intuitive to a Honkai: Star Rail player without copying proprietary game assets or falling into generic AI SaaS tropes.
+Astralyn is a dense game companion, not a general analytics dashboard. The interface uses dark navy surfaces, restrained gold action accents, compact metadata, and character-first hierarchy without copying the game client layout.
 
-The design borrows HSR's information hierarchy, panel composition, navigation rhythm, character-first presentation, rarity emphasis, sci-fi material language, cream/gold/dark-blue relationship, layered modal behavior, tab/selection patterns, dense-but-readable stats, and high-value motion.
+The current implementation uses React, Tailwind CSS, and Radix primitives. It supports desktop navigation, a mobile drawer, keyboard interaction, reduced-motion handling, loading states, empty states, and error states.
 
-Astralyn maintains:
-- Original celestial branding and vector emblem lockups;
-- Conservative visual asset pipeline with explicit vector fallback silhouettes (`Asset unavailable` in production; 52 candidate assets quarantined in dev showcase);
-- Original accessible component implementations (Radix UI primitives + Tailwind CSS v4);
-- Responsive web accessibility targeting WCAG 2.2 AA;
-- Strict production data boundary isolating all developer showcase views and UI fixtures..
+## Visual rules
 
----
+- Use gold for brand identity, primary action, focus, and recommendation emphasis.
+- Reserve rarity colors for rarity meaning.
+- Keep body text readable against dark surfaces; do not use low-contrast metadata for essential instructions.
+- Use monospace only for levels, Eidolons, scores, timestamps, and technical IDs.
+- Prefer compact panels with visible hierarchy over repeated decorative cards.
+- Avoid generic neon gradients, pervasive glass effects, ornamental particles, and unrelated dashboard metrics.
+- Use motion only for state transition or interaction feedback.
 
-## 2. Anti-AI-Slop Rules
+The concrete values live in `apps/web/src/styles.css` and component classes. Code is authoritative when this prose and the implementation differ.
 
-Strictly rejected:
-- Random purple/blue neon gradients as the interface identity;
-- Endless identical rounded cards stacked inside each other;
-- Excessive, performance-degrading glassmorphism;
-- Neon borders on every surface;
-- Oversized marketing hero copy inside utility screens;
-- Irrelevant dashboard KPI cards;
-- Badge/icon clutter without purpose;
-- Decorative particles without functional value;
-- Generic SaaS sidebar patterns;
-- Identical radius/elevation across disparate components.
+## Component behavior
 
-Every decorative element must serve hierarchy, interaction feedback, game context, or Astralyn branding.
+- Buttons expose loading, disabled, focus, and destructive variants.
+- Dialogs trap focus and close through expected keyboard controls.
+- Character controls expose selection state to assistive technology.
+- Images reserve dimensions and fall back without layout shift.
+- Recommendation results distinguish primary result, alternatives, reasons, evaluation counts, and Limited Data state.
+- Empty and error states explain the recovery action instead of showing an empty frame.
 
----
+## Production routes
 
-## 3. Concrete Design Tokens
+| Route | Current state |
+| --- | --- |
+| `/` | Knowledge status and product entry points |
+| `/roster` | Authenticated roster management |
+| `/onboarding` | Authenticated initial roster setup |
+| `/characters` | 92-character catalog |
+| `/characters/:characterId` | Character dossier and focused recommendation entry |
+| `/best-characters` | Role-oriented character matrix without fabricated tiers |
+| `/teams` | Authenticated saved teams |
+| `/recommendations` | All Characters and My Roster team recommendations |
+| `/assistant` | Divergent Universe setup, OCR/manual choices, and results |
+| `/content` | Explicit unavailable placeholder |
+| `/settings` | Explicit unavailable placeholder |
 
-### Color Palette
+The navigation currently exposes eight primary links. `/recommendations` is reached through recommendation actions rather than a separate rail item.
 
-#### Surfaces
-- `surface.base`: `#090C13` (Deep Cosmic Void)
-- `surface.raised`: `#101524` (Primary Utility Surface)
-- `surface.overlay`: `#161E32` (Elevated Panel Surface)
-- `surface.sunken`: `#05070A` (Background Sunken Well)
-- `surface.parchment`: `#EEE8DC` (Warm Celestial Parchment for item/lore detail)
-- `surface.parchment-raised`: `#F7F3EC`
-- `surface.parchment-border`: `#D4CCBD`
+## Development-only surfaces
 
-#### Text & Typography (Contrast-Tested toward WCAG 2.2 AA)
-- `text.primary`: `#F0F3FA` (High-contrast white, 16.5:1 on base)
-- `text.secondary`: `#9BA5BE` (Muted information, 6.5:1 on base)
-- `text.muted`: `#8E9CB5` (Subtle metadata, > 5.0:1 on base)
-- `text.inverse`: `#0D111A` (Dark text on gold/parchment)
-- `text.gold`: `#E5C179` (Astral metallic text)
-- `text.parchment.primary`: `#181D28` (> 10:1 on parchment)
-- `text.parchment.secondary`: `#565F75` (> 4.8:1 on parchment)
-- `text.parchment.accent`: `#634812` (> 5.5:1 on parchment)
+`design-system.html` is a separate Vite entry and is not a production router route. Its navigation link appears only in development unless explicitly enabled.
 
-#### Gold Semantic Token Split
-- `gold.brand`: `#DFB86C` (Astralyn brand emblem and identity)
-- `gold.action`: `#DFB86C` (Interactive primary buttons, focus rings)
-- `gold.action-hover`: `#F3D48F` (Hover shimmer)
-- `gold.rarity`: `#D89F37` (5★ character/light cone framing)
-- `gold.verdict`: `#F4D38F` (Astralyn Verdict header and match badges)
-- `gold.glow`: `rgba(223, 184, 108, 0.28)`
+The repository contains 52 `manual_review` game asset records for development inspection. Production source cannot import them, and production routes use fallback silhouettes. Do not use a local development screenshot as evidence that artwork ships in the production build.
 
-#### Borders
-- `border.subtle`: `rgba(155, 165, 190, 0.12)`
-- `border.medium`: `rgba(155, 165, 190, 0.24)`
-- `border.strong`: `rgba(155, 165, 190, 0.40)`
-- `border.gold`: `rgba(223, 184, 108, 0.45)`
-- `border.gold.solid`: `#DFB86C`
+## Responsive contract
 
-#### Status Tokens
-- `status.success`: `#34D399` (Emerald)
-- `status.warning`: `#FBBF24` (Amber)
-- `status.danger`: `#F87171` (Coral Red)
-- `status.info`: `#38BDF8` (Sky Blue)
+- Desktop: persistent side navigation and multi-column content where useful.
+- Tablet: grids reduce columns without hiding primary actions.
+- Mobile: single-column content, drawer navigation, no horizontal page overflow, and touch targets sized for direct interaction.
 
-#### Game-Context Tokens
-- **Rarity 5★:** Base `#D89F37`, Background `rgba(216, 159, 55, 0.14)`
-- **Rarity 4★:** Base `#9D7FE6`, Background `rgba(157, 127, 230, 0.14)`
-- **Physical:** `#ABB2BF`
-- **Fire:** `#F87171`
-- **Ice:** `#38BDF8`
-- **Lightning:** `#C084FC`
-- **Wind:** `#34D399`
-- **Quantum:** `#818CF8`
-- **Imaginary:** `#FBBF24`
+Exact breakpoint behavior is enforced in components and Playwright coverage rather than fixed to a single showcase viewport.
 
----
+## Accessibility claims
 
-## 4. Typography Scale & Semantic Rules
+Automated Playwright checks use Axe on covered routes and states. Passing those checks means no configured automated violations were found there; it is not a blanket WCAG certification.
 
-- **Display Header:** 28–32px Black (`tracking-tight`, uppercase, gold gradient support)
-- **Section Heading:** 18–20px Bold (`text-[#F0F3FA]`)
-- **Entity Title:** 14–16px Semibold (`text-[#F0F3FA]`)
-- **Body:** 13–14px Regular (`text-[#9BA5BE]`, leading-relaxed)
-- **Compact Body / Metadata:** 11–12px Regular (`text-[#9BA5BE]`)
-- **Strict Monospace Rule:** Monospace (`font-mono`) is strictly restricted to numerical stats, multipliers, Eidolon levels (`E2`), character levels (`Lv.80`), match scores (`97%`), timestamps, and technical IDs. General UI labels and headings use sans-serif.
+Manual review remains necessary for keyboard order, visible focus, dialog behavior, screen-reader names, contrast, zoom/reflow, touch targets, and reduced motion.
 
-Font stack:
-- Sans: `'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`
-- Mono: `'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace`
+## Honest state rules
 
----
-
-## 5. Geometry & Corner Treatment
-
-- **Utility Panels:** Chamfered corners via `.clip-chamfer-sm` (6px 45-degree corner cuts) or subtle 2px rounded corners (`rounded-xs`/`rounded-sm`).
-- **Accent Frames:** Asymmetrical 45-degree top-right gold corner markers on highlight panels.
-- **Badges & Tags:** `.clip-tag` with 8px angular corner cut.
-- **Buttons:** 2px rounded corners with bevel gradient borders.
-
----
-## 5. Visual Hierarchy & Layering (Elevation Model)
-
-- **Base Canvas (`z-0`, `#090C13`):** Dark cosmic void with subtle SVG radial grid.
-- **Surface Panels (`z-10`, `#101524` / `#161E32`):** Primary analytical containers, card backgrounds, and module workspaces.
-- **Light Contrast Dossier (`z-10`, `#EEE8DC`):** High-contrast celestial parchment for detailed character inspection and lore notes.
-- **Floating HUD / Rails (`z-20`–`z-30`):** Sticky top status bar and left companion rail with `backdrop-blur-md`.
-- **Modals / Toasts / Drawers (`z-40`–`z-50`):** Floating dialogs, toasts, tooltips, and mobile navigation overlays.
-
----
-
-## 6. Anti-AI-Slop & Design Taste Rules
-
-1. **Information Density with Purpose:** No empty card bloat. Every tile displays actionable metadata (rarity, element, path, Eidolon, level).
-2. **Tabular Numerals for Numerical Stats:** All multipliers, levels, eidolon ranks, percentages, and timestamps use `font-mono tabular-nums`.
-3. **Restricted Monospace:** Monospace font is strictly reserved for technical data and metrics; headings, navigation, and body copy use high-legibility sans-serif (`font-sans`).
-4. **Honest System States:** Fixture data is clearly labeled (`Sample Output`, `Demo Data`, `(Illustrative Demo)`).
-5. **No Decorative Clutter:** No gratuitous neon glow, excessive drop shadows, or ungrounded animations.
-6. **High-Legibility Mobile Typography:**
-   - Normal body text: 14–16px (`text-sm` / `text-base`);
-   - Compact body text: 13–14px (`text-xs sm:text-sm`);
-   - Secondary metadata / captions: 11–12px (`text-xs`);
-   - 10px font size (`text-[10px]`): strictly limited to non-essential compact tags/chips (e.g. `Lv.80`, `E2`, `FIXTURE`).
-
----
-
-## 7. Versioned Game Asset Pipeline, Optimization & Caching Strategy
-
-- **Three-Tier Architecture:**
-  1. *Full Catalog Schema Model:* Comprehensive schema supporting all 17 entity types across Honkai: Star Rail (`AssetEntityTypeSchema`).
-  2. *Data-Driven Discovery & Sync Pipeline:* `tools/sync-assets.ts` with `--full` (dynamic upstream index discovery across 4,359 entities and 4,557 asset variant targets), `--dry-run` (non-destructive reporting distinguishing `catalog_discovered`, `mapped_subset`, `pipeline_discovery_pending`, and `not_yet_discoverable`), and default `--snapshot` (curated 51-asset dev subset).
-  3. *Dev Snapshot:* Curated representative subset (51 assets across all 8 roster fixtures, 7 elements, 8 paths, light cones, relics, and DU items) checked into Git for local development.
-  4. *Production Release:* Release-tagged immutable assets (`/game-assets/<release>/...`) served via Cloudflare Static Assets.
-- **Context-Specific Sizing & Formats:**
-  - *Character Previews:* 512x512px clean alpha PNG (~45–80 KB), high-resolution for tactical roster tiles and character profile hero.
-  - *Character Icons:* 128x128px circular PNG (~10–25 KB), optimized for compact lists and HUD avatars.
-  - *Combat Elements & Paths:* Crisp transparent PNGs (~2–8 KB), preserving exact silhouette alpha.
-  - *Light Cones & Relics:* 256x256px crisp PNG (~20–40 KB).
-- **Asset Loading Semantics:**
-  - Same-origin static image loading;
-  - Reserved dimensions and aspect-ratio containers to guarantee zero layout shift;
-  - In-memory manifest lookups via `getAssetUrl(type, id, variant)` / `getAssetRecord()`;
-  - Controlled asynchronous decode with automatic vector fallback rendering upon load error.
-- **Cache Strategy & Invalidation Distinction:**
-  - *Target Production Cache Policy:*
-    - Versioned immutable asset binaries: `Cache-Control: public, max-age=31536000, immutable` (long-lived 1-year edge caching).
-    - Release manifest (`manifest.json`): `Cache-Control: public, max-age=300, stale-while-revalidate=3600`.
-  - *Verified Deployed Cache Behavior:*
-    - Local development and preview environments verified via Vite same-origin static file serving.
-    - Remote Cloudflare CDN edge header verification is deferred to Phase 9 production deployment.
-- **Graceful Vector Fallback:** The `<GameAssetImage>` component automatically falls back to an accessible, non-broken Astralyn SVG vector silhouette upon load error or missing manifest entry without layout shift.
-- **No Third-Party Runtime Hotlinking:** Runtime fetches to external GitHub/wiki repositories are strictly forbidden.
-- **Conservative Provenance:** Game artwork is © COGNOSPHERE / HoYoverse. Repository automation licenses (AGPL-3.0) do not relicense underlying artwork. Assets are managed conservatively under the HoYoverse Fan Content Policy without asserting fair use as a legal conclusion.
-
----
-
-## 8. Foundational UI Primitives
-
-1. **Button / IconButton:** Primary Gold, Secondary Navy, Outline, Ghost, Danger, and Parchment variants.
-2. **Panel:** Layered container supporting default, raised, sunken, highlight, and parchment styles.
-3. **SectionHeader:** HSR diamond emblem with category badge, title, subtitle, and action slots.
-4. **Tabs:** Radix-powered accessible tabs with metallic gold sliding underline.
-5. **Badge / Tag:** Status, Rarity (5★/4★), Element, and Confidence indicators.
-6. **Input / Select:** Accessible form controls with validation and helper text.
-7. **Dialog / Modal:** Radix-powered focus-trapped dialogs with gold corner accents.
-8. **Tooltip:** Accessible hover/focus tooltips.
-9. **Toast:** Contextual transient feedback provider.
-10. **Divider:** Tapered line separator with central gold diamond motif.
-11. **Skeleton / EmptyState:** Shimmering async loaders and contextual zero-data views.
-12. **GameAssetImage:** Asset-manifest backed image loader with fallback resilience.
-
----
-
-## 9. Foundational Domain Components
-
-1. **CharacterTile v2:** Tactical portrait tiles with real character artwork, Path & Element icons, rarity borders (5★ Gold / 4★ Violet), eidolon chips, level badges, and full keyboard accessibility (`role="button"` + `aria-pressed`).
-2. **RecommendationPanel:** Visualizes the "ASTRALYN VERDICT", #1 Best Fit recommendation, percentage match gauge, confidence tier, and rationale checklist with honest demo labels.
-3. **SourceRankPanel:** 3-source consensus matrix (Prydwen, Game8, Theorycraft) with transparent community disclaimer and sample layout disclosures.
-4. **DecisionCard:** Fast Divergent Universe decision card providing instant "PICK [X]" clarity, why-to-pick bullets, and why-not-alternatives trade-offs.
-
----
-
-## 10. Locked Production Navigation Contract
-
-The user-facing navigation rail strictly exposes 8 production modules:
-1. `Home` (`/`)
-2. `Roster` (`/roster`)
-3. `Characters` (`/characters`)
-4. `Best Characters` (`/best-characters`)
-5. `Teams` (`/teams`)
-6. `Content` (`/content`)
-7. `Assistant` (`/assistant`)
-8. `Settings` (`/settings`)
-
-The internal design system showcase is hosted at a dedicated developer entry point (`design-system.html`) that is entirely excluded from production routing. A dev-only anchor link is rendered in the footer rail strictly in local Vite development mode (`import.meta.env.DEV`).
-
----
-
-## 11. Responsive Architecture
-
-- **Desktop (1440px):** Persistent left rail (w-64), top HUD status bar, multi-column dashboard.
-- **Tablet (768px):** Reflowed 2-column grid, responsive header, preserved touch targets.
-- **Mobile (390px):** Single-column layout, top navigation bar with slide-out drawer, touch targets >= 44px, zero horizontal overflow (`100dvh` stability).
-
----
-
-## 12. UI State & Fixture Boundaries
-
-To prevent developer aids or demo data from being mistaken for production functionality, UI elements are classified according to strict operational boundaries:
-
-| UI Element / State | Route / Location | Classification | Operational Intent |
-|---|---|---|---|
-| **Production Navigation (8 Links)** | Navigation Rail (`/`, `/roster`, etc.) | `production_valid` | Locked user-facing navigation structure. |
-| **Dev DS Link** | Navigation Footer (`design-system.html`) | `development_only` | Standalone link rendered strictly in dev mode (`isDev`) pointing to isolated multi-page entry. |
-| **Design System Showcase** | `design-system.html` | `development_only` | Standalone development entry mounting `DesignSystemView`; isolated from production router. |
-| **Account Unavailable State** | Top HUD Header | `production_valid` | Truthful state indicating authenticated profiles will be connected in Phase 4. |
-| **Home Knowledge Sync Card** | Home (`/`) | `production_valid` | Live display of current synchronized canonical knowledge release version and status. |
-| **Static Unsupported Module Cards** | Home (`/`) | `production_valid` | Clear truthful status indicators for upcoming modules without synthetic roster or score data. |
-| **Quarantined Asset Candidates (52 PNGs)** | `src/dev/game-assets/v1.0.0/` | `development_only` | Verified PNG candidate assets retained strictly for dev showcase inspection. |
-| **Production Image Silhouettes** | Component Surfaces | `production_valid` | High-contrast accessible vector fallback (`Asset unavailable`) rendered in production runtime. |
+- Never render fixture recommendations as live results.
+- Never show an ownership badge for a canonical-only character.
+- Label incomplete taxonomy as Limited Data.
+- Label unavailable editorial comparison and unfinished modules directly.
+- Keep auth configuration errors separate from knowledge-loading errors.
+- Do not imply that all 92 characters are simultaneously scored when the bounded candidate stage selects at most 16.

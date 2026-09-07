@@ -1,149 +1,70 @@
-# Astralyn — Data Ingestion
+# Astralyn: data ingestion and publication
 
-## Purpose
+## Current status
 
-Keep canonical Game Knowledge aligned with the latest official HSR patch without hitting official sources on every user request.
+The repository has deterministic snapshot build and validation tools, source adapter interfaces, persistence schemas, a protected export endpoint, and ingestion orchestration scaffolding.
 
-## Critical rule
+It does **not** currently ship configured real production adapters or a GitHub Actions workflow. The scheduled Worker path intentionally performs no ingestion when no real adapters are configured. Documentation and UI must not describe automated current-patch publication as active production behavior.
 
-Do not assume a single public complete “HoYoverse HSR database API” exists.
+## Trust boundary
 
-The ingestion layer uses **approved official HoYoverse-source adapters**. Each adapter has a documented source, parser, validation contract and access policy.
+- Tier A official facts may define canonical game mechanics and metadata.
+- Tier B structured community data may provide IDs, mappings, and source material that requires validation.
+- Tier C editorial data may inform recommendation comparisons when explicitly available.
+- Astralyn roles and mechanic tags are internal mappings derived from stored kit facts, not official HoYoverse classifications.
 
-Official factual sources have priority over guide/community sources.
+See [Source policy](07-SOURCE_POLICY.md) and [Character taxonomy](15-CHARACTER_TAXONOMY.md).
 
-## Pipeline
-
-```text
-Official sources
-      ↓
-Change detection
-      ↓
-Fetch only when needed
-      ↓
-Parse
-      ↓
-Normalize
-      ↓
-Schema validation
-      ↓
-Cross-field validation
-      ↓
-Draft knowledge release
-      ↓
-Regression tests
-      ↓
-Publish
-      ↓
-Generate static snapshots
-```
-
-## Cadence
-
-### Normal period
-- lightweight source/version check roughly once per day.
-
-### Patch window
-- increase checks around expected patch release;
-- manual workflow dispatch allowed.
-
-### User traffic
-- must not affect source polling frequency.
-
-Ten users and one hundred thousand users should produce roughly the same official-source ingestion traffic.
-
-## Change detection
-
-Use when available:
-- `ETag`;
-- `Last-Modified`;
-- content hash;
-- official version/update identifier.
-
-Flow:
-1. cheapest metadata/conditional check;
-2. unchanged → stop;
-3. changed → fetch and parse;
-4. normalized hash unchanged → do not publish.
-
-## Official source allowlist
-
-Keep it in config, not scattered through code.
-
-```yaml
-official_sources:
-  - id: hsr_official_site
-    domain: hsr.hoyoverse.com
-  - id: hoyolab_official_hsr
-    domain: hoyolab.com
-```
-
-Every adapter documents accepted URLs, extracted fields, access/ToS review status, change detection, parser owner and fixtures.
-
-## Patch awareness
-
-Every record/snapshot carries:
-- game version;
-- knowledge version;
-- source snapshot hash;
-- verified timestamp.
-
-Never infer “latest patch” solely from the client clock. The ingestion/publishing pipeline determines the current release.
-
-## Draft vs publish
-
-States:
+## Implemented publication path
 
 ```text
-fetched
-parsed
-validated
-draft
-published
-rejected
+canonical fixtures and taxonomy overlay
+  |
+  | pnpm knowledge:build
+  v
+schema validation and deterministic ID ordering
+  |
+  v
+versioned JSON files and SHA-256 release manifest
+  |
+  | pnpm knowledge:check
+  v
+file, hash, schema, duplicate, and reference verification
+  |
+  v
+apps/web/public/data/<knowledge-version>/
 ```
 
-Never write fetched data straight into the active published snapshot.
+`pnpm knowledge:build` is a write operation. Run it only for an intentional data release and review every generated change. `pnpm knowledge:check` is read-only validation.
 
-Publish requires schema validation, entity/reference checks, regression tests, and manual approval when a major parser/source contract changes.
+## Implemented ingestion foundations
 
-## Factual vs editorial ingestion
+- Shared `SourceAdapter` contracts.
+- D1 tables for sources, snapshots, recommendation sets, and items.
+- Adapter isolation so one failure does not automatically abort every source.
+- Protected `GET /api/_internal/export-release` using `INTERNAL_BUILDER_SECRET`.
+- Build tooling support for fetching an export when the explicit secret and endpoint are supplied.
+- Safe scheduled-handler no-op when production adapters are absent.
 
-Factual data: official mechanics, identities, skill/content rules. Official source wins.
+## Known production gaps
 
-Editorial data: builds, teams, rankings. Multiple independent sources feed Astralyn consensus.
+- No committed real official or editorial adapter configuration.
+- No committed scheduled CI workflow.
+- The orchestrator content hash helper is scaffolding, not a production cryptographic hash contract.
+- No deployed Worker, remote D1 verification, or production secret provisioning.
+- No automated patch-transition exercise against a live release.
 
-Editorial data can never overwrite factual fields.
+## Publication rules
 
-## Rate limiting
+1. Never fetch official or community sources per user request.
+2. Never publish a partially validated release.
+3. Never let editorial data overwrite official fact fields.
+4. Never infer the active patch from the browser clock.
+5. Keep source URL, source ID, authority tier, game version, and verification time with evidence.
+6. Preserve the previous published release when fetching, parsing, validation, or checksum generation fails.
+7. Review source terms and access policy before enabling automation.
 
-Per source:
-- minimum check interval;
-- maximum checks/day;
-- exponential backoff;
-- retry ceiling;
-- respect `Retry-After` where relevant.
-
-Never bypass explicit anti-bot controls.
-
-If reliable automation is disallowed or unstable, use curated/manual adapter input with provenance instead of aggressive scraping.
-
-## Static publication & Tooling
-
-Static snapshots are compiled deterministically and verified with dedicated CI tools:
-
-- `pnpm knowledge:build` (`tools/build-knowledge.ts`):
-  - Validates all source fixtures against Zod 4 runtime schemas.
-  - Sorts entities deterministically by ID.
-  - Writes static files to `apps/web/public/data/<knowledge-version>/`.
-  - Computes SHA-256 hashes and generates `release.json` and root `manifest.json`.
-- `pnpm knowledge:check` (`tools/check-knowledge.ts`):
-  - Validates root manifest and release descriptors.
-  - Verifies disk file existence and SHA-256 bit-for-bit checksum matches.
-  - Enforces schema validation, referential integrity (stage enemies), and duplicate ID rejection.
-  - Checks ID interoperability with visual asset manifests.
-
-Published release layout:
+## Release layout
 
 ```text
 /data/manifest.json
@@ -156,11 +77,4 @@ Published release layout:
 /data/<knowledge-version>/divergent-universe.json
 ```
 
-`manifest.json` points clients to the active release. Older releases remain for rollback according to retention policy.
-
-## Failure policy
-
-If ingestion or validation fails, keep the last published release and never replace valid knowledge with a partial release. Dexie client cache atomically guarantees that local clients retain their previous valid cache if a newly published release fails transmission or runtime validation.
-
-If official facts conflict with an editorial source, official facts win and affected recommendations must be recomputed.
-
+The root manifest selects the active immutable release. The client verifies release hashes before replacing its local cache.

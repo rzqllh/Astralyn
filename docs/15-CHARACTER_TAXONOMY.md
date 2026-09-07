@@ -1,4 +1,6 @@
-# Phase 10C — Evidence-Backed Astralyn Character Taxonomy
+# Astralyn character taxonomy evidence
+
+This is the current evidence matrix created during Phase 10C. It distinguishes official character-specific kit facts from Astralyn's internal role and mechanic-tag mappings. A `tier_a_official` provenance record verifies the cited source fact, not HoYoverse adoption of Astralyn's taxonomy vocabulary.
 
 ## Scope and method
 

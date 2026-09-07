@@ -1,197 +1,100 @@
-# Astralyn — Architecture
+# Astralyn: architecture
 
-## 1. Principles
+## Principles
 
-1. Free-first.
-2. Static/client-heavy.
-3. Canonical game facts are server-controlled.
-4. User personalization is account-backed.
-5. Client caches aggressively.
-6. Recommendations are deterministic at the core.
-7. AI is optional synthesis/fallback.
-8. Game knowledge is versioned and published as immutable snapshots.
-9. One ingestion event serves all users; never fetch official sources per user request.
-10. Game factual knowledge and visual game assets are strictly separate domains.
+1. Static knowledge and client-side computation carry the public workload.
+2. Canonical facts are versioned and cannot be mutated by user input.
+3. User-owned state is separate from canonical character availability.
+4. Account data is accessed through a session-scoped Worker API.
+5. Recommendation work is deterministic and bounded.
+6. Screenshot processing stays in the browser.
+7. Missing data produces an explicit reduced or unavailable state.
 
-## 2. Primary stack
+## Workspace
 
-### Frontend
-- React
-- Vite
-- TypeScript
-- Tailwind CSS
-- Radix UI
-- TanStack Router
-- Zustand
-- Zod
-- Dexie / IndexedDB
-- Fuse.js
-- Canvas / OffscreenCanvas
-- PaddleOCR.js / PP-OCRv5
+| Area | Technology | Responsibility |
+| --- | --- | --- |
+| `apps/web` | React 19, Vite 8, TypeScript, Tailwind CSS 4, TanStack Router | UI, static knowledge loading, IndexedDB cache, local DU state, OCR |
+| `apps/worker` | Cloudflare Workers, D1, Drizzle, Better Auth | Auth, profile, roster, saved teams, team recommendation endpoint, protected release export |
+| `packages/shared` | TypeScript, Zod | Knowledge schemas, canonical fixtures, taxonomy overlay, team and DU scoring |
+| `tools` | TypeScript scripts | Snapshot build/check, migration checks, production-boundary checks, asset checks |
 
-### Backend / Account & API
-Primary:
-- Cloudflare Workers
-- Cloudflare D1 (SQLite)
-- Drizzle ORM (D1 driver)
-- Better Auth (Google OAuth for MVP)
-- Worker-level Invariant Authorization
-
-### Hosting & CDN
-Primary:
-- Cloudflare Pages / Cloudflare Workers Static Assets (Global Edge CDN)
-
-### Testing
-- Vitest
-- Testing Library
-- Playwright
-
-### CI / Ingestion, Asset Pipeline & Boundary Checks
-- GitHub Actions
-- scheduled source polling
-- manual workflow dispatch for patch-day sync
-- versioned static game asset pipeline (`tools/sync-assets.ts`, `tools/check-assets.ts`)
-- build-time production boundary validator (`tools/check-production-data.ts`)
-
-## 3. Runtime topology
+## Local runtime
 
 ```text
-User Browser
-│
-├── Static Astralyn App (Cloudflare CDN / Static Assets)
-│   ├── React UI (with strict production data boundary)
-│   ├── Recommendation Engine (Deterministic)
-│   ├── OCR Worker (In-Browser Web Worker)
-│   ├── IndexedDB Cache (Dexie)
-│   ├── Published Knowledge Snapshots (/data/<version>/...)
-│   └── Vector Fallback Silhouettes (0 production-approved assets shipped in v0.0)
-│
-├── Development Showcase (Isolated Multi-Page Entry: design-system.html)
-│   ├── Dev Design System Showcase
-│   └── Dev-Only Manual-Review Game Assets (/src/dev/game-assets/<release>/...)
-│
-└── Authenticated Worker API (/api/...)
-    ├── Better Auth Handler (/api/auth/*)
-    ├── Session Verification (auth.api.getSession)
-    ├── Worker Authorization (user_id = session.user.id)
-    └── D1 Database (User Roster, Profiles, Saved Teams)
-
-Trusted CI / Ingestion Pipeline (GitHub Actions)
-│
-├── official source adapters
-├── editorial source adapters
-├── validation & normalization
-├── consensus precomputation
-└── D1 Canonical Database Ingestion (Privileged / Direct)
-      ↓
-Snapshot build
-      ↓
-Static versioned JSON (/public/data/<version>/...)
-      ↓
-Cloudflare CDN / Static Cache
+Browser at localhost:5173
+  |
+  |-- React routes
+  |-- /data/* static knowledge from apps/web/public
+  |-- IndexedDB knowledge cache
+  |-- localStorage DU run state
+  |-- Tesseract.js OCR Web Worker
+  |
+  `-- /api/* through Vite proxy
+          |
+          `-- Worker at 127.0.0.1:8787
+                |-- Better Auth
+                |-- session-scoped API handlers
+                `-- local D1
 ```
 
-## 4. Data read strategy
+`pnpm dev` starts both workspace dev servers. `pnpm db:migrate:local` initializes the local D1 schema.
 
-Client reads game knowledge in this order:
-1. Dexie IndexedDB client knowledge cache (`AstralynKnowledgeCache`);
-2. Versioned static JSON snapshot on Cloudflare Static Assets (`/data/<knowledge-version>/...`);
-3. Background synchronization: client checks `/data/manifest.json` for newer knowledge releases and transactionally updates IndexedDB cache.
+## Knowledge reads
 
-Do not query D1/Postgres for static game knowledge, characters, relics, light cones, or DU data.
+The client loads `/data/manifest.json`, resolves the active release, verifies each file against `release.json`, parses it with shared Zod schemas, and replaces the Dexie cache transactionally.
 
-Static snapshot file structure:
+The current release layout is:
 
 ```text
-/data/manifest.json
-/data/<knowledge-version>/release.json
-/data/<knowledge-version>/characters.json
-/data/<knowledge-version>/light-cones.json
-/data/<knowledge-version>/relics.json
-/data/<knowledge-version>/enemies.json
-/data/<knowledge-version>/stages.json
-/data/<knowledge-version>/divergent-universe.json
+apps/web/public/data/
+  manifest.json
+  v1.0.0/
+    release.json
+    characters.json
+    light-cones.json
+    relics.json
+    enemies.json
+    stages.json
+    divergent-universe.json
 ```
 
-`manifest.json` includes `currentKnowledgeVersion`, `gameVersion`, `schemaVersion`, `publishedAt`, and release descriptor mapping with file SHA-256 checksums and minimum compatible app version.
+Cached data is used for fast repository queries and offline fallback. The static release remains authoritative. A matching version string is not sufficient for freshness; the cached source hash must also match.
 
-## 5. User data strategy
+## Recommendation execution
 
-Server:
-- identity;
-- onboarding state;
-- roster;
-- saved teams/preferences.
+`POST /api/recommendations/teams` accepts an explicit scope:
 
-Local:
-- latest knowledge snapshot;
-- OCR state/cache where supported;
-- current DU run;
-- transient screenshot data;
-- immediate UI preferences.
+- `all_characters` begins with canonical availability and may run without a session.
+- `owned_only` requires a session and begins with the persisted user roster.
 
-Screenshots are not uploaded by default.
+The shared engine deterministically prefilters to at most 16 candidates, then evaluates four-character combinations. The hard maximum is 1,820 teams without focus or 455 teams with a pinned focus character. The endpoint reads ownership data but never writes it.
 
-## 6. Free-tier containment
+## User data
 
-- **Cloudflare Static Assets:** Keep static traffic static. Deliver all immutable knowledge releases and game visual assets directly via CDN edge cache. Avoid per-request SSR or Worker proxying for static files.
-- **Cloudflare D1:** Keep public Game Knowledge delivery off database reads. Use D1 strictly for authenticated user state (profiles, roster, saved teams) and canonical ingestion persistence. Index all user foreign keys (`user_id`) to minimize scanned rows.
-- **Cloudflare Workers:** API operations are scoped strictly to authenticated user endpoints. Session verification uses signed cookies to minimize unnecessary roundtrips.
+D1 stores Better Auth tables plus Astralyn profiles, roster entries, saved teams, and saved-team members. Every protected handler derives `user.id` from the session and binds it in database queries.
 
-## 7. AI provider abstraction
+Canonical game knowledge is delivered as static files. Normal client routes do not write canonical knowledge tables.
 
-```ts
-interface ExplanationProvider {
-  explain(input: ExplanationInput): Promise<ExplanationOutput>;
-}
-```
+## Browser-local data
 
-Implementations:
-- deterministic template provider — default, always available;
-- Gemini free-tier adapter — optional;
-- Cloudflare Workers AI adapter — optional.
+- Knowledge cache: Dexie / IndexedDB.
+- Active DU run: validated Zustand persistence in `localStorage`.
+- Screenshot: transient browser memory.
+- OCR: dedicated browser Web Worker.
 
-Ranking is produced before this layer.
+## Visual assets
 
-## 8. Versioned Static Game Asset Delivery Architecture
+Game artwork is a separate provenance domain. The repository contains 52 development-only PNG asset records marked `manual_review`. They are excluded from the production bundle. Production routes use accessible fallback silhouettes and do not hotlink third-party asset servers.
 
-Visual game assets (icons, character previews, portraits, element badges, path symbols) are decoupled from factual game knowledge:
+## Production topology
 
-```text
-/public/game-assets/<release>/
-  ├── manifest.json
-  ├── characters/
-  ├── elements/
-  ├── paths/
-  ├── light-cones/
-  ├── relics/
-  └── du/
-```
+Cloudflare is the intended host, but no live origin exists. The repository has not yet selected or committed a production same-origin topology for the web build and `/api/*`. The required decision and smoke gates are documented in [Deployment](16-DEPLOYMENT.md).
 
-- **Manifest Schema:** Strongly typed via Zod (`AssetManifestSchema`, `AssetRecordSchema`), tracking entity type, entity ID, variant, local path, source URL, license, copyright owner, and SHA-256 checksum.
-- **Discovery Taxonomy:** Distinguishes dynamic upstream discovery (`catalog_discovered`: 8 types including characters, light cones, relic sets, elements, paths, materials), curated development subsets (`mapped_subset`: planar ornaments, DU blessings/curios), verified upstream structured indexes with parser integration scheduled in Phase 2 (`pipeline_discovery_pending`: eidolon, skill, trace, relic piece icons), and unexposed index types (`not_yet_discoverable`: enemy icons, DU equation icons).
-- **Asset Loading Semantics:**
-  - Same-origin static image loading;
-  - Reserved dimensions and aspect-ratio containers to guarantee zero layout shift;
-  - In-memory manifest lookups via `getAssetUrl(type, id, variant)` / `getAssetRecord()`;
-  - Controlled asynchronous decode with automatic vector fallback rendering upon load error.
-- **Cache Strategy Distinction:**
-  - *Target Production Cache Policy:*
-    - Versioned immutable asset binaries: `Cache-Control: public, max-age=31536000, immutable` (long-lived 1-year edge caching).
-    - Release manifest (`manifest.json`): `Cache-Control: public, max-age=300, stale-while-revalidate=3600`.
-  - *Verified Deployed Cache Behavior:*
-    - Local development and preview environments verified via Vite same-origin static file serving.
-    - Remote Cloudflare CDN edge header verification is deferred to Phase 9 production deployment.
-- **Runtime Hotlinking Exclusion:** Third-party remote URLs are never accessed at client runtime.
-- **Graceful Fallback Guarantees:** Missing or invalid asset references render accessible, zero-layout-shift Astralyn vector fallback silhouettes (`<GameAssetImage>`).
-- **Provenance & Legal Boundary:** Repository automation licenses (e.g. AGPL-3.0) do not relicense underlying game artwork (© COGNOSPHERE / HoYoverse). All visual assets are managed conservatively under the HoYoverse Fan Content Policy without asserting fair use as a settled conclusion.
+## Failure behavior
 
-## 9. Failure behavior
-
-If Cloudflare Worker or D1 daily quota is exhausted, cached public knowledge and local DU state remain fully usable; account cloud writes show an explicit retry/sync state without corrupting local state.
-
-If official ingestion fails, the last published snapshot remains active; partial invalid knowledge is never auto-published.
-
-If optional AI is rate-limited or unavailable, deterministic explanation templates are used automatically.
-
-If OCR is slow or fails on a device, manual search and entity selection remain available.
+- If the Worker or D1 is unavailable, public static knowledge and local DU state remain usable; account features report an error.
+- If a knowledge update fails validation, the previous valid cache remains active.
+- If OCR initialization or recognition fails, the user can select DU entities manually.
+- If a roster has fewer than four eligible characters, the engine returns `insufficient_roster` without evaluating partial teams.
+- If editorial data is missing, the UI reports it as unavailable rather than manufacturing a consensus.

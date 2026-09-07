@@ -1,4 +1,6 @@
-# Astralyn — Data Model
+# Astralyn: data model
+
+This document describes the implemented persistence, static knowledge, provenance, and browser-cache contracts. The current published snapshot is HSR 4.5 / `v1.0.0`: 92 characters, 9 light cones, 6 relic sets, 4 enemies, 4 stages, and 7 Divergent Universe records.
 
 ## 1. Data domains
 
@@ -8,7 +10,7 @@ A. Identity and user data — authenticated user domain (Better Auth + Astralyn 
 B. Canonical Game Knowledge — official facts normalized from authoritative Tier A HoYoverse sources with strongly typed `FactProvenance`.  
 C. Editorial recommendations — source-specific guide/ranking data with provenance (Tier C).  
 D. Generated Astralyn intelligence — consensus, scores, reason codes and publishable snapshots.  
-E. Visual Game Assets — versioned static asset manifest and candidate imagery (52 dev-only manual-review candidates in `src/dev/game-assets/`; 0 production-approved assets currently shipped).
+E. Visual Game Assets: versioned manifest and 52 development-only manual-review PNG records in `apps/web/src/dev/game-assets/`; 0 production-approved assets currently shipped.
 
 A user write must never cross into B/C/D/E canonical tables or static assets.
 
@@ -59,7 +61,7 @@ Better Auth manages core authentication (`user`, `session`, `account`, `verifica
 - `character_id` (TEXT REFERENCES game_characters(id))
 - `PRIMARY KEY (team_id, slot)`
 
-## 3. Versioning & Release Contracts
+## 4. Versioning and release contracts
 
 ### GameVersion
 Represents official HSR client patches (Baseline: Version 4.5 "To Roll the Stars in Astropolis").
@@ -90,7 +92,7 @@ Immutable published knowledge release descriptor (`/data/<version>/release.json`
 - `checksums` (record of filename -> SHA-256 hash)
 - `compatibility` (`minAppVersion`)
 
-## 4. Canonical Game Knowledge Schemas (`packages/shared/src/knowledge/`)
+## 5. Canonical game knowledge schemas (`packages/shared/src/knowledge/`)
 
 Single source of truth runtime Zod 4 schemas:
 
@@ -104,7 +106,7 @@ Single source of truth runtime Zod 4 schemas:
 - `DUEquationKnowledge`: `id`, `gameId`, `name`, `rarity` (1, 2, 3), `primaryPath`, `secondaryPath`, `requiredBlessings` (`primaryCount`, `secondaryCount`), `effect`, `provenance`.
 - `DUCurioKnowledge`: `id`, `gameId`, `name`, `rarity` (1, 2, 3), `category` (`normal` | `negative` | `weighted`), `effect`, `provenance`.
 
-## 5. Dexie IndexedDB Client Knowledge Cache (`apps/web/src/lib/knowledge/`)
+## 6. Dexie IndexedDB client knowledge cache (`apps/web/src/lib/knowledge/`)
 
 Local browser IndexedDB database (`AstralynKnowledgeCache`) mirroring the published static release:
 
@@ -118,12 +120,12 @@ Local browser IndexedDB database (`AstralynKnowledgeCache`) mirroring the publis
 - `duEquations`: `id` (PK), `name`, `rarity`, `primaryPath`, `secondaryPath`, `releaseVersion`
 - `duCurios`: `id` (PK), `name`, `rarity`, `category`, `releaseVersion`
 
-## 6. Client Snapshots & Runtime Cryptographic Integrity
+## 7. Client snapshots and runtime cryptographic integrity
 
 The client consumes immutable static JSON snapshots (`/data/<knowledge-version>/...`).
 Before parsing and caching into Dexie, `KnowledgeSnapshotLoader` computes the SHA-256 digest of the raw response bytes and verifies it against `release.json.checksums[file]`. If a hash mismatch or corrupt payload is detected, it immediately throws `ChecksumMismatchError` and triggers the fail-safe rollback preserving the previous verified cache.
 
-## 7. Visual Game Asset Manifest Model
+## 8. Visual game asset manifest model
 
 Visual game assets are tracked in `packages/shared/src/assets.ts` and synced to `/game-assets/<release>/manifest.json`.
 

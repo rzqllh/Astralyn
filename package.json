@@ -8,7 +8,7 @@
   },
   "packageManager": "pnpm@10.20.0",
   "scripts": {
-    "dev": "pnpm --filter @astralyn/web dev",
+    "dev": "pnpm --parallel --filter @astralyn/web --filter @astralyn/worker dev",
     "dev:worker": "pnpm --filter @astralyn/worker dev",
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",

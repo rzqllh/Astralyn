@@ -1,4 +1,6 @@
-# Astralyn — Recommendation Engine
+# Astralyn: recommendation engine
+
+This is the implemented team and DU scoring contract. The current team endpoint uses canonical mechanics, Astralyn taxonomy, explicit interaction rules, request context, and persisted roster progression where applicable. It does not claim that current results are backed by an active three-source editorial feed.
 
 ## Goal
 
@@ -126,6 +128,8 @@ Generic tags are not enough for unique kits.
 ```
 
 ## Source consensus
+
+This section defines the planned/available consensus model for editorial datasets. The current public release has no qualifying live editorial source set, and its UI reports editorial comparison as unavailable.
 
 For one candidate:
 

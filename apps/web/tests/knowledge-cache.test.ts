@@ -25,6 +25,7 @@ import {
   createValidReleaseManifest,
   createValidLoadedRelease,
   FAKE_VALID_HASH_1,
+  FAKE_VALID_HASH_2,
 } from "./helpers/knowledge-fixtures";
 
 const MOCK_ROOT_MANIFEST_V1 = createValidRootManifest({
@@ -116,6 +117,43 @@ describe("Phase 2 Dexie Client Knowledge Cache & Syncer State Machine", () => {
 
     expect(secondSync.status).toBe("fresh");
     expect(secondSync.activeKnowledgeVersion).toBe("v1.0.0");
+  });
+
+  it("refreshes a same-version cache when the published snapshot hash changes", async () => {
+    const oldManifest = createValidRootManifest(
+      {},
+      { sourceSnapshotHash: FAKE_VALID_HASH_1 }
+    );
+    const oldLoader = createMockLoader(oldManifest);
+    oldLoader.loadFullRelease = async () => ({
+      ...createValidLoadedRelease(
+        { currentKnowledgeVersion: "v1.0.0" },
+        { knowledgeVersion: "v1.0.0", sourceSnapshotHash: FAKE_VALID_HASH_1 }
+      ),
+      characters: CANONICAL_CHARACTERS.slice(0, 9),
+    });
+
+    await new KnowledgeCacheSyncer(db, oldLoader).sync();
+    expect(await db.characters.count()).toBe(9);
+
+    const currentManifest = createValidRootManifest(
+      {},
+      { sourceSnapshotHash: FAKE_VALID_HASH_2 }
+    );
+    const currentLoader = createMockLoader(currentManifest);
+    currentLoader.loadFullRelease = async () =>
+      createValidLoadedRelease(
+        { currentKnowledgeVersion: "v1.0.0" },
+        { knowledgeVersion: "v1.0.0", sourceSnapshotHash: FAKE_VALID_HASH_2 }
+      );
+
+    const result = await new KnowledgeCacheSyncer(db, currentLoader).sync();
+
+    expect(result.status).toBe("updated");
+    expect(await db.characters.count()).toBe(92);
+    expect((await db.metadata.get("sourceSnapshotHash"))?.value).toBe(
+      FAKE_VALID_HASH_2
+    );
   });
 
   it("performs transactional upgrade when a new knowledge release is published", async () => {

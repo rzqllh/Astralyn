@@ -1,115 +1,68 @@
-# Astralyn — OCR & Screenshot Pipeline
+# Astralyn: OCR and screenshot pipeline
 
-## Goal
+## Current scope
 
-Read structured HSR screenshots cheaply and locally, then map recognized text to known game entities.
+The implemented screenshot flow supports Divergent Universe choice text. It runs Tesseract.js in a dedicated browser Web Worker, maps recognized text to canonical DU entities, and hands confirmed choices to the deterministic DU engine.
 
-OCR is a sensor, not the recommendation engine.
+Roster screenshot import and stage/enemy screenshot recognition are not implemented.
 
-## Primary implementation
-
-- PaddleOCR.js
-- PP-OCRv5
-- browser/client inference
-- Web Worker mode where stable
-- Canvas / OffscreenCanvas preprocessing
-- Fuse.js canonical entity matching
-
-Alternative:
-- Tesseract.js
-
-Optional fallback:
-- free-tier multimodal provider if enabled by app/user policy.
-
-## Supported MVP intents
-
-### Roster
-Detect visible character names/portraits where practical and show candidates for confirmation.
-
-### Divergent Universe
-Identify Mask, Equation, Blessing, Curio and Event option names.
-
-### Stage/enemy
-Identify stage/enemy text and match known entities. Weakness-icon recognition can be added after text flow is reliable.
-
-## Pipeline
+## Runtime flow
 
 ```text
-Clipboard / file
-      ↓
-Image normalization
-      ↓
-Intent/layout detection
-      ↓
-Region-of-interest crop
-      ↓
-Contrast/sharpen/scale
-      ↓
-PaddleOCR
-      ↓
-line text + polygon + score
-      ↓
-entity candidate extraction
-      ↓
-Fuse.js canonical matching
-      ↓
-confidence gate
-      ↓
-user correction if needed
-      ↓
-recommendation engine
+pasted or selected image
+  |
+  v
+ImageData in browser memory
+  |
+  v
+OffscreenCanvas grayscale and contrast preprocessing
+  |
+  v
+Tesseract.js English recognition in a Web Worker
+  |
+  v
+sanitized text lines
+  |
+  v
+Fuse.js match against canonical DU names
+  |
+  v
+user review or manual replacement
+  |
+  v
+deterministic DU ranking
 ```
 
-## Entity matching
+The worker is lazy-initialized when OCR is used. The main interface remains responsive while recognition runs.
 
-Do not depend on reading full effect descriptions perfectly.
+## Matching boundary
 
-Example:
+OCR output is untrusted input. Astralyn:
 
-OCR: `Unaging Mem0ry`  
-Matcher: `Unaging Memory`, confidence 0.94.
+- strips HTML tags and control characters;
+- caps input length;
+- matches against known blessings, equations, and curios;
+- uses canonical record effects and tags after a match;
+- never treats screenshot text as executable content or a knowledge mutation.
 
-Effect and tags come from the current Astralyn knowledge snapshot, not OCR text.
-
-## Confidence tiers
-
-Starting point:
-- `>= 0.90` auto-match;
-- `0.75–0.89` auto-select but visibly confirmable;
-- `< 0.75` require user candidate selection.
-
-Tune thresholds from fixtures, not vibes.
-
-## Preprocessing profiles
-
-Maintain separate profiles for:
-- DU card title regions;
-- roster grid;
-- stage header;
-- future content-specific layouts.
-
-One universal preprocessing pipeline is unlikely to be optimal.
+Low-confidence matches remain reviewable. Manual selection is the full fallback, not a hidden debug path.
 
 ## Privacy
 
-Default:
-- screenshot stays in browser memory;
-- no server upload;
-- discard after processing unless user explicitly chooses otherwise.
+- The image is processed in browser memory.
+- The current implementation has no screenshot upload endpoint.
+- Screenshot pixels are not written to D1.
+- Active DU run state stores selected canonical IDs and configuration, not the source screenshot.
 
-Do not use Supabase Storage for screenshots in MVP.
+Tesseract language/model resources may be fetched by the library when the OCR worker initializes. That network activity is model loading, not screenshot upload.
 
-## Performance
+## Failure states
 
-- lazy-load OCR only when needed;
-- show model initialization progress;
-- use Worker mode to keep UI responsive;
-- cache model assets where licensing/distribution permits.
+- Worker unavailable: show OCR unavailable and keep manual selection active.
+- Recognition error: show OCR failed and keep the image/manual workflow recoverable.
+- No confident match: require user confirmation or replacement.
+- Invalid persisted DU state: discard it during validated hydration.
 
-## Fallback
+## Test focus
 
-1. manual correction;
-2. manual entity search/select;
-3. optional free multimodal fallback.
-
-The product must remain usable after step 2.
+Tests cover preprocessing, worker message flow, input sanitization, fuzzy matching, confidence labels, manual override, deterministic ranking, and local run persistence. They do not establish universal OCR accuracy across every HSR resolution or language.

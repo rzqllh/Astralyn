@@ -1,120 +1,63 @@
-# Astralyn — Security Harness
+# Astralyn: security boundaries
 
-## Core boundary
+## Core rule
 
-Only trusted ingestion/admin processes can mutate canonical Game Knowledge.
-
-```text
-User prompt          READ ONLY
-OCR result           READ ONLY
-Recommendation       READ ONLY
-Normal client        READ ONLY game knowledge
-
-Trusted ingestion    WRITE
-Trusted publisher    WRITE
-Authorized admin     CONTROLLED WRITE
-```
-
-## Access and Execution Boundaries
-
-### 1. Browser Client (Untrusted)
-- Reads published public knowledge exclusively from static immutable JSON snapshots (`/data/<version>/...`).
-- Accesses user data strictly via authenticated Cloudflare Worker API endpoints (`/api/...`).
-- Transmits Better Auth session cookies over HTTPS.
-- Has zero direct database connection credentials or direct D1 access.
-- Cannot mutate Game Knowledge, source snapshots, or consensus caches under any condition.
-
-### 2. Cloudflare Worker API (Application Enforcement Boundary)
-- Authenticates session using Better Auth (`auth(env).api.getSession({ headers })`).
-- Extracts verified `session.user.id` on every protected endpoint.
-- **Worker-Level Authorization Invariant:** All D1 queries for user data are strictly scoped to the authenticated `session.user.id`.
-- Rejects any client request attempting to supply `user_id` in body/query parameters to claim ownership of another user's data.
-
-### 3. Trusted CI / Ingestion / Admin
-- Can ingest, validate, write canonical D1 tables, and build static release snapshots.
-- Executes via GitHub Actions or privileged Worker script using encrypted secrets (`PUBLISH_SECRET` / Cloudflare API Token).
-- Never exposes privileged publishing credentials to browser bundles.
-
-## Worker-Level Authorization Invariants (Replacing DB RLS)
-
-Since Cloudflare D1 / SQLite does not provide PostgreSQL-style Row Level Security (RLS), **authorization is strictly enforced as an application-level invariant at the Cloudflare Worker layer**.
+Browser input can read published knowledge and request recommendations. It cannot mutate canonical knowledge.
 
 ```text
-HTTP Request
-     ↓
-Better Auth Session Extraction (auth.api.getSession)
-     ↓ Valid Session?
-  [No]  → 401 Unauthorized
-  [Yes] → Extract session.user.id
-     ↓
-Route Handler (e.g. GET /api/roster)
-     ↓
-D1 Query with Bound Parameter (SELECT ... WHERE user_id = ?)
-     ↓
-Return Scoped User Data
+browser and OCR input       read-only canonical knowledge
+team and DU scoring         read-only canonical knowledge
+authenticated user routes  scoped user-data writes
+trusted release tooling     controlled knowledge publication
 ```
 
-### Invariant Rules:
-1. **Never Trust Client-Supplied Identity:** `user_id` is always derived from `session.user.id`, never from `req.body.user_id` or `req.query.user_id`.
-2. **Parameterized Queries Only:** All queries use D1 prepared statements with parameter binding (`.bind(session.user.id, ...)`). Raw string concatenation in SQL is strictly prohibited.
-3. **Canonical Table Isolation:** No public API endpoint exists that executes `INSERT`, `UPDATE`, or `DELETE` on canonical game tables (`game_characters`, `character_knowledge`, `du_entities`, `recommendation_sets`, `consensus_results`).
-4. **Ownership Verification Before Mutations:** Modifying sub-resources (such as `saved_teams` or `saved_team_members`) validates that `saved_teams.user_id = session.user.id` before executing the mutation.
+## Browser boundary
 
-## Prompt injection containment
+The web client receives public static JSON and public application configuration. It has no D1 credentials, OAuth client secret, Better Auth secret, or release-export secret.
 
-Text from screenshots, guide pages and community content is untrusted data.
+Screenshots are processed in the browser. The current Worker API has no screenshot upload route.
 
-Explanation AI never receives service secrets, DB write tools, publishing actions or ingestion credentials.
+## Worker authorization
 
-It receives a closed structured object such as:
+Protected handlers resolve a Better Auth session and derive `session.user.id`. User identity is not accepted from request bodies or query parameters.
 
-```json
-{
-  "verdict": "...",
-  "reasonCodes": ["..."],
-  "sources": [{"name": "...", "rank": 1}]
-}
-```
+Every roster and saved-team query is scoped to that verified ID. D1 statements use parameter binding. Saved-team mutations verify ownership before reading or changing members.
 
-## Publication
+Unauthenticated public access is limited to health and bounded `all_characters` recommendation behavior. `owned_only` requires a session.
 
-Published knowledge releases are immutable.
+## Recommendation safety
 
-Corrections create another release and move the manifest pointer. This enables rollback and prevents silent history rewriting.
+- Public requests select at most 16 candidates.
+- Unanchored requests evaluate at most 1,820 teams.
+- Focused requests evaluate at most 455 teams.
+- Requests do not persist synthetic ownership.
+- Invalid character IDs, duplicate team members, invalid slots, and malformed contexts are rejected.
+- Unknown taxonomy cannot provide unsupported scoring evidence.
 
-## Screenshot privacy
+## Knowledge publication
 
-Default screenshots are processed locally and not persisted.
+Published files include hashes and schema metadata. The browser verifies raw bytes before parsing and caching. Invalid updates do not replace the previous valid cache.
 
-If optional cloud fallback is enabled, clearly disclose that the image is sent to the selected provider and do not include unrelated local/account secrets.
+`/api/_internal/export-release` fails closed without `INTERNAL_BUILDER_SECRET`. It is tooling infrastructure, not a browser feature.
 
-## Source ingestion security
-
-Adapters use:
-- strict source allowlist;
-- timeouts;
-- response size limits;
-- parser validation;
-- no arbitrary user-supplied URL fetching;
-- no source-provided code execution.
+The ingestion orchestrator is not currently configured with live production adapters. Enabling it requires source allowlists, response limits, timeouts, schema validation, and operator review.
 
 ## Secrets
- 
-Server / CI secret store (Wrangler / GitHub Actions Secrets):
-- `BETTER_AUTH_SECRET` (session encryption key);
-- `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET`;
-- `CLOUDFLARE_API_TOKEN` & `CLOUDFLARE_ACCOUNT_ID` (CI D1 migration and deployment);
-- `PUBLISH_SECRET` (internal ingestion publish authorization);
-- optional AI provider API keys (isolated server-side).
- 
-Client:
-- public application configuration only;
-- no secret API keys or database tokens in the client bundle.
- 
-## Audit
- 
-Record ingestion job, source snapshot hashes, parser version, publish actor/job, knowledge release and rollback.
- 
-## Abuse limits
- 
-Keep OCR client-side. Avoid public unauthenticated expensive endpoints. If an optional server AI endpoint is enabled, enforce per-user rate limits and a hard free-tier ceiling.
+
+Worker or release environments may require:
+
+- `BETTER_AUTH_SECRET`;
+- `BETTER_AUTH_URL`;
+- `GOOGLE_CLIENT_ID`;
+- `GOOGLE_CLIENT_SECRET`;
+- `INTERNAL_BUILDER_SECRET`.
+
+Cloudflare deployment credentials belong in the operator or CI secret store, not application source. Local Worker secrets belong in ignored `apps/worker/.dev.vars`.
+
+## Logging
+
+Do not log cookies, authorization headers, OAuth secrets, raw session tokens, or `.dev.vars` content. Operational errors returned to the browser must avoid exposing internal stack traces or secret names beyond actionable missing-configuration diagnostics.
+
+## Deployment boundary
+
+Production auth security is not proven by local tests alone. A live release must verify HTTPS, secure cookie behavior, exact trusted origins, OAuth callback registration, remote D1 migrations, cross-user isolation, and sanitized logs. See [Deployment](16-DEPLOYMENT.md).
