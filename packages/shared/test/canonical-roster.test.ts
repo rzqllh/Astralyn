@@ -235,4 +235,14 @@ describe("Phase 10A Canonical Character Roster Invariants (HSR Version 4.5)", ()
     assert.equal(wf.element, "Quantum");
     assert.ok(wf.roles.includes("elation_dps"));
   });
+
+  it("8. Publishes complete recommendation taxonomy only for evidence-backed Astralyn mappings", () => {
+    const limitedCharacterIds = CANONICAL_CHARACTERS.filter(
+      (character) =>
+        character.roles.includes("unknown") ||
+        character.mechanicTags.includes("unknown")
+    ).map((character) => character.id);
+
+    assert.deepEqual(limitedCharacterIds, []);
+  });
 });

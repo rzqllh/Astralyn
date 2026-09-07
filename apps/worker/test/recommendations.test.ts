@@ -182,8 +182,8 @@ describe("Worker POST /api/recommendations/teams", () => {
     expect(body.status).toBe("ok");
     expect(body.teams).toHaveLength(2);
     expect(body.evaluation).toEqual({
-      candidateCount: 9,
-      evaluatedTeamCount: 126,
+      candidateCount: 16,
+      evaluatedTeamCount: 1820,
       maxCandidateCount: 16,
       maxTeamEvaluations: 1820,
     });
@@ -213,7 +213,7 @@ describe("Worker POST /api/recommendations/teams", () => {
     expect(first.status).toBe(200);
     expect(firstBody.status).toBe("ok");
     expect(firstBody.teams).toHaveLength(2);
-    expect(firstBody.evaluation).toMatchObject({ candidateCount: 9, evaluatedTeamCount: 56 });
+    expect(firstBody.evaluation).toMatchObject({ candidateCount: 16, evaluatedTeamCount: 455 });
     expect(persisted?.count).toBe(0);
   });
 

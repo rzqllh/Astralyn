@@ -65,8 +65,28 @@ function createTierAProvenance(
 // CANONICAL CHARACTERS (8 Core + 1 Version 4.5 Elation Fixture)
 // ============================================================================
 import { CANONICAL_CHARACTERS_DATA } from "./canonical-characters";
+import { CHARACTER_TAXONOMY_ENRICHMENTS } from "./character-taxonomy";
 
-export const CANONICAL_CHARACTERS: CharacterKnowledge[] = CANONICAL_CHARACTERS_DATA;
+const characterTaxonomyById = new Map(
+  CHARACTER_TAXONOMY_ENRICHMENTS.map((entry) => [entry.characterId, entry])
+);
+
+export const CANONICAL_CHARACTERS: CharacterKnowledge[] = CANONICAL_CHARACTERS_DATA.map(
+  (character) => {
+    const taxonomy = characterTaxonomyById.get(character.id);
+    if (!taxonomy) return character;
+
+    return {
+      ...character,
+      roles: [...taxonomy.roles],
+      mechanicTags: [...taxonomy.mechanicTags],
+      taxonomyEvidence: {
+        evidence: taxonomy.evidence,
+        provenance: { ...taxonomy.provenance },
+      },
+    };
+  }
+);
 
 // ============================================================================
 // CANONICAL LIGHT CONES (8 Core + 1 Version 4.5 Elation Signature)

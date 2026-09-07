@@ -3,15 +3,15 @@
   "gameVersion": "4.5",
   "schemaVersion": "1.0.0",
   "generatedAt": "2026-08-27T00:00:00.000Z",
-  "sourceSnapshotHash": "de0ccbd54b2971d85353435306a59b95ebee4a38f02e2b9587e3d7bb6806a894",
+  "sourceSnapshotHash": "f526584287214adef498123ae0f2ae554c729adf84100d9b11a29a3bba35ecc6",
   "status": "published",
   "files": [
     {
       "filename": "characters.json",
       "relPath": "v1.0.0/characters.json",
       "entityCount": 92,
-      "sizeBytes": 803992,
-      "checksum": "e156917e7991ee8248a9c9d5add756a4d94f1fa536f80681624ffd6b739ba424"
+      "sizeBytes": 862607,
+      "checksum": "6d14734b605c666233f5fcdfd80f75f820925434da99e2a4dce9ae9f524fd161"
     },
     {
       "filename": "light-cones.json",
@@ -50,7 +50,7 @@
     }
   ],
   "checksums": {
-    "characters.json": "e156917e7991ee8248a9c9d5add756a4d94f1fa536f80681624ffd6b739ba424",
+    "characters.json": "6d14734b605c666233f5fcdfd80f75f820925434da99e2a4dce9ae9f524fd161",
     "light-cones.json": "eac67106ede8306a1ebdc492dc0c777a423351216dc4b90c69d6a0e0a7c195f8",
     "relics.json": "6a8a1a0c8db5be53ece339127b410d9f78887c93386dfe68356543cf21de3ff1",
     "enemies.json": "08b44f25db4a659f95e30b41e79595264f3871ab14ebaf1bf88de4971bd2845c",

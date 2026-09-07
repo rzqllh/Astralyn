@@ -91,6 +91,15 @@ export const CharacterMechanicTagSchema = z.enum([
 
 export type CharacterMechanicTag = z.infer<typeof CharacterMechanicTagSchema>;
 
+export const CharacterTaxonomyEvidenceSchema = z.object({
+  evidence: z.string().min(1),
+  provenance: FactProvenanceSchema,
+});
+
+export type CharacterTaxonomyEvidence = z.infer<
+  typeof CharacterTaxonomyEvidenceSchema
+>;
+
 export const BaseStatsSchema = z.object({
   hp: z.number().positive(),
   atk: z.number().positive(),
@@ -228,6 +237,7 @@ export const CharacterKnowledgeSchema = z.object({
   releaseVersion: z.string(),
   roles: z.array(CharacterRoleSchema).min(1),
   mechanicTags: z.array(CharacterMechanicTagSchema).min(1),
+  taxonomyEvidence: CharacterTaxonomyEvidenceSchema.optional(),
   baseStats: BaseStatsSchema,
   specialResourceType: z.string().optional(),
   abilities: z.array(CharacterAbilitySchema).min(1),

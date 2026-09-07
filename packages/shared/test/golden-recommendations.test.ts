@@ -2,7 +2,20 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { generateTeamRecommendations } from "../src/recommendation/team-generator";
 import { CANONICAL_CHARACTERS } from "../src/knowledge/fixtures/canonical-fixtures";
+import type { CharacterKnowledge } from "../src/knowledge/character";
 import type { RosterInputCharacter } from "../src/recommendation/types";
+
+const ORIGINAL_CURATED_CHARACTER_IDS = [
+  "acheron",
+  "aventurine",
+  "aventurine-waveflair",
+  "castorice",
+  "firefly",
+  "gallagher",
+  "robin",
+  "the-herta",
+  "tingyun",
+];
 
 function createRoster(ids: string[]): RosterInputCharacter[] {
   return ids.map((id) => ({
@@ -137,8 +150,8 @@ describe("Phase 10B.1 recommendation scope and evaluation bounds", () => {
     assert.equal(result.scope, "all_characters");
     assert.equal(result.status, "ok");
     assert.deepEqual(result.evaluation, {
-      candidateCount: 9,
-      evaluatedTeamCount: 126,
+      candidateCount: 16,
+      evaluatedTeamCount: 1820,
       maxCandidateCount: 16,
       maxTeamEvaluations: 1820,
     });
@@ -161,16 +174,21 @@ describe("Phase 10B.1 recommendation scope and evaluation bounds", () => {
     assert.deepEqual(result.teams, []);
   });
 
-  it("pins an unknown-taxonomy focus character and marks every resulting team as Limited Data", () => {
-    const limitedCharacter = CANONICAL_CHARACTERS.find(
-      (character) =>
-        character.roles.includes("unknown") || character.mechanicTags.includes("unknown")
+  it("pins a limited-taxonomy focus fixture and marks every resulting team as Limited Data", () => {
+    const arlan = CANONICAL_CHARACTERS.find((character) => character.id === "arlan");
+    assert.ok(arlan);
+    const limitedCharacter: CharacterKnowledge = {
+      ...arlan,
+      roles: ["unknown"],
+      mechanicTags: ["unknown"],
+    };
+    const knowledgeCharacters = CANONICAL_CHARACTERS.map((character) =>
+      character.id === limitedCharacter.id ? limitedCharacter : character
     );
-    assert.ok(limitedCharacter);
 
     const result = generateTeamRecommendations({
       roster: [],
-      knowledgeCharacters: CANONICAL_CHARACTERS,
+      knowledgeCharacters,
       context: {
         scope: "all_characters",
         focusCharacterId: limitedCharacter.id,
@@ -178,8 +196,8 @@ describe("Phase 10B.1 recommendation scope and evaluation bounds", () => {
       },
     });
 
-    assert.equal(result.evaluation.candidateCount, 10);
-    assert.equal(result.evaluation.evaluatedTeamCount, 84);
+    assert.equal(result.evaluation.candidateCount, 16);
+    assert.equal(result.evaluation.evaluatedTeamCount, 455);
     assert.ok(
       result.teams.every((team) =>
         team.slots.some((slot) => slot.characterId === limitedCharacter.id)
@@ -214,14 +232,9 @@ describe("Phase 10B.1 recommendation scope and evaluation bounds", () => {
     assert.equal(JSON.stringify(first), JSON.stringify(second));
   });
 
-  it("preserves the approved top three outputs for the complete curated taxonomy", () => {
-    const curatedIds = CANONICAL_CHARACTERS.filter(
-      (character) =>
-        !character.roles.includes("unknown") &&
-        !character.mechanicTags.includes("unknown")
-    ).map((character) => character.id);
+  it("preserves the approved top three outputs for the original curated taxonomy", () => {
     const result = generateTeamRecommendations({
-      roster: createRoster(curatedIds),
+      roster: createRoster(ORIGINAL_CURATED_CHARACTER_IDS),
       knowledgeCharacters: CANONICAL_CHARACTERS,
       context: { scope: "owned_only", limit: 3 },
     });

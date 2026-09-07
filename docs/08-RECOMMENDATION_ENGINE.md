@@ -35,7 +35,9 @@ Team scoring is preceded by a deterministic candidate bound:
 3. Prefer characters with complete Astralyn role/mechanic taxonomy. A character marked `unknown` enters when explicitly focused. Other limited-taxonomy characters enter only when complete candidates cannot fill the remaining team slots (four without focus, three with focus).
 4. Keep at most 16 candidates, then run D-028 scoring over their 4-character combinations. D-028 weights and composite formula stay unchanged; incomplete-taxonomy members cannot supply unsupported high-energy-consumer evidence for the existing battery synergy.
 
-There is no random sampling and no inferred role or mechanic tag. In the current release, canonical scope contains all 92 characters while the unanchored scoring candidate pool contains the 9 characters with complete recommendation taxonomy. The other 83 remain canonical and explicitly focusable, but do not enter unanchored ranking because their role/mechanic taxonomy is incomplete. This evaluates `C(9, 4) = 126` teams and preserves the existing curated golden ranking.
+There is no random sampling and no runtime role or mechanic-tag inference. In the current release, canonical scope contains all 92 characters and all 92 have evidence-backed recommendation taxonomy. The unanchored scoring candidate pool is still only the deterministic, code-unit-ordered subset selected by the 16-candidate prefilter; it does not score all 92 characters simultaneously. An unanchored full-scope request therefore selects 16 candidates and evaluates `C(16, 4) = 1,820` teams. See [Phase 10C — Verified Character Taxonomy](./15-CHARACTER_TAXONOMY.md) for the per-character evidence matrix.
+
+The original nine-character curated roster still produces its approved Top 3. Full-scope results can differ from the Phase 10B.1 release because verified candidate coverage expanded; the D-028 score weights and formula did not change.
 
 The public contract exposes `evaluation.candidateCount`, `evaluation.evaluatedTeamCount`, `evaluation.maxCandidateCount`, and `evaluation.maxTeamEvaluations`.
 
@@ -45,7 +47,7 @@ The public contract exposes `evaluation.candidateCount`, `evaluation.evaluatedTe
 
 ## Incomplete taxonomy
 
-Characters whose `roles` or `mechanicTags` include `unknown` keep that value. No role/tag is inferred during prefiltering or scoring. A team containing one of these characters returns `taxonomyStatus: "limited_data"` plus `limitedDataCharacterIds`; the UI renders the established **Limited Data** state. Recommendation score and confidence remain separate concepts, and Astralyn does not claim high confidence from missing taxonomy.
+No current canonical character has `unknown` taxonomy. The fallback remains part of the engine contract for future or temporarily incomplete entries: a character whose `roles` or `mechanicTags` include `unknown` keeps that value, and no role/tag is inferred during prefiltering or scoring. A team containing one of these characters returns `taxonomyStatus: "limited_data"` plus `limitedDataCharacterIds`; the UI renders the established **Limited Data** state. Recommendation score and confidence remain separate concepts, and Astralyn does not claim high confidence from missing taxonomy.
 
 ## Core principle
 
@@ -57,24 +59,25 @@ Ranking happens first. Optional AI only receives a grounded result object contai
 
 Mechanics:
 - `memosprite`
-- `hp_fluctuation`
-- `break`
+- `hp_consumption`
+- `break_effect`
 - `super_break`
 - `follow_up`
 - `debuff`
 - `dot`
-- `energy`
-- `skill_point_hungry`
+- `energy_regen`
 - `action_advance`
-- `weakness_implant`
+- `weakness_break_efficiency`
 
 Roles:
-- `main_dps`
+- `hypercarry_dps`
 - `sub_dps`
-- `amplifier`
+- `buffer`
 - `debuffer`
-- `sustain`
-- `breaker`
+- `shielder`
+- `healer`
+- `battery`
+- `break_dps`
 
 ## Team score
 

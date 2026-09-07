@@ -195,8 +195,20 @@ Use this as ADR-lite. Major changes get a new numbered decision instead of silen
 **Key Tenets:**
 1. `all_characters` makes all 92 Version 4.5 canonical characters available for focus selection, then ranks a bounded eligible subset. It never represents canonical-only characters as owned or assigns fabricated level/Eidolon metadata.
 2. `owned_only` reads only an authenticated user's persisted roster; an empty owned roster is explicitly insufficient and is never replaced with canonical characters.
-3. Candidate selection pins an explicit focus, excludes other incomplete-taxonomy characters when complete candidates can fill the remaining team slots, uses D-028 code-unit ordering, and never samples randomly or invents roles/tags. In the current release, unanchored ranking uses 9 complete-taxonomy candidates and evaluates 126 teams; the other 83 canonical characters remain explicitly focusable.
+3. Candidate selection pins an explicit focus, excludes other incomplete-taxonomy characters when complete candidates can fill the remaining team slots, uses D-028 code-unit ordering, and never samples randomly or invents roles/tags. Phase 10B.1 initially had 9 complete-taxonomy candidates and evaluated 126 teams; D-032 subsequently expanded evidence-backed Astralyn taxonomy coverage without changing this selection policy.
 4. D-028 weights and composite formula remain unchanged. The scoring guard only prevents incomplete-taxonomy members from supplying unsupported high-energy-consumer evidence for the existing battery synergy. With 16 candidates, an unanchored request evaluates at most `C(16, 4) = 1,820` teams and a focused request at most `C(15, 3) = 455` teams.
 5. Teams containing `unknown` role/mechanic taxonomy are labeled `limited_data`; missing taxonomy is not presented as recommendation confidence evidence.
 6. The public recommendation endpoint is computation-only and performs zero ownership or recommendation persistence mutations.
+**Status:** Accepted.
+
+## D-032 — Phase 10C Evidence-Backed Character Taxonomy Overlay
+**Decision:** Publish verified recommendation taxonomy for the 83 previously limited-data characters through a separate evidence-bearing overlay, while leaving generated canonical character data and the original nine curated assignments unchanged.
+**Key Tenets:**
+1. Official HoYoWiki kit pages are Tier A mechanic evidence under the existing source policy. Astralyn's `roles` and `mechanicTags` remain derived metadata, not official HoYoverse labels.
+2. Every enrichment record includes character ID, roles, mechanic tags, a mechanic-specific source-fact summary, source URL, authority tier, patch, and verification date. Published enriched characters expose the fact summary and provenance through `taxonomyEvidence`, separate from generated entity provenance. `tier_a_official` identifies the authority of the source facts, not HoYoverse authorship of Astralyn's mapping. Path alone, keyword matching, tier/meta strength, and preferred-team assumptions are not taxonomy evidence.
+3. The generated `canonical-characters.ts` roster remains untouched. `character-taxonomy.ts` is overlaid by `canonical-fixtures.ts`, preventing roster regeneration from silently creating or erasing taxonomy.
+4. The original nine curated assignments are excluded from the overlay and protected by exact regression snapshots.
+5. Current coverage is 92 complete, 0 partial, and 0 unknown. The `limited_data` behavior remains supported for future incomplete entries.
+6. `all_characters` begins with all 92 canonical characters, then the unchanged deterministic prefilter selects at most 16 scoring candidates. Current unanchored evaluation is `C(16, 4) = 1,820`; focused evaluation remains bounded by `C(15, 3) = 455`.
+7. D-028 score weights and the composite formula are unchanged. The original curated roster retains its approved Top 3; full-scope results may change because verified candidate coverage legitimately expanded.
 **Status:** Accepted.

@@ -174,8 +174,28 @@
     "path": "Remembrance",
     "element": "Lightning",
     "releaseVersion": "3.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["summon_dps", "hypercarry_dps"],
+    "mechanicTags": [
+      "memosprite",
+      "summon",
+      "action_advance",
+      "enhanced_basic",
+      "stat_conversion",
+      "energy_regen",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill summons Garmentmaker, Ultimate advances Aglaea into an enhanced Basic stance, and Garmentmaker has ordered actions, SPD stacks, and Blast attacks.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3286",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3286",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1241,
       "atk": 698,
@@ -420,8 +440,25 @@
     "path": "Erudition",
     "element": "Wind",
     "releaseVersion": "3.2",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "debuffer"],
+    "mechanicTags": [
+      "debuff",
+      "energy_regen",
+      "single_target",
+      "bounce",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Hits implant Weaknesses, five Weaknesses expose a target to extra damage and an extra Skill, Ultimate applies all Weaknesses in AoE, and Skill Bounces.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3561",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3561",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 970,
       "atk": 756,
@@ -606,8 +643,24 @@
     "path": "Hunt",
     "element": "Quantum",
     "releaseVersion": "3.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "follow_up",
+      "special_resource_cost",
+      "single_target",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Repeated single-target Skills form his main turn, ally attacks consume Charge for follow-ups, and Technique provides an AoE entry attack.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3768",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3768",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1164,
       "atk": 620,
@@ -798,8 +851,19 @@
     "path": "Erudition",
     "element": "Physical",
     "releaseVersion": "1.5",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": ["energy_regen", "aoe", "bounce"],
+    "taxonomyEvidence": {
+      "evidence": "His offensive kit centers on AoE Skills and two Energy-cost Ultimate states; the enhanced Ultimate adds random extra hits, while Talent and Trace effects restore Energy.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1535",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1535",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 737,
@@ -983,8 +1047,19 @@
     "path": "Destruction",
     "element": "Lightning",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": ["hp_consumption", "single_target", "blast", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill spends Arlan's HP for single-target damage, Talent increases his own damage as HP falls, Ultimate is Blast, and Technique hits all enemies.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_11",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/11",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1199,
       "atk": 599,
@@ -1169,8 +1244,26 @@
     "path": "Hunt",
     "element": "Lightning",
     "releaseVersion": "4.1",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["sub_dps", "buffer", "debuffer"],
+    "mechanicTags": [
+      "follow_up",
+      "buff",
+      "debuff",
+      "defense_shred",
+      "single_target",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Bait causes ally attacks to trigger Ashveil's follow-ups, lowers all enemies' DEF, and a Trace raises allies' follow-up CRIT DMG.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_4781",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/4781",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 853,
       "atk": 776,
@@ -1363,8 +1456,19 @@
     "path": "Harmony",
     "element": "Fire",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer"],
+    "mechanicTags": ["buff", "bounce"],
+    "taxonomyEvidence": {
+      "evidence": "Charging stacks raise all allies' ATK, Ultimate raises all allies' SPD, and Skill is a Bounce attack.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_12",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/12",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1023,
       "atk": 511,
@@ -1891,8 +1995,19 @@
     "path": "Abundance",
     "element": "Lightning",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["healer"],
+    "mechanicTags": ["heal", "bounce", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill heals and then bounces between allies; Ultimate heals all allies and applies Invigoration.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_29",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/29",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1319,
       "atk": 562,
@@ -2073,8 +2188,26 @@
     "path": "Nihility",
     "element": "Wind",
     "releaseVersion": "2.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["dot_dps", "debuffer"],
+    "mechanicTags": [
+      "dot",
+      "debuff",
+      "defense_shred",
+      "vulnerability",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Arcana is stacking Wind DoT, Skill reduces DEF in a Blast area, and Ultimate makes all enemies take more damage during their turns.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1806",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1806",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 659,
@@ -2337,8 +2470,26 @@
     "path": "Destruction",
     "element": "Wind",
     "releaseVersion": "1.2",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "hp_consumption",
+      "enhanced_basic",
+      "follow_up",
+      "heal",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill consumes HP and enhances Basic ATK, Talent launches an AoE follow-up after HP-loss charges, and Ultimate both sets HP and deals Blast damage.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_789",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/789",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1358,
       "atk": 543,
@@ -2633,8 +2784,28 @@
     "path": "Hunt",
     "element": "Physical",
     "releaseVersion": "2.2",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["break_dps", "hypercarry_dps"],
+    "mechanicTags": [
+      "break_effect",
+      "weakness_break_efficiency",
+      "toughness_reduction",
+      "stat_conversion",
+      "enhanced_basic",
+      "debuff",
+      "vulnerability",
+      "single_target"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Pocket Trickshot enhances Basic Toughness reduction and deals Physical Break DMG; Skill creates Standoff with increased damage taken, and a Trace converts Break Effect to CRIT stats.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2367",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2367",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1203,
       "atk": 620,
@@ -2817,8 +2988,19 @@
     "path": "Harmony",
     "element": "Wind",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer"],
+    "mechanicTags": ["buff", "action_advance", "cleanse"],
+    "taxonomyEvidence": {
+      "evidence": "Skill dispels one ally debuff, advances that ally by 100%, and increases damage; Ultimate buffs all allies' ATK and CRIT DMG.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_14",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/14",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1241,
       "atk": 582,
@@ -3196,8 +3378,26 @@
     "path": "Harmony",
     "element": "Wind",
     "releaseVersion": "3.5",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "sub_dps"],
+    "mechanicTags": [
+      "buff",
+      "cleanse",
+      "stat_conversion",
+      "enhanced_skill",
+      "single_target",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Military Merit scales an ally's ATK from Cerydra's ATK, Peerage raises CRIT DMG and repeats the ally's Skill as Coup de Main, and promotion cleanses crowd control.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3886",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3886",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1358,
       "atk": 620,
@@ -3370,8 +3570,25 @@
     "path": "Nihility",
     "element": "Quantum",
     "releaseVersion": "3.3",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["sub_dps", "debuffer"],
+    "mechanicTags": [
+      "follow_up",
+      "debuff",
+      "vulnerability",
+      "single_target",
+      "blast"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Patron records ally damage for Cipher's follow-up and Ultimate, Skill weakens targets, and a Trace increases all enemies' damage received.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3691",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3691",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 931,
       "atk": 640,
@@ -3552,8 +3769,19 @@
     "path": "Destruction",
     "element": "Physical",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "sub_dps"],
+    "mechanicTags": ["counter_attack", "follow_up", "blast", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Svarog counters attackers with follow-up damage, enhanced counters hit adjacent targets, and Skill attacks all enemies marked by counters.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_20",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/20",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1241,
       "atk": 737,
@@ -3726,8 +3954,28 @@
     "path": "Remembrance",
     "element": "Ice",
     "releaseVersion": "3.7",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "summon_dps"],
+    "mechanicTags": [
+      "memosprite",
+      "summon",
+      "buff",
+      "cleanse",
+      "action_advance",
+      "enhanced_basic",
+      "single_target",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Ultimate summons and advances Demiurge while activating ally Ultimates; Skill adds team True DMG, Talent cleanses Cyrene, and Demiurge buffs allies.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_4003",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/4003",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1397,
       "atk": 446,
@@ -4131,8 +4379,19 @@
     "path": "Hunt",
     "element": "Wind",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "debuffer"],
+    "mechanicTags": ["debuff", "single_target"],
+    "taxonomyEvidence": {
+      "evidence": "His attacks are single-target, and Skill can inflict Slow, which Ultimate explicitly exploits for increased damage.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_8",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/8",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 882,
       "atk": 546,
@@ -4308,8 +4567,25 @@
     "path": "Destruction",
     "element": "Imaginary",
     "releaseVersion": "1.3",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "enhanced_basic",
+      "special_resource_cost",
+      "single_target",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill enhances Basic ATK through three stages, expanding it from single-target to Blast; Ultimate is AoE and grants Squama Sacrosancta for enhancement costs.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1226",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1226",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1241,
       "atk": 698,
@@ -4537,8 +4813,28 @@
     "path": "Preservation",
     "element": "Physical",
     "releaseVersion": "3.6",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["shielder", "buffer", "sub_dps"],
+    "mechanicTags": [
+      "shield",
+      "summon",
+      "follow_up",
+      "cleanse",
+      "buff",
+      "action_advance",
+      "single_target",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill and Ultimate shield all allies, Bondmate gains ATK, and summoned Souldragon cleanses, refreshes Shields, advances, and later performs an AoE follow-up.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3957",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3957",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 582,
@@ -4711,8 +5007,19 @@
     "path": "Hunt",
     "element": "Imaginary",
     "releaseVersion": "1.6",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": ["follow_up", "debuff", "single_target"],
+    "taxonomyEvidence": {
+      "evidence": "Skill and Ultimate are single-target, Talent launches a follow-up whose chance scales with target debuffs, and Technique applies an enemy SPD reduction.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1639",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1639",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 776,
@@ -4897,8 +5204,29 @@
     "path": "Elation",
     "element": "Physical",
     "releaseVersion": "4.1",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["elation_dps", "sub_dps", "debuffer"],
+    "mechanicTags": [
+      "elation",
+      "punchline",
+      "follow_up",
+      "special_resource_cost",
+      "vulnerability",
+      "single_target",
+      "blast",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Certified Banger and Energy fuel Master Fox follow-ups, Skill grants Punchline, Ultimate Bounces, Elation Skill is AoE, and a Trace applies Vulnerability.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_5005",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/5005",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 737,
@@ -5101,8 +5429,29 @@
     "path": "Remembrance",
     "element": "Ice",
     "releaseVersion": "3.6",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["summon_dps", "buffer", "debuffer"],
+    "mechanicTags": [
+      "memosprite",
+      "summon",
+      "hp_consumption",
+      "buff",
+      "vulnerability",
+      "action_advance",
+      "energy_regen",
+      "single_target",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill spends HP to summon Evey and buff memosprite CRIT DMG; Memoria advances Evey, Ultimate increases enemy damage received, and Evey has single-target/AoE skills.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3956",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3956",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1319,
       "atk": 543,
@@ -5363,8 +5712,25 @@
     "path": "Hunt",
     "element": "Wind",
     "releaseVersion": "2.5",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "follow_up",
+      "weakness_break_efficiency",
+      "toughness_reduction",
+      "special_resource_cost",
+      "single_target"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Ally attacks build Flying Aureus for Ultimate, Talent and Skill launch follow-ups, and Ultimate ignores Weakness Type with increased Break Efficiency.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2947",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2947",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 601,
@@ -5787,8 +6153,19 @@
     "path": "Preservation",
     "element": "Quantum",
     "releaseVersion": "1.3",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "healer"],
+    "mechanicTags": ["buff", "heal", "stat_conversion", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Matrix of Prescience distributes ally damage and raises Max HP and CRIT Rate; her Trace makes Ultimate heal all allies, and her damage scales from Max HP.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_804",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/804",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1474,
       "atk": 465,
@@ -5989,8 +6366,29 @@
     "path": "Nihility",
     "element": "Fire",
     "releaseVersion": "2.7",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "debuffer"],
+    "mechanicTags": [
+      "break_effect",
+      "super_break",
+      "toughness_reduction",
+      "defense_shred",
+      "debuff",
+      "buff",
+      "enhanced_basic",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Foxian Prayer raises Break Effect, enables off-Type Toughness reduction, and makes Fugue's enhanced Basic reduce DEF; Talent adds Exo-Toughness and Super Break.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3151",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3151",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1125,
       "atk": 582,
@@ -6352,8 +6750,19 @@
     "path": "Preservation",
     "element": "Ice",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["shielder", "debuffer"],
+    "mechanicTags": ["shield", "freeze", "debuff", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Ultimate shields all allies, while Skill can Freeze one enemy and Technique grants a team-wide Shield.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_17",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/17",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1397,
       "atk": 543,
@@ -6538,8 +6947,26 @@
     "path": "Destruction",
     "element": "Lightning",
     "releaseVersion": "4.3",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "buffer"],
+    "mechanicTags": [
+      "buff",
+      "energy_regen",
+      "single_target",
+      "blast",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Ally Ultimates build Interest and restore Gilgamesh's Energy, a Trace buffs all allies' ATK/CRIT DMG, and his attacks cover Blast plus AoE random hits.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_5338",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/5338",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1125,
       "atk": 717,
@@ -6752,8 +7179,19 @@
     "path": "Nihility",
     "element": "Fire",
     "releaseVersion": "1.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["dot_dps", "debuffer"],
+    "mechanicTags": ["dot", "debuff", "vulnerability", "blast", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Basic and Skill can inflict Burn DoT, Ultimate triggers existing Burn, and Firekiss increases damage received by affected enemies.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1392",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1392",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 882,
       "atk": 582,
@@ -6934,8 +7372,19 @@
     "path": "Harmony",
     "element": "Physical",
     "releaseVersion": "1.5",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer"],
+    "mechanicTags": ["buff", "single_target"],
+    "taxonomyEvidence": {
+      "evidence": "Burden lets allies recover Skill Points and increases damage dealt to its target; Ultimate increases one ally's SPD and ATK.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1537",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1537",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 917,
       "atk": 564,
@@ -7108,8 +7557,19 @@
     "path": "Erudition",
     "element": "Ice",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["sub_dps"],
+    "mechanicTags": ["follow_up", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "When enemy HP crosses the Talent threshold, Herta launches an AoE follow-up; Skill and Ultimate also damage all enemies.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_13",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/13",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 952,
       "atk": 582,
@@ -7290,8 +7750,19 @@
     "path": "Erudition",
     "element": "Fire",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["sub_dps"],
+    "mechanicTags": ["follow_up", "dot", "blast", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Weakness Break charges trigger an AoE follow-up, Skill deals Blast damage, Ultimate is AoE, and a major Trace can inflict Burn DoT.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_9",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/9",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 756,
@@ -7472,8 +7943,29 @@
     "path": "Erudition",
     "element": "Fire",
     "releaseVersion": "4.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "summon_dps", "sub_dps"],
+    "mechanicTags": [
+      "summon",
+      "buff",
+      "res_penetration",
+      "toughness_reduction",
+      "action_advance",
+      "energy_regen",
+      "single_target",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Talent summons Starblazer and grants ally Assist Skills, Skill buffs ally damage, an Assist Trace grants extra turns, and Starblazer ignores Weakness for Toughness reduction.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_5335",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/5335",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1125,
       "atk": 756,
@@ -7721,8 +8213,19 @@
     "path": "Destruction",
     "element": "Fire",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "dot_dps"],
+    "mechanicTags": ["dot", "enhanced_skill", "single_target", "blast", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill inflicts Burn and deals extra damage to Burning targets; Ultimate enhances the next Skill from single-target to Blast, while Technique is AoE.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_22",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/22",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1340,
       "atk": 617,
@@ -7913,8 +8416,19 @@
     "path": "Abundance",
     "element": "Wind",
     "releaseVersion": "1.5",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["healer", "battery", "buffer"],
+    "mechanicTags": ["heal", "cleanse", "energy_regen", "buff"],
+    "taxonomyEvidence": {
+      "evidence": "Skill and Talent heal and dispel debuffs; Ultimate restores allies' Energy and increases their ATK.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1533",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1533",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1358,
       "atk": 601,
@@ -8181,8 +8695,27 @@
     "path": "Remembrance",
     "element": "Wind",
     "releaseVersion": "3.3",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["healer", "summon_dps"],
+    "mechanicTags": [
+      "memosprite",
+      "summon",
+      "heal",
+      "cleanse",
+      "hp_consumption",
+      "action_advance",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill and Ultimate summon Little Ica and heal all allies, a Trace cleanses all allies, and Little Ica spends HP on reactive healing before AoE damage.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3688",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3688",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 388,
@@ -8407,8 +8940,19 @@
     "path": "Nihility",
     "element": "Physical",
     "releaseVersion": "3.5",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["dot_dps", "debuffer"],
+    "mechanicTags": ["dot", "debuff", "defense_shred", "vulnerability", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Talent applies four named DoTs, Skill raises all enemies' damage taken, and Ultimate's Zone reduces DEF and repeatedly deals Physical DoT.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3885",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3885",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1203,
       "atk": 601,
@@ -8589,8 +9133,26 @@
     "path": "Erudition",
     "element": "Quantum",
     "releaseVersion": "2.3",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["sub_dps", "buffer"],
+    "mechanicTags": [
+      "follow_up",
+      "hp_consumption",
+      "buff",
+      "action_advance",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Debt Collector gains SPD and causes Jade's extra damage while paying HP; enemy hits charge Jade's AoE follow-up, and a Trace advances her action.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2495",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2495",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 659,
@@ -8771,8 +9333,26 @@
     "path": "Nihility",
     "element": "Fire",
     "releaseVersion": "2.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["debuffer", "dot_dps"],
+    "mechanicTags": [
+      "dot",
+      "debuff",
+      "vulnerability",
+      "single_target",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Ashen Roast increases damage received and is treated as Burn DoT; Ultimate applies it across an AoE and further increases Ultimate damage received.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2643",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2643",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1358,
       "atk": 601,
@@ -8965,8 +9545,19 @@
     "path": "Erudition",
     "element": "Lightning",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["summon_dps", "hypercarry_dps"],
+    "mechanicTags": ["summon", "follow_up", "bounce", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Lightning-Lord is a separately ordered summoned unit whose action is a Bounce follow-up; Jing Yuan's Skill and Ultimate are AoE.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_26",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/26",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1164,
       "atk": 698,
@@ -9151,8 +9742,26 @@
     "path": "Destruction",
     "element": "Ice",
     "releaseVersion": "1.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "hp_consumption",
+      "enhanced_skill",
+      "action_advance",
+      "stat_conversion",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Syzygy triggers 100% action advance and an enhanced state; enhanced Skill consumes ally HP and converts it to ATK before dealing Blast damage.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1387",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1387",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1435,
       "atk": 679,
@@ -9447,8 +10056,19 @@
     "path": "Nihility",
     "element": "Lightning",
     "releaseVersion": "1.2",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["dot_dps", "hypercarry_dps"],
+    "mechanicTags": ["dot", "follow_up", "single_target", "blast", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill and Ultimate immediately trigger existing DoT, Ultimate inflicts Shock, and Talent launches a single-target follow-up.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_791",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/791",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 679,
@@ -9715,8 +10335,29 @@
     "path": "Abundance",
     "element": "Fire",
     "releaseVersion": "2.5",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["healer", "break_dps", "sub_dps"],
+    "mechanicTags": [
+      "heal",
+      "cleanse",
+      "summon",
+      "follow_up",
+      "break_effect",
+      "vulnerability",
+      "action_advance",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill summons Fuyuan and heals all allies; Fuyuan performs AoE/Bounce follow-ups with cleanse and healing, while Ultimate increases Break DMG received and advances Fuyuan.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2948",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2948",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1358,
       "atk": 679,
@@ -9889,8 +10530,25 @@
     "path": "Nihility",
     "element": "Physical",
     "releaseVersion": "1.2",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["dot_dps", "debuffer"],
+    "mechanicTags": [
+      "dot",
+      "debuff",
+      "vulnerability",
+      "enhanced_basic",
+      "single_target"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill inflicts Bleed DoT, Ultimate increases one enemy's damage taken, and Fighting Will enables an enhanced Basic that triggers Bleed.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_801",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/801",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 917,
       "atk": 582,
@@ -10085,8 +10743,19 @@
     "path": "Abundance",
     "element": "Imaginary",
     "releaseVersion": "1.1",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["healer"],
+    "mechanicTags": ["heal", "cleanse", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill and its emergency trigger heal allies and can dispel a debuff; the Field heals allies after attacks, while Ultimate attacks all enemies.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_711",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/711",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1280,
       "atk": 756,
@@ -10259,8 +10928,19 @@
     "path": "Abundance",
     "element": "Quantum",
     "releaseVersion": "1.3",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["healer"],
+    "mechanicTags": ["heal", "cleanse", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill supplies immediate and continuous healing; Ultimate dispels a debuff from and heals every ally.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1228",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1228",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1058,
       "atk": 493,
@@ -10441,8 +11121,27 @@
     "path": "Preservation",
     "element": "Ice",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["shielder", "sub_dps", "debuffer"],
+    "mechanicTags": [
+      "shield",
+      "follow_up",
+      "counter_attack",
+      "freeze",
+      "cleanse",
+      "single_target",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill shields and can cleanse one ally, Talent counters attacks on shielded allies as follow-ups, and Ultimate is AoE with a Freeze chance.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_7",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/7",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1058,
       "atk": 511,
@@ -10623,8 +11322,25 @@
     "path": "Hunt",
     "element": "Imaginary",
     "releaseVersion": "2.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["sub_dps", "buffer"],
+    "mechanicTags": [
+      "enhanced_basic",
+      "buff",
+      "action_advance",
+      "toughness_reduction",
+      "single_target"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill designates and buffs Shifu, Shifu actions charge an immediate enhanced Basic turn, and March can reduce Toughness using Shifu's element.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2657",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2657",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1058,
       "atk": 564,
@@ -10819,8 +11535,25 @@
     "path": "Destruction",
     "element": "Ice",
     "releaseVersion": "2.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "debuffer"],
+    "mechanicTags": [
+      "freeze",
+      "energy_regen",
+      "single_target",
+      "blast",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill builds Ultimate hits, ally Skill Point use adds hits and restores Energy, and Bounce Ultimate has repeated Freeze chances.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1808",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1808",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1270,
       "atk": 599,
@@ -11001,8 +11734,32 @@
     "path": "Nihility",
     "element": "Fire",
     "releaseVersion": "4.2",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "buffer", "debuffer"],
+    "mechanicTags": [
+      "hp_consumption",
+      "defense_shred",
+      "vulnerability",
+      "debuff",
+      "buff",
+      "enhanced_basic",
+      "follow_up",
+      "energy_regen",
+      "cleanse",
+      "single_target",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Ultimate spends HP, reduces all enemies' DEF and increases damage received while its Zone buffs allies; Charge unlocks a follow-up Skill, and the stance enhances Basic ATK while unlocking Skill.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_5217",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/5217",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1358,
       "atk": 543,
@@ -11218,8 +11975,24 @@
     "path": "Hunt",
     "element": "Lightning",
     "releaseVersion": "2.5",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["sub_dps", "debuffer"],
+    "mechanicTags": [
+      "follow_up",
+      "vulnerability",
+      "action_advance",
+      "single_target"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Prey marks one enemy, ally attacks charge Moze's follow-up, a Trace increases follow-up damage taken by Prey, and leaving Departed advances Moze.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2949",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2949",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 811,
       "atk": 599,
@@ -11412,8 +12185,28 @@
     "path": "Destruction",
     "element": "Imaginary",
     "releaseVersion": "3.1",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "hp_consumption",
+      "special_resource_cost",
+      "action_advance",
+      "enhanced_skill",
+      "heal",
+      "single_target",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill consumes HP, HP loss builds Charge, and Charge advances Mydei into Vendetta with enhanced automatic Skills; Ultimate and state entry restore HP.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3324",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3324",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1552,
       "atk": 426,
@@ -11626,8 +12419,19 @@
     "path": "Abundance",
     "element": "Physical",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["healer"],
+    "mechanicTags": ["heal", "cleanse", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill heals one ally over time and can dispel a debuff; Ultimate heals all allies.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_18",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/18",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1164,
       "atk": 476,
@@ -11812,8 +12616,19 @@
     "path": "Nihility",
     "element": "Ice",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["debuffer"],
+    "mechanicTags": ["debuff", "defense_shred", "single_target", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill dispels an enemy buff, and AoE Ultimate applies Exposed to reduce every enemy's DEF.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_19",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/19",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 987,
       "atk": 546,
@@ -11994,8 +12809,28 @@
     "path": "Destruction",
     "element": "Physical",
     "releaseVersion": "3.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "special_resource_cost",
+      "action_advance",
+      "enhanced_basic",
+      "enhanced_skill",
+      "energy_regen",
+      "single_target",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Coreflame unlocks a solo transformation with extra turns and enhanced attacks; Technique restores team Energy, and the transformed kit spans Blast and AoE.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3769",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3769",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1435,
       "atk": 582,
@@ -12240,8 +13075,19 @@
     "path": "Erudition",
     "element": "Quantum",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": ["enhanced_basic", "single_target", "blast", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Skill draws tiles and buffs damage until four matching tiles enhance Basic ATK into Blast damage; Ultimate attacks all enemies.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_24",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/24",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1023,
       "atk": 652,
@@ -12424,8 +13270,27 @@
     "path": "Erudition",
     "element": "Imaginary",
     "releaseVersion": "2.6",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["break_dps", "hypercarry_dps"],
+    "mechanicTags": [
+      "break_effect",
+      "super_break",
+      "weakness_break_efficiency",
+      "toughness_reduction",
+      "enhanced_basic",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Ultimate raises Break stats and enables enhanced Basic, Talent deals Break DMG with off-Type Toughness reduction, and a Trace converts it to Super Break.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3057",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3057",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 717,
@@ -12682,8 +13547,28 @@
     "path": "Erudition",
     "element": "Quantum",
     "releaseVersion": "4.3",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "buffer", "debuffer"],
+    "mechanicTags": [
+      "special_resource_cost",
+      "vulnerability",
+      "buff",
+      "enhanced_skill",
+      "res_penetration",
+      "single_target",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Gem Energy enables a repeating enhanced Bounce Skill, Skill Point changes buff ally CRIT DMG, Ultimate raises enemy damage taken, and a Trace grants RES PEN.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_5339",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/5339",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 698,
@@ -13065,8 +13950,29 @@
     "path": "Remembrance",
     "element": "Wind",
     "releaseVersion": "4.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "summon_dps", "battery"],
+    "mechanicTags": [
+      "memosprite",
+      "summon",
+      "buff",
+      "action_advance",
+      "energy_regen",
+      "stat_conversion",
+      "heal",
+      "single_target",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill summons Summer Songbirds, Ultimate advances and restores an ally's Energy, the memosprite attacks in AoE, and Vibes convert Robin's Max HP into ally buffs.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_6565",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/6565",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1203,
       "atk": 601,
@@ -13287,8 +14193,24 @@
     "path": "Harmony",
     "element": "Ice",
     "releaseVersion": "1.6",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer"],
+    "mechanicTags": [
+      "buff",
+      "break_effect",
+      "weakness_break_efficiency",
+      "res_penetration"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill increases allies' damage and Weakness Break Efficiency; Ultimate grants All-Type RES PEN, and Talent/Traces buff SPD and Break Effect.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1638",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1638",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 659,
@@ -13461,8 +14383,28 @@
     "path": "Destruction",
     "element": "Wind",
     "releaseVersion": "3.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "special_resource_cost",
+      "energy_regen",
+      "enhanced_basic",
+      "action_advance",
+      "single_target",
+      "blast",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Core Resonance restores Energy, Ultimate enables an enhanced Basic, Skill is Blast, Ultimate is AoE with extra random hits, and a Trace can advance Saber.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3767",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3767",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1241,
       "atk": 601,
@@ -13657,8 +14599,19 @@
     "path": "Nihility",
     "element": "Wind",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["dot_dps", "debuffer"],
+    "mechanicTags": ["dot", "debuff", "vulnerability", "bounce", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Talent inflicts Wind Shear DoT, Skill is Bounce, and AoE Ultimate increases enemies' DoT received.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_21",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/21",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1023,
       "atk": 617,
@@ -13851,8 +14804,19 @@
     "path": "Hunt",
     "element": "Quantum",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": ["action_advance", "single_target"],
+    "taxonomyEvidence": {
+      "evidence": "All attacks are single-target, and defeating an enemy grants an immediate extra action through Resurgence.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_15",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/15",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 931,
       "atk": 640,
@@ -14119,8 +15083,19 @@
     "path": "Erudition",
     "element": "Lightning",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["dot_dps", "sub_dps"],
+    "mechanicTags": ["dot", "blast", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Blast Skill inflicts Shock DoT, Talent adds damage against Shocked enemies, and Ultimate is AoE and extends Shock.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_16",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/16",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 917,
       "atk": 652,
@@ -14333,8 +15308,24 @@
     "path": "Nihility",
     "element": "Quantum",
     "releaseVersion": "1.1",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["debuffer"],
+    "mechanicTags": [
+      "debuff",
+      "defense_shred",
+      "res_penetration",
+      "single_target"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Single-target Skill implants a Weakness and reduces the matching RES, Talent applies stat-reducing Bugs, and Ultimate reduces DEF.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_710",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/710",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 640,
@@ -14604,8 +15595,27 @@
     "path": "Elation",
     "element": "Imaginary",
     "releaseVersion": "4.2",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["elation_dps"],
+    "mechanicTags": [
+      "elation",
+      "punchline",
+      "special_resource_cost",
+      "action_advance",
+      "single_target",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Punchline and Hidden MMR drive Elation effects, Ultimate advances her into Godmode, and her enhanced Basic/Elation attacks use many random hits.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_4997",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/4997",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 388,
@@ -14858,8 +15868,19 @@
     "path": "Harmony",
     "element": "Quantum",
     "releaseVersion": "2.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer"],
+    "mechanicTags": ["buff", "action_advance"],
+    "taxonomyEvidence": {
+      "evidence": "Skill raises one ally's CRIT DMG and advances them, while Talent and Ultimate raise team damage and expand/recover Skill Points.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1807",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1807",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1397,
       "atk": 523,
@@ -15134,8 +16155,29 @@
     "path": "Elation",
     "element": "Fire",
     "releaseVersion": "4.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["elation_dps", "buffer"],
+    "mechanicTags": [
+      "elation",
+      "punchline",
+      "special_resource_cost",
+      "buff",
+      "enhanced_basic",
+      "single_target",
+      "blast",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Livestream enhances Basic ATK, Ultimate and Elation Skill use Punchline/Elation with random hits, and a Trace buffs all allies' CRIT DMG from Punchline.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_4737",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/4737",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 640,
@@ -15368,8 +16410,25 @@
     "path": "Harmony",
     "element": "Imaginary",
     "releaseVersion": "2.7",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "battery"],
+    "mechanicTags": [
+      "energy_regen",
+      "buff",
+      "action_advance",
+      "cleanse",
+      "single_target"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill advances an ally and their summon, dispels a debuff, and buffs damage; Ultimate restores that ally's Energy and buffs CRIT DMG.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3150",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3150",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1241,
       "atk": 640,
@@ -15574,8 +16633,19 @@
     "path": "Hunt",
     "element": "Physical",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": ["action_advance", "single_target"],
+    "taxonomyEvidence": {
+      "evidence": "Her attacks focus one target, gain extra Sword Stance damage against Weakness Broken enemies, and Ultimate advances her action by 100%.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_27",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/27",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 917,
       "atk": 564,
@@ -15748,8 +16818,30 @@
     "path": "Nihility",
     "element": "Fire",
     "releaseVersion": "3.7",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "debuffer", "break_dps"],
+    "mechanicTags": [
+      "super_break",
+      "break_effect",
+      "weakness_break_efficiency",
+      "toughness_reduction",
+      "defense_shred",
+      "follow_up",
+      "buff",
+      "debuff",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill raises team Break Efficiency and enables Super Break conversion, Ultimate reduces DEF and implants Weaknesses, and Dance Partners trigger Toughness-based follow-ups.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_4060",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/4060",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 679,
@@ -16277,8 +17369,19 @@
     "path": "Hunt",
     "element": "Fire",
     "releaseVersion": "1.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["summon_dps", "sub_dps", "debuffer"],
+    "mechanicTags": ["summon", "follow_up", "vulnerability", "single_target"],
+    "taxonomyEvidence": {
+      "evidence": "Numby is a summoned unit with a follow-up action, while Proof of Debt increases follow-up damage received by one target.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1389",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1389",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 931,
       "atk": 620,
@@ -16466,8 +17569,25 @@
     "path": "Destruction",
     "element": "Physical",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": [
+      "enhanced_basic",
+      "enhanced_skill",
+      "single_target",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Technique heals the party, Skill is Blast, and Ultimate selects an enhanced single-target Basic or enhanced Blast Skill.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_6",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/6",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1203,
       "atk": 620,
@@ -16665,8 +17785,28 @@
     "path": "Elation",
     "element": "Lightning",
     "releaseVersion": "4.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "elation_dps"],
+    "mechanicTags": [
+      "elation",
+      "punchline",
+      "buff",
+      "cleanse",
+      "energy_regen",
+      "single_target",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Attacks build Punchline and Energy, Ultimate cleanses and buffs an ally before triggering their Elation Skill, and Trailblazer's own Elation Skill is multi-hit AoE.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_5006",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/5006",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 465,
@@ -16872,8 +18012,26 @@
     "path": "Harmony",
     "element": "Imaginary",
     "releaseVersion": "2.2",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "break_dps"],
+    "mechanicTags": [
+      "break_effect",
+      "super_break",
+      "toughness_reduction",
+      "buff",
+      "single_target",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Ultimate buffs team Break Effect and converts attacks against broken enemies into Super Break; Skill Bounces and a Trace raises its Toughness reduction.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2511",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2511",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1086,
       "atk": 446,
@@ -17057,8 +18215,26 @@
     "path": "Preservation",
     "element": "Fire",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["shielder", "debuffer"],
+    "mechanicTags": [
+      "shield",
+      "debuff",
+      "enhanced_basic",
+      "single_target",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill Taunts all enemies and reduces damage, each action grants ally Shields, Magma Will enhances Basic into Blast, and Ultimate is AoE.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_23",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/23",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1241,
       "atk": 601,
@@ -17244,8 +18420,29 @@
     "path": "Remembrance",
     "element": "Ice",
     "releaseVersion": "3.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "summon_dps"],
+    "mechanicTags": [
+      "memosprite",
+      "summon",
+      "buff",
+      "action_advance",
+      "cleanse",
+      "enhanced_basic",
+      "single_target",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill summons Mem, Mem buffs team CRIT DMG and advances a chosen ally with True DMG support, while Ultimate and the enhanced joint Basic deal AoE damage.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3287",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3287",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 543,
@@ -17508,8 +18705,26 @@
     "path": "Harmony",
     "element": "Quantum",
     "releaseVersion": "3.1",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "sub_dps", "debuffer"],
+    "mechanicTags": [
+      "buff",
+      "res_penetration",
+      "vulnerability",
+      "follow_up",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Skill grants team All-Type RES PEN, Ultimate increases enemy damage taken and adds damage after ally attacks, and ally Ultimates trigger Tribbie's AoE follow-up.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_3322",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/3322",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1047,
       "atk": 523,
@@ -17714,8 +18929,19 @@
     "path": "Nihility",
     "element": "Imaginary",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["debuffer", "sub_dps"],
+    "mechanicTags": ["debuff", "vulnerability", "bounce", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Bounce Skill can Slow, AoE Ultimate Imprisons and delays enemies, and a major Trace increases damage taken by affected targets.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_10",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/10",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1125,
       "atk": 620,
@@ -17978,8 +19204,26 @@
     "path": "Destruction",
     "element": "Quantum",
     "releaseVersion": "1.6",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["break_dps", "sub_dps"],
+    "mechanicTags": [
+      "break_effect",
+      "stat_conversion",
+      "follow_up",
+      "toughness_reduction",
+      "single_target",
+      "blast"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Ultimate ignores Weakness Type for Toughness reduction, Karma triggers a follow-up, and a major Trace converts Break Effect into damage.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_1640",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/1640",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1058,
       "atk": 599,
@@ -18152,8 +19396,19 @@
     "path": "Hunt",
     "element": "Ice",
     "releaseVersion": "1.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps"],
+    "mechanicTags": ["follow_up", "freeze", "buff", "single_target"],
+    "taxonomyEvidence": {
+      "evidence": "Soulsteel Sync buffs Yanqing and can trigger a single-target follow-up with a Freeze chance; all active attacks focus one enemy.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_28",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/28",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 892,
       "atk": 679,
@@ -18326,8 +19581,28 @@
     "path": "Elation",
     "element": "Physical",
     "releaseVersion": "4.0",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "elation_dps", "debuffer"],
+    "mechanicTags": [
+      "elation",
+      "punchline",
+      "buff",
+      "res_penetration",
+      "vulnerability",
+      "blast",
+      "aoe",
+      "bounce"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Her Zone buffs ally Elation, Ultimate grants All-Type RES PEN, and Elation Skill applies increased damage taken before AoE/random-hit damage.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_4736",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/4736",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1241,
       "atk": 465,
@@ -18530,8 +19805,19 @@
     "path": "Harmony",
     "element": "Imaginary",
     "releaseVersion": "1.1",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["buffer", "sub_dps"],
+    "mechanicTags": ["buff", "single_target", "aoe"],
+    "taxonomyEvidence": {
+      "evidence": "Roaring Bowstrings raises allies' ATK, Ultimate adds CRIT buffs and single-target damage, and Technique can attack all enemies on entry.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_712",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/712",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 917,
       "atk": 599,
@@ -18704,8 +19990,26 @@
     "path": "Destruction",
     "element": "Physical",
     "releaseVersion": "2.4",
-    "roles": ["unknown"],
-    "mechanicTags": ["unknown"],
+    "roles": ["hypercarry_dps", "sub_dps"],
+    "mechanicTags": [
+      "counter_attack",
+      "follow_up",
+      "heal",
+      "energy_regen",
+      "blast",
+      "aoe"
+    ],
+    "taxonomyEvidence": {
+      "evidence": "Being attacked restores Energy and triggers Blast counters; Ultimate strengthens the next counter, while Skill restores Yunli's HP.",
+      "provenance": {
+        "sourceId": "hoyowiki_character_2642",
+        "authorityTier": "tier_a_official",
+        "sourceUrl": "https://wiki.hoyolab.com/pc/hsr/entry/2642",
+        "gameVersion": "4.5",
+        "verifiedAt": "2026-09-07T00:00:00.000Z",
+        "notes": "Astralyn role and mechanic-tag taxonomy is derived from official kit facts; neither label set is a HoYoverse classification."
+      }
+    },
     "baseStats": {
       "hp": 1358,
       "atk": 679,
